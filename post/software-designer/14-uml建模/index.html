@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>软考-中级软件设计师-14 UML建模 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="14 UML建模 重点：用例图、类图
+用例图   包含关系 include
+如每次登记外接信息都要【用户登录】，故是包含关系
+  扩展关系 extend
+如每次查询书籍信息不是都要【修改书籍信息】，故是扩展关系
+  泛化关系
+  类图与对象图 多重度：
+关系：
+顺序图 主要考察：
+ 消息：箭头来传递 对象名  活动图 粗横线：产生分支，即并行的线程
+还有带泳道的活动图（划分对应的主体）：
+状态图 以状态为结点，箭头为触发事件
+考点：
+ 填充状态 填充触发事件  通信图 对象：结点；消息：箭头
+与顺序图类似，但时间顺序先后不明晰。与顺序图统称为交互图。
+例题 例题1 答案：
+问题3：类都是音轨，多重度0..1
+问题4：
+例题2 【问题3】：状态图；属性：clevel；功能：计算里程数" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="软考-中级软件设计师-14 UML建模" />
+<meta property="og:description" content="14 UML建模 重点：用例图、类图
+用例图   包含关系 include
+如每次登记外接信息都要【用户登录】，故是包含关系
+  扩展关系 extend
+如每次查询书籍信息不是都要【修改书籍信息】，故是扩展关系
+  泛化关系
+  类图与对象图 多重度：
+关系：
+顺序图 主要考察：
+ 消息：箭头来传递 对象名  活动图 粗横线：产生分支，即并行的线程
+还有带泳道的活动图（划分对应的主体）：
+状态图 以状态为结点，箭头为触发事件
+考点：
+ 填充状态 填充触发事件  通信图 对象：结点；消息：箭头
+与顺序图类似，但时间顺序先后不明晰。与顺序图统称为交互图。
+例题 例题1 答案：
+问题3：类都是音轨，多重度0..1
+问题4：
+例题2 【问题3】：状态图；属性：clevel；功能：计算里程数" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/software-designer/14-uml%E5%BB%BA%E6%A8%A1/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
+<meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-14 UML建模"/>
+<meta name="twitter:description" content="14 UML建模 重点：用例图、类图
+用例图   包含关系 include
+如每次登记外接信息都要【用户登录】，故是包含关系
+  扩展关系 extend
+如每次查询书籍信息不是都要【修改书籍信息】，故是扩展关系
+  泛化关系
+  类图与对象图 多重度：
+关系：
+顺序图 主要考察：
+ 消息：箭头来传递 对象名  活动图 粗横线：产生分支，即并行的线程
+还有带泳道的活动图（划分对应的主体）：
+状态图 以状态为结点，箭头为触发事件
+考点：
+ 填充状态 填充触发事件  通信图 对象：结点；消息：箭头
+与顺序图类似，但时间顺序先后不明晰。与顺序图统称为交互图。
+例题 例题1 答案：
+问题3：类都是音轨，多重度0..1
+问题4：
+例题2 【问题3】：状态图；属性：clevel；功能：计算里程数"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">软考-中级软件设计师-14 UML建模</h1>
+			<div class="meta">Posted on May 14, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="14-uml建模">14 UML建模</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504145109020.png" alt="image-20220504145109020"></p>
+<p>重点：用例图、类图</p>
+<h2 id="用例图">用例图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504145201608.png" alt="image-20220504145201608"></p>
+<ul>
+<li>
+<p>包含关系 include</p>
+<p>如每次登记外接信息<strong>都要</strong>【用户登录】，故是包含关系</p>
+</li>
+<li>
+<p>扩展关系 extend</p>
+<p>如每次查询书籍信息<strong>不是都要</strong>【修改书籍信息】，故是扩展关系</p>
+</li>
+<li>
+<p>泛化关系</p>
+</li>
+</ul>
+<h2 id="类图与对象图">类图与对象图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504145705519.png" alt="image-20220504145705519"></p>
+<p>多重度：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504145738270.png" alt="image-20220504145738270"></p>
+<p>关系：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504145829116.png" alt="image-20220504145829116"></p>
+<h2 id="顺序图">顺序图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150046150.png" alt="image-20220504150046150"></p>
+<p>主要考察：</p>
+<ul>
+<li>消息：箭头来传递</li>
+<li>对象名</li>
+</ul>
+<h2 id="活动图">活动图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150211187.png" alt="image-20220504150211187"></p>
+<p>粗横线：产生分支，即并行的线程</p>
+<p>还有带泳道的活动图（划分对应的主体）：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150234062.png" alt="image-20220504150234062"></p>
+<h2 id="状态图">状态图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150305885.png" alt="image-20220504150305885"></p>
+<p>以状态为结点，箭头为触发事件</p>
+<p>考点：</p>
+<ul>
+<li>填充状态</li>
+<li>填充触发事件</li>
+</ul>
+<h2 id="通信图">通信图</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150437794.png" alt="image-20220504150437794"></p>
+<p>对象：结点；消息：箭头</p>
+<p>与顺序图类似，但时间顺序先后不明晰。与顺序图统称为交互图。</p>
+<h2 id="例题">例题</h2>
+<h3 id="例题1">例题1</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150620591.png" alt="image-20220504150620591"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150734605.png" alt="image-20220504150734605"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504150712937.png" alt="image-20220504150712937"></p>
+<p>答案：</p>
+<p>问题3：类都是音轨，多重度0..1</p>
+<p>问题4：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504151737151.png" alt="image-20220504151737151"></p>
+<h3 id="例题2">例题2</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504151821144.png" alt="image-20220504151821144"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504173316383.png" alt="image-20220504173316383"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504173331371.png" alt="image-20220504173331371"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504173733815.png" alt="image-20220504173733815"></p>
+<p>【问题3】：状态图；属性：clevel；功能：计算里程数</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">软考-中级软件设计师</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

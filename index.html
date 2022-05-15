@@ -56,7 +56,31 @@
 				
 				
 				<section class="list-item">
-					<h1 class="title"><a href="/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a></h1>
+					<h1 class="title"><a href="/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">开始Hugo&#43;Github Pages</a></h1>
+					<time>May 15, 2022</time>
+					<br><div class="description">
+						
+						开始Hugo+Github Pages 参考：https://www.gohugo.org/#/
+准备工作准备 安装Hugo，git过程略
+配置Hugo路径到环境变量Path 过程略
+生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
+可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
+ ▸ archetypes/  ▸ content/  ▸ layouts/  ▸ static/  config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
+hugo new post/first.md 生成路径自动为：/content/post/about.md
+安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
+$ cd themes $ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
+hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
+如果已经在config.toml中配置了theme，则运行语句可以缩减为：
+hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
+ http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
+hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a></h1>
 					<time>May 14, 2022</time>
 					<br><div class="description">
 						
@@ -74,24 +98,36 @@
 SQL&gt; select owner, object_name, object_type from dba_objects t where status = &#39;INVALID&#39; order by t.&hellip;
 						
 					</div>
-					<a class="readmore" href="/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">Read more ⟶</a>
+					<a class="readmore" href="/post/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">Read more ⟶</a>
 				</section>
 				
 				<section class="list-item">
-					<h1 class="title"><a href="/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a></h1>
+					<h1 class="title"><a href="/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">软考-中级软件设计师-00 无分类</a></h1>
 					<time>May 14, 2022</time>
 					<br><div class="description">
 						
-						部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
- oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
-select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &lt; 6; 2、根据步骤1获取具体SQL详情
-select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &#39;6gvch1xu9ca3g&#39; and  a.current_obj# = b.object_id and  time_waited &lt;&gt; 0; &hellip;
+						00 无分类 海明码（Hamming code） https://www.bilibili.com/video/BV1SJ41157pR?spm_id_from=333.337.search-card.all.click#/
+https://www.cnblogs.com/godoforange/p/12003676.html#/
+遇到这种题，做题练一下
+CRC校验法（循环冗余校验 Cyclic Redundancy Check） https://seedeer.github.io/2022/03/20/crc/#/
+https://www.bilibili.com/video/BV1rJ411V7L5?spm_id_from=333.337.search-card.all.click#/&hellip;
 						
 					</div>
-					<a class="readmore" href="/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">Read more ⟶</a>
+					<a class="readmore" href="/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">Read more ⟶</a>
 				</section>
 				
 				
+
+<ul class="pagination">
+	<span class="page-item page-prev">
+	
+	</span>
+	<span class="page-item page-next">
+	
+    <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
+	
+	</span>
+</ul>
 
 
 			</main>

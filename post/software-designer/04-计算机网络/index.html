@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>软考-中级软件设计师-04 计算机网络 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="软考-中级软件设计师-04 计算机网络" />
+<meta property="og:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
+<meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-04 计算机网络"/>
+<meta name="twitter:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">软考-中级软件设计师-04 计算机网络</h1>
+			<div class="meta">Posted on May 14, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="04-计算机网络">04 计算机网络</h1>
+<h2 id="osirm七层模型">OSI/RM七层模型</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220502151216512.png" alt="image-20220502151216512"></p>
+<p>中继器/集线器：延长传输距离（类似烽火台）</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220502151847082.png" alt="image-20220502151847082"></p>
+<p>分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。</p>
+<h2 id="网络技术标准和协议">网络技术标准和协议</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503104429021.png" alt="image-20220503104429021"></p>
+<p>TCP：三次握手，可靠传输</p>
+<p>UDP：没有反馈过程</p>
+<p>DHCP：IP地址动态分配</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503105858912.png" alt="image-20220503105858912"></p>
+<p>DNS：域名映射到IP地址</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110135330.png" alt="image-20220503110135330"></p>
+<p>递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）</p>
+<p>迭代查询：只提供线索，没有刨根究底（如根域名服务器）</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110604170.png" alt="image-20220503110604170"></p>
+<h2 id="计算机网络分类">计算机网络分类</h2>
+<h3 id="拓扑结构">拓扑结构</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110656745.png" alt="image-20220503110656745"></p>
+<p>单点故障：环形比星型稳定，因为一个点故障可以从另一头走</p>
+<h2 id="网络规划与设计">网络规划与设计</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110900576.png" alt="image-20220503110900576"></p>
+<h3 id="逻辑网格设计">逻辑网格设计</h3>
+<h3 id="物理网络设计">物理网络设计</h3>
+<h3 id="分层设计考比较多">分层设计（考比较多）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503111306846.png" alt="image-20220503111306846"></p>
+<h2 id="ip地址与子网划分">IP地址与子网划分</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503111335295.png" alt="image-20220503111335295"></p>
+<p>全0：网络地址；全1：广播地址</p>
+<p>A类：前8位网络号，后24位为主机号，可包含2^24-2主机</p>
+<p>B类：前16位网络号，后16位为主机号，可包含2^16-2主机</p>
+<p>C类：前24位网络号，后8位为主机号，可包含2^8-2主机</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503113529296.png" alt="image-20220503113529296"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503113725934.png" alt="image-20220503113725934"></p>
+<p>或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同</p>
+<h3 id="无分类编制">无分类编制</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114055203.png" alt="image-20220503114055203"></p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114148133.png" alt="image-20220503114148133"></p>
+<p>分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16</p>
+<h3 id="特殊含义的ip地址">特殊含义的IP地址</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114703870.png" alt="image-20220503114703870"></p>
+<h2 id="html考的少">HTML（考的少）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114830036.png" alt="image-20220503114830036"></p>
+<h2 id="无线网">无线网</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114923231.png" alt="image-20220503114923231"></p>
+<h2 id="网络接入技术">网络接入技术</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503115047445.png" alt="image-20220503115047445"></p>
+<h2 id="ipv6">IPv6</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503115542508.png" alt="image-20220503115542508"></p>
+<p>IPv4：32位地址，地址不够用</p>
+<p>IPv4：128位地址</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">软考-中级软件设计师</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

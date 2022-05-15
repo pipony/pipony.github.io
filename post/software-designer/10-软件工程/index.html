@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>软考-中级软件设计师-10 软件工程 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+ 需求明确 二次开发 结构化开发  其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+ 多个模型组成 引入了风险分析  V模型 特点：
+ 强调测试 在前半部分的过程，同时也做后半部分的测试准备  喷泉模型 特点：
+ 面向对象模型 迭代 无间隙  RAD 特点：
+ 快速构建应用系统  构件组装模型(CBSD) 特点：
+ 提高复用性，缩短时间，减少成本，提高可靠性  统一过程（UP/RUP） 特点：
+ 用例驱动 以架构为中心 多轮迭代和增量  敏捷开发方法 特点：
+ 一组模型 比较适合(中)小型项目  信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="软考-中级软件设计师-10 软件工程" />
+<meta property="og:description" content="10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+ 需求明确 二次开发 结构化开发  其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+ 多个模型组成 引入了风险分析  V模型 特点：
+ 强调测试 在前半部分的过程，同时也做后半部分的测试准备  喷泉模型 特点：
+ 面向对象模型 迭代 无间隙  RAD 特点：
+ 快速构建应用系统  构件组装模型(CBSD) 特点：
+ 提高复用性，缩短时间，减少成本，提高可靠性  统一过程（UP/RUP） 特点：
+ 用例驱动 以架构为中心 多轮迭代和增量  敏捷开发方法 特点：
+ 一组模型 比较适合(中)小型项目  信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
+<meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-10 软件工程"/>
+<meta name="twitter:description" content="10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+ 需求明确 二次开发 结构化开发  其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+ 多个模型组成 引入了风险分析  V模型 特点：
+ 强调测试 在前半部分的过程，同时也做后半部分的测试准备  喷泉模型 特点：
+ 面向对象模型 迭代 无间隙  RAD 特点：
+ 快速构建应用系统  构件组装模型(CBSD) 特点：
+ 提高复用性，缩短时间，减少成本，提高可靠性  统一过程（UP/RUP） 特点：
+ 用例驱动 以架构为中心 多轮迭代和增量  敏捷开发方法 特点：
+ 一组模型 比较适合(中)小型项目  信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">软考-中级软件设计师-10 软件工程</h1>
+			<div class="meta">Posted on May 14, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="10-软件工程">10 软件工程</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095342967.png" alt="image-20220504095342967"></p>
+<h2 id="软件开发模型">软件开发模型</h2>
+<h3 id="瀑布模型sdlc">瀑布模型（SDLC）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095417950.png" alt="image-20220504095417950"></p>
+<p>缺陷：需求难以在项目初期明确确定</p>
+<p>适用于：</p>
+<ul>
+<li>需求明确</li>
+<li>二次开发</li>
+<li>结构化开发</li>
+</ul>
+<h3 id="其他经典模型">其他经典模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095741254.png" alt="image-20220504095741254"></p>
+<p><strong>原型（针对需求不明确的情况）：在初期先构造一个简易的系统</strong>，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。</p>
+<p>增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。</p>
+<h3 id="螺旋模型">螺旋模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504100218644.png" alt="image-20220504100218644"></p>
+<p>特征：</p>
+<ul>
+<li>多个模型组成</li>
+<li><strong>引入了风险分析</strong></li>
+</ul>
+<h3 id="v模型">V模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504100358919.png" alt="image-20220504100358919"></p>
+<p>特点：</p>
+<ul>
+<li>强调测试</li>
+<li>在前半部分的过程，同时也做后半部分的测试准备</li>
+</ul>
+<h3 id="喷泉模型">喷泉模型</h3>
+<p>特点：</p>
+<ul>
+<li>面向对象模型</li>
+<li>迭代</li>
+<li>无间隙</li>
+</ul>
+<h3 id="rad">RAD</h3>
+<p>特点：</p>
+<ul>
+<li>快速构建应用系统</li>
+</ul>
+<h3 id="构件组装模型cbsd">构件组装模型(CBSD)</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101055110.png" alt="image-20220504101055110"></p>
+<p>特点：</p>
+<ul>
+<li>提高复用性，缩短时间，减少成本，提高可靠性</li>
+</ul>
+<h3 id="统一过程uprup">统一过程（UP/RUP）</h3>
+<p>特点：</p>
+<ul>
+<li>用例驱动</li>
+<li>以架构为中心</li>
+<li>多轮迭代和增量</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101501527.png" alt="image-20220504101501527"></p>
+<h3 id="敏捷开发方法">敏捷开发方法</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101526210.png" alt="image-20220504101526210"></p>
+<p>特点：</p>
+<ul>
+<li>一组模型</li>
+<li>比较适合(中)小型项目</li>
+</ul>
+<h2 id="信息系统开发方法">信息系统开发方法</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101921546.png" alt="image-20220504101921546"></p>
+<p>结构化方法缺点：一旦开发完，整个流程不容易改变</p>
+<h2 id="需求开发">需求开发</h2>
+<h3 id="需求分类与获取">需求分类与获取</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504103632492.png" alt="image-20220504103632492"></p>
+<h2 id="结构化设计">结构化设计</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504103950236.png" alt="image-20220504103950236"></p>
+<p>多扇入：复用性高；少扇出：一个函数包括的职能较少</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104419235.png" alt="image-20220504104419235"></p>
+<h3 id="内聚与耦合">内聚与耦合</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104122970.png" alt="image-20220504104122970"></p>
+<h2 id="软件测试常考">软件测试（常考）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104454163.png" alt="image-20220504104454163"></p>
+<p>回归测试：将之前的测试案例再测下，看会不会发现新的问题</p>
+<h3 id="测试用例设计">测试用例设计</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104835088.png" alt="image-20220504104835088"></p>
+<p>等价类划分：选出各种类的代表性数据来测</p>
+<p>错误推测：根据经验，推测哪些容易产生问题</p>
+<h3 id="测试阶段">测试阶段</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504105525432.png" alt="image-20220504105525432"></p>
+<p>单元测试：模块级/函数级</p>
+<p>集成测试：模块之间的衔接</p>
+<p>确认测试：确认需求实现</p>
+<h3 id="mccabe复杂度常考">McCabe复杂度（常考）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110011136.png" alt="image-20220504110011136"></p>
+<p>注意：分叉点是否要转为结点，复杂度公式的结果都一样。如右边结点的5和6，如果不转换，则2、3、4都指向7，计算结果一致</p>
+<h2 id="系统运行与维护常考">系统运行与维护（常考）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110441528.png" alt="image-20220504110441528"></p>
+<p>适应性维护：适应系统、数据环境</p>
+<p>完善性维护：扩充功能、改善功能</p>
+<h2 id="软件过程改进">软件过程改进</h2>
+<h3 id="cmmi">CMMI</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110948229.png" alt="image-20220504110948229"></p>
+<p>阶段式：</p>
+<ul>
+<li>已管理级：项目级</li>
+<li>已定义级：文档标准化</li>
+<li>定量管理级：量化管理</li>
+<li>优化级：持续优化</li>
+</ul>
+<p>连续式：</p>
+<ul>
+<li>过程管理</li>
+<li>项目管理</li>
+<li>工程</li>
+<li>支持</li>
+</ul>
+<h2 id="项目管理">项目管理</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111528282.png" alt="image-20220504111528282"></p>
+<p>甘特图：关键路径的计算</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111858056.png" alt="image-20220504111858056"></p>
+<h3 id="风险管理">风险管理</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111922171.png" alt="image-20220504111922171"></p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">软考-中级软件设计师</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

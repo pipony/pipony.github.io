@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="generator" content="Hugo 0.98.0" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>2MUCH-Tech-Notes | Home </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<link rel="alternate" type="application/rss+xml" href="http://pipony.github.io/index.xml" title="2MUCH-Tech-Notes" />
+	<meta property="og:title" content="2MUCH-Tech-Notes" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://pipony.github.io/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2MUCH-Tech-Notes"/>
+<meta name="twitter:description" content=""/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+
+	<body>
+		<div class="content">
+			<header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+			
+			<main class="list">
+				<div class="site-description"><p>Find me @<a href="https://www.huangxindi.com">my personal blog</a></p></div>
+				
+				
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">软考-中级软件设计师-01 计算机组成与体系结构</a></h1>
+					<time>May 14, 2022</time>
+					<br><div class="description">
+						
+						01 计算机组成与体系结构 数据的表示 进制转换 R进制-&gt;十进制：底数，指数
+十进制-&gt;R进制：短除法
+二进制-&gt;八进制，十六进制
+编码  原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负） 反码：正数=原码；负数：符号位不动，其他位原码取反 补码：正数=原码；负数：反码+1 移码：一般用来做浮点运算的阶码；符号位为补码的反，其他位一样。这样在数轴上，正数在负数的右边，看起来正常些  ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
+移码 https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
+表示范围 为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示
+浮点数运算 M*R^e
+M：尾数；R：基数：e：指数
+对阶（小向大的指数对） - 尾数计算 - 结果格式化（尾数小数点左边是1）
+计算机结构 主机=CPU（运算器+控制器）+主存储器
+Flynn分类法 单I/多M+指令I/数据D
+SISD 现在的机器几乎没有，可能在单片机用到
+SIMD 阵列处理机：适合处理数组运算
+MISD 只在理论中
+MIMD 全面并行
+CISC和RICS CISC 比较早期，通常是定制。指令数量多；可变长格式
+RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）
+流水线 主要考察计算
+周期 概念：执行时间最长的一个步骤时间
+n条指令全部执行时间：
+ 理论公式：1条指令执行时间+（指令条数-1）*流水线周期 实践公式：（k+n-1）*周期；k为子指令个数  考试时优先用理论公式算，没有这个选项，再用实践公式
+吞吐率 概念：单位时间内处理指令条数
+公式：TP=指令条数/流水线时间
+最大吞吐率：
+理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期
+加速比 概念及公式：同一个任务不使用流水线时间/使用流水线时间
+效率 概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。
+公式：
+每个子任务时间一样 -&gt; 效率最高
+存储 层次化存储结构 cache 特点：&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-02 操作系统</a></h1>
+					<time>May 14, 2022</time>
+					<br><div class="description">
+						
+						02 操作系统 概述 操作系统的角色：
+ 管理系统的硬件、软件、数据资源 控制程序运行 人机之间的接口 应用软件与硬件之间的接口  管理分类：
+ 进程管理 存储管理 文件管理 作业管理 设备管理  进程状态 三态模型
+ 运行：万事具备 就绪：只等CPU资源 等待：除了CPU资源，还在等其他资源  五态模型
+ 运行 静止就绪（运行过程中主动挂起） 活跃就绪 静止阻塞 活跃阻塞=等待  前趋图 同步与互斥  互斥：一个资源同时只能被一个进程所用 同步：速度有差异，一定情况下要等待  【注意】：两者不为相反的概念，互斥&lt;-&gt;共享，同步&lt;-&gt;异步
+在生产者消费者问题，理解互斥和同步：如一个商场只能存放一件物品，若目前已有一件时，生产者无法将新的一件放入（互斥）；生产者是否可以放入也取决于消费者是否消费了这个物品，只有等消费者消费了，生产者才能新生产（同步）
+PV操作 概念 临界资源：进程间需要互斥访问的资源（如打印机，磁带机）
+临界区：每个进程中访问临界资源的那段代码
+信号量：一种特殊的变量，如P(s)中的s
+P分配（减），V释放（加）
+例子（单缓冲区）：
+习题：
+答案：A和C
+PV操作和前趋图 【重要！经常考！】
+例题（答案：CAA）：
+解题思路：信号量的赋值可根据从上到下、从左到右的原则赋值，出箭头设为V(s)，入箭头设为P(s)。如P1出箭头那里是V(S1)，P2出箭头那里是V(S2)，P3入箭头那里是P(S1)和P(S2)。
+死锁 最小需要多少个资源不发生死锁 公式：k*(n-1)+1；k：进程数，n，每个进程需要的资源数
+死锁四大条件  互斥 保持和等待 不剥夺 环路等待  解决死锁  预防：打破四大条件 避免：有序资源分配法，银行家算法  银行家算法 例题：&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-03 数据库系统</a></h1>
+					<time>May 14, 2022</time>
+					<br><div class="description">
+						
+						03 数据库系统 三级模式-两级映射  内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】） 外模式（用户级数据库）：视图（隔绝概念模式的修改【外模式-概念模式映射】，灵活性）  数据库设计过程 ER模型：与物理数据库无关
+关系模式：表形式，规范化理论
+E-R模型 矩形：实体；椭圆：属性；菱形：关系
+子模型集成
+ 逐步集成 一次集成  集成产生的冲突
+ 属性冲突（属性域或取值冲突） 命名冲突（同名异义，异名同义） 结构冲突（可能一个作为表，一个作为列）  实体型转换为关系模式
+ 1：1 - 转成两张表，菱形联系可跟任意一个 1：n - 转成两张表，菱形联系跟N m：n - 转成三章表，菱形联系单独一张表  ps.即使是多对多对多的，也只需一个关系来表示菱形
+关系代数   并：注意：相同行只显示一次
+  交
+  差
+  笛卡尔积（✖）：完全组合；属性数为两关系相加；行数为两关系行数相乘
+  投影
+  选择
+   连接：都有的属性只保留一个**（这点和笛卡尔积不同）**；等值连接、自然连接  规范化理论 函数依赖 部分函数依赖：其中的某一个属性，可以形成函数依赖
+价值与作用 非规范化可能存在的问题：数据冗余，更新/插入/删除异常
+键  超键（可能存在冗余属性）：唯一标识元组 候选键（超键消除多余属性-&gt;候选键，可以有多个） 主键（候选键任选一个） 外键：其他关系的主键，对表做关联的时候可用  求候选键：图示法&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">Read more ⟶</a>
+				</section>
+				
+				
+
+<ul class="pagination">
+	<span class="page-item page-prev">
+	
+    <a href="/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev</span></a>
+	
+	</span>
+	<span class="page-item page-next">
+	
+    <a href="/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
+	
+	</span>
+</ul>
+
+
+			</main>
+			<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script>
+		</div>
+		
+	</body>
+</html>

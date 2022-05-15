@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>其他 on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</link>
+    <description>Recent content in 其他 on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Sun, 15 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开始Hugo&#43;Github Pages</title>
+      <link>http://pipony.github.io/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>
+      <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
+      <description>开始Hugo+Github Pages 参考：https://www.gohugo.org/#/
+准备工作准备 安装Hugo，git过程略
+配置Hugo路径到环境变量Path 过程略
+生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
+可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
+ ▸ archetypes/  ▸ content/  ▸ layouts/  ▸ static/  config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
+hugo new post/first.md 生成路径自动为：/content/post/about.md
+安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
+$ cd themes $ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
+hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
+如果已经在config.toml中配置了theme，则运行语句可以缩减为：
+hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
+ http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
+hugo --theme=hyde --baseUrl=&amp;#34;http://pipony.github.io/&amp;#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）</description>
+    </item>
+    
+  </channel>
+</rss>
