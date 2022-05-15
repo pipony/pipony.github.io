@@ -8,30 +8,9 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 14 May 2022 22:51:46 +0800</lastBuildDate><atom:link href="http://pipony.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>post文件夹里的first</title>
-      <link>http://pipony.github.io/post/first/</link>
-      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
-      
-      <guid>http://pipony.github.io/post/first/</guid>
-      <description>Hello Hugo  aaa bbb ccc  </description>
-    </item>
-    
-    <item>
-      <title>post文件夹里的first</title>
-      <link>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</link>
-      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
-      
-      <guid>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</guid>
-      <description>Hello Hugo 部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
- oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
-select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &amp;lt; 6; 2、根据步骤1获取具体SQL详情
-select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &amp;#39;6gvch1xu9ca3g&amp;#39; and  a.current_obj# = b.object_id and  time_waited &amp;lt;&amp;gt; 0; </description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>数据库无效对象</title>
       <link>http://pipony.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
       <guid>http://pipony.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</guid>
       <description>数据库无效对象  背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
@@ -46,6 +25,18 @@ select event,  time_waited,  owner,  object_name,  current_file#,  current_block
   诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
   查找无效对象  统计失效对象  执行用户：SYSTEM用户或其他有权限的用户
 SQL&amp;gt; select owner, object_name, object_type from dba_objects t where status = &amp;#39;INVALID&amp;#39; order by t.</description>
+    </item>
+    
+    <item>
+      <title>部分sql的user_io_wait_time值较大</title>
+      <link>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</link>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</guid>
+      <description>部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &amp;lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &amp;#39;6gvch1xu9ca3g&amp;#39; and  a.current_obj# = b.object_id and  time_waited &amp;lt;&amp;gt; 0; </description>
     </item>
     
   </channel>
