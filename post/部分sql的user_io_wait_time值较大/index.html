@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>部分sql的user_io_wait_time值较大 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &#39;6gvch1xu9ca3g&#39; and  a.current_obj# = b.object_id and  time_waited &lt;&gt; 0; " />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="部分sql的user_io_wait_time值较大" />
+<meta property="og:description" content="部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &#39;6gvch1xu9ca3g&#39; and  a.current_obj# = b.object_id and  time_waited &lt;&gt; 0; " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
+<meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="部分sql的user_io_wait_time值较大"/>
+<meta name="twitter:description" content="部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &#39;6gvch1xu9ca3g&#39; and  a.current_obj# = b.object_id and  time_waited &lt;&gt; 0; "/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">部分sql的user_io_wait_time值较大</h1>
+			<div class="meta">Posted on May 14, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="部分sql的user_io_wait_time值较大">部分sql的user_io_wait_time值较大</h1>
+<blockquote>
+<p>背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化</p>
+</blockquote>
+<h2 id="oracle-sql-响应时间分析">oracle sql 响应时间分析</h2>
+<p>1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">select</span> sql_text,
+</span></span><span style="display:flex;"><span>        sql_id,
+</span></span><span style="display:flex;"><span>        elapsed_time,
+</span></span><span style="display:flex;"><span>        cpu_time,
+</span></span><span style="display:flex;"><span>        user_io_wait_time
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>    sys.v_$sqlarea
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">desc</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> rownum <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>;
+</span></span></code></pre></div><p>2、根据步骤1获取具体SQL详情</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> event,
+</span></span><span style="display:flex;"><span>        time_waited,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">owner</span>,
+</span></span><span style="display:flex;"><span>        object_name,
+</span></span><span style="display:flex;"><span>        current_file<span style="color:#f92672">#</span>,
+</span></span><span style="display:flex;"><span>        current_block<span style="color:#f92672">#</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>    sys.v_$active_session_history a,
+</span></span><span style="display:flex;"><span>        sys.dba_objects b 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>   sql_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;6gvch1xu9ca3g&#39;</span> <span style="color:#66d9ef">and</span>
+</span></span><span style="display:flex;"><span>        a.current_obj<span style="color:#f92672">#</span> <span style="color:#f92672">=</span> b.object_id <span style="color:#66d9ef">and</span>
+</span></span><span style="display:flex;"><span>        time_waited <span style="color:#f92672">&lt;&gt;</span> <span style="color:#ae81ff">0</span>;
+</span></span></code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

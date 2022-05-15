@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/</link>
+    <description>Recent content on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Sat, 14 May 2022 22:51:46 +0800</lastBuildDate><atom:link href="http://pipony.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据库无效对象</title>
+      <link>http://pipony.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</guid>
+      <description>数据库无效对象  背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
+ 概念  无效：INVALID 对象：视图、物化视图、函数、包、触发器等   无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
+  如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
+1.不做任何处理。如果需要，大多数 PL/SQL 对象在调用时会自动重新编译。用户在对象重新编译时会经历短暂的延迟。（大多数情况下，这种延迟不十分明显。）
+2.手动重新编译无效对象。
+ 无效对象产生的原因   当被引用对象的结构变更时，都会使得相关的依赖对象转变为INVALID状态
+如视图A来源于表B，当表B的结构改变时，会导致视图A变成无效对象。但当再一次调用视图A时，会自动编译视图A，使其再次变为有效。
+  发布SQL脚本时（包、存储过程、函数等），没有充分测试，编译时出错，这时对象变为无效。
+  数据库升级、迁移时，出现大量无效对象(本质原因，臆测归结为原因1)
+  诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
+  查找无效对象  统计失效对象  执行用户：SYSTEM用户或其他有权限的用户
+SQL&amp;gt; select owner, object_name, object_type from dba_objects t where status = &amp;#39;INVALID&amp;#39; order by t.</description>
+    </item>
+    
+    <item>
+      <title>部分sql的user_io_wait_time值较大</title>
+      <link>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</link>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</guid>
+      <description>部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &amp;lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &amp;#39;6gvch1xu9ca3g&amp;#39; and  a.current_obj# = b.object_id and  time_waited &amp;lt;&amp;gt; 0; </description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://pipony.github.io/about/</link>
+      <pubDate>Sat, 14 May 2022 22:50:06 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/about/</guid>
+      <description>关于我 我是一个小白</description>
+    </item>
+    
+  </channel>
+</rss>

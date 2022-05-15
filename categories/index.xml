@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/categories/</link>
+    <description>Recent content in Categories on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Sat, 14 May 2022 22:51:46 +0800</lastBuildDate><atom:link href="http://pipony.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据库1</title>
+      <link>http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%931/</link>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%931/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>数据库2</title>
+      <link>http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%932/</link>
+      <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
+      
+      <guid>http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%932/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
