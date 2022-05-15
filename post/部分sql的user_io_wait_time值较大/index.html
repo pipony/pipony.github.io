@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    post文件夹里的first | Cindy New Hugo Site
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://pipony.github.io/post/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/"/>
+
+  
+  <link rel="stylesheet" href="/css/sanitize.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/highlight_monokai.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/custom.css">
+  
+  
+  <link href="http://pipony.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Cindy New Hugo Site" />
+  <link href="http://pipony.github.io/index.xml" rel="feed" type="application/rss+xml" title="Cindy New Hugo Site" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://pipony.github.io/">Cindy New Hugo Site</a></h1>
+        
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>post文件夹里的first</h1>
+      <div class="meta">
+        May 14, 2022 &nbsp;
+        
+      </div>
+    </div>
+    <article>
+      <h3 id="hello-hugo">Hello Hugo</h3>
+<h1 id="部分sql的user_io_wait_time值较大">部分sql的user_io_wait_time值较大</h1>
+<blockquote>
+<p>背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化</p>
+</blockquote>
+<h2 id="oracle-sql-响应时间分析">oracle sql 响应时间分析</h2>
+<p>1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">select</span> sql_text,
+</span></span><span style="display:flex;"><span>        sql_id,
+</span></span><span style="display:flex;"><span>        elapsed_time,
+</span></span><span style="display:flex;"><span>        cpu_time,
+</span></span><span style="display:flex;"><span>        user_io_wait_time
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>    sys.v_$sqlarea
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">desc</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> rownum <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>;
+</span></span></code></pre></div><p>2、根据步骤1获取具体SQL详情</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> event,
+</span></span><span style="display:flex;"><span>        time_waited,
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">owner</span>,
+</span></span><span style="display:flex;"><span>        object_name,
+</span></span><span style="display:flex;"><span>        current_file<span style="color:#f92672">#</span>,
+</span></span><span style="display:flex;"><span>        current_block<span style="color:#f92672">#</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span>    sys.v_$active_session_history a,
+</span></span><span style="display:flex;"><span>        sys.dba_objects b 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span>   sql_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;6gvch1xu9ca3g&#39;</span> <span style="color:#66d9ef">and</span>
+</span></span><span style="display:flex;"><span>        a.current_obj<span style="color:#f92672">#</span> <span style="color:#f92672">=</span> b.object_id <span style="color:#66d9ef">and</span>
+</span></span><span style="display:flex;"><span>        time_waited <span style="color:#f92672">&lt;&gt;</span> <span style="color:#ae81ff">0</span>;
+</span></span></code></pre></div>
+      
+      
+      
+    </article>
+    
+
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://pipony.github.io/post/first/" rel="prev">post文件夹里的first</a></span>
+    
+    
+      <span class="next"><a href="http://pipony.github.io/about/" rel="next">About</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      
+      
+    </div>
+  </footer>
+
+
+</div>
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+
