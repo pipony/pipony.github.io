@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title> - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ORACLE-NEXTVAL  背景：
+ ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
+方式 CREATE SEQUENCE sequence //创建序列名称   [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1   [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue   [{MAXVALUE n | NOMAXVALUE}] //最大值   [{MINVALUE n | NOMINVALUE}] //最小值   [{CYCLE | NOCYCLE}] //循环/不循环   [{CACHE n | NOCACHE}];//分配并存入到内存中 参考链接 https://blog.csdn.net/java958199586/article/details/7360152/#/" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="" />
+<meta property="og:description" content="ORACLE-NEXTVAL  背景：
+ ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
+方式 CREATE SEQUENCE sequence //创建序列名称   [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1   [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue   [{MAXVALUE n | NOMAXVALUE}] //最大值   [{MINVALUE n | NOMINVALUE}] //最小值   [{CYCLE | NOCYCLE}] //循环/不循环   [{CACHE n | NOCACHE}];//分配并存入到内存中 参考链接 https://blog.csdn.net/java958199586/article/details/7360152/#/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/database/oracle-nextval/" /><meta property="article:section" content="post" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="ORACLE-NEXTVAL  背景：
+ ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
+方式 CREATE SEQUENCE sequence //创建序列名称   [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1   [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue   [{MAXVALUE n | NOMAXVALUE}] //最大值   [{MINVALUE n | NOMINVALUE}] //最小值   [{CYCLE | NOCYCLE}] //循环/不循环   [{CACHE n | NOCACHE}];//分配并存入到内存中 参考链接 https://blog.csdn.net/java958199586/article/details/7360152/#/"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title"></h1>
+			<div class="meta">Posted on Jan 1, 0001</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="oracle-nextval">ORACLE-NEXTVAL</h1>
+<blockquote>
+<p>背景：</p>
+</blockquote>
+<h2 id="oracle序列">ORACLE序列</h2>
+<h3 id="概念">概念</h3>
+<p>是oacle提供的用于产生一系列唯一数字的数据库对象。<strong>主要用于提供主键值</strong>。</p>
+<h3 id="方式">方式</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> SEQUENCE sequence  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">创建序列名称</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#66d9ef">INCREMENT</span> <span style="color:#66d9ef">BY</span> n]  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">递增的序列值是</span>n <span style="color:#960050;background-color:#1e0010">如果</span>n是正数就递增,<span style="color:#960050;background-color:#1e0010">如果是负数就递减</span> <span style="color:#960050;background-color:#1e0010">默认是</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#66d9ef">START</span> <span style="color:#66d9ef">WITH</span> n]    <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">开始的值</span>,<span style="color:#960050;background-color:#1e0010">递增默认是</span><span style="color:#66d9ef">minvalue</span> <span style="color:#960050;background-color:#1e0010">递减是</span><span style="color:#66d9ef">maxvalue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">MAXVALUE</span> n <span style="color:#f92672">|</span> NOMAXVALUE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">最大值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">MINVALUE</span> n <span style="color:#f92672">|</span> NOMINVALUE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">最小值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">CYCLE</span> <span style="color:#f92672">|</span> NOCYCLE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">循环</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">不循环</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">CACHE</span> n <span style="color:#f92672">|</span> NOCACHE<span style="color:#960050;background-color:#1e0010">}</span>];<span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">分配并存入到内存中</span>
+</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/java958199586/article/details/7360152/#/">https://blog.csdn.net/java958199586/article/details/7360152/#/</a></p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

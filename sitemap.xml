@@ -3,16 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://pipony.github.io/</loc>
-    <lastmod>2022-05-15T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://pipony.github.io/categories/</loc>
-    <lastmod>2022-05-15T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://pipony.github.io/tags/java/</loc>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://pipony.github.io/categories/java/</loc>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://pipony.github.io/post/</loc>
-    <lastmod>2022-05-15T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://pipony.github.io/tags/</loc>
-    <lastmod>2022-05-15T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://pipony.github.io/post/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2022-06-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://pipony.github.io/tags/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2022-05-15T00:00:00+00:00</lastmod>
@@ -97,5 +106,7 @@
   </url><url>
     <loc>http://pipony.github.io/about/</loc>
     <lastmod>2022-05-14T22:50:06+08:00</lastmod>
+  </url><url>
+    <loc>http://pipony.github.io/post/database/oracle-nextval/</loc>
   </url>
 </urlset>
