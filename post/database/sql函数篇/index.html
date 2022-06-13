@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>SQL函数篇 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="SQL函数篇   lpad/rpad函数   lpad/rpad函数 此为Oracle函数。l/r(left/right)&#43;pad(填充)，表示从左边/右边填充。
+格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
+参数一：被填充/截取的原字符串
+参数二：最终长度
+参数三：填充的字符，若无赋值，则默认填充空格
+注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边）
+SQL&gt; select lpad(&#39;abcde&#39;,10,&#39;x&#39;) from dual; LPAD(&#39;ABCDE&#39;,10,&#39;X&#39;) -------------------- xxxxxabcde  SQL&gt; select lpad(&#39;abcde&#39;,2) from dual; LPAD(&#39;ABCDE&#39;,2) --------------- ab 参考链接：https://blog.csdn.net/yulei_qq/article/details/17389901#/" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="SQL函数篇" />
+<meta property="og:description" content="SQL函数篇   lpad/rpad函数   lpad/rpad函数 此为Oracle函数。l/r(left/right)&#43;pad(填充)，表示从左边/右边填充。
+格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
+参数一：被填充/截取的原字符串
+参数二：最终长度
+参数三：填充的字符，若无赋值，则默认填充空格
+注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边）
+SQL&gt; select lpad(&#39;abcde&#39;,10,&#39;x&#39;) from dual; LPAD(&#39;ABCDE&#39;,10,&#39;X&#39;) -------------------- xxxxxabcde  SQL&gt; select lpad(&#39;abcde&#39;,2) from dual; LPAD(&#39;ABCDE&#39;,2) --------------- ab 参考链接：https://blog.csdn.net/yulei_qq/article/details/17389901#/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-13T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SQL函数篇"/>
+<meta name="twitter:description" content="SQL函数篇   lpad/rpad函数   lpad/rpad函数 此为Oracle函数。l/r(left/right)&#43;pad(填充)，表示从左边/右边填充。
+格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
+参数一：被填充/截取的原字符串
+参数二：最终长度
+参数三：填充的字符，若无赋值，则默认填充空格
+注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边）
+SQL&gt; select lpad(&#39;abcde&#39;,10,&#39;x&#39;) from dual; LPAD(&#39;ABCDE&#39;,10,&#39;X&#39;) -------------------- xxxxxabcde  SQL&gt; select lpad(&#39;abcde&#39;,2) from dual; LPAD(&#39;ABCDE&#39;,2) --------------- ab 参考链接：https://blog.csdn.net/yulei_qq/article/details/17389901#/"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">SQL函数篇</h1>
+			<div class="meta">Posted on Jun 13, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="sql函数篇">SQL函数篇</h1>
+<blockquote>
+<ul>
+<li>lpad/rpad函数</li>
+</ul>
+</blockquote>
+<h2 id="lpadrpad函数">lpad/rpad函数</h2>
+<p>此为Oracle函数。l/r(left/right)+pad(填充)，表示从左边/右边填充。</p>
+<p>格式：<code>lpad( string, padded_length, [ pad_string ] )</code> （rpad同理）</p>
+<p>参数一：被填充/截取的原字符串</p>
+<p>参数二：最终长度</p>
+<p>参数三：填充的字符，若无赋值，则默认填充空格</p>
+<p>注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> lpad(<span style="color:#e6db74">&#39;abcde&#39;</span>,<span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;x&#39;</span>) <span style="color:#66d9ef">from</span> dual;
+</span></span><span style="display:flex;"><span>LPAD(<span style="color:#e6db74">&#39;ABCDE&#39;</span>,<span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#39;X&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>xxxxxabcde
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> lpad(<span style="color:#e6db74">&#39;abcde&#39;</span>,<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">from</span> dual;
+</span></span><span style="display:flex;"><span>LPAD(<span style="color:#e6db74">&#39;ABCDE&#39;</span>,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">---------------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>ab
+</span></span></code></pre></div><p>参考链接：https://blog.csdn.net/yulei_qq/article/details/17389901#/</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>

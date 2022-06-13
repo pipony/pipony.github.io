@@ -56,6 +56,57 @@
 				
 				
 				<section class="list-item">
+					<h1 class="title"><a href="/post/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">软考-中级软件设计师-04 计算机网络</a></h1>
+					<time>May 14, 2022</time>
+					<br><div class="description">
+						
+						04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">软考-中级软件设计师-05 计算机安全</a></h1>
+					<time>May 14, 2022</time>
+					<br><div class="description">
+						
+						05 计算机安全 信息系统安全属性 完整性：保证A到B的消息没被篡改
+加密技术  对称加密   非对称加密  信息摘要 特性：单向
+用于验证数据完整性
+数字签名 特性：防抵赖
+加密（即数字签名）：私钥；解密（即数字签名的验证过程）：公钥；不是真正的加密和解密
+与信息摘要技术结合：对信息摘要进行数字签名（而不是对原消息进行数字签名）
+数字信封与PGP 综合例题 例题：设计邮件加密系统
+网络安全 网络层级的安全保障 网络威胁与攻击 要会区分窃听和业务流分析
+防火墙技术 应用级：把内容拆出来分析看有无问题
+网络级：比如看源和目的ip
+屏蔽子网：内部网和外部网之间额外的一个防护&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
 					<h1 class="title"><a href="/post/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-06 数据结构与算法基础</a></h1>
 					<time>May 14, 2022</time>
 					<br><div class="description">
@@ -85,33 +136,6 @@
 						
 					</div>
 					<a class="readmore" href="/post/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-07 程序设计语言与语言处理程序基础</a></h1>
-					<time>May 14, 2022</time>
-					<br><div class="description">
-						
-						07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）：
-答案：C
-正规式 例题：
-答案：D C
-表达式 答案：D
-函数调用 - 传值和传址  传值：不真正改变实参 传址：真正改变实参  各种程序语言特点 &hellip;
-						
-					</div>
-					<a class="readmore" href="/post/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/">软考-中级软件设计师-08 法律法规</a></h1>
-					<time>May 14, 2022</time>
-					<br><div class="description">
-						
-						08 法律法规 保护期限 知识产权人确定 侵权判定 标准化基础知识 标准的分类 标准的编号 &hellip;
-						
-					</div>
-					<a class="readmore" href="/post/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/">Read more ⟶</a>
 				</section>
 				
 				
