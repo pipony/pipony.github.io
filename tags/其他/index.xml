@@ -27,7 +27,7 @@ hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的�
 如果已经在config.toml中配置了theme，则运行语句可以缩减为：
 hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
  http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&amp;#34;http://pipony.github.io/&amp;#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）</description>
+hugo --theme=hyde --baseUrl=&amp;#34;http://pipony.github.io/&amp;#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：</description>
     </item>
     
   </channel>

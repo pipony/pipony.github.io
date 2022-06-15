@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shell on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/categories/shell/</link>
+    <description>Recent content in Shell on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux运维篇之top</title>
+      <link>http://pipony.github.io/post/shell/linux%E8%BF%90%E7%BB%B4%E7%AF%87%E4%B9%8Btop/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/shell/linux%E8%BF%90%E7%BB%B4%E7%AF%87%E4%B9%8Btop/</guid>
+      <description>Linux运维篇之top 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
+执行权限：所有用户
+命令 #TODO
+快捷键 摘自：https://blog.csdn.net/Luckiers/article/details/123909819#/
+Ctrl+L 擦除并且重写屏幕。  h或者? 显示帮助画面，给出一些简短的命令总结说明。  k 终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。  i 忽略闲置和僵死进程。这是一个开关式命令。  q 退出程序。  r 重新安排一个进程的优先级别。系统提示用户输入需要改变的进程PID以及需要设置的进程优先级值。输入一个正值将使优先级降低，反之则可以使该进程拥有更高的优先权。默认值是10。  S 切换到累计模式。  s 改变两次刷新之间的延迟时间。系统将提示用户输入新的时间，单位为s。如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s。需要注意的是如果设置太小的时间，很可能会引起不断刷新，从而根本来不及看清显示的情况，而且系统负载也会大大增加。  f或者F 从当前显示中添加或者删除项目。  o或者O 改变显示项目的顺序。  l 切换显示平均负载和启动时间信息。  m 切换显示内存信息。  t 切换显示进程和CPU状态信息。  c 切换显示命令名称和完整命令行。  M 根据驻留内存大小进行排序。  P 根据CPU使用百分比大小进行排序。  T 根据时间/累计时间进行排序。  W 将当前设置写入~/.toprc文件中。这是写top配置文件的推荐方法。 结果解读 解读截图（来自 https://blog.csdn.net/zhuoya_/article/details/81049967#/）：
+分析：top命令截图（以我自己的云主机为例）
+前5行是系统状态总览，后面是依次分析系统正在运行的每个任务的状态
+  第1行：任务队列信息（同 uptime 命令的执行结果，依次是当前时间、系统已经运行的时间、当前用户数、系统负载【即任务队列的平均长度。 三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值】）</description>
+    </item>
+    
+  </channel>
+</rss>

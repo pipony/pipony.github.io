@@ -56,6 +56,22 @@
 				
 				
 				<section class="list-item">
+					<h1 class="title"><a href="/post/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">异常的处理</a></h1>
+					<time>Jun 4, 2022</time>
+					<br><div class="description">
+						
+						异常的处理 分类  异常（Exception）  运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。   错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。  异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
+常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
+或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：
+异常类	说明 ClassCastException	类型转换异常 ArrayIndexOutOfBoundsException	数组越界异常 NegativeArraySizeException	指定数组维数为负值异常 ArithmeticException	算数异常 InternalException	Java系统内部异常 NullPointerException	空指针异常 IllegalAccessException	类定义不明确所产生的异常 IOException	一般情况下不能完成I/O操作产生的异常 EOFException	打开文件没有数据可以读取的异常 FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常 ClassNotFoundException	找不到类或接口所产生的异常 CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常
+异常处理 方法1：捕获处理 try+catch(+finally)
+try {  xxx; //程序 } catch (ExceptionName e) {  xxx; //捕获异常时的处理 } finally {  xxx; //最终执行的代码块 } 若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用Exception e。&hellip;
+						
+					</div>
+					<a class="readmore" href="/post/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
 					<h1 class="title"><a href="/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">开始Hugo&#43;Github Pages</a></h1>
 					<time>May 15, 2022</time>
 					<br><div class="description">
@@ -73,7 +89,7 @@ hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的�
 如果已经在config.toml中配置了theme，则运行语句可以缩减为：
 hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
  http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）&hellip;
+hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：&hellip;
 						
 					</div>
 					<a class="readmore" href="/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">Read more ⟶</a>
@@ -99,21 +115,6 @@ SQL&gt; select owner, object_name, object_type from dba_objects t where status =
 						
 					</div>
 					<a class="readmore" href="/post/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">软考-中级软件设计师-00 无分类</a></h1>
-					<time>May 14, 2022</time>
-					<br><div class="description">
-						
-						00 无分类 海明码（Hamming code） https://www.bilibili.com/video/BV1SJ41157pR?spm_id_from=333.337.search-card.all.click#/
-https://www.cnblogs.com/godoforange/p/12003676.html#/
-遇到这种题，做题练一下
-CRC校验法（循环冗余校验 Cyclic Redundancy Check） https://seedeer.github.io/2022/03/20/crc/#/
-https://www.bilibili.com/video/BV1rJ411V7L5?spm_id_from=333.337.search-card.all.click#/&hellip;
-						
-					</div>
-					<a class="readmore" href="/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">Read more ⟶</a>
 				</section>
 				
 				

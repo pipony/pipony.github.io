@@ -56,50 +56,17 @@
 				
 				
 				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">软考-中级软件设计师-15 数据结构及算法应用</a></h1>
+					<h1 class="title"><a href="/post/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a></h1>
 					<time>May 14, 2022</time>
 					<br><div class="description">
 						
-						15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题
-不容易拿高分，但要把容易的都填出来
-分治法 递归 概念：运行的过程中调用自己
-二分查找 回溯法 贪心法 性价比方法：耗费时间少，找到【可以】的解
-图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品
-动态规划法 拆分为子问题，但是子问题一般有关联，所以需要一个表来协助
-例题 例题1 答案：
-【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）
-【问题1】：
-例题2 题目略&hellip;
+						部分sql的user_io_wait_time值较大  背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text,  sql_id,  elapsed_time,  cpu_time,  user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &lt; 6; 2、根据步骤1获取具体SQL详情
+select event,  time_waited,  owner,  object_name,  current_file#,  current_block# from sys.v_$active_session_history a,  sys.dba_objects b where sql_id = &#39;6gvch1xu9ca3g&#39; and  a.current_obj# = b.object_id and  time_waited &lt;&gt; 0; &hellip;
 						
 					</div>
-					<a class="readmore" href="/post/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">软考-中级软件设计师-16 面向对象程序设计</a></h1>
-					<time>May 14, 2022</time>
-					<br><div class="description">
-						
-						16 面向对象程序设计 类和派生类的定义 构造函数和析构函数 对象指针与对象引用
-虚函数
-类的定义 关键字：extends对方就是类而不是接口
-接口的定义 关键字：implements 对方就是接口而不是类
-例题 例题1 此类定义的填空很好拿分
-例题2 &hellip;
-						
-					</div>
-					<a class="readmore" href="/post/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/software-designer/%E5%BC%80%E5%A7%8B/">软考-中级软件设计师-开始</a></h1>
-					<time>May 14, 2022</time>
-					<br><div class="description">
-						
-						开始 视频教程： https://www.bilibili.com/video/BV1yU4y1371J?spm_id_from=333.337.search-card.all.click#/&hellip;
-						
-					</div>
-					<a class="readmore" href="/post/software-designer/%E5%BC%80%E5%A7%8B/">Read more ⟶</a>
+					<a class="readmore" href="/post/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">Read more ⟶</a>
 				</section>
 				
 				
@@ -107,12 +74,10 @@
 <ul class="pagination">
 	<span class="page-item page-prev">
 	
-    <a href="/page/7/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev</span></a>
+    <a href="/page/8/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev</span></a>
 	
 	</span>
 	<span class="page-item page-next">
-	
-    <a href="/page/9/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
 	
 	</span>
 </ul>
