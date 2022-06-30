@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>文档注释 - 2MUCH-Tech-Notes</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="文档注释  本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
+ 定义 Java普通注释格式
+// 或 /* */ Java文档注释格式
+/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
+文档注释目标 https://blog.csdn.net/weixin_39190897/article/details/81880411#/
+（1）类注释。类注释用于说明整个类的功能、特性等，它应该放在所有的“import”语句之后，在class定义之前。这个规则也适用于接口（interface）注释。  （2）方法注释。方法注释用来说明方法的定义，比如，方法的参数、返回值及说明方法的作用等。方法注释应该放在它所描述的方法定义前面。  （3）属性注释。默认情况下，javadoc只对公有（public）属性和受保护属性（protected）产生文档——通常是静态常量。  （4）包注释。类、方法、属性的注释都直接放到Java的源文件中，而对于包的注释，无法放到Java文件中去，只能通过在包对应的目录中添加一个package.html的文件来达到这个目的。当生成HTML文件时，package.html文件的和部分的内容将会被提取出来当做包的说明。关于包注释，后面还会有更进一步的解释。  （5）概要注释。除了包注释外，还有一种类型的文档无法从Java源文件中提取，就是对所有类文件提供概要说明的文件。同样的，也可以为这类注释单独新建一个HTML文件，这个文件的名字为“overview.html”，它的和标记之间的内容都会被提取。 文档注释格式  概要描述：一段话简要描述基本内容 详细描述：几大段描述 功能 和 相关情况 文档标注：参数、作者、返回值等  注释标签释义 可参考 https://www.runoob.com/java/java-documentation.html#/ 等
+常见的例如：
+@author 作者 @param 输入参数 @return 返回参数 @exception 异常 @throws 同exception @deprecated 指明一个过期的类或成员（不推荐使用的方法） @version 版本 javadoc 工具 参考 https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/
+  命令行
+在要生成javadoc的.java的文件夹中，cmd输入命令javadoc -encoding UTF-8 -charset UTF-8 *.java
+其中-encoding和-charset分别是编码格式和字符集格式。javadoc命令参数解释，可参考见 https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/
+  IDE中生成" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="文档注释" />
+<meta property="og:description" content="文档注释  本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
+ 定义 Java普通注释格式
+// 或 /* */ Java文档注释格式
+/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
+文档注释目标 https://blog.csdn.net/weixin_39190897/article/details/81880411#/
+（1）类注释。类注释用于说明整个类的功能、特性等，它应该放在所有的“import”语句之后，在class定义之前。这个规则也适用于接口（interface）注释。  （2）方法注释。方法注释用来说明方法的定义，比如，方法的参数、返回值及说明方法的作用等。方法注释应该放在它所描述的方法定义前面。  （3）属性注释。默认情况下，javadoc只对公有（public）属性和受保护属性（protected）产生文档——通常是静态常量。  （4）包注释。类、方法、属性的注释都直接放到Java的源文件中，而对于包的注释，无法放到Java文件中去，只能通过在包对应的目录中添加一个package.html的文件来达到这个目的。当生成HTML文件时，package.html文件的和部分的内容将会被提取出来当做包的说明。关于包注释，后面还会有更进一步的解释。  （5）概要注释。除了包注释外，还有一种类型的文档无法从Java源文件中提取，就是对所有类文件提供概要说明的文件。同样的，也可以为这类注释单独新建一个HTML文件，这个文件的名字为“overview.html”，它的和标记之间的内容都会被提取。 文档注释格式  概要描述：一段话简要描述基本内容 详细描述：几大段描述 功能 和 相关情况 文档标注：参数、作者、返回值等  注释标签释义 可参考 https://www.runoob.com/java/java-documentation.html#/ 等
+常见的例如：
+@author 作者 @param 输入参数 @return 返回参数 @exception 异常 @throws 同exception @deprecated 指明一个过期的类或成员（不推荐使用的方法） @version 版本 javadoc 工具 参考 https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/
+  命令行
+在要生成javadoc的.java的文件夹中，cmd输入命令javadoc -encoding UTF-8 -charset UTF-8 *.java
+其中-encoding和-charset分别是编码格式和字符集格式。javadoc命令参数解释，可参考见 https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/
+  IDE中生成" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-30T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="文档注释"/>
+<meta name="twitter:description" content="文档注释  本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
+ 定义 Java普通注释格式
+// 或 /* */ Java文档注释格式
+/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
+文档注释目标 https://blog.csdn.net/weixin_39190897/article/details/81880411#/
+（1）类注释。类注释用于说明整个类的功能、特性等，它应该放在所有的“import”语句之后，在class定义之前。这个规则也适用于接口（interface）注释。  （2）方法注释。方法注释用来说明方法的定义，比如，方法的参数、返回值及说明方法的作用等。方法注释应该放在它所描述的方法定义前面。  （3）属性注释。默认情况下，javadoc只对公有（public）属性和受保护属性（protected）产生文档——通常是静态常量。  （4）包注释。类、方法、属性的注释都直接放到Java的源文件中，而对于包的注释，无法放到Java文件中去，只能通过在包对应的目录中添加一个package.html的文件来达到这个目的。当生成HTML文件时，package.html文件的和部分的内容将会被提取出来当做包的说明。关于包注释，后面还会有更进一步的解释。  （5）概要注释。除了包注释外，还有一种类型的文档无法从Java源文件中提取，就是对所有类文件提供概要说明的文件。同样的，也可以为这类注释单独新建一个HTML文件，这个文件的名字为“overview.html”，它的和标记之间的内容都会被提取。 文档注释格式  概要描述：一段话简要描述基本内容 详细描述：几大段描述 功能 和 相关情况 文档标注：参数、作者、返回值等  注释标签释义 可参考 https://www.runoob.com/java/java-documentation.html#/ 等
+常见的例如：
+@author 作者 @param 输入参数 @return 返回参数 @exception 异常 @throws 同exception @deprecated 指明一个过期的类或成员（不推荐使用的方法） @version 版本 javadoc 工具 参考 https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/
+  命令行
+在要生成javadoc的.java的文件夹中，cmd输入命令javadoc -encoding UTF-8 -charset UTF-8 *.java
+其中-encoding和-charset分别是编码格式和字符集格式。javadoc命令参数解释，可参考见 https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/
+  IDE中生成"/>
+<script src="http://pipony.github.io/js/feather.min.js"></script>
+	
+	
+        <link href="http://pipony.github.io/css/fonts.7fa06c2792c8589768ffcdaf014e4bfc7f2ccbfba059f8e87131158970c23ed3.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://pipony.github.io/css/main.e7dc685303f6fab24c3877106a68b21b214009579260db2aad12404393df1ae1.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="http://pipony.github.io/css/dark.c95c5dcf5f32f8b67bd36f7dab66680e068fce2b303087294114aabf7a7c080b.css" media="(prefers-color-scheme: dark)"  />
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://pipony.github.io/">2MUCH-Tech-Notes</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/post">All posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">文档注释</h1>
+			<div class="meta">Posted on Jun 30, 2022</div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="文档注释">文档注释</h1>
+<blockquote>
+<p>本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。</p>
+</blockquote>
+<h2 id="定义">定义</h2>
+<p>Java普通注释格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>或
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>Java文档注释格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">@xxx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。</p>
+<h2 id="文档注释目标">文档注释目标</h2>
+<p><a href="https://blog.csdn.net/weixin_39190897/article/details/81880411#/">https://blog.csdn.net/weixin_39190897/article/details/81880411#/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">（</span>1<span style="color:#960050;background-color:#1e0010">）</span>类注释<span style="color:#960050;background-color:#1e0010">。</span>类注释用于说明整个类的功能<span style="color:#960050;background-color:#1e0010">、</span>特性等<span style="color:#960050;background-color:#1e0010">，</span>它应该放在所有的<span style="color:#960050;background-color:#1e0010">“</span>import<span style="color:#960050;background-color:#1e0010">”</span>语句之后<span style="color:#960050;background-color:#1e0010">，</span>在class定义之前<span style="color:#960050;background-color:#1e0010">。</span>这个规则也适用于接口<span style="color:#960050;background-color:#1e0010">（</span>interface<span style="color:#960050;background-color:#1e0010">）</span>注释<span style="color:#960050;background-color:#1e0010">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">（</span>2<span style="color:#960050;background-color:#1e0010">）</span>方法注释<span style="color:#960050;background-color:#1e0010">。</span>方法注释用来说明方法的定义<span style="color:#960050;background-color:#1e0010">，</span>比如<span style="color:#960050;background-color:#1e0010">，</span>方法的参数<span style="color:#960050;background-color:#1e0010">、</span>返回值及说明方法的作用等<span style="color:#960050;background-color:#1e0010">。</span>方法注释应该放在它所描述的方法定义前面<span style="color:#960050;background-color:#1e0010">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">（</span>3<span style="color:#960050;background-color:#1e0010">）</span>属性注释<span style="color:#960050;background-color:#1e0010">。</span>默认情况下<span style="color:#960050;background-color:#1e0010">，</span>javadoc只对公有<span style="color:#960050;background-color:#1e0010">（</span><span style="color:#66d9ef">public</span><span style="color:#960050;background-color:#1e0010">）</span>属性和受保护属性<span style="color:#960050;background-color:#1e0010">（</span><span style="color:#66d9ef">protected</span><span style="color:#960050;background-color:#1e0010">）</span>产生文档<span style="color:#960050;background-color:#1e0010">——</span>通常是静态常量<span style="color:#960050;background-color:#1e0010">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">（</span>4<span style="color:#960050;background-color:#1e0010">）</span>包注释<span style="color:#960050;background-color:#1e0010">。</span>类<span style="color:#960050;background-color:#1e0010">、</span>方法<span style="color:#960050;background-color:#1e0010">、</span>属性的注释都直接放到Java的源文件中<span style="color:#960050;background-color:#1e0010">，</span>而对于包的注释<span style="color:#960050;background-color:#1e0010">，</span>无法放到Java文件中去<span style="color:#960050;background-color:#1e0010">，</span>只能通过在包对应的目录中添加一个package<span style="color:#f92672">.</span><span style="color:#a6e22e">html的文件来达到这个目的</span><span style="color:#960050;background-color:#1e0010">。</span>当生成HTML文件时<span style="color:#960050;background-color:#1e0010">，</span>package<span style="color:#f92672">.</span><span style="color:#a6e22e">html文件的和部分的内容将会被提取出来当做包的说明</span><span style="color:#960050;background-color:#1e0010">。</span>关于包注释<span style="color:#960050;background-color:#1e0010">，</span>后面还会有更进一步的解释<span style="color:#960050;background-color:#1e0010">。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">（</span>5<span style="color:#960050;background-color:#1e0010">）</span>概要注释<span style="color:#960050;background-color:#1e0010">。</span>除了包注释外<span style="color:#960050;background-color:#1e0010">，</span>还有一种类型的文档无法从Java源文件中提取<span style="color:#960050;background-color:#1e0010">，</span>就是对所有类文件提供概要说明的文件<span style="color:#960050;background-color:#1e0010">。</span>同样的<span style="color:#960050;background-color:#1e0010">，</span>也可以为这类注释单独新建一个HTML文件<span style="color:#960050;background-color:#1e0010">，</span>这个文件的名字为<span style="color:#960050;background-color:#1e0010">“</span>overview<span style="color:#f92672">.</span><span style="color:#a6e22e">html</span><span style="color:#960050;background-color:#1e0010">”，</span>它的和标记之间的内容都会被提取<span style="color:#960050;background-color:#1e0010">。</span>
+</span></span></code></pre></div><h2 id="文档注释格式">文档注释格式</h2>
+<ul>
+<li>概要描述：一段话简要描述基本内容</li>
+<li>详细描述：几大段描述 功能 和 相关情况</li>
+<li>文档标注：参数、作者、返回值等</li>
+</ul>
+<h2 id="注释标签释义">注释标签释义</h2>
+<p>可参考 <a href="https://www.runoob.com/java/java-documentation.html#/">https://www.runoob.com/java/java-documentation.html#/</a> 等</p>
+<p>常见的例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@author</span> 作者
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@param</span> 输入参数
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@return</span> 返回参数
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@exception</span> 异常
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@throws</span> 同exception
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@deprecated</span> 指明一个过期的类或成员<span style="color:#960050;background-color:#1e0010">（</span>不推荐使用的方法<span style="color:#960050;background-color:#1e0010">）</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@version</span> 版本
+</span></span></code></pre></div><h2 id="javadoc-工具">javadoc 工具</h2>
+<p>参考 <a href="https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/">https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/</a></p>
+<ul>
+<li>
+<p>命令行</p>
+<p>在要生成javadoc的.java的文件夹中，cmd输入命令<code>javadoc -encoding UTF-8 -charset UTF-8 *.java</code></p>
+<p>其中<code>-encoding</code>和<code>-charset</code>分别是编码格式和字符集格式。<code>javadoc</code>命令参数解释，可参考见 <a href="https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/">https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/</a></p>
+</li>
+<li>
+<p>IDE中生成</p>
+</li>
+</ul>
+<p>生成的 index.html 文件，就是我们想要的</p>
+<h2 id="多说两句">多说两句</h2>
+<p>一般IDE都有提供可以自定义文档注释模板的地方，可以定义适合自己的格式，一劳永逸</p>
+<p>有需要的话，可以自己定义文档注释标签</p>
+<p>注释侧重WHY，而不是HOW</p>
+<p>注释要优雅 <a href="https://zhuanlan.zhihu.com/p/41127713#/">https://zhuanlan.zhihu.com/p/41127713#/</a> ，例如下面的文档注释：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * &lt;p&gt;Checks if CharSequence contains a search character, handling {@code null}.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * This method uses {@link String#indexOf(int)} if possible.&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * &lt;p&gt;A {@code null} or empty (&#34;&#34;) CharSequence will return {@code false}.&lt;/p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * &lt;pre&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * StringUtils.contains(null, *)    = false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * StringUtils.contains(&#34;&#34;, *)      = false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * StringUtils.contains(&#34;abc&#34;, &#39;a&#39;) = true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * StringUtils.contains(&#34;abc&#34;, &#39;z&#39;) = false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * &lt;/pre&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param seq  the CharSequence to check, may be null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param searchChar  the character to find
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return true if the CharSequence contains the search character,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *  false if not or {@code null} string input
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @since 2.0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>    
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> CharSequence seq<span style="color:#f92672">,</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> searchChar<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isEmpty<span style="color:#f92672">(</span>seq<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> CharSequenceUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>seq<span style="color:#f92672">,</span> searchChar<span style="color:#f92672">,</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="关于注释的其他">关于注释的其他</h2>
+<p>1 巧用标记</p>
+<ul>
+<li>TODO 有未完成的事项</li>
+<li>FIXME 代码有已知问题待修复</li>
+<li>HACK 表示代码有hack逻辑</li>
+</ul>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/">https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/41127713#/">https://zhuanlan.zhihu.com/p/41127713#/</a></p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/java">Java</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/pipony/pipony.github.io#/" title="GitHub"><i data-feather="github"></i></a></div>
+  <div class="footer-info">
+    2022  © Cindy |  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+<script>
+  feather.replace()
+</script></div>
+    </body>
+</html>
