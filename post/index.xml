@@ -7,7 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Cindy</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORACLE-存储过程</title>
+      <link>http://pipony.github.io/post/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+      <description>ORACLE-存储过程 概念 存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+ 当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
+ 函数和存储过程的区别 https://www.php.cn/oracle/489142.html#/
+   存储过程 函数     用于在数据库中完成特定的操作或任务（如插入、删除等） 用于特定数据（如查询返回值）   程序头部声明用PROCEDURE 程序头部声明用FUNCTION   程序头部声明时不需要返回类型 程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句   可以使用IN/OUT/IN OUT3种参数模式 可以使用IN/OUT/IN OUT3种参数模式   可以作为独立的PL/SQL语句执行 不能独立执行，必须作为表达式的一部分调用   可以通过OUT/IN OUT返回零个或多个值 对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量   SQL语句（DML或SELECT）中不可以调用存储过程 SQL语句（DML或SELECT）中可以调用函数    优点  更快（无需再次编译） 模块性 可维护性高 节省网络传输（存储在数据库中） 更安全（存储过程控制执行权限）  存储过程创建语法 CREATE [OR REPLACE] PROCEDURE pro_name [(p1 in|out 数据格式,  p2 in|out 数据格式,  .</description>
+    </item>
+    
+    <item>
+      <title>认识编码</title>
+      <link>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <description>认识编码 待补充TODO
+概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言
+表示  使用7位表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码，多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号  GB2312 为了支持中文的表示，国人发明的
+Unicode 为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。
+表示 一个字符用2个字节表示
+UTF-8 在表示纯英文时，Unicode比ASCII码多了一倍，很不划算。于是有了变长表示的UTF-8。
+ UTF-8编码将Unicode字符按数字大小编码为1-6个字节，英文字母被编码成一个字节，常用汉字被编码成三个字节，如果你编译的文本是纯英文的，那么用UTF-8就会非常节省空间。
+ 参考链接 https://www.cnblogs.com/klb561/p/12064095.html#/
+https://www.cnblogs.com/klb561/p/12064095.html#/</description>
+    </item>
+    
     <item>
       <title>文档注释</title>
       <link>http://pipony.github.io/post/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>

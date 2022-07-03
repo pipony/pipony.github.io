@@ -7,7 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Cindy</copyright>
-    <lastBuildDate>Sun, 15 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>认识编码</title>
+      <link>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <description>认识编码 待补充TODO
+概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言
+表示  使用7位表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码，多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号  GB2312 为了支持中文的表示，国人发明的
+Unicode 为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。
+表示 一个字符用2个字节表示
+UTF-8 在表示纯英文时，Unicode比ASCII码多了一倍，很不划算。于是有了变长表示的UTF-8。
+ UTF-8编码将Unicode字符按数字大小编码为1-6个字节，英文字母被编码成一个字节，常用汉字被编码成三个字节，如果你编译的文本是纯英文的，那么用UTF-8就会非常节省空间。
+ 参考链接 https://www.cnblogs.com/klb561/p/12064095.html#/
+https://www.cnblogs.com/klb561/p/12064095.html#/</description>
+    </item>
+    
     <item>
       <title>开始Hugo&#43;Github Pages</title>
       <link>http://pipony.github.io/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>

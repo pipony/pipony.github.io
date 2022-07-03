@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Cindy</copyright>
-    <lastBuildDate>Mon, 13 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORACLE-存储过程</title>
+      <link>http://pipony.github.io/post/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+      <description>ORACLE-存储过程 概念 存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+ 当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
+ 函数和存储过程的区别 https://www.php.cn/oracle/489142.html#/
+   存储过程 函数     用于在数据库中完成特定的操作或任务（如插入、删除等） 用于特定数据（如查询返回值）   程序头部声明用PROCEDURE 程序头部声明用FUNCTION   程序头部声明时不需要返回类型 程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句   可以使用IN/OUT/IN OUT3种参数模式 可以使用IN/OUT/IN OUT3种参数模式   可以作为独立的PL/SQL语句执行 不能独立执行，必须作为表达式的一部分调用   可以通过OUT/IN OUT返回零个或多个值 对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量   SQL语句（DML或SELECT）中不可以调用存储过程 SQL语句（DML或SELECT）中可以调用函数    优点  更快（无需再次编译） 模块性 可维护性高 节省网络传输（存储在数据库中） 更安全（存储过程控制执行权限）  存储过程创建语法 CREATE [OR REPLACE] PROCEDURE pro_name [(p1 in|out 数据格式,  p2 in|out 数据格式,  .</description>
+    </item>
+    
     <item>
       <title>ORACLE-序列</title>
       <link>http://pipony.github.io/post/database/oracle-nextval/</link>
