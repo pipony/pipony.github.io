@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="" />
-  <meta property="og:url" content="http://pipony.github.io/categories/" />
-  <link rel="canonical" href="http://pipony.github.io/categories/" /><link rel="alternate" type="application/atom+xml" href="http://pipony.github.io/index.xml" title="2MUCH-Tech-Notes">
+  <meta property="og:url" content="http://pipony.github.io/post/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/" />
+  <link rel="canonical" href="http://pipony.github.io/post/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="alternate" type="application/atom+xml" href="http://pipony.github.io/index.xml" title="2MUCH-Tech-Notes">
 
   <script type="application/ld+json">
   {
@@ -18,10 +18,10 @@
            "@type": "WebPage",
            "@id": "http:\/\/pipony.github.io\/"
       },
-      "articleSection" : "categories",
-      "name" : "Categories",
-      "headline" : "Categories",
-      "description" : "",
+      "articleSection" : "post",
+      "name" : "Redis-NoSQL数据库",
+      "headline" : "Redis-NoSQL数据库",
+      "description" : "Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。\n特性：\n 不遵循SQL标准 不支持ACID（SQL四特性） 远超SQL性能  适用场景：读写高并发、海量数据、高可扩展性\n不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系\n注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql\n常见NoSQL数据库  Memcache  不持久化（断电即数据消失） 存储只支持字符串类型 一般是作为缓存数据库辅助持久化的数据库   Redis  持久化，主要用作备份恢复 支持多种数据结构（如 list、set、hash、zset） 一般是作为缓存数据库辅助持久化的数据库   MongoDB  文档型数据库（json） 支持二进制数据及大型对象 独立的数据库，或者配合RDBMS   Hbase（Hadoop项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中） Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)） 图关系型数据库  ",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -29,17 +29,27 @@
       "accountablePerson" : "",
       "copyrightHolder" : "",
       "copyrightYear" : "2022",
-      "datePublished": "2022-07-07 00:00:00 \u002b0000 UTC",
-      "dateModified" : "2022-07-07 00:00:00 \u002b0000 UTC",
-      "url" : "http:\/\/pipony.github.io\/categories\/",
-      "keywords" : [  ]
+      "datePublished": "2022-07-03 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2022-07-03 00:00:00 \u002b0000 UTC",
+      "url" : "http:\/\/pipony.github.io\/post\/redis\/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93\/",
+      "keywords" : [ "Redis", ]
   }
 </script>
-<title>Categories</title>
-  <meta property="og:title" content="Categories" />
+<title>Redis-NoSQL数据库</title>
+  <meta property="og:title" content="Redis-NoSQL数据库" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="" />
-  <meta name="description" content="" />
+  <meta property="og:description" content="Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
+特性：
+ 不遵循SQL标准 不支持ACID（SQL四特性） 远超SQL性能  适用场景：读写高并发、海量数据、高可扩展性
+不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
+注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
+常见NoSQL数据库  Memcache  不持久化（断电即数据消失） 存储只支持字符串类型 一般是作为缓存数据库辅助持久化的数据库   Redis  持久化，主要用作备份恢复 支持多种数据结构（如 list、set、hash、zset） 一般是作为缓存数据库辅助持久化的数据库   MongoDB  文档型数据库（json） 支持二进制数据及大型对象 独立的数据库，或者配合RDBMS   Hbase（Hadoop项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中） Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)） 图关系型数据库  " />
+  <meta name="description" content="Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
+特性：
+ 不遵循SQL标准 不支持ACID（SQL四特性） 远超SQL性能  适用场景：读写高并发、海量数据、高可扩展性
+不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
+注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
+常见NoSQL数据库  Memcache  不持久化（断电即数据消失） 存储只支持字符串类型 一般是作为缓存数据库辅助持久化的数据库   Redis  持久化，主要用作备份恢复 支持多种数据结构（如 list、set、hash、zset） 一般是作为缓存数据库辅助持久化的数据库   MongoDB  文档型数据库（json） 支持二进制数据及大型对象 独立的数据库，或者配合RDBMS   Hbase（Hadoop项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中） Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)） 图关系型数据库  " />
   <meta property="og:locale" content="en-us" /><meta property="og:image" content="" />
   
 
@@ -66,10 +76,11 @@
 
 
 <body>
-  <article class="posts">
+  <article class="post " id="article">
     <div class="row">
       <div class="col-xs-12">
-        
+        <div class="site-header">
+          
 <header>
   <div class="header-title">
     <a href="/"
@@ -94,11 +105,105 @@
 </div>
 <div class="header-line"></div>
 
-
-        <h1 class="taxonomy-term"></h1>
-        <div id="posts-list">
-          
         </div>
+        <header class="post-header">
+          <h1 class="post-title">Redis-NoSQL数据库</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2022-07-03 00:00:00 UTC">
+                03 Jul 2022
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <h1 id="redis-nosql数据库">Redis-NoSQL数据库</h1>
+<h2 id="nosql数据库概述">NoSQL数据库概述</h2>
+<p>NoSQL(No only SQL)，泛指<strong>非关系型数据库</strong>，数据与业务逻辑无关，以<code>key-value</code>形式存储。因此可以大大增加数据库的扩展能力。</p>
+<p>特性：</p>
+<ul>
+<li>不遵循SQL标准</li>
+<li>不支持ACID（SQL四特性）</li>
+<li>远超SQL性能</li>
+</ul>
+<p>适用场景：读写高并发、海量数据、高可扩展性</p>
+<p>不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系</p>
+<p>注意：<strong>用不着sql的和用了sql也不行的情况，请考虑用NoSql</strong></p>
+<h2 id="常见nosql数据库">常见NoSQL数据库</h2>
+<ul>
+<li>Memcache
+<ul>
+<li>不持久化（断电即数据消失）</li>
+<li>存储只支持字符串类型</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+</li>
+<li>Redis
+<ul>
+<li>持久化，主要用作备份恢复</li>
+<li>支持多种数据结构（如 list、set、hash、zset）</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+</li>
+<li>MongoDB
+<ul>
+<li>文档型数据库（json）</li>
+<li>支持二进制数据及大型对象</li>
+<li>独立的数据库，或者配合RDBMS</li>
+</ul>
+</li>
+<li>Hbase（Hadoop项目中的数据库。它用于需要对<strong>大量</strong>的数据进行随机、实时的读写操作的场景中）</li>
+<li>Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的<strong>海量数据集</strong>(数据量通常达到PB级别)）</li>
+<li>图关系型数据库</li>
+</ul>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+            <div class="post-tags">
+              <a href="/tags/redis/">
+                Redis
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+<div class="related-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/post/redis/redis%E5%BC%80%E5%A7%8B/">Redis开始</a></li>
+    
+  </ul>
+</div>
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
 
         <div class="site-footer">
   
@@ -118,6 +223,8 @@
     
   
 </script>
+
+  
 
 </body>
 

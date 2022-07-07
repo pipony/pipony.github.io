@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/tags/redis/</link>
+    <description>Recent content in Redis on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Thu, 07 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis-常用数据类型</title>
+      <link>http://pipony.github.io/post/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Thu, 07 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <description>Redis-常用数据类型 查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
+key </description>
+    </item>
+    
+    <item>
+      <title>Redis-Redis基础</title>
+      <link>http://pipony.github.io/post/redis/redis-redis%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Mon, 04 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/redis/redis-redis%E5%9F%BA%E7%A1%80/</guid>
+      <description>Redis-Redis基础 Redis概述  开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件 master-slave(主从)同步  应用场景：
+  配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+  多样的数据结构存储持久化数据
+  Redis安装 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）
+步骤：
+  将redis安装包ftp到服务器的/opt
+  tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好了
+  安装 make install
+   查看安装后的文件
+[root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin -rwxr-xr-x 1 root root 9450208 Jul 4 21:31 redis-server -rwxr-xr-x 1 root root 4833352 Jul 4 21:31 redis-benchmark -rwxr-xr-x 1 root root 5003368 Jul 4 21:31 redis-cli lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-rdb -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-aof -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-sentinel -&amp;gt; redis-server redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何</description>
+    </item>
+    
+    <item>
+      <title>Redis-NoSQL数据库</title>
+      <link>http://pipony.github.io/post/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
+特性：
+ 不遵循SQL标准 不支持ACID（SQL四特性） 远超SQL性能  适用场景：读写高并发、海量数据、高可扩展性
+不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
+注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
+常见NoSQL数据库  Memcache  不持久化（断电即数据消失） 存储只支持字符串类型 一般是作为缓存数据库辅助持久化的数据库   Redis  持久化，主要用作备份恢复 支持多种数据结构（如 list、set、hash、zset） 一般是作为缓存数据库辅助持久化的数据库   MongoDB  文档型数据库（json） 支持二进制数据及大型对象 独立的数据库，或者配合RDBMS   Hbase（Hadoop项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中） Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)） 图关系型数据库  </description>
+    </item>
+    
+    <item>
+      <title>Redis开始</title>
+      <link>http://pipony.github.io/post/redis/redis%E5%BC%80%E5%A7%8B/</link>
+      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/redis/redis%E5%BC%80%E5%A7%8B/</guid>
+      <description>Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程
+https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/
+2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</description>
+    </item>
+    
+  </channel>
+</rss>
