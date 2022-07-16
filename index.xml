@@ -7,7 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Cindy</copyright>
-    <lastBuildDate>Thu, 07 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux-管道篇</title>
+      <link>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>
+      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
+      <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
+格式：命令1 | 命令2 | ...
+管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
+管道（又称无名管道）和命名管道FIFO的区别：等后面学到命名管道了再说
+注意点  管道只能传输正确输出，而无法传输错误信息。从管道接连输出的标准错误会混合到一起。  常见相关命令 grep (Global search REgular expression and Print out the line) 根据模式（正则表达式）对文本逐行扫描，找到并打印匹配的行
+格式：
+grep [options] [pattern] file or command | grep [options] [pattern]  [options] 	-v # 反向匹配 invert (等同于--invert-match) 	-n # 输出加上行号 	-i # 忽略大小写匹配 ignorecase 	-c # 只输出匹配的行数 	-E # 适用egrep匹配 	--color=auto # 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep=&amp;#39;grep --color=auto&amp;#39;) 	-w # 整词对比，而不是字符 	-o # 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数）  -q # 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等）  -l # 只输出匹配的文件名  -r # 递归模式，查找所有层级子目录里的文件 [pattern] 	# 匹配模式，见正则表达式篇 例子：</description>
+    </item>
+    
     <item>
       <title>Redis-常用数据类型</title>
       <link>http://pipony.github.io/post/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
@@ -15,7 +30,7 @@
       
       <guid>http://pipony.github.io/post/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
       <description>Redis-常用数据类型 查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
-key </description>
+key类型 [commands] # 这些命令的含义很容易看出，故直接看例子吧 	- keys * 	- set key value 	- exists key 	- type key 	- del key 	- unlink key 	- expire key time(second) 	- ttl key 	- dbsize  [cindy@iZbp15qc4wmx335c268l5mZ ~]$ redis-cli 127.0.0.1:6379&amp;gt; keys * # 列出当前数据库的所有key (empty array) 127.0.0.1:6379&amp;gt; set k1 cindy # 设置key为&amp;#34;k1&amp;#34;的值为&amp;#34;cindy&amp;#34; OK 127.0.0.1:6379&amp;gt; set k2 coco OK 127.0.0.1:6379&amp;gt; set k3 alice OK 127.</description>
     </item>
     
     <item>
@@ -116,12 +131,12 @@ https://www.cnblogs.com/klb561/p/12064095.html#/</description>
     </item>
     
     <item>
-      <title>Linux运维篇之top</title>
-      <link>http://pipony.github.io/post/shell/linux%E8%BF%90%E7%BB%B4%E7%AF%87%E4%B9%8Btop/</link>
+      <title>Linux-top命令</title>
+      <link>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/shell/linux%E8%BF%90%E7%BB%B4%E7%AF%87%E4%B9%8Btop/</guid>
-      <description>Linux运维篇之top 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
+      <guid>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
+      <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
 执行权限：所有用户
 命令 #TODO
 快捷键 摘自：https://blog.csdn.net/Luckiers/article/details/123909819#/

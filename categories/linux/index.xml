@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/categories/linux/</link>
+    <description>Recent content in Linux on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Cindy</copyright>
+    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux-管道篇</title>
+      <link>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>
+      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
+      <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
+格式：命令1 | 命令2 | ...
+管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
+管道（又称无名管道）和命名管道FIFO的区别：等后面学到命名管道了再说
+注意点  管道只能传输正确输出，而无法传输错误信息。从管道接连输出的标准错误会混合到一起。  常见相关命令 grep (Global search REgular expression and Print out the line) 根据模式（正则表达式）对文本逐行扫描，找到并打印匹配的行
+格式：
+grep [options] [pattern] file or command | grep [options] [pattern]  [options] 	-v # 反向匹配 invert (等同于--invert-match) 	-n # 输出加上行号 	-i # 忽略大小写匹配 ignorecase 	-c # 只输出匹配的行数 	-E # 适用egrep匹配 	--color=auto # 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep=&amp;#39;grep --color=auto&amp;#39;) 	-w # 整词对比，而不是字符 	-o # 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数）  -q # 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等）  -l # 只输出匹配的文件名  -r # 递归模式，查找所有层级子目录里的文件 [pattern] 	# 匹配模式，见正则表达式篇 例子：</description>
+    </item>
+    
+    <item>
+      <title>Linux-top命令</title>
+      <link>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
+      <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
+执行权限：所有用户
+命令 #TODO
+快捷键 摘自：https://blog.csdn.net/Luckiers/article/details/123909819#/
+Ctrl+L 擦除并且重写屏幕。  h或者? 显示帮助画面，给出一些简短的命令总结说明。  k 终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。  i 忽略闲置和僵死进程。这是一个开关式命令。  q 退出程序。  r 重新安排一个进程的优先级别。系统提示用户输入需要改变的进程PID以及需要设置的进程优先级值。输入一个正值将使优先级降低，反之则可以使该进程拥有更高的优先权。默认值是10。  S 切换到累计模式。  s 改变两次刷新之间的延迟时间。系统将提示用户输入新的时间，单位为s。如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s。需要注意的是如果设置太小的时间，很可能会引起不断刷新，从而根本来不及看清显示的情况，而且系统负载也会大大增加。  f或者F 从当前显示中添加或者删除项目。  o或者O 改变显示项目的顺序。  l 切换显示平均负载和启动时间信息。  m 切换显示内存信息。  t 切换显示进程和CPU状态信息。  c 切换显示命令名称和完整命令行。  M 根据驻留内存大小进行排序。  P 根据CPU使用百分比大小进行排序。  T 根据时间/累计时间进行排序。  W 将当前设置写入~/.toprc文件中。这是写top配置文件的推荐方法。 结果解读 解读截图（来自 https://blog.csdn.net/zhuoya_/article/details/81049967#/）：
+分析：top命令截图（以我自己的云主机为例）
+前5行是系统状态总览，后面是依次分析系统正在运行的每个任务的状态
+  第1行：任务队列信息（同 uptime 命令的执行结果，依次是当前时间、系统已经运行的时间、当前用户数、系统负载【即任务队列的平均长度。 三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值】）</description>
+    </item>
+    
+  </channel>
+</rss>

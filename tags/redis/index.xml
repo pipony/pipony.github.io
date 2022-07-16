@@ -15,7 +15,7 @@
       
       <guid>http://pipony.github.io/post/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
       <description>Redis-常用数据类型 查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
-key </description>
+key类型 [commands] # 这些命令的含义很容易看出，故直接看例子吧 	- keys * 	- set key value 	- exists key 	- type key 	- del key 	- unlink key 	- expire key time(second) 	- ttl key 	- dbsize  [cindy@iZbp15qc4wmx335c268l5mZ ~]$ redis-cli 127.0.0.1:6379&amp;gt; keys * # 列出当前数据库的所有key (empty array) 127.0.0.1:6379&amp;gt; set k1 cindy # 设置key为&amp;#34;k1&amp;#34;的值为&amp;#34;cindy&amp;#34; OK 127.0.0.1:6379&amp;gt; set k2 coco OK 127.0.0.1:6379&amp;gt; set k3 alice OK 127.</description>
     </item>
     
     <item>
