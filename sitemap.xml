@@ -3,35 +3,77 @@
   
   <url>
     <loc>http://pipony.github.io/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://pipony.github.io/categories/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/tags/linux/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/categories/linux/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://pipony.github.io/post/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://pipony.github.io/tags/redis/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://pipony.github.io/categories/redis/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/post/redis/redis-jedis/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/post/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://pipony.github.io/tags/</loc>
+    <lastmod>2022-07-31T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -53,34 +95,6 @@
   <url>
     <loc>http://pipony.github.io/post/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2022-07-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://pipony.github.io/tags/</loc>
-    <lastmod>2022-07-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://pipony.github.io/tags/linux/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://pipony.github.io/categories/linux/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</loc>
-    <lastmod>2022-07-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="olOwOlo" /><meta name="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -43,13 +43,13 @@
 <meta property="og:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-07-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-16T00:00:00+00:00" />
+<meta property="article:published_time" content="2022-07-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-31T00:00:00+00:00" />
 
 <meta itemprop="name" content="Linux-管道篇">
-<meta itemprop="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"><meta itemprop="datePublished" content="2022-07-16T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-07-16T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1977">
+<meta itemprop="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"><meta itemprop="datePublished" content="2022-07-31T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-31T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2740">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-管道篇"/>
 <meta name="twitter:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"/>
@@ -128,7 +128,7 @@
       <h1 class="post-title">Linux-管道篇</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2022-07-16 </span>
+        <span class="post-time"> 2022-07-31 </span>
         <div class="post-category">
             <a href="/categories/linux/"> Linux </a>
             </div>
@@ -515,27 +515,228 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="sort-wc-uniq">sort, wc, uniq</h3>
-<h3 id="tee">tee</h3>
+<h4 id="sort">sort</h4>
+<p>针对文本文件的内容，以行为单位进行排序</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sort <span class="o">[</span>options<span class="o">]</span> file
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> sort <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	-n <span class="c1"># 以数字格式来大小排序（默认是以字符串格式）</span>
+</span></span><span class="line"><span class="cl">	-r <span class="c1"># 反向排序（从大到小）</span>
+</span></span><span class="line"><span class="cl">	-k <span class="c1"># 以某列进行排序</span>
+</span></span><span class="line"><span class="cl">	-t <span class="c1"># 指定分隔符（默认分割符为空格）</span>
+</span></span><span class="line"><span class="cl">	-b <span class="c1"># 忽略每行前面的空格再排序</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt
+</span></span><span class="line"><span class="cl"><span class="m">12</span> <span class="m">13</span> <span class="m">14</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt <span class="p">|</span> sort  <span class="c1"># 按照字符串格式比较，即依次比较第1,2..个字符</span>
+</span></span><span class="line"><span class="cl"><span class="m">12</span> <span class="m">13</span> <span class="m">14</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt <span class="p">|</span> sort -r
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="m">12</span> <span class="m">13</span> <span class="m">14</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt <span class="p">|</span> sort -n  <span class="c1"># 按数字格式比较，即2&lt;12</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">1</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">3</span> <span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">12</span> <span class="m">13</span> <span class="m">14</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ vi testSort.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt
+</span></span><span class="line"><span class="cl">12,13,14
+</span></span><span class="line"><span class="cl">2,3,4
+</span></span><span class="line"><span class="cl">2,1,5
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testSort.txt <span class="p">|</span> sort -k <span class="m">2</span> -t <span class="s1">&#39;,&#39;</span> -n  <span class="c1"># 分隔符为逗号，根据第2列的数字格式排序</span>
+</span></span><span class="line"><span class="cl">2,1,5
+</span></span><span class="line"><span class="cl">2,3,4
+</span></span><span class="line"><span class="cl">12,13,14
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="wc">wc</h4>
+<p>用于统计文件的字节数、字数、行数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wc <span class="o">[</span>options<span class="o">]</span> file
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> wc <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	-c <span class="c1"># 统计字节(char)数</span>
+</span></span><span class="line"><span class="cl">	-l <span class="c1"># 行数(line)</span>
+</span></span><span class="line"><span class="cl">	-m <span class="c1"># 字符数</span>
+</span></span><span class="line"><span class="cl">	-w <span class="c1"># 字数(word)，一个字被定义为由空白、跳格或换行字符分隔的字符串。</span>
+</span></span><span class="line"><span class="cl">	-L <span class="c1"># 获取最长行的长度</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;123&#34;</span> <span class="p">|</span> wc -c
+</span></span><span class="line"><span class="cl"><span class="m">4</span>  <span class="c1"># 因为echo输出会带换行符，而换行符也会被算1个，故结果是4</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;123&#34;</span> <span class="p">|</span> wc -m
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;123&#34;</span> <span class="p">|</span> wc -w
+</span></span><span class="line"><span class="cl"><span class="m">1</span>  <span class="c1"># 123算一个字</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ vi testWc.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testWc.txt
+</span></span><span class="line"><span class="cl"><span class="m">123</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl">我
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ wc testWc.txt <span class="c1"># 参数分别为：行数，字数，字节数，文件名</span>
+</span></span><span class="line"><span class="cl"> <span class="m">3</span>  <span class="m">3</span> <span class="m">10</span> testWc.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testWc.txt <span class="p">|</span> wc -c
+</span></span><span class="line"><span class="cl"><span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testWc.txt <span class="p">|</span> wc -m  <span class="c1"># 注意-c和-m对于中文的长度统计不一样</span>
+</span></span><span class="line"><span class="cl"><span class="m">8</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> -n <span class="s2">&#34;123&#34;</span> <span class="p">|</span> wc -m  <span class="c1"># echo -n 表示不输出换行符的echo</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testWc.txt <span class="p">|</span> wc -l  <span class="c1"># 统计行数（常用）</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="uniq">uniq</h4>
+<p>用于检查或删除重复的列，可以与sort结合使用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">uniq <span class="o">[</span>options<span class="o">]</span> file
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> uniq <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	- uniq filename <span class="c1"># 在该文件的基础上剔除重复的行</span>
+</span></span><span class="line"><span class="cl">	-u <span class="c1"># 仅显示只出现一次的行(unique)</span>
+</span></span><span class="line"><span class="cl">	-d <span class="c1"># 仅显示有重复的行(dupli)</span>
+</span></span><span class="line"><span class="cl">	-c <span class="c1"># 在每一行前面标上重复的行数(count)</span>
+</span></span><span class="line"><span class="cl">	-i <span class="c1"># 忽略大小写(ignore)</span>
+</span></span><span class="line"><span class="cl">	-f <span class="c1"># 忽略比较第几栏（以空格为分割符）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"></code></pre></td></tr></table>
+</div>
+</div><h3 id="tee">tee</h3>
 <h3 id="split">split</h3>
 <h3 id="xargs">xargs</h3>
 <h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.cnblogs.com/w-j-q/p/14833714.html#/">https://www.cnblogs.com/w-j-q/p/14833714.html#/</a></p>
-<p><a href="https://blog.csdn.net/m0_50370837/article/details/125068528#/">https://blog.csdn.net/m0_50370837/article/details/125068528#/</a></p>
-<p><a href="https://blog.csdn.net/weixin_50196615/article/details/121834020#/">https://blog.csdn.net/weixin_50196615/article/details/121834020#/</a></p>
-<p><a href="https://blog.csdn.net/weixin_45842494/article/details/124679008#/">https://blog.csdn.net/weixin_45842494/article/details/124679008#/</a></p>
-<p><a href="http://linux.tedu.cn/workplace/420732.html#/">http://linux.tedu.cn/workplace/420732.html#/</a></p>
+<p><a href="https://www.cnblogs.com/w-j-q/p/14833714.html">https://www.cnblogs.com/w-j-q/p/14833714.html</a></p>
+<p><a href="https://blog.csdn.net/m0_50370837/article/details/125068528">https://blog.csdn.net/m0_50370837/article/details/125068528</a></p>
+<p><a href="https://blog.csdn.net/weixin_50196615/article/details/121834020">https://blog.csdn.net/weixin_50196615/article/details/121834020</a></p>
+<p><a href="https://blog.csdn.net/weixin_45842494/article/details/124679008">https://blog.csdn.net/weixin_45842494/article/details/124679008</a></p>
+<p><a href="http://linux.tedu.cn/workplace/420732.html">http://linux.tedu.cn/workplace/420732.html</a></p>
+<p><a href="https://blog.csdn.net/cnds123321/article/details/125150383">https://blog.csdn.net/cnds123321/article/details/125150383</a></p>
+<p><a href="https://blog.csdn.net/carefree2005/article/details/115324770">https://blog.csdn.net/carefree2005/article/details/115324770</a></p>
 
     </div>
 
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">olOwOlo</span>
+    <span class="item-content">Cindy.H</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-07-16
+        2022-07-31
         
     </span>
   </p>
@@ -547,13 +748,9 @@
           <a href="/tags/linux/">Linux</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Redis-配置文件</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/redis/redis-redis%E5%9F%BA%E7%A1%80/">
-            <span class="next-text nav-default">Redis-Redis基础</span>
+        
+        <a class="next" href="/post/redis/redis-jedis/">
+            <span class="next-text nav-default">Redis-Jedis</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -572,21 +769,6 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
-      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
-      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
-      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
-      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
-      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
-      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
-      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
-      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
-      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
-      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
-      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
-      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
   <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
@@ -605,7 +787,7 @@
   <span class="copyright-year">
     &copy; 
     2017 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
   </span>
 </div>
 
