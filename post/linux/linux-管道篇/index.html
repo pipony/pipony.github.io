@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux-管道篇 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux-管道篇" />
+<meta property="og:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-07-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-07-16T00:00:00+00:00" />
+
+<meta itemprop="name" content="Linux-管道篇">
+<meta itemprop="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"><meta itemprop="datePublished" content="2022-07-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1977">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux-管道篇"/>
+<meta name="twitter:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux-管道篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-07-16 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#linux-管道篇">Linux-管道篇</a>
+      <ul>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#注意点">注意点</a></li>
+        <li><a href="#常见相关命令">常见相关命令</a>
+          <ul>
+            <li><a href="#grep-global-search-regular-expression-and-print-out-the-line">grep (Global search REgular expression and Print out the line)</a></li>
+            <li><a href="#cut">cut</a></li>
+            <li><a href="#sort-wc-uniq">sort, wc, uniq</a></li>
+            <li><a href="#tee">tee</a></li>
+            <li><a href="#split">split</a></li>
+            <li><a href="#xargs">xargs</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="linux-管道篇">Linux-管道篇</h1>
+<h2 id="概念">概念</h2>
+<p>管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）</p>
+<p>格式：<code>命令1 | 命令2 | ...</code></p>
+<p>管道和重定向（<code>命令1 &gt; file</code>）的区别：重定向是接收对象是文件，而管道是接命令的。</p>
+<p>管道（又称无名管道）和命名管道FIFO的区别：<em><font color='red'>等后面学到命名管道了再说</font></em></p>
+<h2 id="注意点">注意点</h2>
+<ul>
+<li><strong>管道只能传输正确输出，而无法传输错误信息</strong>。从管道接连输出的标准错误会混合到一起。</li>
+</ul>
+<h2 id="常见相关命令">常见相关命令</h2>
+<h3 id="grep-global-search-regular-expression-and-print-out-the-line">grep (Global search REgular expression and Print out the line)</h3>
+<p>根据模式（正则表达式）对文本<strong>逐行</strong>扫描，找到并打印匹配的行</p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">grep <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>pattern<span class="o">]</span> file
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> grep <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>pattern<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	-v <span class="c1"># 反向匹配 invert (等同于--invert-match)</span>
+</span></span><span class="line"><span class="cl">	-n <span class="c1"># 输出加上行号</span>
+</span></span><span class="line"><span class="cl">	-i <span class="c1"># 忽略大小写匹配 ignorecase</span>
+</span></span><span class="line"><span class="cl">	-c <span class="c1"># 只输出匹配的行数</span>
+</span></span><span class="line"><span class="cl">	-E <span class="c1"># 适用egrep匹配</span>
+</span></span><span class="line"><span class="cl">	--color<span class="o">=</span>auto <span class="c1"># 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep=&#39;grep --color=auto&#39;)</span>
+</span></span><span class="line"><span class="cl">	-w <span class="c1"># 整词对比，而不是字符</span>
+</span></span><span class="line"><span class="cl">	-o <span class="c1"># 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数）</span>
+</span></span><span class="line"><span class="cl">    -q <span class="c1"># 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等）</span>
+</span></span><span class="line"><span class="cl">    -l <span class="c1"># 只输出匹配的文件名</span>
+</span></span><span class="line"><span class="cl">    -r <span class="c1"># 递归模式，查找所有层级子目录里的文件</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>pattern<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 匹配模式，见正则表达式篇</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt  <span class="c1"># 新建测试文件</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl">I am writing in KFC.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep <span class="s2">&#34;cindy&#34;</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -n <span class="s2">&#34;KFC&#34;</span>
+</span></span><span class="line"><span class="cl">3:I am writing in KFC.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -v <span class="s2">&#34;am&#34;</span> <span class="c1"># 空行也会被匹配到</span>
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -c <span class="s2">&#34;am&#34;</span> <span class="c1"># 只输出匹配到的行数</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep <span class="s2">&#34;i &#34;</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -i <span class="s2">&#34;i &#34;</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl">I am writing in KFC.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep <span class="s2">&#34;c*&#34;</span> <span class="c1"># 注意正则表达式和通配符的区别，正则表达式表示0个或多个&#39;c&#39;，通配符则表示匹配c+*的字符串</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl">I am writing in KFC.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep <span class="s2">&#34;c.&#34;</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep <span class="s2">&#34;ci|ch&#34;</span>  <span class="c1"># 没加-E只表示普通的匹配&#34;ci|ch&#34;字符串</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -E <span class="s2">&#34;ci|ch&#34;</span>  <span class="c1"># 加了-E，表示匹配&#39;ci&#39;或&#39;ch&#39;</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -w <span class="s2">&#34;liv&#34;</span> <span class="c1"># liv不是连在一起的“单词”，因为后面还跟着&#39;e&#39;，所有无法匹配</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -w <span class="s2">&#34;live&#34;</span>
+</span></span><span class="line"><span class="cl">i live in china!
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -q <span class="s2">&#34;liv&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="nv">$?</span>  
+</span></span><span class="line"><span class="cl"><span class="m">0</span>  <span class="c1"># 匹配到</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -q <span class="s2">&#34;abc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="nv">$?</span>  
+</span></span><span class="line"><span class="cl"><span class="m">1</span>  <span class="c1"># 没匹配到</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testGrep.txt <span class="p">|</span> grep -o <span class="s2">&#34;in&#34;</span> <span class="p">|</span> wc -l <span class="c1"># 获取匹配的次数</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">cd</span> testGrepDir
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">i am from file1 haha
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">i am from file2 haha
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ grep -l <span class="s2">&#34;from&#34;</span> ./*  <span class="c1"># 只输出匹配到的文件名</span>
+</span></span><span class="line"><span class="cl">./1.txt
+</span></span><span class="line"><span class="cl">./2.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ <span class="nb">cd</span> testGrepDir2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir2<span class="o">]</span>$ cat 3.txt
+</span></span><span class="line"><span class="cl">i am from file3 haha
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir2<span class="o">]</span>$ <span class="nb">cd</span> .. 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ grep -l <span class="s2">&#34;from&#34;</span> ./*  <span class="c1"># 非递归模式</span>
+</span></span><span class="line"><span class="cl">./1.txt
+</span></span><span class="line"><span class="cl">./2.txt
+</span></span><span class="line"><span class="cl">grep: ./testGrepDir2: Is a directory
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ testGrepDir<span class="o">]</span>$ grep -rl <span class="s2">&#34;from&#34;</span> ./*  <span class="c1"># 递归模式</span>
+</span></span><span class="line"><span class="cl">./1.txt
+</span></span><span class="line"><span class="cl">./2.txt
+</span></span><span class="line"><span class="cl">./testGrepDir2/3.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cut">cut</h3>
+<p>根据某条件（分隔符）分割输入的内容，并输出特定的分割结果。<strong>但是<code>cut</code>只支持单个字符的分隔符。</strong></p>
+<p>格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cut <span class="o">[</span>options<span class="o">]</span> file
+</span></span><span class="line"><span class="cl">or
+</span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> cut <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	-d <span class="c1"># 指定分割符（默认分隔符是Tab，而不是空格），常与-f配合适用。分隔符只能是单个字符。</span>
+</span></span><span class="line"><span class="cl">	-f <span class="c1"># 指定输出分割后的第几列</span>
+</span></span><span class="line"><span class="cl">    -c <span class="c1"># 指定输出某区间结果（以字符为单位）</span>
+</span></span><span class="line"><span class="cl">    -b <span class="c1"># 以字节为单位指定某区间结果</span>
+</span></span><span class="line"><span class="cl">    –complement <span class="c1"># 反选选中的部分，即输出除去该条件的内容</span>
+</span></span><span class="line"><span class="cl">	–output-delimiter <span class="c1"># 修改输出时使用的分隔符。</span>
+</span></span><span class="line"><span class="cl">	--only-delimited <span class="c1"># 不输出不包含分隔符的列。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt  <span class="c1"># 新建测试文件</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">it.so.hot
+</span></span><span class="line"><span class="cl">butiamcold
+</span></span><span class="line"><span class="cl">但是我冷呀
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -d <span class="s1">&#39;.&#39;</span> -f <span class="m">2</span>  <span class="c1"># 第三行有匹配到分隔符，并输出第2个内容。其他行没有匹配到，全部输出。</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">so
+</span></span><span class="line"><span class="cl">butiamcold
+</span></span><span class="line"><span class="cl">但是我冷呀
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -d <span class="s1">&#39;.&#39;</span> -f <span class="m">4</span>  <span class="c1"># 第三行有匹配到分隔符，但分割后只有三个子字符串，故输出为空</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">butiamcold
+</span></span><span class="line"><span class="cl">但是我冷呀
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -c <span class="m">1</span>  <span class="c1"># 分割第一个字符</span>
+</span></span><span class="line"><span class="cl">i
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">i
+</span></span><span class="line"><span class="cl">b
+</span></span><span class="line"><span class="cl">但
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -c 1-3  <span class="c1"># 分割1-3个字符</span>
+</span></span><span class="line"><span class="cl">i a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">it.
+</span></span><span class="line"><span class="cl">but
+</span></span><span class="line"><span class="cl">但是我
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -d <span class="s1">&#39;.&#39;</span> -f 2,3  <span class="c1"># 取第2和第3个分割结果</span>
+</span></span><span class="line"><span class="cl">i am cindy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">so.hot
+</span></span><span class="line"><span class="cl">butiamcold
+</span></span><span class="line"><span class="cl">但是我冷呀
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;12345678&#34;</span> <span class="p">|</span> cut -c -4  <span class="c1"># 取第4个之前的字符</span>
+</span></span><span class="line"><span class="cl"><span class="m">1234</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;1 2 3&#34;</span> <span class="p">|</span> cut -d <span class="s1">&#39;:&#39;</span> -f 1-  <span class="c1"># 取第1个之后的字符</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;1  2&#34;</span> <span class="p">|</span> cut -d  <span class="s1">&#39;  &#39;</span> -f <span class="m">2</span>  <span class="c1"># 分隔符不能指定超过单个字符</span>
+</span></span><span class="line"><span class="cl">cut: the delimiter must be a single character
+</span></span><span class="line"><span class="cl">Try <span class="s1">&#39;cut --help&#39;</span> <span class="k">for</span> more information.
+</span></span><span class="line"><span class="cl"><span class="c1"># 英文 cut -b/-c 没啥区别，但是中文就不一样了，如下所示（提醒：一个汉字对应多少个字节，要看采用的编码方式）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;咖啡&#34;</span> <span class="p">|</span> cut -c 1-2
+</span></span><span class="line"><span class="cl">咖啡
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;咖啡&#34;</span> <span class="p">|</span> cut -b 1-2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;咖啡&#34;</span> <span class="p">|</span> cut -b 1-6
+</span></span><span class="line"><span class="cl">咖啡
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;咖啡&#34;</span> <span class="p">|</span> cut -b 1-5
+</span></span><span class="line"><span class="cl">咖
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;1 2 3&#34;</span> <span class="p">|</span> cut -d <span class="s1">&#39; &#39;</span> --complement -f2
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl">/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/cindy/.local/bin:/home/cindy/bin
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="nv">$PATH</span> <span class="p">|</span> cut -d <span class="s1">&#39;:&#39;</span> -f 2-4 --output-delimiter <span class="s1">&#39; &#39;</span>  <span class="c1"># 分割后，取出第2到第4的内容，并替换:为空格符输出</span>
+</span></span><span class="line"><span class="cl">/usr/bin /usr/local/sbin /usr/sbin
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testCut.txt <span class="p">|</span> cut -d <span class="s1">&#39;.&#39;</span> -f 1- --only-delimited  <span class="c1"># 只输出匹配到分隔符的行</span>
+</span></span><span class="line"><span class="cl">it.so.hot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sort-wc-uniq">sort, wc, uniq</h3>
+<h3 id="tee">tee</h3>
+<h3 id="split">split</h3>
+<h3 id="xargs">xargs</h3>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/w-j-q/p/14833714.html#/">https://www.cnblogs.com/w-j-q/p/14833714.html#/</a></p>
+<p><a href="https://blog.csdn.net/m0_50370837/article/details/125068528#/">https://blog.csdn.net/m0_50370837/article/details/125068528#/</a></p>
+<p><a href="https://blog.csdn.net/weixin_50196615/article/details/121834020#/">https://blog.csdn.net/weixin_50196615/article/details/121834020#/</a></p>
+<p><a href="https://blog.csdn.net/weixin_45842494/article/details/124679008#/">https://blog.csdn.net/weixin_45842494/article/details/124679008#/</a></p>
+<p><a href="http://linux.tedu.cn/workplace/420732.html#/">http://linux.tedu.cn/workplace/420732.html#/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-07-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Redis-配置文件</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/redis/redis-redis%E5%9F%BA%E7%A1%80/">
+            <span class="next-text nav-default">Redis-Redis基础</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

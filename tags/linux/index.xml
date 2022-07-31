@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/tags/linux/</link>
+    <description>Recent content in Linux on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 16 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux-管道篇</title>
+      <link>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>
+      <pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
+      <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准</description>
+    </item>
+    
+    <item>
+      <title>Linux-top命令</title>
+      <link>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
+      <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器） 执行权限：所</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>异常的处理 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="异常的处理" />
+<meta property="og:description" content="异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-04T00:00:00+00:00" />
+
+<meta itemprop="name" content="异常的处理">
+<meta itemprop="description" content="异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引"><meta itemprop="datePublished" content="2022-06-04T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-06-04T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2563">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="异常的处理"/>
+<meta name="twitter:description" content="异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">异常的处理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-06-04 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#异常的处理">异常的处理</a>
+      <ul>
+        <li><a href="#分类">分类</a></li>
+        <li><a href="#异常的层次">异常的层次</a></li>
+        <li><a href="#常见内置异常类">常见内置异常类</a></li>
+        <li><a href="#异常处理">异常处理</a>
+          <ul>
+            <li><a href="#方法1捕获处理">方法1：捕获处理</a></li>
+            <li><a href="#方法2抛出异常">方法2：抛出异常</a></li>
+          </ul>
+        </li>
+        <li><a href="#常用方法">常用方法</a></li>
+        <li><a href="#自定义异常">自定义异常</a></li>
+        <li><a href="#try-with-resources">Try-With-Resources</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="异常的处理">异常的处理</h1>
+<h2 id="分类">分类</h2>
+<ul>
+<li>异常（Exception）
+<ul>
+<li>运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。</li>
+<li>非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。</li>
+</ul>
+</li>
+<li>错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。</li>
+</ul>
+<h2 id="异常的层次">异常的层次</h2>
+<p>Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）</p>
+<p><img src="http://cdn.huangxindi.com/img/exception-hierarchy.png" alt="img"></p>
+<h2 id="常见内置异常类">常见内置异常类</h2>
+<p>Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 <a href="https://www.runoob.com/java/java-exceptions.html#/">https://www.runoob.com/java/java-exceptions.html#/</a></p>
+<p>或者链接 <a href="https://blog.csdn.net/Pandafz1997/article/details/119898686#/">https://blog.csdn.net/Pandafz1997/article/details/119898686#/</a> 给出的：</p>
+<p>异常类	说明
+ClassCastException	类型转换异常
+ArrayIndexOutOfBoundsException	数组越界异常
+NegativeArraySizeException	指定数组维数为负值异常
+ArithmeticException	算数异常
+InternalException	Java系统内部异常
+NullPointerException	空指针异常
+IllegalAccessException	类定义不明确所产生的异常
+IOException	一般情况下不能完成I/O操作产生的异常
+EOFException	打开文件没有数据可以读取的异常
+FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常
+ClassNotFoundException	找不到类或接口所产生的异常
+CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常</p>
+<h2 id="异常处理">异常处理</h2>
+<h3 id="方法1捕获处理">方法1：捕获处理</h3>
+<p>try+catch(+finally)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//最终执行的代码块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用<code>Exception e</code>。</p>
+<p>finally不是必须的，包含无论是否发生异常都会被执行到的代码块（一般包含清理类型等收尾善后性质的语句）。</p>
+<blockquote>
+<p>有4种特殊情况，finally块不会被执行：</p>
+<ul>
+<li>finally语句块中发生了异常</li>
+<li>前面的代码中执行了System.exit()退出程序</li>
+<li>程序中所在的线程死亡</li>
+<li>关闭CPU</li>
+</ul>
+<p>需要注意的是，就算try块中有return，也会先执行完finally再return。</p>
+<p>当try中抛出异常且catch中有return语句，finally中没有return语句，java先执行catch中非return语句，再执行finally语句，最后执行return语句。若try中没有抛出异常，则程序不会执行catch体里面的语句，java先执行try中非return语句，再执行finally语句，最后再执行try中的return语句。</p>
+<p>但是：finally中有return时，会覆盖掉try和catch中的return。</p>
+<p>如果finally中定义的数据是基本数据类型或文本字符串，则在finally中对该基本数据的改变不起作用，try中的return语句依然会返回进入finally块中之前保存的值；如果finally中定义的数据是是引用类型，则finally中的语句会起作用，try中return语句的值就是在finally中改变后该属性的值。</p>
+<p>以上举例见：https://blog.csdn.net/Pandafz1997/article/details/119898686#/</p>
+</blockquote>
+<p>try不能单独存在，必须跟上catch或finally。</p>
+<h4 id="多重捕获">多重捕获</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName1</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常1时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName2</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常2时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行逻辑：依次匹配异常，当匹配到该异常或尝试匹配完所有异常后，停止匹配。</p>
+<blockquote>
+<p>通常，为捕获到所有可能出现的异常，可以在处理异常的末尾，加上Exception 类，这样即可以使所有异常都被捕捉到，也可以防止想捕获具体异常时被它提前捕获。</p>
+</blockquote>
+<h3 id="方法2抛出异常">方法2：抛出异常</h3>
+<p>throw（用于抛出异常），throws（用在方法签名中，用于声明该方法可能抛出的异常）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ExceptionName1</span><span class="o">,</span> <span class="n">ExceptionName2</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//可能抛出异常的代码块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若指定抛出特定的异常类，则在throws后面指定异常类；若要抛出任意异常，则直接用<code>Exception</code>。可抛出多个异常类，用逗号隔开（如上）。</p>
+<p>若要在执行代码块中手动抛出异常，格式为：<code>throw new 异常类名(参数)；</code>。<strong>通常用于抛出自定义的异常类</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ArithmeticException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="n">ArithmeticException</span><span class="o">(</span><span class="s">&#34;异常信息：除数不能为0&#34;</span><span class="o">);</span><span class="c1">//抛出具体问题，编译时不检测
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>throw</code><strong>在方法体中</strong>，程序会在throw语句后立即终止，它后面的语句执行不到（后面的语句写了也会编译不通过）。</p>
+<p>try+catch(+finally) 和 throw 并不是互斥的，两者可以结合使用。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="n">ExceptionName1</span><span class="o">(</span><span class="s">&#34;eMessage&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">catch</span> <span class="o">....</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在finally语句块中有return语句，finally语句可以让throw和return共存。</p>
+<p>注意：调用方法必须遵循一个原则：若覆盖一个方法，则不能声明与覆盖方法不同的异常，声明的任何异常必须是被覆盖方法所声明异常的同类或子类。如下例子（https://blog.csdn.net/Pandafz1997/article/details/119898686#/）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example6_3</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span><span class="c1">//合法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//编译错误，必须捕获或声明抛出IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method2</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  	<span class="c1">//编译错误，必须捕获或声明抛出IOException或其父类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOError</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出Exception，Exception是IOException的父类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method4</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，捕获IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method5</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//编译错误，必须捕获或声明抛出Exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method6</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出Exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method7</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用方法">常用方法</h2>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th><strong>public String getMessage()</strong>  返回关于发生的异常的详细信息。这个消息在Throwable 类的构造函数中初始化了。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><strong>public Throwable getCause()</strong> 返回一个 Throwable 对象代表异常原因。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public String toString()</strong> 返回此 Throwable 的简短描述。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public void printStackTrace()</strong> 将此 Throwable 及其回溯打印到标准错误流。。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public StackTraceElement [] getStackTrace()</strong> 返回一个包含堆栈层次的数组。下标为0的元素代表栈顶，最后一个元素代表方法调用堆栈的栈底。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public Throwable fillInStackTrace()</strong> 用当前的调用栈层次填充Throwable 对象栈层次，添加到栈层次任何先前信息中。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="自定义异常">自定义异常</h2>
+<h2 id="try-with-resources">Try-With-Resources</h2>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/Pandafz1997/article/details/119898686#/">https://blog.csdn.net/Pandafz1997/article/details/119898686#/</a></p>
+<p><a href="https://www.runoob.com/java/java-exceptions.html#/">https://www.runoob.com/java/java-exceptions.html#/</a></p>
+<p><a href="https://blog.csdn.net/java_cxrs/article/details/91661623#/">https://blog.csdn.net/java_cxrs/article/details/91661623#/</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-06-04
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">SQL函数篇</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">
+            <span class="next-text nav-default">开始Hugo&#43;Github Pages</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
