@@ -6,7 +6,34 @@
     <description>Recent content on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux-安装Oracle</title>
+      <link>http://pipony.github.io/post/database/linux-%E5%AE%89%E8%A3%85oracle/</link>
+      <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/linux-%E5%AE%89%E8%A3%85oracle/</guid>
+      <description>Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上</description>
+    </item>
+    
+    <item>
+      <title>Oracle-实现事务提交和回滚</title>
+      <link>http://pipony.github.io/post/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</link>
+      <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</guid>
+      <description>Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s</description>
+    </item>
+    
+    <item>
+      <title>认识Jar包</title>
+      <link>http://pipony.github.io/post/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
+      <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
+      <description>认识Jar包 概念 Jar：Java Archive File 基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是</description>
+    </item>
+    
     <item>
       <title>Linux-管道篇</title>
       <link>http://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>

@@ -6,7 +6,16 @@
     <description>Recent content in Java on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 30 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>认识Jar包</title>
+      <link>http://pipony.github.io/post/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
+      <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
+      <description>认识Jar包 概念 Jar：Java Archive File 基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是</description>
+    </item>
+    
     <item>
       <title>文档注释</title>
       <link>http://pipony.github.io/post/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>

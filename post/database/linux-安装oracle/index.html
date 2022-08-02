@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Redis开始 - 2MUCH-Tech-Notes</title>
+  <title>Linux-安装Oracle - 2MUCH-Tech-Notes</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Cindy.H" /><meta name="description" content="Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.101.0 with theme even" />
 
 
-<link rel="canonical" href="http://pipony.github.io/post/redis/redis%E5%BC%80%E5%A7%8B/" />
+<link rel="canonical" href="http://pipony.github.io/post/database/linux-%E5%AE%89%E8%A3%85oracle/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Redis开始" />
-<meta property="og:description" content="Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的" />
+<meta property="og:title" content="Linux-安装Oracle" />
+<meta property="og:description" content="Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://pipony.github.io/post/redis/redis%E5%BC%80%E5%A7%8B/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-07-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-03T00:00:00+00:00" />
+<meta property="og:url" content="http://pipony.github.io/post/database/linux-%E5%AE%89%E8%A3%85oracle/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-08-02T00:00:00+00:00" />
 
-<meta itemprop="name" content="Redis开始">
-<meta itemprop="description" content="Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的"><meta itemprop="datePublished" content="2022-07-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-07-03T00:00:00+00:00" />
-<meta itemprop="wordCount" content="54">
-<meta itemprop="keywords" content="Redis," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Redis开始"/>
-<meta name="twitter:description" content="Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的"/>
+<meta itemprop="name" content="Linux-安装Oracle">
+<meta itemprop="description" content="Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上"><meta itemprop="datePublished" content="2022-08-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-08-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="213">
+<meta itemprop="keywords" content="数据库," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux-安装Oracle"/>
+<meta name="twitter:description" content="Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -125,12 +125,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Redis开始</h1>
+      <h1 class="post-title">Linux-安装Oracle</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2022-07-03 </span>
+        <span class="post-time"> 2022-08-02 </span>
         <div class="post-category">
-            <a href="/categories/redis/"> Redis </a>
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
             </div>
         
       </div>
@@ -141,9 +141,10 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#redis开始">Redis开始</a>
+    <li><a href="#linux-安装oracle数据库">Linux-安装Oracle数据库</a>
       <ul>
-        <li><a href="#资源">资源</a></li>
+        <li><a href="#步骤概览">步骤概览</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
   </ul>
@@ -151,11 +152,27 @@
   </div>
 </div>
     <div class="post-content">
-      <h1 id="redis开始">Redis开始</h1>
-<h2 id="资源">资源</h2>
-<p>【尚硅谷】Redis 6 入门到精通 超详细 教程</p>
-<p><a href="https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/">https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/</a></p>
-<p>2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</p>
+      <h1 id="linux-安装oracle数据库">Linux-安装Oracle数据库</h1>
+<blockquote>
+<p>背景：我的阿里云linux服务器（CentOS  7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程。</p>
+</blockquote>
+<p>正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ ps -ef <span class="p">|</span> grep oracle
+</span></span><span class="line"><span class="cl">cindy    <span class="m">26709</span> <span class="m">26624</span>  <span class="m">0</span> 20:22 pts/0    00:00:00 grep --color<span class="o">=</span>auto oracle
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ id oracle
+</span></span><span class="line"><span class="cl">id: oracle: no such user
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="步骤概览">步骤概览</h2>
+<h2 id="参考链接">参考链接</h2>
 
     </div>
 
@@ -167,7 +184,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-07-03
+        2022-08-02
         
     </span>
   </p>
@@ -176,16 +193,12 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/redis/">Redis</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Redis-NoSQL数据库</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/">
-            <span class="next-text nav-default">认识编码</span>
+        
+        <a class="next" href="/post/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">
+            <span class="next-text nav-default">Oracle-实现事务提交和回滚</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
