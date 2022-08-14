@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Linux-管道篇">
 <meta itemprop="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"><meta itemprop="datePublished" content="2022-07-31T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-07-31T00:00:00+00:00" />
-<meta itemprop="wordCount" content="2740">
+<meta itemprop="wordCount" content="3068">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-管道篇"/>
 <meta name="twitter:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"/>
@@ -85,6 +85,8 @@
         <li class="mobile-menu-item">Tags</li>
       </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 
@@ -113,6 +115,8 @@
         <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
       </li>
   </ul>
 </nav>
@@ -678,7 +682,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="uniq">uniq</h4>
-<p>用于检查或删除重复的列，可以与sort结合使用。</p>
+<p>用于检查或删除重复的列，可以与<code>sort</code>结合使用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -692,6 +696,8 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">uniq <span class="o">[</span>options<span class="o">]</span> file
@@ -699,20 +705,118 @@
 </span></span><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> uniq <span class="o">[</span>options<span class="o">]</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
-</span></span><span class="line"><span class="cl">	- uniq filename <span class="c1"># 在该文件的基础上剔除重复的行</span>
-</span></span><span class="line"><span class="cl">	-u <span class="c1"># 仅显示只出现一次的行(unique)</span>
+</span></span><span class="line"><span class="cl">	- uniq filename <span class="o">(</span>cat filename <span class="p">|</span> unique<span class="o">)</span> <span class="c1"># 显示删除重复行的文件内容，但不改变原文件内容</span>
+</span></span><span class="line"><span class="cl">	-u <span class="c1"># 仅显示只出现一次的行(unique)，与`uniq filename`效果不同</span>
 </span></span><span class="line"><span class="cl">	-d <span class="c1"># 仅显示有重复的行(dupli)</span>
 </span></span><span class="line"><span class="cl">	-c <span class="c1"># 在每一行前面标上重复的行数(count)</span>
 </span></span><span class="line"><span class="cl">	-i <span class="c1"># 忽略大小写(ignore)</span>
 </span></span><span class="line"><span class="cl">	-f <span class="c1"># 忽略比较第几栏（以空格为分割符）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 需要注意的是，判断重复行的范围仅是相邻行。若不是相邻行的重复行，并不会被识别为重复行。若要实现将不相邻的重复行也视为重复的uniq命令，则要配合上sort命令：</span>
+</span></span><span class="line"><span class="cl">	sort filename <span class="p">|</span> uniq
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code></code></pre></td>
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ vi testUniq.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt
+</span></span><span class="line"><span class="cl">hhhhh
+</span></span><span class="line"><span class="cl">hhhhh
+</span></span><span class="line"><span class="cl">HHHHH
+</span></span><span class="line"><span class="cl"><span class="m">11111</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq  <span class="c1">#列出去重后的结果</span>
+</span></span><span class="line"><span class="cl">hhhhh
+</span></span><span class="line"><span class="cl">HHHHH
+</span></span><span class="line"><span class="cl"><span class="m">11111</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq -u  <span class="c1"># 只列出不重复的行</span>
+</span></span><span class="line"><span class="cl">HHHHH
+</span></span><span class="line"><span class="cl"><span class="m">11111</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq -d
+</span></span><span class="line"><span class="cl">hhhhh
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq -c
+</span></span><span class="line"><span class="cl">      <span class="m">2</span> hhhhh
+</span></span><span class="line"><span class="cl">      <span class="m">1</span> HHHHH
+</span></span><span class="line"><span class="cl">      <span class="m">1</span> <span class="m">11111</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq -i  <span class="c1"># 忽略大小写后，前三行可视为相同</span>
+</span></span><span class="line"><span class="cl">hhhhh
+</span></span><span class="line"><span class="cl"><span class="m">11111</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ uniq testUniq.txt  <span class="c1"># 输出剔重的文件内容</span>
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt  <span class="c1"># 但不改变原文件内容</span>
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat testUniq.txt <span class="p">|</span> uniq -u
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ sort testUniq.txt <span class="p">|</span> uniq
+</span></span><span class="line"><span class="cl"><span class="m">111</span>
+</span></span><span class="line"><span class="cl"><span class="m">222</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="tee">tee</h3>
 <h3 id="split">split</h3>
