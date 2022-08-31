@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Linux-管道篇">
 <meta itemprop="description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"><meta itemprop="datePublished" content="2022-07-31T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-07-31T00:00:00+00:00" />
-<meta itemprop="wordCount" content="3068">
+<meta itemprop="wordCount" content="3481">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-管道篇"/>
 <meta name="twitter:description" content="Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准"/>
@@ -819,7 +819,105 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="tee">tee</h3>
-<h3 id="split">split</h3>
+<p>标准输入 -&gt; tee -&gt; 标准输出**+文件**，即实现既将执行结果输出，并保存到文件中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">command</span> <span class="p">|</span> tee <span class="o">[</span>options<span class="o">]</span> filenameßß
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">	-a <span class="c1"># 追加写到文件（默认是覆盖写）</span>
+</span></span><span class="line"><span class="cl">	-i <span class="c1"># 忽略中断信号</span>
+</span></span><span class="line"><span class="cl">	- - ... <span class="c1"># 重复多次</span>
+</span></span><span class="line"><span class="cl">	&gt; dev/null <span class="c1"># 静默输出（只输出到文件）</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 注：默认会将标准输入的信息通过tee输出到文件中（即，过滤错误信息），如需要一并输出错误信息，则要结合 2&gt;&amp;1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ whoami <span class="p">|</span> tee tee.txt
+</span></span><span class="line"><span class="cl">cindy  <span class="c1"># 1、控制台输出</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat tee.txt
+</span></span><span class="line"><span class="cl">cindy  <span class="c1"># 2、文件输出</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ whoami <span class="p">|</span> tee tee.txt
+</span></span><span class="line"><span class="cl">cindy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat tee.txt  <span class="c1"># 覆盖写</span>
+</span></span><span class="line"><span class="cl">cindy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ whoami <span class="p">|</span> tee -a tee.txt
+</span></span><span class="line"><span class="cl">cindy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat tee.txt  <span class="c1"># 追加写</span>
+</span></span><span class="line"><span class="cl">cindy
+</span></span><span class="line"><span class="cl">cindy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;hi&#34;</span> <span class="p">|</span> tee tee1.txt tee2.txt  <span class="c1"># 同时输出到多个文件</span>
+</span></span><span class="line"><span class="cl">hi
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat tee1.txt
+</span></span><span class="line"><span class="cl">hi
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat tee2.txt
+</span></span><span class="line"><span class="cl">hi
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;good&#34;</span> <span class="p">|</span> tee - -  <span class="c1"># 额外重复输出2次</span>
+</span></span><span class="line"><span class="cl">good
+</span></span><span class="line"><span class="cl">good
+</span></span><span class="line"><span class="cl">good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;good&#34;</span> <span class="p">|</span> tee good.txt &gt; /dev/null
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat good.txt  <span class="c1"># 仅输出到文件中</span>
+</span></span><span class="line"><span class="cl">good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ ls kkk <span class="p">|</span> tee out
+</span></span><span class="line"><span class="cl">ls: cannot access kkk: No such file or directory
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat out  <span class="c1"># 正常没有把错误信息输出到文件中</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ ls kkk 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee out
+</span></span><span class="line"><span class="cl">ls: cannot access kkk: No such file or directory
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ cat out  <span class="c1"># 此时错误信息有输出到文件中</span>
+</span></span><span class="line"><span class="cl">ls: cannot access kkk: No such file or directory
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="split">split</h3>
 <h3 id="xargs">xargs</h3>
 <h2 id="参考链接">参考链接</h2>
 <p><a href="https://www.cnblogs.com/w-j-q/p/14833714.html">https://www.cnblogs.com/w-j-q/p/14833714.html</a></p>
@@ -829,6 +927,8 @@
 <p><a href="http://linux.tedu.cn/workplace/420732.html">http://linux.tedu.cn/workplace/420732.html</a></p>
 <p><a href="https://blog.csdn.net/cnds123321/article/details/125150383">https://blog.csdn.net/cnds123321/article/details/125150383</a></p>
 <p><a href="https://blog.csdn.net/carefree2005/article/details/115324770">https://blog.csdn.net/carefree2005/article/details/115324770</a></p>
+<p><a href="https://www.cnblogs.com/baichunyu/p/15314763.html">https://www.cnblogs.com/baichunyu/p/15314763.html</a></p>
+<p><a href="https://www.cnblogs.com/nanruosen/p/16317025.html">https://www.cnblogs.com/nanruosen/p/16317025.html</a></p>
 
     </div>
 
