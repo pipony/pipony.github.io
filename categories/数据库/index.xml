@@ -6,7 +6,16 @@
     <description>Recent content in 数据库 on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 02 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GaussDB-入门</title>
+      <link>http://pipony.github.io/post/database/gaussdb-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 02 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/gaussdb-%E5%85%A5%E9%97%A8/</guid>
+      <description>GaussDB-入门</description>
+    </item>
+    
     <item>
       <title>数据库测试扫盲篇</title>
       <link>http://pipony.github.io/post/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/</link>

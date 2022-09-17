@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Maven之一：基础 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Cindy.H" /><meta name="description" content="Maven之一：基础 学习网站：http://mvnbook.com/index.html 简介 Maven英文：专家、内行 Maven：项目管理工" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Maven之一：基础" />
+<meta property="og:description" content="Maven之一：基础 学习网站：http://mvnbook.com/index.html 简介 Maven英文：专家、内行 Maven：项目管理工" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-17T00:00:00+00:00" />
+
+<meta itemprop="name" content="Maven之一：基础">
+<meta itemprop="description" content="Maven之一：基础 学习网站：http://mvnbook.com/index.html 简介 Maven英文：专家、内行 Maven：项目管理工"><meta itemprop="datePublished" content="2022-09-17T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-17T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3106">
+<meta itemprop="keywords" content="Maven," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maven之一：基础"/>
+<meta name="twitter:description" content="Maven之一：基础 学习网站：http://mvnbook.com/index.html 简介 Maven英文：专家、内行 Maven：项目管理工"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">2MUCH</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">2MUCH</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Maven之一：基础</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-09-17 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#maven之一基础">Maven之一：基础</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#下载和安装">下载和安装</a></li>
+        <li><a href="#maven仓库">Maven仓库</a>
+          <ul>
+            <li><a href="#仓库类型">仓库类型</a></li>
+            <li><a href="#本地仓库">本地仓库</a></li>
+            <li><a href="#中央仓库">中央仓库</a></li>
+            <li><a href="#远程私服仓库">远程私服仓库</a></li>
+            <li><a href="#依赖搜索顺序">依赖搜索顺序</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="maven之一基础">Maven之一：基础</h1>
+<p>学习网站：http://mvnbook.com/index.html</p>
+<h2 id="简介">简介</h2>
+<p>Maven英文：专家、内行</p>
+<p>Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的<strong>构建</strong>和<strong>依赖管理</strong>。</p>
+<ul>
+<li>项目构建：即软件项目生产的整个过程
+<ul>
+<li>文档和代码的生成</li>
+<li>代码编译、测试、打包</li>
+<li>打包好的代码进行分发和部署</li>
+</ul>
+</li>
+<li>依赖管理
+<ul>
+<li>我们需要做的就是在 POM 文件里指定依赖 Jar 包的名称、版本号，Maven 会自动下载，并递归地去下载依赖的进一步依赖</li>
+<li>快照依赖：使用快照依赖可以确保本地仓库中的每一个 Build 版本都是最新的</li>
+</ul>
+</li>
+</ul>
+<p>组成：</p>
+<ul>
+<li>项目对象模型 POM(project object model)</li>
+<li>项目生命周期 project lifecycle</li>
+<li>依赖管理系统 dependency management system</li>
+<li>各种插件</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/maven-core.png" alt=""></p>
+<p><strong>官网地址是：https://maven.apache.org/index.html</strong></p>
+<h2 id="下载和安装">下载和安装</h2>
+<p>官网下载地址是：https://maven.apache.org/download.cgi</p>
+<p><strong>Mac安装maven步骤：</strong></p>
+<p>参考链接：https://blog.csdn.net/m0_67400973/article/details/123656632</p>
+<p>1、下载Binary zip archive（如目前的最新版 apache-maven-3.8.6-bin.zip），解压并重命名文件夹为maven（或者外面再套一层maven文件夹，不需要修改原有的文件夹名称）</p>
+<p>2、配置环境变量</p>
+<p>编辑文件 .bash_profile：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim ~/.bash_profile
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加以下内容</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">M2_HOME</span><span class="o">=</span>/Users/huangxindi/study/maven <span class="c1">#这里是你maven目录的路径</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$M2_HOME</span>/bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑文件 .zshrc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim ~/.zshrc
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加以下内容</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">M2_HOME</span><span class="o">=</span>/Users/huangxindi/study/maven <span class="c1">#这里是你maven目录的路径</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$M2_HOME</span>/bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3、使修改立即生效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>4、验证maven是否安装成功</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mvn -v
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出类似以下结果，证明安装成功</span>
+</span></span><span class="line"><span class="cl">Apache Maven 3.8.6 <span class="o">(</span>84538c9988a25aec085021c365c560670ad80f63<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Maven home: /Users/huangxindi/study/maven
+</span></span><span class="line"><span class="cl">Java version: 17.0.4, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk-17.0.4.jdk/Contents/Home
+</span></span><span class="line"><span class="cl">Default locale: zh_CN_#Hans, platform encoding: UTF-8
+</span></span><span class="line"><span class="cl">OS name: <span class="s2">&#34;mac os x&#34;</span>, version: <span class="s2">&#34;12.5.1&#34;</span>, arch: <span class="s2">&#34;aarch64&#34;</span>, family: <span class="s2">&#34;mac&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="maven仓库">Maven仓库</h2>
+<h3 id="仓库类型">仓库类型</h3>
+<ul>
+<li>本地(local)仓库：Maven 从远程仓库下载下来的构件都存放在本地仓库中，项目可以从本地 Maven 仓库中获取自己所依赖的文件。</li>
+<li>中央(central)仓库：Maven 中央仓库是由 Maven 社区提供的仓库，其中包含了大量常用的库。中央仓库是 Maven 官方提供的，可通过 <a href="http://search.maven.org/">http://search.maven.org/</a> 来访问。</li>
+<li>远程(remote)私服：私服一般是指公司内部使用的仓库。运行 Maven 时，Maven 所需要的任何构件都是从本地仓库获取的，但是如果本地仓库没有，它就会尝试从远程仓库中下载构件到本地仓库。如果 Maven 无法连接到远程仓库，将无法正常构建项目。</li>
+</ul>
+<h3 id="本地仓库">本地仓库</h3>
+<p>本地仓库只有在第一次执行maven命令时才会被创建。运行 Maven 的时候，Maven 所需要的任何构件都是直接从本地仓库获取的。如果本地仓库没有，它会首先尝试从远程仓库下载构件至本地仓库，然后再使用本地仓库的构件。</p>
+<blockquote>
+<p>我们可以将本地仓库理解为 &ldquo;缓存&rdquo;，目的是存放 Jar 包。开发项目时首先会从本地仓库中获取 Jar 包，当无法获取指定 Jar 包的时候，本地仓库会从远程仓库（或中央仓库）中下载 Jar 包，并 &ldquo;缓存&rdquo; 到本地仓库中以备将来使用。这样一来，本地仓库会随着项目的积累越变越大。</p>
+</blockquote>
+<p><strong>修改本地仓库路径（注意，前方犯蠢现场）</strong></p>
+<p>可以通过修改 <code>%M2_HOME%\conf</code> 目录中的 Maven 的 <code>settings.xml </code>文件，将本地仓库定义成其他路径：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&lt;!-- localRepository
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> The path to the <span class="nb">local</span> repository maven will use to store artifacts.
+</span></span><span class="line"><span class="cl">   <span class="p">|</span>
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> Default: <span class="si">${</span><span class="nv">user</span><span class="p">.home</span><span class="si">}</span>/.m2/repository
+</span></span><span class="line"><span class="cl">  &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;
+</span></span><span class="line"><span class="cl">  --&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># &lt;localRepository&gt; 参数值改为其他路径</span>
+</span></span><span class="line"><span class="cl">&lt;!-- localRepository
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> The path to the <span class="nb">local</span> repository maven will use to store artifacts.
+</span></span><span class="line"><span class="cl">   <span class="p">|</span>
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> Default: <span class="si">${</span><span class="nv">user</span><span class="p">.home</span><span class="si">}</span>/.m2/repository
+</span></span><span class="line"><span class="cl">  &lt;localRepository&gt;/Users/huangxindi/study/localRepository&lt;/localRepository&gt;
+</span></span><span class="line"><span class="cl">  --&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>验证本地仓库的下载内容结果 <code>mvn help:system</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 从中心仓库下载到本地仓库的文件</span>
+</span></span><span class="line"><span class="cl">mvn help:system 
+</span></span><span class="line"><span class="cl"><span class="c1"># 但是执行刚开始提示download都正常，最后有如下报错</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+</span></span><span class="line"><span class="cl">Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml <span class="o">(</span><span class="m">21</span> kB at <span class="m">11</span> kB/s<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>WARNING<span class="o">]</span> Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to central <span class="o">(</span>https://repo.maven.apache.org/maven2<span class="o">)</span>: transfer failed <span class="k">for</span> https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+</span></span><span class="line"><span class="cl"><span class="o">[</span>WARNING<span class="o">]</span> org.apache.maven.plugins/maven-metadata.xmlfailed to transfer from https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the <span class="nb">local</span> repository and resolution will not be reattempted <span class="k">until</span> the update interval of central has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to central <span class="o">(</span>https://repo.maven.apache.org/maven2<span class="o">)</span>: transfer failed <span class="k">for</span> https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> BUILD FAILURE
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Total time:  02:27 min
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Finished at: 2022-09-17T20:55:04+08:00
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> No plugin found <span class="k">for</span> prefix <span class="s1">&#39;help&#39;</span> in the current project and in the plugin groups <span class="o">[</span>org.apache.maven.plugins, org.codehaus.mojo<span class="o">]</span> available from the repositories <span class="o">[</span><span class="nb">local</span> <span class="o">(</span>/Users/huangxindi/.m2/repository<span class="o">)</span>, central <span class="o">(</span>https://repo.maven.apache.org/maven2<span class="o">)]</span> -&gt; <span class="o">[</span>Help 1<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> To see the full stack trace of the errors, re-run Maven with the -e switch.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> Re-run Maven using the -X switch to <span class="nb">enable</span> full debug logging.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> For more information about the errors and possible solutions, please <span class="nb">read</span> the following articles:
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ERROR<span class="o">]</span> <span class="o">[</span>Help 1<span class="o">]</span> http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看了这篇博客（https://blog.csdn.net/weixin_44077693/article/details/125026771），也是相同的设置和问题，了解到<code>settings.xml</code> 文件的<code>localRepository</code>的设置不能和maven文件夹同级，改为设在maven文件夹里面就可以了。于是修改<code>localRepository</code>参数，并新建相关目录，然后重新执行下载。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&lt;!-- localRepository
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> The path to the <span class="nb">local</span> repository maven will use to store artifacts.
+</span></span><span class="line"><span class="cl">   <span class="p">|</span>
+</span></span><span class="line"><span class="cl">   <span class="p">|</span> Default: <span class="si">${</span><span class="nv">user</span><span class="p">.home</span><span class="si">}</span>/.m2/repository
+</span></span><span class="line"><span class="cl">  &lt;localRepository&gt;/Users/huangxindi/study/maven/localRepository&lt;/localRepository&gt;
+</span></span><span class="line"><span class="cl">  --&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新执行插件下载</span>
+</span></span><span class="line"><span class="cl">mvn help:system
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行结果成功</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> BUILD SUCCESS
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Total time:  07:49 min
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Finished at: 2022-09-17T21:17:17+08:00
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>可是</strong>，不知道为啥，我打开<code>localRepository</code>参数所在的目录，是空的。。。</p>
+<p>到默认目录去看，原来还是下载到了默认目录中，这。。。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">huangxindi@huangxindideiMac repository % pwd
+</span></span><span class="line"><span class="cl">/Users/huangxindi/.m2/repository
+</span></span><span class="line"><span class="cl">huangxindi@huangxindideiMac repository % ls -l
+</span></span><span class="line"><span class="cl">total 0
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 aopalliance
+</span></span><span class="line"><span class="cl">drwxr-xr-x  4 huangxindi  staff  128  9 17 21:13 com
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 commons-collections
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:12 commons-io
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 commons-lang
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:13 io
+</span></span><span class="line"><span class="cl">drwxr-xr-x  5 huangxindi  staff  160  9 17 21:10 javax
+</span></span><span class="line"><span class="cl">drwxr-xr-x  4 huangxindi  staff  128  9 17 21:11 net
+</span></span><span class="line"><span class="cl">drwxr-xr-x  9 huangxindi  staff  288  9 17 21:13 org
+</span></span><span class="line"><span class="cl">drwxr-xr-x  3 huangxindi  staff   96  9 17 21:13 xmlpull
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我是有看到以下这种说法，但是本地仓库的文件夹我明明有手动创建啊，为啥还是跑到默认路径去了。。</p>
+<blockquote>
+<p>本地仓库的文件目录，<strong>一定要自己手动创建</strong>，否则即使修改了settings.xml文件也会将下载的东西放到.m2目录下</p>
+</blockquote>
+<p>然后，我悲催地发现，原来我之前在<code>settings.xml</code> 文件的<code>localRepository</code>的设置语句，还处在<strong>注释状态</strong>（被包在<code>&lt;!--  --&gt;</code>中间），所以一直没生效修改。。。于是删除默认的本地仓库插件，重新修改路径，重新下载。。。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&lt;!-- localRepository
+</span></span><span class="line"><span class="cl"><span class="p">|</span> The path to the <span class="nb">local</span> repository maven will use to store artifacts.
+</span></span><span class="line"><span class="cl"><span class="p">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Default: <span class="si">${</span><span class="nv">user</span><span class="p">.home</span><span class="si">}</span>/.m2/repository
+</span></span><span class="line"><span class="cl">--&gt;
+</span></span><span class="line"><span class="cl">&lt;localRepository&gt;/Users/huangxindi/study/maven/localRepository&lt;/localRepository&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新执行插件下载</span>
+</span></span><span class="line"><span class="cl">mvn help:system
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行结果成功</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> BUILD SUCCESS
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Total time:  11:13 min
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> Finished at: 2022-09-17T22:01:37+08:00
+</span></span><span class="line"><span class="cl"><span class="o">[</span>INFO<span class="o">]</span> ------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="c1"># 终于在自定义的本地仓库文件夹中看到了下载的插件</span>
+</span></span><span class="line"><span class="cl">huangxindi@huangxindideiMac localRepository % <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">/Users/huangxindi/study/maven/localRepository
+</span></span><span class="line"><span class="cl">huangxindi@huangxindideiMac localRepository % ls -l
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:55 aopalliance
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">4</span> huangxindi  staff  <span class="m">128</span>  <span class="m">9</span> <span class="m">17</span> 21:56 com
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:55 commons-collections
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:56 commons-io
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:56 commons-lang
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:56 io
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">5</span> huangxindi  staff  <span class="m">160</span>  <span class="m">9</span> <span class="m">17</span> 21:55 javax
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">4</span> huangxindi  staff  <span class="m">128</span>  <span class="m">9</span> <span class="m">17</span> 21:56 net
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">9</span> huangxindi  staff  <span class="m">288</span>  <span class="m">9</span> <span class="m">17</span> 21:56 org
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">3</span> huangxindi  staff   <span class="m">96</span>  <span class="m">9</span> <span class="m">17</span> 21:56 xmlpull
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="中央仓库">中央仓库</h3>
+<p>中央仓库由 Maven 社区管理，不需要配置，但需要通过<strong>网络</strong>才能访问。</p>
+<p>在maven的安装目录下，有此插件<code>/lib/maven-model-builder-${version}.jar</code>，打开可以找到超级POM（<code>\org\apache\maven\model\pom-4.0.0.xml</code>）。它是所有Maven POM的父POM，所有Maven项目继承该配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;repositories&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;id&gt;</span>central<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>Central Repository<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;url&gt;</span>https://repo.maven.apache.org/maven2<span class="nt">&lt;/url&gt;</span> # 此处配置中央库地址
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;layout&gt;</span>default<span class="nt">&lt;/layout&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/snapshots&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/repository&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/repositories&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>主要中央仓库地址</strong>：</p>
+<p>1、阿里中央仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id&gt;</span>alimaven<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>aliyun maven<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;url&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/repository&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、maven.apache.org 中央仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id&gt;</span>central-repos<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>Central Repository<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;url&gt;</span>https://repo.maven.apache.org/maven2<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/repository&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3、spring.io 中央仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id&gt;</span>springsource-repos<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>SpringSource Repository<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;url&gt;</span>http://repo.spring.io/release/<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/repository&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="远程私服仓库">远程私服仓库</h3>
+<p>如果 Maven 在中央仓库中也找不到依赖的文件，它会停止构建过程并输出错误信息到控制台。为避免这种情况，Maven 提供了远程仓库的概念，它是开发人员自己定制仓库，包含了所需要的代码库或者其他工程中用到的 Jar 文件。</p>
+<blockquote>
+<p>Maven远程库也是位于网络上的存储库。例如一个公司可能有很多共享的jar包文件，就可以搭建一个公司内部的远程库，供众多开发人员使用。中央库可以认为是一个特殊的远程库。</p>
+</blockquote>
+<h3 id="依赖搜索顺序">依赖搜索顺序</h3>
+<p><strong>本地</strong> -&gt; 找不到的话，找<strong>中央</strong>仓库 -&gt; 中央仓库找不到，是否配置<strong>远程</strong>仓库 -&gt; 无配置远程，则抛错（无法找到依赖的文件） -&gt; 有配置远程，则找远程仓库 -&gt; 若找不到，也抛错（无法找到依赖的文件）</p>
+<p>若中途从中央或远程仓库找到依赖包，则下载到本地仓库供后续使用</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="http://mvnbook.com/index.html">http://mvnbook.com/index.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Cindy.H</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-09-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/maven/">Maven</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/java/maven%E4%B9%8B%E4%BA%8C/">
+            <span class="next-text nav-default">Maven之二：创建Maven项目</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
