@@ -6,7 +6,25 @@
     <description>Recent content in MiniApp on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/miniapp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/miniapp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>小程序之三：官方开发文档学习（指南篇）</title>
+      <link>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</guid>
+      <description>小程序之三：官方开发文档学习（指南篇） 学习教程：https://developers.weixin.qq.com/miniprogram/d</description>
+    </item>
+    
+    <item>
+      <title>小程序之二：HelloWorld</title>
+      <link>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</link>
+      <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</guid>
+      <description>小程序之二：HelloWorld 学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-mi</description>
+    </item>
+    
     <item>
       <title>小程序之一：开始</title>
       <link>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</link>
@@ -14,15 +32,6 @@
       
       <guid>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</guid>
       <description>小程序之一：开始 开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！ 推荐新手先阅读阮一峰老师的微信小程序入门</description>
-    </item>
-    
-    <item>
-      <title>小程序之二：HelloWorld</title>
-      <link>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</link>
-      <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>http://pipony.github.io/post/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</guid>
-      <description>小程序之二：HelloWorld</description>
     </item>
     
   </channel>
