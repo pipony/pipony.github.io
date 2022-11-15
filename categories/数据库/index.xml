@@ -6,14 +6,14 @@
     <description>Recent content in 数据库 on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 02 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>GaussDB-入门</title>
-      <link>http://pipony.github.io/post/database/gaussdb-%E5%85%A5%E9%97%A8/</link>
-      <pubDate>Fri, 02 Sep 2022 00:00:00 +0000</pubDate>
+      <title>BenchmarkSQL性能测试</title>
+      <link>http://pipony.github.io/post/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/database/gaussdb-%E5%85%A5%E9%97%A8/</guid>
-      <description>GaussDB-入门</description>
+      <guid>http://pipony.github.io/post/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid>
+      <description>BenchmarkSQL性能测试 何为BenchmarkSQL BenchmarkSQL是一款经典的开源数据库测试工具，其包含 TPCC 测试脚本，支持M</description>
     </item>
     
     <item>

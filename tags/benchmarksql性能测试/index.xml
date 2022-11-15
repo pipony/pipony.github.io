@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BenchmarkSQL性能测试 on 2MUCH-Tech-Notes</title>
+    <link>http://pipony.github.io/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+    <description>Recent content in BenchmarkSQL性能测试 on 2MUCH-Tech-Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BenchmarkSQL性能测试</title>
+      <link>http://pipony.github.io/post/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid>
+      <description>BenchmarkSQL性能测试 何为BenchmarkSQL BenchmarkSQL是一款经典的开源数据库测试工具，其包含 TPCC 测试脚本，支持M</description>
+    </item>
+    
+  </channel>
+</rss>
