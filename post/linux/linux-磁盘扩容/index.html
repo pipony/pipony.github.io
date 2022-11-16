@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Linux-磁盘扩容">
 <meta itemprop="description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from"><meta itemprop="datePublished" content="2022-11-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-11-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="588">
+<meta itemprop="wordCount" content="696">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-磁盘扩容"/>
 <meta name="twitter:description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from"/>
@@ -302,7 +302,18 @@
 </span></span><span class="line"><span class="cl">resize2fs /dev/ubuntu-vg/ubuntu-lv
 </span></span></code></pre></td></tr></table>
 </div>
+</div><p><font color='red'>值得注意的是：</font></p>
+<p>resize2fs命令是用来增大或者收缩未加载的“ext2/ext3/ext4”文件系统的大小。并不适用于xfs文件系统（会报错）。如果是<strong>xfs文件系统</strong>，则使用以下命令来达到同样的效果；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xfs_growfs /dev/ubuntu-vg/ubuntu-lv
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>可参考： <a href="https://blog.csdn.net/MssGuo/article/details/120475752">https://blog.csdn.net/MssGuo/article/details/120475752</a></p>
+
     </div>
 
     <div class="post-copyright">
