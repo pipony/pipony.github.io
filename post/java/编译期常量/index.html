@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>编译期常量 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Cindy.H" /><meta name="description" content="编译期常量 先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="编译期常量" />
+<meta property="og:description" content="编译期常量 先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-11-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-11-22T00:00:00+00:00" />
+
+<meta itemprop="name" content="编译期常量">
+<meta itemprop="description" content="编译期常量 先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文"><meta itemprop="datePublished" content="2022-11-22T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-11-22T00:00:00+00:00" />
+<meta itemprop="wordCount" content="731">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="编译期常量"/>
+<meta name="twitter:description" content="编译期常量 先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">2MUCH</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">2MUCH</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">编译期常量</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-11-22 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#编译期常量">编译期常量</a>
+      <ul>
+        <li><a href="#java四个阶段">java四个阶段</a></li>
+        <li><a href="#编译期常量定义方式">编译期常量定义方式</a></li>
+        <li><a href="#编译期常量的表现">编译期常量的表现</a></li>
+        <li><a href="#此外">此外</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="编译期常量">编译期常量</h1>
+<p>先说结论，<strong>编译期常量=final+常量</strong></p>
+<h2 id="java四个阶段">java四个阶段</h2>
+<ul>
+<li>编辑期</li>
+<li>编译期：将.java文件编译为.class文件</li>
+<li>加载期：将.class文件加载到内存 并 生成.class类</li>
+<li>运行期：通过.class类去创建对象、执行代码</li>
+</ul>
+<p>参考：https://www.modb.pro/db/211851</p>
+<p>除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: <strong>「编译期常量不会触发类加载」</strong>。</p>
+<h2 id="编译期常量定义方式">编译期常量定义方式</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">b</span>  <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>反例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span> <span class="c1">// 没用final修饰，不是编译期常量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span> <span class="c1">// 值不是常量，所以不是编译期常量
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编译期常量的表现">编译期常量的表现</h2>
+<p>编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Class</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">b</span>  <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 查看编译后...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">a</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">descriptor</span><span class="o">:</span> <span class="n">I</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flags</span><span class="o">:</span> <span class="o">(</span><span class="n">0x0011</span><span class="o">)</span> <span class="n">ACC_PUBLIC</span><span class="o">,</span> <span class="n">ACC_FINAL</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ConstantValue</span><span class="o">:</span> <span class="kt">int</span> <span class="n">10000</span>  <span class="c1">// 有ConstantValue，说明是编译期常量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">b</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">descriptor</span><span class="o">:</span> <span class="n">I</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flags</span><span class="o">:</span> <span class="o">(</span><span class="n">0x0019</span><span class="o">)</span> <span class="n">ACC_PUBLIC</span><span class="o">,</span> <span class="n">ACC_STATIC</span><span class="o">,</span> <span class="n">ACC_FINAL</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ConstantValue</span><span class="o">:</span> <span class="kt">int</span> <span class="n">10000</span> <span class="c1">// 有ConstantValue，说明是编译期常量
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="此外">此外</h2>
+<p>被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。</p>
+<p>在实际开发中，如果A类之前调用到了B类的编译期常量，当修改B的编译期常量值后，还需要再次编译A类，否则A类对于该值的调用还是修改之前的值（因为已经固定在class文件里了）。</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.modb.pro/db/211851">https://www.modb.pro/db/211851</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Cindy.H</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-11-22
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux-磁盘管理</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">
+            <span class="next-text nav-default">数据库分页查询</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
