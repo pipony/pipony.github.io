@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Oracle-实现事务提交和回滚">
 <meta itemprop="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s"><meta itemprop="datePublished" content="2022-08-02T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-08-02T00:00:00+00:00" />
-<meta itemprop="wordCount" content="407">
+<meta itemprop="wordCount" content="773">
 <meta itemprop="keywords" content="数据库," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Oracle-实现事务提交和回滚"/>
 <meta name="twitter:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s"/>
@@ -149,13 +149,17 @@
       <ul>
         <li><a href="#失败回滚命令">失败回滚命令</a>
           <ul>
-            <li><a href="#出现错误后退出sql执行">出现错误后退出sql执行</a></li>
-            <li><a href="#出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</a></li>
-            <li><a href="#sqlerror">SQLERROR</a></li>
+            <li><a href="#常见用法">常见用法</a></li>
           </ul>
         </li>
+        <li><a href="#失败不回滚命令">失败不回滚命令</a></li>
         <li><a href="#spool命令">spool命令</a></li>
-        <li><a href="#举例">举例</a></li>
+        <li><a href="#举例">举例</a>
+          <ul>
+            <li><a href="#使用命令行">使用命令行</a></li>
+            <li><a href="#使用sqlplus">使用sqlplus</a></li>
+          </ul>
+        </li>
         <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
@@ -169,7 +173,17 @@
 <p>背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。</p>
 </blockquote>
 <h2 id="失败回滚命令">失败回滚命令</h2>
-<h3 id="出现错误后退出sql执行">出现错误后退出sql执行</h3>
+<p><code>WHENEVER SQLERROR</code>官网介绍： <a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+<h3 id="常见用法">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="err">{</span><span class="n">EXIT</span><span class="w"> </span><span class="p">[</span><span class="n">SUCCESS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FAILURE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">variable</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">:</span><span class="n">BindVariable</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">CONTINUE</span><span class="w"> </span><span class="p">[</span><span class="k">COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NONE</span><span class="p">]</span><span class="err">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="出现错误后退出sql执行">出现错误后退出sql执行</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -178,7 +192,7 @@
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</h3>
+</div><h4 id="出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -186,17 +200,73 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">or</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="c1">---回滚退出，并返回错误码SQL.SQLCODE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">or</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sqlerror">SQLERROR</h3>
-<p><font color='red'>上面的语句捕获的`SQLERROR范围是？？？有空研究下</font></p>
-<h2 id="spool命令">spool命令</h2>
-<p>此外，还要先认识下<code>spool</code>命令。</p>
-<p><font color='red'>等我的linux安装完oracle了过来补充</font></p>
-<h2 id="举例">举例</h2>
+</div><h2 id="失败不回滚命令">失败不回滚命令</h2>
+<p>如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：</p>
+<p>参考 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">whenever</span><span class="w"> </span><span class="k">sqlerror</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="k">commit</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="spool命令">spool命令</h2>
+<p>此外，可以先认识下<code>spool</code>命令。</p>
+<p>常用语法可参考：</p>
+<p><a href="https://blog.csdn.net/lixiaomei0623/article/details/121274473">https://blog.csdn.net/lixiaomei0623/article/details/121274473</a></p>
+<blockquote>
+<p>spool的作用可以用一句话来描述：在sqlplus中用来保存或打印查询结果。</p>
+<p>通过spool 命令，可以将select 数据库的内容写到文件中，通过在sqlplus设置一些参数，使得按指定方式写到文件中。</p>
+</blockquote>
+<p>sql执行内容导出到某文件例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">sqlplus</span><span class="w"> </span><span class="n">oracle</span><span class="o">/</span><span class="n">pwd</span><span class="o">@</span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">16</span><span class="p">:</span><span class="mi">1521</span><span class="o">/</span><span class="n">orl</span><span class="w"> </span><span class="o">@/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lxm</span><span class="o">/</span><span class="n">export</span><span class="p">.</span><span class="k">sql</span><span class="w"> </span><span class="c1">-- 执行语句
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">-</span><span class="c1">-- 以下为export.sql内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">trimspool</span><span class="w"> </span><span class="k">on</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">linesize</span><span class="w"> </span><span class="mi">20000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">pagesize</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">feedback</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">newpage</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="n">off</span><span class="w"> </span><span class="n">SQLBLANKLINES</span><span class="w"> </span><span class="k">ON</span><span class="w">  </span><span class="o">---</span><span class="err">去掉空行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">---</span><span class="err">以上为输出格式设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">spool</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">oracle</span><span class="o">/</span><span class="n">aaa</span><span class="p">.</span><span class="n">csv</span><span class="w">  </span><span class="o">---</span><span class="err">保存查询结果集的的路径和文件名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">python_student</span><span class="p">.</span><span class="n">name</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">python_student</span><span class="p">.</span><span class="n">age</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">python_student</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">spool</span><span class="w"> </span><span class="n">off</span><span class="w">  </span><span class="o">---</span><span class="err">完成</span><span class="n">spool</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="举例">举例</h2>
+<h3 id="使用命令行">使用命令行</h3>
 <p>来自 <a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a> 的例子：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -214,10 +284,39 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="n">spool</span><span class="w"> </span><span class="k">off</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>使用<code>sqlplus /</code>的例子：<font color='red'>等我的linux安装完oracle了过来补充</font></p>
-<h2 id="参考链接">参考链接</h2>
+</div><h3 id="使用sqlplus">使用sqlplus</h3>
+<p>来自 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a> 的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;SQL*Plus-语句执行异常则退出&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sqlplus user/password@x.x.x.x:x/orcl <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">whenever sqlerror exit failure rollback
+</span></span></span><span class="line"><span class="cl"><span class="s">${1}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nv">$?</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
 <p><a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a></p>
 <p><a href="https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html">https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html</a></p>
+<p><a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
 
     </div>
 

@@ -22,7 +22,7 @@
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</guid>
-      <description>Linux-磁盘管理 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用</description>
+      <description>Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化 挂载/卸载 df df(disk free)：查询文</description>
     </item>
     
     <item>
@@ -193,7 +193,7 @@
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/database/linux-%E5%AE%89%E8%A3%85oracle/</guid>
-      <description>Linux-安装Oracle数据库 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上</description>
+      <description>Linux-安装Oracle数据库 安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧 背景：我的阿里云linux服务器（CentOS</description>
     </item>
     
     <item>

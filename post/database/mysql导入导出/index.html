@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Mysql导入导出">
 <meta itemprop="description" content="Mysql导入导出 导出 mysqldump (1) 导出完整数据： mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql (2) 只导出表结构（使用 -d 选项）： mysqldump -u用户"><meta itemprop="datePublished" content="2022-11-27T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-11-27T00:00:00+00:00" />
-<meta itemprop="wordCount" content="701">
+<meta itemprop="wordCount" content="1257">
 <meta itemprop="keywords" content="数据库," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Mysql导入导出"/>
 <meta name="twitter:description" content="Mysql导入导出 导出 mysqldump (1) 导出完整数据： mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql (2) 只导出表结构（使用 -d 选项）： mysqldump -u用户"/>
@@ -150,6 +150,7 @@
         <li><a href="#导出">导出</a></li>
         <li><a href="#导入">导入</a></li>
         <li><a href="#shell脚本实现导入导出">shell脚本实现导入导出</a></li>
+        <li><a href="#如何使用导入定长文件fixed-width-records-">如何使用导入定长文件（fixed-width records ）</a></li>
         <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
@@ -229,14 +230,127 @@
 </div>
 </div><p>注意事项：</p>
 <p><code>LOAD DATA INFILE</code>和 <code>SELECT INTO OUTFILE</code>是相互依赖的，即：如果你导出方式使用了 <code>SELECT INTO OUTFILE</code>，那么导入的时候就需要使用 <code>LOAD DATA INFILE</code>进行导入。<strong>需要格外注意，该方式会锁全表</strong>。</p>
-<h2 id="shell脚本实现导入导出">shell脚本实现导入导出</h2>
+<p><strong>LOAD DATA格式</strong></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="n">LOW_PRIORITY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">CONCURRENT</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">LOCAL</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">INFILE</span><span class="w"> </span><span class="s1">&#39;file_name&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="k">REPLACE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">IGNORE</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tbl_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="n">PARTITION</span><span class="w"> </span><span class="p">(</span><span class="n">partition_name</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">partition_name</span><span class="p">]</span><span class="w"> </span><span class="p">...)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">charset_name</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="err">{</span><span class="n">FIELDS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">COLUMNS</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[</span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[[</span><span class="n">OPTIONALLY</span><span class="p">]</span><span class="w"> </span><span class="n">ENCLOSED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;char&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[</span><span class="n">ESCAPED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;char&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="n">LINES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[</span><span class="n">STARTING</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[</span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;string&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="k">IGNORE</span><span class="w"> </span><span class="nb">number</span><span class="w"> </span><span class="err">{</span><span class="n">LINES</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">ROWS</span><span class="err">}</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[(</span><span class="n">col_name_or_user_var</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[,</span><span class="w"> </span><span class="n">col_name_or_user_var</span><span class="p">]</span><span class="w"> </span><span class="p">...)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">[</span><span class="k">SET</span><span class="w"> </span><span class="n">col_name</span><span class="o">=</span><span class="err">{</span><span class="n">expr</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">[,</span><span class="w"> </span><span class="n">col_name</span><span class="o">=</span><span class="err">{</span><span class="n">expr</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">...]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="shell脚本实现导入导出">shell脚本实现导入导出</h2>
 <ol>
 <li><code>select into outfile</code> &amp; <code>load data infile</code></li>
 </ol>
 <p><a href="https://blog.csdn.net/u013946356/article/details/84960273">https://blog.csdn.net/u013946356/article/details/84960273</a></p>
-<ol start="2">
-<li>未完待续</li>
-</ol>
+<h2 id="如何使用导入定长文件fixed-width-records-">如何使用导入定长文件（fixed-width records ）</h2>
+<p>定长文件：不同于用分隔符（如逗号或空格）来分割每行记录的各字段，定长数据文件是根据约定好的各字段长度来组织数据文件的。如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="w"> </span><span class="n">slideNum</span><span class="p">,</span><span class="w"> </span><span class="n">startTime</span><span class="p">,</span><span class="w"> </span><span class="n">endTime</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="mi">1</span><span class="w">     </span><span class="mi">75175</span><span class="p">.</span><span class="mi">18</span><span class="w">     </span><span class="mi">95128</span><span class="p">.</span><span class="mi">46</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="mi">1</span><span class="w">    </span><span class="mi">790890</span><span class="p">.</span><span class="mi">89</span><span class="w">    </span><span class="mi">795829</span><span class="p">.</span><span class="mi">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="mi">1</span><span class="w">    </span><span class="mi">875975</span><span class="p">.</span><span class="mi">98</span><span class="w">    </span><span class="mi">880914</span><span class="p">.</span><span class="mi">25</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="mi">8</span><span class="w">   </span><span class="mi">2137704</span><span class="p">.</span><span class="mi">37</span><span class="w">   </span><span class="mi">2162195</span><span class="p">.</span><span class="mi">53</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="mi">8</span><span class="w">   </span><span class="mi">2167267</span><span class="p">.</span><span class="mi">27</span><span class="w">   </span><span class="mi">2375275</span><span class="p">.</span><span class="mi">28</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">10</span><span class="w">   </span><span class="mi">2375408</span><span class="p">.</span><span class="mi">74</span><span class="w">   </span><span class="mi">2763997</span><span class="p">.</span><span class="mi">33</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">14</span><span class="w">   </span><span class="mi">2764264</span><span class="p">.</span><span class="mi">26</span><span class="w">   </span><span class="mi">2804437</span><span class="p">.</span><span class="mi">77</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">15</span><span class="w">   </span><span class="mi">2804504</span><span class="p">.</span><span class="mi">50</span><span class="w">   </span><span class="mi">2881981</span><span class="p">.</span><span class="mi">98</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">16</span><span class="w">   </span><span class="mi">2882048</span><span class="p">.</span><span class="mi">72</span><span class="w">   </span><span class="mi">2887921</span><span class="p">.</span><span class="mi">25</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">16</span><span class="w">   </span><span class="mi">2993093</span><span class="p">.</span><span class="mi">09</span><span class="w">   </span><span class="mi">2998031</span><span class="p">.</span><span class="mi">36</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="mi">19</span><span class="w">   </span><span class="mi">3004104</span><span class="p">.</span><span class="mi">10</span><span class="w">   </span><span class="mi">3008041</span><span class="p">.</span><span class="mi">37</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>LOAD DATA</code>虽然很好地支持了分隔符格式的数据文件导入，但是这类型的数据文件，需要进行特殊的处理。</p>
+<p>可参考：https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</p>
+<p>针对上面的例子，解决方案可以是（with user variables (<code>@row</code>)）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="k">LOCAL</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s1">&#39;/some/Path/segmentation.txt&#39;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">clip</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="o">@</span><span class="k">row</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">slideNum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRIM</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="k">row</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRIM</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="k">row</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">13</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">endTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRIM</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="k">row</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">13</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用<code>LOAD DATA</code>来处理定长文件的注意事项：</p>
+<ul>
+<li>Fixed-size format does not work if you are using a <strong>multibyte character set</strong>.</li>
+<li>With fixed-row format (which is used when FIELDS TERMINATED BY and FIELDS ENCLOSED BY are both empty), NULL is written as an empty string. <strong>This causes both NULL values and empty strings in the table to be indistinguishable</strong> when written to the file because both are written as empty strings. If you need to be able to tell the two apart when reading the file back in, you should not use fixed-row format.</li>
+</ul>
+<p>此类场景的解决方案，参考链接：</p>
+<p><a href="https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql">https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</a></p>
+<p><a href="https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html">https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
 <h2 id="参考链接">参考链接</h2>
 <p><a href="https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html">https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html</a></p>
 <p><a href="https://juejin.cn/post/6992489420188286983">https://juejin.cn/post/6992489420188286983</a></p>

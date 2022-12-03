@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-磁盘管理 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化 挂载/卸载 df df(disk free)：查询文" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Linux-磁盘管理" />
-<meta property="og:description" content="Linux-磁盘管理 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用" />
+<meta property="og:description" content="Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化 挂载/卸载 df df(disk free)：查询文" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-22T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-11-22T00:00:00+00:00" />
 
 <meta itemprop="name" content="Linux-磁盘管理">
-<meta itemprop="description" content="Linux-磁盘管理 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用"><meta itemprop="datePublished" content="2022-11-22T00:00:00+00:00" />
+<meta itemprop="description" content="Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化 挂载/卸载 df df(disk free)：查询文"><meta itemprop="datePublished" content="2022-11-22T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-11-22T00:00:00+00:00" />
-<meta itemprop="wordCount" content="499">
+<meta itemprop="wordCount" content="1346">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-磁盘管理"/>
-<meta name="twitter:description" content="Linux-磁盘管理 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用"/>
+<meta name="twitter:description" content="Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化 挂载/卸载 df df(disk free)：查询文"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -147,7 +147,16 @@
   <ul>
     <li><a href="#linux-磁盘管理">Linux-磁盘管理</a>
       <ul>
-        <li><a href="#df">df</a></li>
+        <li><a href="#df">df</a>
+          <ul>
+            <li><a href="#常见用法">常见用法：</a></li>
+          </ul>
+        </li>
+        <li><a href="#du">du</a>
+          <ul>
+            <li><a href="#常见用法-1">常见用法</a></li>
+          </ul>
+        </li>
         <li><a href="#参考链接">参考链接</a></li>
       </ul>
     </li>
@@ -157,8 +166,16 @@
 </div>
     <div class="post-content">
       <h1 id="linux-磁盘管理">Linux-磁盘管理</h1>
+<p>参考 <a href="https://blog.csdn.net/weixin_52122271/article/details/126242445">https://blog.csdn.net/weixin_52122271/article/details/126242445</a> 的分类法：</p>
+<p>磁盘管理命令：</p>
+<ul>
+<li>查看使用量：df, du</li>
+<li>查看磁盘分区：fdisk, lsblk</li>
+<li>磁盘格式化</li>
+<li>挂载/卸载</li>
+</ul>
 <h2 id="df">df</h2>
-<p>df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。</p>
+<p>df(disk free)：查询文件系统的<strong>磁盘占用情况</strong>。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -182,7 +199,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>后接支持的参数，可通过<code>df --help</code>获取</p>
-<p>常见用法：</p>
+<h3 id="常见用法">常见用法：</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -218,7 +235,8 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -a </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -a </span>
 </span></span><span class="line"><span class="cl">Filesystem     1K-blocks     Used Available Use% Mounted on
 </span></span><span class="line"><span class="cl">sysfs                  <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys
 </span></span><span class="line"><span class="cl">proc                   <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /proc
@@ -248,7 +266,6 @@
 </span></span><span class="line"><span class="cl">debugfs                <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/kernel/debug
 </span></span><span class="line"><span class="cl">binfmt_misc            <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /proc/sys/fs/binfmt_misc
 </span></span><span class="line"><span class="cl">tmpfs              <span class="m">96416</span>        <span class="m">0</span>     <span class="m">96416</span>   0% /run/user/0
-</span></span><span class="line"><span class="cl"><span class="c1"># 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
@@ -264,7 +281,8 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -h</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 可读形式展现</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -h</span>
 </span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
 </span></span><span class="line"><span class="cl">devtmpfs        461M     <span class="m">0</span>  461M   0% /dev
 </span></span><span class="line"><span class="cl">tmpfs           471M  8.0K  471M   1% /dev/shm
@@ -272,12 +290,199 @@
 </span></span><span class="line"><span class="cl">tmpfs           471M     <span class="m">0</span>  471M   0% /sys/fs/cgroup
 </span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
 </span></span><span class="line"><span class="cl">tmpfs            95M     <span class="m">0</span>   95M   0% /run/user/0
-</span></span><span class="line"><span class="cl"><span class="c1"># 可读形式展现</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看具体某文件夹上的文件系统信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -h /home</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看具体磁盘空间的信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -h /dev/vda1</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指定单位的查询，如-k(=1024byte), -m(MB), -BG(GB)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -BG</span>
+</span></span><span class="line"><span class="cl">Filesystem     1G-blocks  Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs              1G    0G        1G   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs                 1G    1G        1G   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs                 1G    1G        1G   1% /run
+</span></span><span class="line"><span class="cl">tmpfs                 1G    0G        1G   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1            40G   21G       17G  56% /
+</span></span><span class="line"><span class="cl">tmpfs                 1G    0G        1G   0% /run/user/0
+</span></span><span class="line"><span class="cl"><span class="c1"># 值得注意的是：您可以使用-B或–block size=size选项来提供大小的自定义格式。大小可以是KB（1000）或K（1024）中的一个（或者可以是一个整数，可选后跟）。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 以K（即1024）为单位显示磁盘空间使用情况：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df -k 或 df -BK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 以KB（即1000）为单位显示磁盘空间使用情况:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df -BKB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其他单位类似</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示inode信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -i</span>
+</span></span><span class="line"><span class="cl">Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs        <span class="m">117892</span>    <span class="m">329</span>  <span class="m">117563</span>    1% /dev
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>      <span class="m">4</span>  <span class="m">120513</span>    1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>    <span class="m">439</span>  <span class="m">120078</span>    1% /run
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>     <span class="m">16</span>  <span class="m">120501</span>    1% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1      <span class="m">2621440</span> <span class="m">153635</span> <span class="m">2467805</span>    6% /
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>      <span class="m">1</span>  <span class="m">120516</span>    1% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示文件系统类型</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -T</span>
+</span></span><span class="line"><span class="cl">Filesystem     Type     1K-blocks     Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs       devtmpfs    <span class="m">471568</span>        <span class="m">0</span>    <span class="m">471568</span>   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>        <span class="m">8</span>    <span class="m">482060</span>   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>      <span class="m">516</span>    <span class="m">481552</span>   1% /run
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>        <span class="m">0</span>    <span class="m">482068</span>   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1      ext4      <span class="m">41152812</span> <span class="m">21920632</span>  <span class="m">17328472</span>  56% /
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs        <span class="m">96416</span>        <span class="m">0</span>     <span class="m">96416</span>   0% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 最后一行显示总的size大小</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df --total -h</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs        461M     <span class="m">0</span>  461M   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs           471M  8.0K  471M   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs           471M  516K  471M   1% /run
+</span></span><span class="line"><span class="cl">tmpfs           471M     <span class="m">0</span>  471M   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span><span class="line"><span class="cl">tmpfs            95M     <span class="m">0</span>   95M   0% /run/user/0
+</span></span><span class="line"><span class="cl">total            42G   21G   19G  54% -
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="du">du</h2>
+<p>同样是查看磁盘使用量，与<code>df</code>相比，<code>du</code>主要用于对<strong>文件和目录</strong>磁盘使用的空间的查看。同样可以使用<code>du --help</code>查看基本用法。</p>
+<h3 id="常见用法-1">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看本目录下所有的目录大小（包含子、子子目录等）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span class="o">]</span><span class="c1"># du</span>
+</span></span><span class="line"><span class="cl"><span class="m">16</span>      ./.ssh
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       ./1111
+</span></span><span class="line"><span class="cl"><span class="m">104</span>     .
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">56</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root  root  <span class="m">4096</span> Nov <span class="m">29</span> 08:11 <span class="m">1111</span>
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">0</span> Apr  <span class="m">5</span>  <span class="m">2022</span> 1.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root   <span class="m">529</span> Apr  <span class="m">5</span>  <span class="m">2022</span> 2.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy  <span class="m">127</span> Jul <span class="m">18</span> 20:55 dump.rdb
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">5</span> Aug <span class="m">22</span> 20:31 good.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">7</span> Apr <span class="m">17</span>  <span class="m">2022</span> new1.xlsx
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">8</span> Apr <span class="m">17</span>  <span class="m">2022</span> new.word
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">49</span> Aug <span class="m">22</span> 20:32 out
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">3</span> Aug <span class="m">22</span> 19:01 tee1.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">3</span> Aug <span class="m">22</span> 19:01 tee2.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">12</span> Aug <span class="m">22</span> 19:00 tee.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">49</span> Jul <span class="m">16</span> 12:07 testCut.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">21</span> Aug  <span class="m">2</span> 18:47 testSort.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">16</span> Aug  <span class="m">6</span> 10:07 testUniq.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">10</span> Jul <span class="m">31</span> 18:47 testWc.txt
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考链接">参考链接</h2>
 <p><a href="https://www.runoob.com/linux/linux-filesystem.html">https://www.runoob.com/linux/linux-filesystem.html</a></p>
 <p><a href="https://www.cnblogs.com/hls-code/p/16333387.html">https://www.cnblogs.com/hls-code/p/16333387.html</a></p>
+<p><a href="https://www.11meigui.com/2021/df-command-in-linux.html">https://www.11meigui.com/2021/df-command-in-linux.html</a></p>
+<p><a href="https://blog.csdn.net/weixin_52122271/article/details/126242445">https://blog.csdn.net/weixin_52122271/article/details/126242445</a></p>
+<p><a href="https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html">https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html</a></p>
 
     </div>
 
