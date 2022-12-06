@@ -22,7 +22,7 @@
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/</guid>
-      <description>oracle-&amp;gt;mysql数据迁移数据事项 参考链接 https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a https://zhuanlan.zhihu.com/p/94254106 https://blog.csdn.net/weixin_39713763/article/details/114906285 https://juejin.cn/post/6943857884006449183 https://developer.aliyun.com/article/184151 https://blog.csdn.net/xiazaixm/article/details/78081611 https://www.cnblogs.com/priestess-zhao/p/14308959.html</description>
+      <description>oracle-&amp;gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。</description>
     </item>
     
     <item>
