@@ -6,7 +6,25 @@
     <description>Recent content in Posts on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>认识编码</title>
+      <link>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <description>认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字</description>
+    </item>
+    
+    <item>
+      <title>Linux-文本处理三剑客</title>
+      <link>http://pipony.github.io/post/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</link>
+      <pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</guid>
+      <description>Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是</description>
+    </item>
+    
     <item>
       <title>Mysql修改root密码</title>
       <link>http://pipony.github.io/post/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/</link>
@@ -320,15 +338,6 @@
       
       <guid>http://pipony.github.io/post/redis/redis%E5%BC%80%E5%A7%8B/</guid>
       <description>Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</description>
-    </item>
-    
-    <item>
-      <title>认识编码</title>
-      <link>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
-      <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>http://pipony.github.io/post/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
-      <description>认识编码 待补充TODO 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 ASCII American Standard Code for Information Interc</description>
     </item>
     
     <item>

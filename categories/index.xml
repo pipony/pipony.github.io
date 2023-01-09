@@ -6,7 +6,25 @@
     <description>Recent content in Categories on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>其他</title>
+      <link>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</link>
+      <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://pipony.github.io/categories/linux/</link>
+      <pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>数据库</title>
       <link>http://pipony.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
@@ -26,29 +44,11 @@
     </item>
     
     <item>
-      <title>Linux</title>
-      <link>http://pipony.github.io/categories/linux/</link>
-      <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
-      
-      <guid>http://pipony.github.io/categories/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>MiniApp</title>
       <link>http://pipony.github.io/categories/miniapp/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/categories/miniapp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>其他</title>
-      <link>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</link>
-      <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</guid>
       <description></description>
     </item>
     
