@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Linux-文本处理三剑客">
 <meta itemprop="description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是"><meta itemprop="datePublished" content="2022-12-07T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-07T00:00:00+00:00" />
-<meta itemprop="wordCount" content="6290">
+<meta itemprop="wordCount" content="6849">
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux-文本处理三剑客"/>
 <meta name="twitter:description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是"/>
@@ -1423,9 +1423,176 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="匹配函数match">匹配函数match</h4>
+<p><font color='red'>后续再学习</font></p>
 <h4 id="子串函数substr">子串函数substr</h4>
-<h3 id="awk执行流程">awk执行流程</h3>
-<h3 id="awk流程控制语句">awk流程控制语句</h3>
+<p><a href="https://www.cnblogs.com/irockcode/p/6880597.html">https://www.cnblogs.com/irockcode/p/6880597.html</a></p>
+<p><code>substr(对象,index)</code> 从对象的第index字符开始到设定的分隔符结束</p>
+<p><code>substr(对象,index1,length)</code> 从对象的第index1字符截取length个字符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">apple is good
+</span></span><span class="line"><span class="cl">i like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($0,1) }&#39;</span> test2  <span class="c1"># $0没有分隔符，默认截取到行末</span>
+</span></span><span class="line"><span class="cl">apple is good
+</span></span><span class="line"><span class="cl">i like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($0,3) }&#39;</span> test2
+</span></span><span class="line"><span class="cl">ple is good
+</span></span><span class="line"><span class="cl">like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($1,3) }&#39;</span> test2  <span class="c1"># 如第2行没法截取指定的长度，则输出空</span>
+</span></span><span class="line"><span class="cl">ple
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($3,1,2) }&#39;</span> test2
+</span></span><span class="line"><span class="cl">go
+</span></span><span class="line"><span class="cl">ap
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk执行流程">awk执行流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">awk -参数 <span class="s1">&#39;BEGIN{动作} (模式){动作} END{动作} }&#39;</span> 文件名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>BEGIN：读取数据之前的动作，只能执行一次</li>
+<li>PATTERN：按行执行的正常动作</li>
+<li>END：和BEGIN相反，是在读取所有数据之后的动作，只能执行一次</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> <span class="m">5</span> <span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;BEGIN{print &#34;开始awk&#34;} {print $2} END{print &#34;结束awk&#34;}&#39;</span> text1
+</span></span><span class="line"><span class="cl">开始awk
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl">结束awk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk流程控制语句">awk流程控制语句</h3>
+<p><a href="https://blog.51cto.com/linux2023/5016231">https://blog.51cto.com/linux2023/5016231</a></p>
+<p>awk的流程控制语句包括：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">if-else 语句
+</span></span><span class="line"><span class="cl">for 语句
+</span></span><span class="line"><span class="cl">while 语句
+</span></span><span class="line"><span class="cl">do-while 语句
+</span></span><span class="line"><span class="cl">break 语句
+</span></span><span class="line"><span class="cl">continue 语句
+</span></span><span class="line"><span class="cl">next 语句
+</span></span><span class="line"><span class="cl">nextfile 语句
+</span></span><span class="line"><span class="cl">exit 语句
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="if-else">if-else</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>条件 1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="o">(</span>条件 2<span class="o">){</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> <span class="m">5</span> <span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat 1.sh
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">        if ( $2 == 2 ){
+</span></span></span><span class="line"><span class="cl"><span class="s1">                print &#34;$1 is &#34;,$1;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">        else {
+</span></span></span><span class="line"><span class="cl"><span class="s1">                print &#34;$3 is &#34;,$3;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span> ./text1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ sh 1.sh
+</span></span><span class="line"><span class="cl"><span class="nv">$1</span> is  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$3</span> is  <span class="m">6</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="for">for</h4>
+<p>例如：</p>
+<p><code>for (i=0;i&lt;=n;i++) {动作}</code></p>
+<h4 id="其他控制语句略需要用时再查">其他控制语句略，需要用时再查</h4>
 <h2 id="参考链接">参考链接</h2>
 <p><a href="https://www.cnblogs.com/Torres-tao/p/16055239.html">https://www.cnblogs.com/Torres-tao/p/16055239.html</a></p>
 <p><a href="http://linux.51yip.com/search/sed/">http://linux.51yip.com/search/sed/</a></p>
@@ -1437,6 +1604,9 @@
 <p><a href="https://www.cnblogs.com/csxy-py/p/16778102.html">https://www.cnblogs.com/csxy-py/p/16778102.html</a></p>
 <p><a href="https://www.cnblogs.com/minseo/p/13690129.html">https://www.cnblogs.com/minseo/p/13690129.html</a></p>
 <p><a href="https://www.cnblogs.com/jmbt/p/16640626.html">https://www.cnblogs.com/jmbt/p/16640626.html</a></p>
+<p><a href="https://www.cnblogs.com/codelogs/p/16060082.html">https://www.cnblogs.com/codelogs/p/16060082.html</a></p>
+<p><a href="http://bbs.chinaunix.net/thread-2312439-1-1.html">http://bbs.chinaunix.net/thread-2312439-1-1.html</a></p>
+<p><a href="https://www.cnblogs.com/joyware/p/16612120.html">https://www.cnblogs.com/joyware/p/16612120.html</a></p>
 
     </div>
 

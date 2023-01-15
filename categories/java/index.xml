@@ -6,7 +6,16 @@
     <description>Recent content in Java on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java基础之IO流</title>
+      <link>http://pipony.github.io/post/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</link>
+      <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://pipony.github.io/post/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
+      <description>Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念</description>
+    </item>
+    
     <item>
       <title>编译期常量</title>
       <link>http://pipony.github.io/post/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</link>
