@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Java基础之IO流 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Cindy.H" /><meta name="description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Java基础之IO流" />
+<meta property="og:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-01-11T00:00:00+00:00" />
+
+<meta itemprop="name" content="Java基础之IO流">
+<meta itemprop="description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念"><meta itemprop="datePublished" content="2023-01-11T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2023-01-11T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1250">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java基础之IO流"/>
+<meta name="twitter:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">2MUCH</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">2MUCH</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Java基础之IO流</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2023-01-11 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#java基础之io流">Java基础之IO流</a>
+      <ul>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#分类">分类</a></li>
+        <li><a href="#字符流和字节流的转换">字符流和字节流的转换</a></li>
+        <li><a href="#file类">File类</a></li>
+        <li><a href="#inputstream类">InputStream类</a>
+          <ul>
+            <li><a href="#定义">定义</a></li>
+            <li><a href="#读取文件">读取文件</a></li>
+          </ul>
+        </li>
+        <li><a href="#outputstream类">OutputStream类</a></li>
+        <li><a href="#reader类">Reader类</a></li>
+        <li><a href="#writer类">Writer类</a></li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="java基础之io流">Java基础之IO流</h1>
+<blockquote>
+<p>参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html</p>
+</blockquote>
+<h2 id="概念">概念</h2>
+<p>IO流（stream）</p>
+<blockquote>
+<p>流的源端和目的端可简单地看成是<strong>字节的生产者和消费者</strong>，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。</p>
+<p>流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。</p>
+<p><a href="http://www.51gjie.com/java/686.html">http://www.51gjie.com/java/686.html</a></p>
+</blockquote>
+<p><img src="http://cdn.huangxindi.com/img/lkqixikw.lqs.jpg" alt="Java IO流类图"></p>
+<h2 id="分类">分类</h2>
+<ul>
+<li>数据类型：字符、字节</li>
+<li>流向：输入、输出</li>
+<li>方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip;</li>
+</ul>
+<p>按用法分类：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(1) 按数据来源（去向）使用
+</span></span><span class="line"><span class="cl">是文件： FileInputStream, FileOutputStream, FileReader, FileWriter
+</span></span><span class="line"><span class="cl">是byte[]：ByteArrayInputStream, ByteArrayOutputStream
+</span></span><span class="line"><span class="cl">是Char[]: CharArrayReader, CharArrayWriter
+</span></span><span class="line"><span class="cl">是String: StringBufferInputStream, StringReader, StringWriter
+</span></span><span class="line"><span class="cl">网络数据流：InputStream, OutputStream, Reader, Writer 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(2) 按是否格式化输出使用
+</span></span><span class="line"><span class="cl">要格式化输出：PrintStream, PrintWriter 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(3) 按是否要缓冲使用
+</span></span><span class="line"><span class="cl">要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(4) 按数据格式使用
+</span></span><span class="line"><span class="cl">二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类
+</span></span><span class="line"><span class="cl">纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(5) 按输入输出使用
+</span></span><span class="line"><span class="cl">输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(6) 特殊需要
+</span></span><span class="line"><span class="cl">从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter
+</span></span><span class="line"><span class="cl">对象输入输出：ObjectInputStream, ObjectOutputStream
+</span></span><span class="line"><span class="cl">进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 
+</span></span><span class="line"><span class="cl">合并输入：SequenceInputStream
+</span></span><span class="line"><span class="cl">更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 
+</span></span><span class="line"><span class="cl">考虑最原始的数据格式是什么：是否为文本？是输入还是输出?是否需要转换流：InputStreamReader, OutputStreamWriter?数据来源（去向）是什么：文件？内存？网络？是否要缓冲：bufferedReader （特别注明：一定要注意的是readLine()是否有定义，有什么比read, write更特殊的输入或输出方法）是否要格式化输出：print。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://www.51gjie.com/java/686.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="字符流和字节流的转换">字符流和字节流的转换</h2>
+<p>转换流：是两者之间的桥梁</p>
+<ul>
+<li>字节到字符的桥梁：InputStreamReader</li>
+<li>字符到字节的桥梁：OutputStreamWriter</li>
+</ul>
+<h2 id="file类">File类</h2>
+<h2 id="inputstream类">InputStream类</h2>
+<h3 id="定义">定义</h3>
+<p><code>public abstract class InputStream  extends Object  implements Closeable</code></p>
+<h3 id="读取文件">读取文件</h3>
+<p>使用InputStream对文件进行读取，读取内容可用一个byte数组来存储</p>
+<h2 id="outputstream类">OutputStream类</h2>
+<h2 id="reader类">Reader类</h2>
+<h2 id="writer类">Writer类</h2>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="http://www.51gjie.com/java/686.html">http://www.51gjie.com/java/686.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Cindy.H</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2023-01-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/">
+            <span class="next-text nav-default">认识编码</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

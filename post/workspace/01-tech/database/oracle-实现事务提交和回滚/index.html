@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Oracle-实现事务提交和回滚 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Cindy.H" /><meta name="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Oracle-实现事务提交和回滚" />
+<meta property="og:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-08-02T00:00:00+00:00" />
+
+<meta itemprop="name" content="Oracle-实现事务提交和回滚">
+<meta itemprop="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s"><meta itemprop="datePublished" content="2022-08-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-08-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="773">
+<meta itemprop="keywords" content="数据库," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Oracle-实现事务提交和回滚"/>
+<meta name="twitter:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">2MUCH</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">2MUCH</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Oracle-实现事务提交和回滚</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-08-02 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#oracle-实现事务提交和回滚">Oracle-实现事务提交和回滚</a>
+      <ul>
+        <li><a href="#失败回滚命令">失败回滚命令</a>
+          <ul>
+            <li><a href="#常见用法">常见用法</a></li>
+          </ul>
+        </li>
+        <li><a href="#失败不回滚命令">失败不回滚命令</a></li>
+        <li><a href="#spool命令">spool命令</a></li>
+        <li><a href="#举例">举例</a>
+          <ul>
+            <li><a href="#使用命令行">使用命令行</a></li>
+            <li><a href="#使用sqlplus">使用sqlplus</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="oracle-实现事务提交和回滚">Oracle-实现事务提交和回滚</h1>
+<blockquote>
+<p>背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。</p>
+</blockquote>
+<h2 id="失败回滚命令">失败回滚命令</h2>
+<p><code>WHENEVER SQLERROR</code>官网介绍： <a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+<h3 id="常见用法">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="err">{</span><span class="n">EXIT</span><span class="w"> </span><span class="p">[</span><span class="n">SUCCESS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FAILURE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">WARNING</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">variable</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">:</span><span class="n">BindVariable</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="k">COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">CONTINUE</span><span class="w"> </span><span class="p">[</span><span class="k">COMMIT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">NONE</span><span class="p">]</span><span class="err">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="出现错误后退出sql执行">出现错误后退出sql执行</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="c1">---回滚退出，并返回错误码SQL.SQLCODE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">or</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">WHENEVER</span><span class="w"> </span><span class="k">SQLERROR</span><span class="w"> </span><span class="k">SQL</span><span class="p">.</span><span class="k">SQLCODE</span><span class="w"> </span><span class="n">EXIT</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="失败不回滚命令">失败不回滚命令</h2>
+<p>如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：</p>
+<p>参考 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">whenever</span><span class="w"> </span><span class="k">sqlerror</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="k">commit</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="spool命令">spool命令</h2>
+<p>此外，可以先认识下<code>spool</code>命令。</p>
+<p>常用语法可参考：</p>
+<p><a href="https://blog.csdn.net/lixiaomei0623/article/details/121274473">https://blog.csdn.net/lixiaomei0623/article/details/121274473</a></p>
+<blockquote>
+<p>spool的作用可以用一句话来描述：在sqlplus中用来保存或打印查询结果。</p>
+<p>通过spool 命令，可以将select 数据库的内容写到文件中，通过在sqlplus设置一些参数，使得按指定方式写到文件中。</p>
+</blockquote>
+<p>sql执行内容导出到某文件例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="n">sqlplus</span><span class="w"> </span><span class="n">oracle</span><span class="o">/</span><span class="n">pwd</span><span class="o">@</span><span class="mi">192</span><span class="p">.</span><span class="mi">168</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">16</span><span class="p">:</span><span class="mi">1521</span><span class="o">/</span><span class="n">orl</span><span class="w"> </span><span class="o">@/</span><span class="n">tmp</span><span class="o">/</span><span class="n">lxm</span><span class="o">/</span><span class="n">export</span><span class="p">.</span><span class="k">sql</span><span class="w"> </span><span class="c1">-- 执行语句
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">-</span><span class="c1">-- 以下为export.sql内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">trimspool</span><span class="w"> </span><span class="k">on</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">linesize</span><span class="w"> </span><span class="mi">20000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">pagesize</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">feedback</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">newpage</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">wrap</span><span class="w"> </span><span class="n">off</span><span class="w"> </span><span class="n">SQLBLANKLINES</span><span class="w"> </span><span class="k">ON</span><span class="w">  </span><span class="o">---</span><span class="err">去掉空行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="n">off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">---</span><span class="err">以上为输出格式设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">spool</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">oracle</span><span class="o">/</span><span class="n">aaa</span><span class="p">.</span><span class="n">csv</span><span class="w">  </span><span class="o">---</span><span class="err">保存查询结果集的的路径和文件名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">python_student</span><span class="p">.</span><span class="n">name</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">python_student</span><span class="p">.</span><span class="n">age</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">python_student</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">spool</span><span class="w"> </span><span class="n">off</span><span class="w">  </span><span class="o">---</span><span class="err">完成</span><span class="n">spool</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="举例">举例</h2>
+<h3 id="使用命令行">使用命令行</h3>
+<p>来自 <a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a> 的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="n">spool</span><span class="w"> </span><span class="n">e</span><span class="p">:</span><span class="err">\</span><span class="n">test</span><span class="p">.</span><span class="n">txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="k">whenever</span><span class="w"> </span><span class="k">sqlerror</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="k">rollback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test1233</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="n">spool</span><span class="w"> </span><span class="k">off</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="使用sqlplus">使用sqlplus</h3>
+<p>来自 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a> 的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;SQL*Plus-语句执行异常则退出&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sqlplus user/password@x.x.x.x:x/orcl <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">whenever sqlerror exit failure rollback
+</span></span></span><span class="line"><span class="cl"><span class="s">${1}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nv">$?</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
+<p><a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a></p>
+<p><a href="https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html">https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html</a></p>
+<p><a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Cindy.H</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-08-02
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux-安装Oracle</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/">
+            <span class="next-text nav-default">认识Jar包</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

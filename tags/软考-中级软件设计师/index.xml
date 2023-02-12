@@ -9,163 +9,163 @@
     <lastBuildDate>Sat, 14 May 2022 22:51:46 +0800</lastBuildDate><atom:link href="http://pipony.github.io/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>软考-中级软件设计师-00 无分类</title>
-      <link>http://pipony.github.io/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/</guid>
       <description>00 无分类 海明码（Hamming code） https://www.bilibili.com/video/BV1SJ41157pR?spm_id_from=333.337.search-card.all.click#/ https://www.cnblogs.com/godoforange/p/12003676.html#/ 遇到这种题，做题练一下 CRC校验法（循环冗余校验 Cyclic Redundancy Check） https://seedeer.github.io/2022/03/20/crc/#/ https://www.bilibili.com/video/BV1rJ411V7L5?spm_id_from=333.337.search-card.all.click#/</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-01 计算机组成与体系结构</title>
-      <link>http://pipony.github.io/post/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</guid>
       <description>01 计算机组成与体系结构 数据的表示 进制转换 R进制-&amp;gt;十进制：底数，指数 十进制-&amp;gt;R进制：短除法 二进制-&amp;gt;八进制，十六进制 编码</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-02 操作系统</title>
-      <link>http://pipony.github.io/post/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
       <description>02 操作系统 概述 操作系统的角色： 管理系统的硬件、软件、数据资源 控制程序运行 人机之间的接口 应用软件与硬件之间的接口 管理分类： 进程管理 存储管理 文件</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-03 数据库系统</title>
-      <link>http://pipony.github.io/post/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</guid>
       <description>03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】）</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-04 计算机网络</title>
-      <link>http://pipony.github.io/post/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
       <description>04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台） 例题： 分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-05 计算机安全</title>
-      <link>http://pipony.github.io/post/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/</guid>
       <description>05 计算机安全 信息系统安全属性 完整性：保证A到B的消息没被篡改 加密技术 对称加密 非对称加密 信息摘要 特性：单向 用于验证数据完整性 数字签名 特性：防抵</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-06 数据结构与算法基础</title>
-      <link>http://pipony.github.io/post/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/</guid>
       <description>06 数据结构与算法基础 数组 考点：存储地址计算 稀疏矩阵 矩阵坐标转换到数组坐标的解题技巧：带入特殊值 数据结构的定义 概念：计算机存储和组织数据的方式</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-07 程序设计语言与语言处理程序基础</title>
-      <link>http://pipony.github.io/post/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</guid>
       <description>07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）： 答案：C 正规式 例题： 答案：D C 表达式 答案：D 函数调用 - 传值和传址 传值</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-08 法律法规</title>
-      <link>http://pipony.github.io/post/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/</guid>
       <description>08 法律法规 保护期限 知识产权人确定 侵权判定 标准化基础知识 标准的分类 标准的编号</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-09 多媒体基础</title>
-      <link>http://pipony.github.io/post/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/</guid>
       <description>09 多媒体基础 基本概念 音频概念 次声波：&amp;lt;20Hz；超声波：&amp;gt;20kHz 图像概念 亮度 色调（如红，绿） 饱和度：色彩艳丽程度 彩色空间： C</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-10 软件工程</title>
-      <link>http://pipony.github.io/post/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/</guid>
       <description>10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定 适用于： 需求明确 二次开发 结构化开发 其他经典模型 原型（针对需求不明确</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-11 面向对象设计</title>
-      <link>http://pipony.github.io/post/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/</guid>
       <description>11 面向对象设计 边界类：与外界系统交互 控制类：类之间的衔接类 封装：提供给外部接口，外界用接口调用 设计原则 UML 设计模式 架构和设计模式区别：全局or</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-12 数据流图（DFD）</title>
-      <link>http://pipony.github.io/post/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/</guid>
       <description>12 数据流图（DFD） 数据流图基本概念 自上往下细分 数据字典 数据流图的平衡原则 父图与子图之间的平衡（如顶层-&amp;gt;0层）：外部实体到系统的连线</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-13 数据库设计</title>
-      <link>http://pipony.github.io/post/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/</guid>
       <description>13 数据库设计 数据库设计过程 ER模型 实体间联系类型 1:1 1:n m:n E-R图向关系模型的转换 实体和联系分别转换为关系，属性转换为关系的属性 数据库设计答题技</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-14 UML建模</title>
-      <link>http://pipony.github.io/post/software-designer/14-uml%E5%BB%BA%E6%A8%A1/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/14-uml%E5%BB%BA%E6%A8%A1/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/</guid>
       <description>14 UML建模 重点：用例图、类图 用例图 包含关系 include 如每次登记外接信息都要【用户登录】，故是包含关系 扩展关系 extend 如每次查询书籍信息不是都要【修改书籍</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-15 数据结构及算法应用</title>
-      <link>http://pipony.github.io/post/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/</guid>
       <description>15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题 不容易拿高分，但要把容易的都填出来 分治法 递归 概念：运行的过程中调用自己 二分查找 回溯</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-16 面向对象程序设计</title>
-      <link>http://pipony.github.io/post/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</guid>
       <description>16 面向对象程序设计 类和派生类的定义 构造函数和析构函数 对象指针与对象引用 虚函数 类的定义 关键字：extends对方就是类而不是接口 接口的定义 关键</description>
     </item>
     
     <item>
       <title>软考-中级软件设计师-开始</title>
-      <link>http://pipony.github.io/post/software-designer/%E5%BC%80%E5%A7%8B/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/software-designer/%E5%BC%80%E5%A7%8B/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>http://pipony.github.io/post/software-designer/%E5%BC%80%E5%A7%8B/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/software-designer/%E5%BC%80%E5%A7%8B/</guid>
       <description>开始 视频教程： https://www.bilibili.com/video/BV1yU4y1371J?spm_id_from=333.337.search-card.all.click#/</description>
     </item>
     

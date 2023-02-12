@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux-文本处理三剑客 - 2MUCH-Tech-Notes</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux-文本处理三剑客" />
+<meta property="og:description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-07T00:00:00+00:00" />
+
+<meta itemprop="name" content="Linux-文本处理三剑客">
+<meta itemprop="description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是"><meta itemprop="datePublished" content="2022-12-07T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-07T00:00:00+00:00" />
+<meta itemprop="wordCount" content="6849">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux-文本处理三剑客"/>
+<meta name="twitter:description" content="Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">2MUCH</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/post/about">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">2MUCH</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/about">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux-文本处理三剑客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-12-07 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#linux-文本处理三剑客">Linux-文本处理三剑客</a>
+      <ul>
+        <li><a href="#grep">grep</a></li>
+        <li><a href="#sed">sed</a>
+          <ul>
+            <li><a href="#参数说明">参数说明</a></li>
+            <li><a href="#sed命令">sed命令</a></li>
+            <li><a href="#sed替换标记">sed替换标记</a></li>
+            <li><a href="#sed元字符集">sed元字符集</a></li>
+            <li><a href="#常见用法">常见用法</a></li>
+          </ul>
+        </li>
+        <li><a href="#awk">awk</a>
+          <ul>
+            <li><a href="#awk内置变量">awk内置变量</a></li>
+            <li><a href="#awk选项指定">awk选项（指定）</a></li>
+            <li><a href="#awk内置函数">awk内置函数</a></li>
+            <li><a href="#awk执行流程">awk执行流程</a></li>
+            <li><a href="#awk流程控制语句">awk流程控制语句</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="linux-文本处理三剑客">Linux-文本处理三剑客</h1>
+<p><em>awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。</em></p>
+<p>但是三者有所侧重点：</p>
+<ul>
+<li>awk：功能最强，也是最复杂的。更适合格式化文本，对文本作复杂格式处理</li>
+<li>grep：更适合查找、匹配</li>
+<li>sed：更适合编辑匹配到的文本</li>
+</ul>
+<h2 id="grep">grep</h2>
+<p><code>grep</code>命令已经在 <a href="https://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/">linux-管道篇</a> 学习过了，这里就略过。</p>
+<h2 id="sed">sed</h2>
+<blockquote>
+<p>sed是一种流编辑器，它<strong>一次处理一行内容</strong>。处理时，把当前处理的行存储在临时缓冲区中，称为**“模式空间”<strong>，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下一行，执行下一个循环。如果没有使用诸如“D”的特殊命令，那会在两个循环之间清空模式空间，但不会清空</strong>保留空间**。这样不断重复，直到文件末尾。<strong>文件内容并没有改变，除非使用重定向存储输出或-i。</strong></p>
+</blockquote>
+<h3 id="参数说明">参数说明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sed --help
+</span></span><span class="line"><span class="cl">Usage: sed <span class="o">[</span>OPTION<span class="o">]</span>... <span class="o">{</span>script-only-if-no-other-script<span class="o">}</span> <span class="o">[</span>input-file<span class="o">]</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  -n, --quiet, --silent <span class="c1"># 只打印匹配的行</span>
+</span></span><span class="line"><span class="cl">                 suppress automatic printing of pattern space
+</span></span><span class="line"><span class="cl">  -e script, --expression<span class="o">=</span>script
+</span></span><span class="line"><span class="cl">                 add the script to the commands to be executed
+</span></span><span class="line"><span class="cl">  -f script-file, --file<span class="o">=</span>script-file  <span class="c1"># 写入文档中，后接文件名</span>
+</span></span><span class="line"><span class="cl">                 add the contents of script-file to the commands to be executed
+</span></span><span class="line"><span class="cl">  --follow-symlinks
+</span></span><span class="line"><span class="cl">                 follow symlinks when processing in place
+</span></span><span class="line"><span class="cl">  -i<span class="o">[</span>SUFFIX<span class="o">]</span>, --in-place<span class="o">[=</span>SUFFIX<span class="o">]</span>  <span class="c1"># 直接将处理结果写入文件</span>
+</span></span><span class="line"><span class="cl">                 edit files in place <span class="o">(</span>makes backup <span class="k">if</span> SUFFIX supplied<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -c, --copy
+</span></span><span class="line"><span class="cl">                 use copy instead of rename when shuffling files in -i mode
+</span></span><span class="line"><span class="cl">  -b, --binary
+</span></span><span class="line"><span class="cl">                 does nothing<span class="p">;</span> <span class="k">for</span> compatibility with WIN32/CYGWIN/MSDOS/EMX <span class="o">(</span>
+</span></span><span class="line"><span class="cl">                 open files in binary mode <span class="o">(</span>CR+LFs are not treated specially<span class="o">))</span>
+</span></span><span class="line"><span class="cl">  -l N, --line-length<span class="o">=</span>N
+</span></span><span class="line"><span class="cl">                 specify the desired line-wrap length <span class="k">for</span> the <span class="sb">`</span>l<span class="err">&#39;</span> <span class="nb">command</span>
+</span></span><span class="line"><span class="cl">  --posix
+</span></span><span class="line"><span class="cl">                 disable all GNU extensions.
+</span></span><span class="line"><span class="cl">  -r, --regexp-extended  <span class="c1"># 支持扩展的正则表达式</span>
+</span></span><span class="line"><span class="cl">                 use extended regular expressions in the script.
+</span></span><span class="line"><span class="cl">  -s, --separate
+</span></span><span class="line"><span class="cl">                 consider files as separate rather than as a single continuous
+</span></span><span class="line"><span class="cl">                 long stream.
+</span></span><span class="line"><span class="cl">  -u, --unbuffered
+</span></span><span class="line"><span class="cl">                 load minimal amounts of data from the input files and flush
+</span></span><span class="line"><span class="cl">                 the output buffers more often
+</span></span><span class="line"><span class="cl">  -z, --null-data
+</span></span><span class="line"><span class="cl">                 separate lines by NUL characters
+</span></span><span class="line"><span class="cl">  --help
+</span></span><span class="line"><span class="cl">                 display this <span class="nb">help</span> and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">  --version
+</span></span><span class="line"><span class="cl">                 output version information and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">If no -e, --expression, -f, or --file option is given, <span class="k">then</span> the first
+</span></span><span class="line"><span class="cl">non-option argument is taken as the sed script to interpret.  All
+</span></span><span class="line"><span class="cl">remaining arguments are names of input files<span class="p">;</span> <span class="k">if</span> no input files are
+</span></span><span class="line"><span class="cl">specified, <span class="k">then</span> the standard input is read.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sed命令">sed命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">a<span class="se">\\</span> 在当前行下面插入文本。
+</span></span><span class="line"><span class="cl">i<span class="se">\\</span> 在当前行上面插入文本。
+</span></span><span class="line"><span class="cl">c<span class="se">\\</span> 把选定的行改为新的文本。
+</span></span><span class="line"><span class="cl">d 删除，删除选择的行。
+</span></span><span class="line"><span class="cl">D 删除模板块的第一行。
+</span></span><span class="line"><span class="cl">s 替换指定字符
+</span></span><span class="line"><span class="cl">h 拷贝模板块的内容到内存中的缓冲区。
+</span></span><span class="line"><span class="cl">H 追加模板块的内容到内存中的缓冲区。
+</span></span><span class="line"><span class="cl">g 获得内存缓冲区的内容，并替代当前模板块中的文本。
+</span></span><span class="line"><span class="cl">G 获得内存缓冲区的内容，并追加到当前模板块文本的后面。
+</span></span><span class="line"><span class="cl">l 列表不能打印字符的清单。
+</span></span><span class="line"><span class="cl">n 读取下一个输入行，用下一个命令处理新的行而不是用第一个命令。
+</span></span><span class="line"><span class="cl">N 追加下一个输入行到模板块后面并在二者间嵌入一个新行，改变当前行号码。
+</span></span><span class="line"><span class="cl">p 打印模板块的行。
+</span></span><span class="line"><span class="cl">P<span class="o">(</span>大写<span class="o">)</span> 打印模板块的第一行。
+</span></span><span class="line"><span class="cl">q 退出Sed。
+</span></span><span class="line"><span class="cl">b lable 分支到脚本中带有标记的地方，如果分支不存在则分支到脚本的末尾。
+</span></span><span class="line"><span class="cl">r file 从file中读行。
+</span></span><span class="line"><span class="cl">t label if分支，从最后一行开始，条件一旦满足或者T，t命令，将导致分支到带有标号的命令处，或者到脚本的末尾。
+</span></span><span class="line"><span class="cl">T label 错误分支，从最后一行开始，一旦发生错误或者T，t命令，将导致分支到带有标号的命令处，或者到脚本的末尾。
+</span></span><span class="line"><span class="cl">w file 写并追加模板块到file末尾。 
+</span></span><span class="line"><span class="cl">W file 写并追加模板块的第一行到file末尾。 
+</span></span><span class="line"><span class="cl">! 表示后面的命令对所有没有被选定的行发生作用。 
+</span></span><span class="line"><span class="cl"><span class="o">=</span> 打印当前行号码。 
+</span></span><span class="line"><span class="cl"><span class="c1"># 把注释扩展到下一个换行符以前。 </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sed替换标记">sed替换标记</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sed替换标记
+</span></span><span class="line"><span class="cl">g 表示行内全面替换。 
+</span></span><span class="line"><span class="cl">p 表示打印行。 
+</span></span><span class="line"><span class="cl">w 表示把行写入一个文件。 
+</span></span><span class="line"><span class="cl">x 表示互换模板块中的文本和缓冲区中的文本。 
+</span></span><span class="line"><span class="cl">y 表示把一个字符翻译为另外的字符（但是不用于正则表达式）
+</span></span><span class="line"><span class="cl"><span class="se">\\</span><span class="m">1</span> 子串匹配标记
+</span></span><span class="line"><span class="cl"><span class="p">&amp;</span> 已匹配字符串标记
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sed元字符集">sed元字符集</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sed元字符集
+</span></span><span class="line"><span class="cl">^ 匹配行开始，如：/^sed/匹配所有以sed开头的行。
+</span></span><span class="line"><span class="cl">$ 匹配行结束，如：/sed$/匹配所有以sed结尾的行。
+</span></span><span class="line"><span class="cl">. 匹配一个非换行符的任意字符，如：/s.d/匹配s后接一个任意字符，最后是d。
+</span></span><span class="line"><span class="cl">* 匹配0个或多个字符，如：/*sed/匹配所有模板是一个或多个空格后紧跟sed的行。
+</span></span><span class="line"><span class="cl"><span class="o">[]</span> 匹配一个指定范围内的字符，如/<span class="o">[</span>sS<span class="o">]</span>ed/匹配sed和Sed。 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>^<span class="o">]</span> 匹配一个不在指定范围内的字符，如：/<span class="o">[</span>^A-RT-Z<span class="o">]</span>ed/匹配不包含A-R和T-Z的一个字母开头，紧跟ed的行。
+</span></span><span class="line"><span class="cl"><span class="se">\\</span><span class="o">(</span>..<span class="se">\\</span><span class="o">)</span> 匹配子串，保存匹配的字符，如s/<span class="se">\\</span><span class="o">(</span>love<span class="se">\\</span><span class="o">)</span>able/<span class="se">\\</span>1rs，loveable被替换成lovers。
+</span></span><span class="line"><span class="cl"><span class="p">&amp;</span> 保存搜索字符用来替换其他字符，如s/love/**<span class="p">&amp;</span>**/，love这成**love**。
+</span></span><span class="line"><span class="cl"><span class="se">\\</span>&lt; 匹配单词的开始，如:/<span class="se">\\\\</span>&gt; 匹配单词的结束，如/love<span class="se">\\</span>&gt;/匹配包含以love结尾的单词的行。
+</span></span><span class="line"><span class="cl">x<span class="se">\\</span><span class="o">{</span>m<span class="se">\\</span><span class="o">}</span> 重复字符x，m次，如：/0<span class="se">\\</span><span class="o">{</span>5<span class="se">\\</span><span class="o">}</span>/匹配包含5个0的行。
+</span></span><span class="line"><span class="cl">x<span class="se">\\</span><span class="o">{</span>m,<span class="se">\\</span><span class="o">}</span> 重复字符x，至少m次，如：/0<span class="se">\\</span><span class="o">{</span>5,<span class="se">\\</span><span class="o">}</span>/匹配至少有5个0的行。
+</span></span><span class="line"><span class="cl">x<span class="se">\\</span><span class="o">{</span>m,n<span class="se">\\</span><span class="o">}</span> 重复字符x，至少m次，不多于n次，如：/0<span class="se">\\</span><span class="o">{</span>5,10<span class="se">\\</span><span class="o">}</span>/匹配5~10个0的行。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="常见用法">常见用法</h3>
+<h4 id="1替换s">1、替换（s）</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. sed &#39;s/xxx/yyy/&#39; 打印替换后的结果</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">abcdefg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;s/cde/111/&#39;</span> 1.txt <span class="c1"># 打印替换后的结果</span>
+</span></span><span class="line"><span class="cl">ab111fg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt  <span class="c1"># 不改变原文件</span>
+</span></span><span class="line"><span class="cl">abcdefg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. sed -n &#39;s/xxx/yyy/p&#39; 只打印发生替换的行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;s/cde/111/p&#39;</span> 1.txt <span class="c1"># 只打印发生替换的行</span>
+</span></span><span class="line"><span class="cl">ab111fg
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">abcdefg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. sed -i &#39;s/xxx/yyy/g&#39; 直接在原文件中替换，替换每一个匹配行的所有匹配字段</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">abcdefg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl">abcdefg
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -i <span class="s1">&#39;s/cde/111/g&#39;</span> 1.txt <span class="c1"># 直接在原文件中替换，替换每一个匹配行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">ab111fg
+</span></span><span class="line"><span class="cl"><span class="m">123456</span>
+</span></span><span class="line"><span class="cl">ab111fg
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. sed &#39;s/xxx/yyy/&#39; 没有/g只有替换每一行的第一个匹配</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">abcabc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -i <span class="s1">&#39;s/abc/123/&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt <span class="c1"># 只替换了第一个匹配</span>
+</span></span><span class="line"><span class="cl">123abc
+</span></span><span class="line"><span class="cl"><span class="m">123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. sed &#39;s/xxx/yyy/g&#39; 有/g会替换每一行的所有匹配</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">abcabc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;s/abc/123/g&#39;</span> 2.txt <span class="c1"># 和例4形成对比</span>
+</span></span><span class="line"><span class="cl"><span class="m">123123</span>
+</span></span><span class="line"><span class="cl"><span class="m">123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 6. sed &#39;s/xxx/yyy/Ng&#39; 从第N个xxx开始匹配成yyy</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;123123123&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/123/456/2g&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="m">123456456</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2使用规范">2、使用规范</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1、定界符</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 以上例子是使用/作为定界符，也可以使用其他任意字符作为定界符，如:</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;abab&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s🆎12:g&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="m">1212</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 值得注意的是，若定界符出现在语句内部，则需要转移</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;1/2/3/&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\/2/\/5/&#39;</span>
+</span></span><span class="line"><span class="cl">1/5/3/
+</span></span><span class="line"><span class="cl"><span class="c1"># 2、组合使用(以下三种方法等价)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;abc&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/a/1/&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/b/2/&#39;</span>
+</span></span><span class="line"><span class="cl">12c
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;abc&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/a/1/; s/b/2/&#39;</span>
+</span></span><span class="line"><span class="cl">12c
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;abc&#34;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/a/1/&#39;</span> -e <span class="s1">&#39;s/1/2/&#39;</span>
+</span></span><span class="line"><span class="cl">2bc
+</span></span><span class="line"><span class="cl"><span class="c1"># 3、sed中使用引用变量（注意：此时应该用双引号包围）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.sh
+</span></span><span class="line"><span class="cl"><span class="nv">var</span><span class="o">=</span>good
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;good morning&#34;</span> <span class="p">|</span> sed <span class="s2">&#34;s/</span><span class="nv">$var</span><span class="s2">/bad/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sh 1.sh
+</span></span><span class="line"><span class="cl">bad morning
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="3删除操作d">3、删除操作（d）</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># ^表示开始，$表示最后</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. sed &#39;/^$/d&#39; 删除空白行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 3.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/^$/d&#39;</span> 3.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 3.txt <span class="c1"># 不改变原文件</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. sed &#39;2d&#39; 删除第2行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;2d&#39;</span> 3.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. sed &#39;2,$d&#39; 删除第2-末尾行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;2,$d&#39;</span> 3.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. sed &#39;$d&#39; 删除末尾行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;$d&#39;</span> 3.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. sed &#39;/^ab/d&#39; 删除以ab开头的行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 4.txt
+</span></span><span class="line"><span class="cl">ab ccc
+</span></span><span class="line"><span class="cl">ab ddd
+</span></span><span class="line"><span class="cl">a eee
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/^ab/d&#39;</span> 4.txt
+</span></span><span class="line"><span class="cl">a eee
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="4匹配标记n">4、匹配标记（&amp;,\N）</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. 已匹配字符串标记&amp;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;abab&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/ab/[&amp;]/g&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>ab<span class="o">][</span>ab<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;this is good&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\w\+/*&amp;*/g&#39;</span>
+</span></span><span class="line"><span class="cl">*this* *is* *good*
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 子串匹配标记\N</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;aaa bbb&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\([a-z]\+\) \([a-z]\+\)/\2 \1/&#39;</span>
+</span></span><span class="line"><span class="cl">bbb aaa
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;aaa 123 bbb&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\([a-z]\+\) \([0-9]\+\) \([a-z]\+\)/\2 \1/&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="m">123</span> aaa
+</span></span><span class="line"><span class="cl"><span class="c1"># 上个例子中，\1=aaa,\2=123,\3=bbb</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;s/\(bad\)/\1?/&#39;</span> 4.txt 
+</span></span><span class="line"><span class="cl">i am bad?
+</span></span><span class="line"><span class="cl">i am bad?
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 4.txt
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am bad
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="5选定行范围">5、选定行范围（,）</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. sed -n &#39;/bad/,/good/p&#39; 打印匹配bad和good之间的行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 4.txt
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">i am nobody
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;/bad/,/good/p&#39;</span> 4.txt
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. sed -n &#39;2,/good$/p&#39; 打印 第2行-匹配该行最后是good 的行</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ vi 4.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 4.txt
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">i am nobody
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;2,/good$/p&#39;</span> 4.txt
+</span></span><span class="line"><span class="cl">i am bad
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. sed &#39;/bad/,/nobody/s/$/.../&#39; 在模版bad和good之间的行，在每行的最后添加...</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/bad/,/nobody/s/$/.../&#39;</span> 4.txt
+</span></span><span class="line"><span class="cl">i am bad...
+</span></span><span class="line"><span class="cl">i am bad...
+</span></span><span class="line"><span class="cl">i am good...
+</span></span><span class="line"><span class="cl">i am nobody...
+</span></span><span class="line"><span class="cl">i am good
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="6读写追加等命令">6、读写追加等命令</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. 读(r) sed &#39;/good/r 2.txt&#39; 1.txt 打印1.txt匹配的模版good行，在下面打印2.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">abcabc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/good/r 2.txt&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">abcabc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 写(w) sed &#39;/good/w 2.txt&#39; 1.txt 将1.txt中匹配模版good的行（真正）写入2.txt</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">abcabc
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/good/w 2.txt&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt <span class="c1"># 实际被改变了</span>
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. 行下追加(a) </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sed &#39;/am/a\haha&#39; 2.txt 在匹配am的行下面插入haha</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sed -i &#39;2a\oh haha&#39; 2.txt 在第2行下面插入oh haha</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/am/a\haha&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">haha
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">oh no
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -i <span class="s1">&#39;2a\oh haha&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">oh no
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">oh haha
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. 行上追加(i)  类似行下追加，只是变成了行上</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -i <span class="s1">&#39;1i\oh no&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">oh no
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/am/i\oh yes&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl">oh no
+</span></span><span class="line"><span class="cl">oh yes
+</span></span><span class="line"><span class="cl">i am good
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 5、下一行处理(n) sed &#39;/test/{ n; s/aa/bb/;}&#39; 在匹配test模式的下一行，进行/aa/bb/替换（然后继续）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/test/{ n; s/aa/bb/;}&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1
+</span></span><span class="line"><span class="cl">1bb
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl">1bb
+</span></span><span class="line"><span class="cl">1aa <span class="c1"># 因为上面不是test模式，所以不会被替换为1bb</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1aa
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;/test/{ n; s/aa/bb/;}&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl">i am good
+</span></span><span class="line"><span class="cl">test1aa <span class="c1"># 本身的test匹配行的aa，不会被替换为bb</span>
+</span></span><span class="line"><span class="cl">1bb
+</span></span><span class="line"><span class="cl">test2
+</span></span><span class="line"><span class="cl">1bb
+</span></span><span class="line"><span class="cl">1aa
+</span></span><span class="line"><span class="cl"><span class="c1"># 6、变形/按字符替换(y) sed &#39;1,2y/abc/ABC/&#39; 将第1-2行的abc替换为ABC</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># y和s的区别：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. y一般是行级别的替换，s一般是列级别替换（当然也可以转换成行级）；</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2.s替换的是整体，y替换的是每一字母对应的单个字母（见下面的例子）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 2.txt
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl">1abc1
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;1,2y/abc/ABC/&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl">ABC
+</span></span><span class="line"><span class="cl">1ABC1
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;1,2s/and/123/&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl">1abc1
+</span></span><span class="line"><span class="cl">abc
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;1,2y/abc/12/&#39;</span> 2.txt <span class="c1"># 如果不是逐字母替换的话，y会报错，但是s不会</span>
+</span></span><span class="line"><span class="cl">sed: -e expression <span class="c1">#1, char 12: strings for `y&#39; command are different lengths</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed <span class="s1">&#39;1,2s/abc/12/&#39;</span> 2.txt
+</span></span><span class="line"><span class="cl"><span class="m">12</span>
+</span></span><span class="line"><span class="cl"><span class="m">1121</span>
+</span></span><span class="line"><span class="cl">abc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="7打印奇数偶数行">7、打印奇数/偶数行</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 命令见例子</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;p;n&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;n;p&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;1~2p&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;2~2p&#39;</span> 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="8打印匹配字符串的下一行">8、打印匹配字符串的下一行</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ cat 1.txt
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ sed<span class="o">]</span>$ sed -n <span class="s1">&#39;/1/{n;p}&#39;</span> 1.txt <span class="c1"># 打印匹配模式1的下一行</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="9sed高级处理">9、sed高级处理</h4>
+<blockquote>
+<p>sed之所以能以行为单位的编辑或修改文本，其原因在于它使用了两个空间：一个是活动的“模式空间（pattern space）”，另一个是起辅助作用的“保持空间（hold space）这2个空间的使用。</p>
+<p>模式空间：可以想成工程里面的流水线，数据之间在它上面进行处理。
+保持空间：可以想象成仓库，我们在进行数据处理的时候，作为数据的暂存区域。</p>
+<p>sed在正常情况下，将处理的行读入模式空间，脚本中的“sed command（sed命令）”就一条接着一条进行处理，直到脚本执行完毕。<strong>然后该行被输出，模式被清空</strong>；接着，在重复执行刚才的动作，文件中的新的一行被读入，直到文件处理完毕。</p>
+<p><strong>一般情况下，数据的处理只使用模式空间</strong>（pattern space），按照如上的逻辑即可完成主要任务。正常情况下，如果不显示使用某些高级命令，保持空间不会使用到！但是某些时候，通过使用保持空间（hold space），还可以带来意想不到的效果。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">+ g：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>g 将hold space中的内容拷贝到pattern space中，原来pattern space里的内容清除。
+</span></span><span class="line"><span class="cl">+ G：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>G 将hold space中的内容append到pattern space<span class="se">\n</span>后。
+</span></span><span class="line"><span class="cl">+ h：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>h 将pattern space中的内容拷贝到hold space中，原来的hold space里的内容被清除。
+</span></span><span class="line"><span class="cl">+ H：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>H 将pattern space中的内容append到hold space<span class="se">\n</span>后。
+</span></span><span class="line"><span class="cl">+ d：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>d 删除pattern中的所有行，并读入下一新行到pattern中。
+</span></span><span class="line"><span class="cl">+ D：<span class="o">[</span>address<span class="o">[</span>,address<span class="o">]]</span>D 删除multiline pattern中的第一行，不读入下一行。
+</span></span><span class="line"><span class="cl">+ x：交换保持空间和模式空间的内容。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color='red'>高级用法后续再学习</font></p>
+<h2 id="awk">awk</h2>
+<blockquote>
+<p>wk其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan 姓氏的首个字母。实际上 AWK 的确拥有自己的语言： AWK 程序设计语言 ， 三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<p>awk 是一种很棒的语言，它适合文本处理和报表生成，其语法较为常见，借鉴了某些语言的一些精华，如 C 语言等。在 linux 系统日常处理工作中，发挥很重要的作用，掌握了 awk将会使你的工作变的高大上。 awk 是三剑客的<strong>老大</strong>，利剑出鞘，必会不同凡响。</p>
+<p><a href="https://www.cnblogs.com/ginvip/p/6352157.html">https://www.cnblogs.com/ginvip/p/6352157.html</a></p>
+</blockquote>
+<p><strong>sed偏向于字符串处理，awk可支持更广泛的类型处理，例如可以在awk中执行整数运算等，但是在sed中就不行。在sed中，万物皆字符串。</strong></p>
+<p>awk不是命令，是一门语言。又叫做<code>GNU awk</code>，<code>gawk</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ which awk
+</span></span><span class="line"><span class="cl">/usr/bin/awk
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ ls -l /usr/bin/awk
+</span></span><span class="line"><span class="cl">lrwxrwxrwx. <span class="m">1</span> root root <span class="m">4</span> Sep <span class="m">14</span>  <span class="m">2020</span> /usr/bin/awk -&gt; gawk <span class="c1"># 一般Linux默认为Gawk，Gawk是 AWK的GNU开源免费版本。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ awk -h
+</span></span><span class="line"><span class="cl">awk: option requires an argument -- h
+</span></span><span class="line"><span class="cl">Usage: awk <span class="o">[</span>POSIX or GNU style options<span class="o">]</span> -f progfile <span class="o">[</span>--<span class="o">]</span> file ...
+</span></span><span class="line"><span class="cl">Usage: awk <span class="o">[</span>POSIX or GNU style options<span class="o">]</span> <span class="o">[</span>--<span class="o">]</span> <span class="s1">&#39;program&#39;</span> file ...
+</span></span><span class="line"><span class="cl">POSIX options:          GNU long options: <span class="o">(</span>standard<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        -f progfile             --file<span class="o">=</span>progfile
+</span></span><span class="line"><span class="cl">        -F fs                   --field-separator<span class="o">=</span>fs  <span class="c1"># 指定分隔符</span>
+</span></span><span class="line"><span class="cl">        -v <span class="nv">var</span><span class="o">=</span>val              --assign<span class="o">=</span><span class="nv">var</span><span class="o">=</span>val  <span class="c1"># 指定变量</span>
+</span></span><span class="line"><span class="cl">Short options:          GNU long options: <span class="o">(</span>extensions<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        -b                      --characters-as-bytes
+</span></span><span class="line"><span class="cl">        -c                      --traditional
+</span></span><span class="line"><span class="cl">        -C                      --copyright
+</span></span><span class="line"><span class="cl">        -d<span class="o">[</span>file<span class="o">]</span>                --dump-variables<span class="o">[=</span>file<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        -e <span class="s1">&#39;program-text&#39;</span>       --source<span class="o">=</span><span class="s1">&#39;program-text&#39;</span>
+</span></span><span class="line"><span class="cl">        -E file                 --exec<span class="o">=</span>file
+</span></span><span class="line"><span class="cl">        -g                      --gen-pot
+</span></span><span class="line"><span class="cl">        -h                      --help
+</span></span><span class="line"><span class="cl">        -L <span class="o">[</span>fatal<span class="o">]</span>              --lint<span class="o">[=</span>fatal<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        -n                      --non-decimal-data
+</span></span><span class="line"><span class="cl">        -N                      --use-lc-numeric
+</span></span><span class="line"><span class="cl">        -O                      --optimize
+</span></span><span class="line"><span class="cl">        -p<span class="o">[</span>file<span class="o">]</span>                --profile<span class="o">[=</span>file<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        -P                      --posix
+</span></span><span class="line"><span class="cl">        -r                      --re-interval
+</span></span><span class="line"><span class="cl">        -S                      --sandbox
+</span></span><span class="line"><span class="cl">        -t                      --lint-old
+</span></span><span class="line"><span class="cl">        -V                      --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To report bugs, see node <span class="sb">`</span>Bugs<span class="s1">&#39; in `gawk.info&#39;</span>, which is
+</span></span><span class="line"><span class="cl">section <span class="sb">`</span>Reporting Problems and Bugs<span class="s1">&#39; in the printed version.
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">gawk is a pattern scanning and processing language.
+</span></span></span><span class="line"><span class="cl"><span class="s1">By default it reads standard input and writes standard output.
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Examples:
+</span></span></span><span class="line"><span class="cl"><span class="s1">        gawk &#39;</span><span class="o">{</span> <span class="nv">sum</span> <span class="o">+=</span> <span class="nv">$1</span> <span class="o">}</span><span class="p">;</span> END <span class="o">{</span> print sum <span class="o">}</span><span class="s1">&#39; file
+</span></span></span><span class="line"><span class="cl"><span class="s1">        gawk -F: &#39;</span><span class="o">{</span> print <span class="nv">$1</span> <span class="o">}</span><span class="err">&#39;</span> /etc/passwd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>基本使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">awk <span class="s1">&#39;{pattern + action}&#39;</span> <span class="o">{</span>filenames<span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk内置变量">awk内置变量</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># NR: number of record 行号</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RS: record separator 行分隔符（\n）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FS: field separator 列分隔符（空格）</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># NF: number of field 每行的列数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># $0: 当前记录</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># $1~$n: 当前记录的1～n个记录</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> <span class="m">5</span> <span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print NR}&#39;</span> text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print RS}&#39;</span> text1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print FS}&#39;</span> text1
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print NF}&#39;</span> text1
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 但是通常不是这么直白的用，需要配合一些语句一起使用</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk选项指定">awk选项（指定）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -F 指定分隔符 </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -v 指定变量</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">a:bb:c
+</span></span><span class="line"><span class="cl">1:2:100
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print $1}&#39;</span> test2 <span class="c1"># 默认以空格为分隔符，所以$1就是全部的</span>
+</span></span><span class="line"><span class="cl">a:bb:c
+</span></span><span class="line"><span class="cl">1:2:100
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -F<span class="s2">&#34;:&#34;</span> <span class="s1">&#39;{print $1}&#39;</span> test2 <span class="c1"># 以:为分隔符，打印出第一个</span>
+</span></span><span class="line"><span class="cl">a
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -v <span class="nv">var</span><span class="o">=</span><span class="s2">&#34;hello&#34;</span> -F<span class="s2">&#34;:&#34;</span> <span class="s1">&#39;{print var, $2}&#39;</span> test2 <span class="c1"># 指定变量var的值，然后可以直接在语句中用（不需要加$号）。print的内容用逗号分隔，打印时用空格隔开</span>
+</span></span><span class="line"><span class="cl">hello bb
+</span></span><span class="line"><span class="cl">hello <span class="m">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk内置函数">awk内置函数</h3>
+<ul>
+<li>算数函数</li>
+<li>字符串函数</li>
+<li>时间函数：<code>systime</code>和<code>strftime</code></li>
+<li>其他函数</li>
+</ul>
+<p>下面重点看下字符串函数：</p>
+<h4 id="替换函数gsub和sub">替换函数gsub和sub</h4>
+<p>先说下<code>gsub</code>和<code>sub</code>的区别：gsub会替换所在范围内所有满足条件的字符串，<strong>而sub只会替换第一个满足条件的</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># gsub(r,s,t) 在每行的t范围中，将r替换为s；sub类似。如没有t参数，则表示查找范围为整行。</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text3
+</span></span><span class="line"><span class="cl">hello how are you
+</span></span><span class="line"><span class="cl">hi i am happy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{gsub(&#34;h&#34;,&#34;H&#34;)}&#39;</span> text3 <span class="c1"># 替换操作不包含打印，所以没法看到结果</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{gsub(&#34;h&#34;,&#34;H&#34;); print $0}&#39;</span> text3 <span class="c1"># 替换并打印所有h-&gt;H</span>
+</span></span><span class="line"><span class="cl">Hello How are you
+</span></span><span class="line"><span class="cl">Hi i am Happy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{sub(&#34;h&#34;,&#34;H&#34;); print $0}&#39;</span> text3 <span class="c1"># sub只替换第一个匹配的h</span>
+</span></span><span class="line"><span class="cl">Hello how are you
+</span></span><span class="line"><span class="cl">Hi i am happy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{gsub(&#34;h&#34;,&#34;H&#34;,$1); print $0}&#39;</span> text3 <span class="c1"># 指定在$1中进行匹配</span>
+</span></span><span class="line"><span class="cl">HHHHH how are you
+</span></span><span class="line"><span class="cl">HHHH i am happy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{sub(&#34;h&#34;,&#34;H&#34;,$1); print $0}&#39;</span> text3
+</span></span><span class="line"><span class="cl">Hhhhh how are you
+</span></span><span class="line"><span class="cl">Hhhh i am happy
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">a:bb:c
+</span></span><span class="line"><span class="cl">1:2:100
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{gsub(&#34;[0-9]+&#34;,&#34;x&#34;); print $0}&#39;</span> test2 <span class="c1"># 使用正则表达式进行匹配，将所有的数字替换为x</span>
+</span></span><span class="line"><span class="cl">a:bb:c
+</span></span><span class="line"><span class="cl">x❌x
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="字符串长度length">字符串长度length</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">a:bb:c
+</span></span><span class="line"><span class="cl">1:2:100
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -F<span class="s2">&#34;:&#34;</span> <span class="s1">&#39;{ for(i=1;i&lt;=NF;i++){print $i, length($i)} }&#39;</span> test2
+</span></span><span class="line"><span class="cl">a <span class="m">1</span>
+</span></span><span class="line"><span class="cl">bb <span class="m">2</span>
+</span></span><span class="line"><span class="cl">c <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">100</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print length()}&#39;</span> test2  <span class="c1"># 如果length里面不输入参数，则使用的是默认参数$0</span>
+</span></span><span class="line"><span class="cl"><span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="m">7</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="返回字符所在位置index">返回字符所在位置index</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># index(s,t) 返回s中字符串t所在的位置</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">apple is good
+</span></span><span class="line"><span class="cl">i like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{print index($0,&#34;apple&#34;)}&#39;</span> test2
+</span></span><span class="line"><span class="cl"><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="m">8</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="动态创建数组split">动态创建数组split</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># split(r,s,t) 以t为分隔符，切割r为数组t</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ <span class="nb">echo</span> <span class="s2">&#34;a:bb:ccc&#34;</span> <span class="p">|</span> awk -F<span class="s2">&#34;:&#34;</span> <span class="s1">&#39;{split($0,arr,&#34;:&#34;);for(i in arr){print i,arr[i]}}&#39;</span> <span class="c1"># 注意看哦，awk的split下标，是从1开始的</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span> a
+</span></span><span class="line"><span class="cl"><span class="m">2</span> bb
+</span></span><span class="line"><span class="cl"><span class="m">3</span> ccc
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以切割传进来的变量</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -v <span class="nv">var</span><span class="o">=</span><span class="s2">&#34;h1 h2 h3&#34;</span> <span class="s1">&#39;BEGIN{split(var,arr,&#34; &#34;); for(i in arr){print i,arr[i]}}&#39;</span>  
+</span></span><span class="line"><span class="cl"><span class="m">1</span> h1
+</span></span><span class="line"><span class="cl"><span class="m">2</span> h2
+</span></span><span class="line"><span class="cl"><span class="m">3</span> h3
+</span></span><span class="line"><span class="cl"><span class="c1"># split方法的返回值为数组长度</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -v <span class="nv">var</span><span class="o">=</span><span class="s2">&#34;h1 h2 h3&#34;</span> <span class="s1">&#39;BEGIN{print split(var,arr,&#34; &#34;)}&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 需要注意，采用for(i in arr)可能不会按照下标顺序遍历输出，如果需要按顺序的话，需要采用以下方法</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk -v <span class="nv">var</span><span class="o">=</span><span class="s2">&#34;h1 h2 h3&#34;</span> <span class="s1">&#39;BEGIN{ arrlen=split(var,arr,&#34; &#34;); for(i=1;i&lt;=arrlen;i++){print i, arr[i]}}&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span> h1
+</span></span><span class="line"><span class="cl"><span class="m">2</span> h2
+</span></span><span class="line"><span class="cl"><span class="m">3</span> h3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="匹配函数match">匹配函数match</h4>
+<p><font color='red'>后续再学习</font></p>
+<h4 id="子串函数substr">子串函数substr</h4>
+<p><a href="https://www.cnblogs.com/irockcode/p/6880597.html">https://www.cnblogs.com/irockcode/p/6880597.html</a></p>
+<p><code>substr(对象,index)</code> 从对象的第index字符开始到设定的分隔符结束</p>
+<p><code>substr(对象,index1,length)</code> 从对象的第index1字符截取length个字符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat test2
+</span></span><span class="line"><span class="cl">apple is good
+</span></span><span class="line"><span class="cl">i like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($0,1) }&#39;</span> test2  <span class="c1"># $0没有分隔符，默认截取到行末</span>
+</span></span><span class="line"><span class="cl">apple is good
+</span></span><span class="line"><span class="cl">i like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($0,3) }&#39;</span> test2
+</span></span><span class="line"><span class="cl">ple is good
+</span></span><span class="line"><span class="cl">like apple
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($1,3) }&#39;</span> test2  <span class="c1"># 如第2行没法截取指定的长度，则输出空</span>
+</span></span><span class="line"><span class="cl">ple
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;{ print substr($3,1,2) }&#39;</span> test2
+</span></span><span class="line"><span class="cl">go
+</span></span><span class="line"><span class="cl">ap
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk执行流程">awk执行流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">awk -参数 <span class="s1">&#39;BEGIN{动作} (模式){动作} END{动作} }&#39;</span> 文件名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>BEGIN：读取数据之前的动作，只能执行一次</li>
+<li>PATTERN：按行执行的正常动作</li>
+<li>END：和BEGIN相反，是在读取所有数据之后的动作，只能执行一次</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> <span class="m">5</span> <span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ awk <span class="s1">&#39;BEGIN{print &#34;开始awk&#34;} {print $2} END{print &#34;结束awk&#34;}&#39;</span> text1
+</span></span><span class="line"><span class="cl">开始awk
+</span></span><span class="line"><span class="cl"><span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="m">5</span>
+</span></span><span class="line"><span class="cl">结束awk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="awk流程控制语句">awk流程控制语句</h3>
+<p><a href="https://blog.51cto.com/linux2023/5016231">https://blog.51cto.com/linux2023/5016231</a></p>
+<p>awk的流程控制语句包括：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">if-else 语句
+</span></span><span class="line"><span class="cl">for 语句
+</span></span><span class="line"><span class="cl">while 语句
+</span></span><span class="line"><span class="cl">do-while 语句
+</span></span><span class="line"><span class="cl">break 语句
+</span></span><span class="line"><span class="cl">continue 语句
+</span></span><span class="line"><span class="cl">next 语句
+</span></span><span class="line"><span class="cl">nextfile 语句
+</span></span><span class="line"><span class="cl">exit 语句
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="if-else">if-else</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span>条件 1<span class="o">){</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="k">if</span> <span class="o">(</span>条件 2<span class="o">){</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    动作 <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat text1
+</span></span><span class="line"><span class="cl"><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span> <span class="m">5</span> <span class="m">6</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ cat 1.sh
+</span></span><span class="line"><span class="cl">awk <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">        if ( $2 == 2 ){
+</span></span></span><span class="line"><span class="cl"><span class="s1">                print &#34;$1 is &#34;,$1;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">        else {
+</span></span></span><span class="line"><span class="cl"><span class="s1">                print &#34;$3 is &#34;,$3;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        }
+</span></span></span><span class="line"><span class="cl"><span class="s1">}&#39;</span> ./text1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ awk<span class="o">]</span>$ sh 1.sh
+</span></span><span class="line"><span class="cl"><span class="nv">$1</span> is  <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$3</span> is  <span class="m">6</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="for">for</h4>
+<p>例如：</p>
+<p><code>for (i=0;i&lt;=n;i++) {动作}</code></p>
+<h4 id="其他控制语句略需要用时再查">其他控制语句略，需要用时再查</h4>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/Torres-tao/p/16055239.html">https://www.cnblogs.com/Torres-tao/p/16055239.html</a></p>
+<p><a href="http://linux.51yip.com/search/sed/">http://linux.51yip.com/search/sed/</a></p>
+<p><a href="https://www.cnblogs.com/zakun/p/linux-cmd-sed.html">https://www.cnblogs.com/zakun/p/linux-cmd-sed.html</a></p>
+<p><a href="https://blog.51cto.com/yolynn/1890548">https://blog.51cto.com/yolynn/1890548</a></p>
+<p><a href="https://blog.51cto.com/u_3078781/3287449">https://blog.51cto.com/u_3078781/3287449</a></p>
+<p><a href="https://www.cnblogs.com/ginvip/p/6352157.html">https://www.cnblogs.com/ginvip/p/6352157.html</a></p>
+<p><a href="https://www.cnblogs.com/wangchengww/p/16540731.html">https://www.cnblogs.com/wangchengww/p/16540731.html</a></p>
+<p><a href="https://www.cnblogs.com/csxy-py/p/16778102.html">https://www.cnblogs.com/csxy-py/p/16778102.html</a></p>
+<p><a href="https://www.cnblogs.com/minseo/p/13690129.html">https://www.cnblogs.com/minseo/p/13690129.html</a></p>
+<p><a href="https://www.cnblogs.com/jmbt/p/16640626.html">https://www.cnblogs.com/jmbt/p/16640626.html</a></p>
+<p><a href="https://www.cnblogs.com/codelogs/p/16060082.html">https://www.cnblogs.com/codelogs/p/16060082.html</a></p>
+<p><a href="http://bbs.chinaunix.net/thread-2312439-1-1.html">http://bbs.chinaunix.net/thread-2312439-1-1.html</a></p>
+<p><a href="https://www.cnblogs.com/joyware/p/16612120.html">https://www.cnblogs.com/joyware/p/16612120.html</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Cindy.H</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-12-07
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">认识编码</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+            <span class="next-text nav-default">Mysql修改root密码</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://pipony.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
