@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on 2MUCH-Tech-Notes</title>
-    <link>http://pipony.github.io/tags/redis/</link>
+    <link>https://huangxindi.com/tags/redis/</link>
     <description>Recent content in Redis on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redis-Jedis</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-jedis/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-jedis/</link>
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-jedis/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-jedis/</guid>
       <description>Redis-Jedis 概念 通过Java来操作Redis的一个客户端。 接下来的内容等我学完spring之类的再来吧</description>
     </item>
     
     <item>
       <title>Redis-Redis6新数据类型</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
       <description>Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从</description>
     </item>
     
     <item>
       <title>Redis-发布和订阅</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</link>
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</guid>
       <description>Redis-发布和订阅 概念 Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(channel)</description>
     </item>
     
     <item>
       <title>Redis-常用数据类型</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link>
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
       <description>Redis-常用数据类型 查看redis常见数据类型操作命令： http://www.redis.cn/commands.html key类型 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34</description>
     </item>
     
     <item>
       <title>Redis-配置文件</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
       <description>Redis-配置文件 路径：原先位于/opt/redis-6.2.1/redis.conf，后面我们是copy一份到etc/redis.con</description>
     </item>
     
     <item>
       <title>Redis-Redis基础</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Mon, 04 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/</guid>
       <description>Redis-Redis基础 Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把</description>
     </item>
     
     <item>
       <title>Redis-NoSQL数据库</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
       <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
       <description>Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以</description>
     </item>
     
     <item>
       <title>Redis开始</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/</link>
       <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/</guid>
       <description>Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</description>
     </item>
     

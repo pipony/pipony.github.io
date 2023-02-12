@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>其他 on 2MUCH-Tech-Notes</title>
-    <link>http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/</link>
+    <link>https://huangxindi.com/categories/%E5%85%B6%E4%BB%96/</link>
     <description>Recent content in 其他 on 2MUCH-Tech-Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>认识编码</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
       <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
       <description>认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字</description>
     </item>
     
     <item>
       <title>win10常用快捷键</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
       <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
       <description>win10常用快捷键 【个人向】由于工作机是win10，故整理一些个人比较常用快捷键。还有很多好用的快捷键等待学习～～ Win+* Win+L 快速锁屏 Win+D 显示桌面 Win+I</description>
     </item>
     
     <item>
       <title>开始Hugo&#43;Github Pages</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>
       <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
       <description>开始Hugo+Github Pages 参考：https://www.gohugo.org/#/ 准备工作准备 安装Hugo，git过程略 配置Hugo路径到</description>
     </item>
     

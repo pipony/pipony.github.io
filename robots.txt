@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://pipony.github.io/sitemap.xml
+Sitemap: https://huangxindi.com/sitemap.xml
