@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数据库 on </title>
-    <link>https://huangxindi.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <link>http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
     <description>Recent content in 数据库 on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mysql修改root密码</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/</link>
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/</guid>
       <description>Mysql修改root密码 背景：linux系统，忘记mysql的root密码，该怎么修改root密码？
 复制阿里云的在线服务中提出的解决方案👇。亲测ok
 如果忘记了MySQL数据库root用户的密码，可以通过修改配置文件，登录时跳过密码，然后在数据库里面修改密码。一般数据库默认的用户为root。
@@ -35,10 +35,10 @@ UPDATE user SET authentication_string = password (&amp;#39;[$Password]&amp;#39;)
     
     <item>
       <title>oracle-&gt;mysql数据迁移数据事项</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/</link>
       <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/</guid>
       <description>oracle-&amp;gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
 ORACLE&amp;amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
 MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
@@ -51,10 +51,10 @@ https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
     
     <item>
       <title>Mysql导入导出</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/</link>
       <pubDate>Sun, 27 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/</guid>
       <description>Mysql导入导出 导出 mysqldump (1) 导出完整数据：
 mysqldump -u用户名 -p 数据库名 &amp;gt; 数据库名.sql
 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &amp;gt; abc.sql
@@ -68,10 +68,10 @@ SELECT * FROM data_tbl --查找数据源，如果是全表所有字段也可
     
     <item>
       <title>数据库分页查询</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</link>
       <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/</guid>
       <description>数据库分页查询 数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
 LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
 参数1表示偏移量，参数2表示返回记录行的最大数目。
@@ -82,10 +82,10 @@ SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT
     
     <item>
       <title>数据库日志基础</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/</guid>
       <description>数据库日志基础 世上无难事，只要有日志。
 本文以Mysql为例，研究支持的日志。
 数据库日志类型 记录方式分类：
@@ -103,10 +103,10 @@ SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT
     
     <item>
       <title>分区表</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/</link>
       <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/</guid>
       <description>分区表 基本概念 分区、分表、分库、分片
 参考链接：
 https://blog.csdn.net/wqaiwsj/article/details/124684356
@@ -123,10 +123,10 @@ RANGE分区 CREATE TABLE employees ( id INT NOT NULL, fname VARCHAR(30), lname V
     
     <item>
       <title>数据库测试扫盲篇</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/</link>
       <pubDate>Wed, 31 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/</guid>
       <description>数据库测试扫盲篇 最近参与数据库POC测试，鉴于对数据库还不够了解，决定先以一些测试案例为蓝本，自我扫盲下。
 表空间以及表空间管理 1、什么是表空间（TABLESPACE）
 表空间是一种存储结构，它包含表、索引、大对象和长型数据。
@@ -162,10 +162,10 @@ create trigger trigger_name before/after insert/update/delete on table_name [for
     
     <item>
       <title>Linux-安装Oracle</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/</link>
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/</guid>
       <description>Linux-安装Oracle数据库 安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
 正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，
@@ -176,10 +176,10 @@ create trigger trigger_name before/after insert/update/delete on table_name [for
     
     <item>
       <title>Oracle-实现事务提交和回滚</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</link>
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/</guid>
       <description>Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
 失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
 常见用法 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 SQL&amp;gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 SQL&amp;gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&amp;gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：
@@ -189,10 +189,10 @@ whenever sqlerror continue commit spool命令 此外，可以先认识下spool�
     
     <item>
       <title>ORACLE-存储过程</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
       <description>ORACLE-存储过程 概念 存储过程(Stored Procedure)：
 一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
 当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
@@ -209,10 +209,10 @@ OR REPLACE表示的是若已存在同名存储过程，则替换原内容
     
     <item>
       <title>ORACLE-序列</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/</link>
       <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/</guid>
       <description>ORACLE-序列 背景：了解NEXTVAL的概念
 ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
 sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）
@@ -227,10 +227,10 @@ select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经
     
     <item>
       <title>SQL函数篇</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/</link>
       <pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/</guid>
       <description>SQL函数篇 lpad/rpad函数 lpad/rpad函数 此为Oracle函数。l/r(left/right)+pad(填充)，表示从左边/右边填充。
 格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
 参数一：被填充/截取的原字符串
@@ -242,10 +242,10 @@ SQL&amp;gt; select lpad(&amp;#39;abcde&amp;#39;,10,&amp;#39;x&amp;#39;) from dua
     
     <item>
       <title>数据库无效对象</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/</guid>
       <description>数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
 概念 无效：INVALID 对象：视图、物化视图、函数、包、触发器等 无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
 如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
@@ -263,10 +263,10 @@ select owner, object_type, status, count(*) from dba_objects where status=&amp;#
     
     <item>
       <title>部分sql的user_io_wait_time值较大</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</link>
       <pubDate>Sat, 14 May 2022 22:51:46 +0800</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/</guid>
       <description>部分sql的user_io_wait_time值较大 背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
 oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
 select * from (select sql_text, sql_id, elapsed_time, cpu_time, user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &amp;lt; 6; 2、根据步骤1获取具体SQL详情

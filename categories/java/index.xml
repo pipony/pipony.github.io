@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on </title>
-    <link>https://huangxindi.com/categories/java/</link>
+    <link>http://pipony.github.io/categories/java/</link>
     <description>Recent content in Java on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java基础之IO流</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</link>
       <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
       <description>Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
 概念 IO流（stream）
 流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
@@ -24,10 +24,10 @@ http://www.51gjie.com/java/686.html
     
     <item>
       <title>编译期常量</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</link>
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</guid>
       <description>编译期常量 先说结论，编译期常量=final+常量
 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
 除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
@@ -38,10 +38,10 @@ public class Class { public final int a = 10000; public static final int b = 100
     
     <item>
       <title>Java基础之Calendar日历类</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</link>
       <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</guid>
       <description>Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
 定义方法 Calendar类是一个抽象类，不可以被实例化。
 因此，需要使用静态方法getInstance()来得到一个Calendar对象
@@ -55,10 +55,10 @@ Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime(
     
     <item>
       <title>Maven之三：坐标、依赖范围、依赖冲突</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
       <description>Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
 Maven构件 构件：在Maven中，任何项目输出都可成为构件。
 构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
@@ -72,10 +72,10 @@ groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通�
     
     <item>
       <title>Maven之一：基础</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
       <description>Maven之一：基础 学习网站：http://mvnbook.com/index.html
 简介 Maven英文：专家、内行
 Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
@@ -94,10 +94,10 @@ source ~/.bash_profile source ~/.</description>
     
     <item>
       <title>Maven之二：创建Maven项目</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
       <description>Maven之二：创建Maven项目 学习网站：http://mvnbook.com/index.html
 Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.xml 和所有子目录 ${basedir}/src/main/java 项目的 java 源代码所在的目录 ${basedir}/src/main/resources 项目的资源文件所在的目录，例如：propert文件 ${basedir}/src/test/java 测试代码所在的目录，例如：JUnit 代码 ${basedir}/src/test/resources 测试相关的资源文件所在的目录 ${basedir}/src/main/webapp/WEB-INF web 应用文件目录，web 项目的信息，比如存放 web.xml、本地图片、jsp 视图页面 ${basedir}/target 打包输出目录 ${basedir}/target/classes 编译输出目录 ${basedir}/target/test-classes 测试编译输出目录 IDEA创建Maven项目 可参考：https://blog.csdn.net/hgnuxc_1993/article/details/125427590
 注意点：
@@ -110,10 +110,10 @@ Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.x
     
     <item>
       <title>认识Jar包</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
       <description>认识Jar包 概念 Jar：Java Archive File
 基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是在生成 JAR 文件的时候自动创建的。
 特点：
@@ -130,10 +130,10 @@ https://blog.csdn.net/weixin_33835459/article/details/114070826</description>
     
     <item>
       <title>文档注释</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>
       <pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</guid>
       <description>文档注释 本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
 定义 Java普通注释格式
 // 或 /* */ Java文档注释格式
@@ -155,10 +155,10 @@ IDE中生成
     
     <item>
       <title>异常的处理</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</link>
       <pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</guid>
       <description>异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。 错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。 异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
 常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
 或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：

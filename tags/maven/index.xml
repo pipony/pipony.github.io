@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Maven on </title>
-    <link>https://huangxindi.com/tags/maven/</link>
+    <link>http://pipony.github.io/tags/maven/</link>
     <description>Recent content in Maven on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Maven之三：坐标、依赖范围、依赖冲突</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
       <description>Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
 Maven构件 构件：在Maven中，任何项目输出都可成为构件。
 构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
@@ -26,10 +26,10 @@ groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通�
     
     <item>
       <title>Maven之一：基础</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
       <description>Maven之一：基础 学习网站：http://mvnbook.com/index.html
 简介 Maven英文：专家、内行
 Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
@@ -48,10 +48,10 @@ source ~/.bash_profile source ~/.</description>
     
     <item>
       <title>Maven之二：创建Maven项目</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
       <description>Maven之二：创建Maven项目 学习网站：http://mvnbook.com/index.html
 Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.xml 和所有子目录 ${basedir}/src/main/java 项目的 java 源代码所在的目录 ${basedir}/src/main/resources 项目的资源文件所在的目录，例如：propert文件 ${basedir}/src/test/java 测试代码所在的目录，例如：JUnit 代码 ${basedir}/src/test/resources 测试相关的资源文件所在的目录 ${basedir}/src/main/webapp/WEB-INF web 应用文件目录，web 项目的信息，比如存放 web.xml、本地图片、jsp 视图页面 ${basedir}/target 打包输出目录 ${basedir}/target/classes 编译输出目录 ${basedir}/target/test-classes 测试编译输出目录 IDEA创建Maven项目 可参考：https://blog.csdn.net/hgnuxc_1993/article/details/125427590
 注意点：

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>BenchmarkSQL性能测试 on </title>
-    <link>https://huangxindi.com/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+    <link>http://pipony.github.io/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
     <description>Recent content in BenchmarkSQL性能测试 on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BenchmarkSQL性能测试</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</link>
       <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/</guid>
       <description>BenchmarkSQL性能测试 何为BenchmarkSQL BenchmarkSQL是一款经典的开源数据库测试工具，其包含 TPCC 测试脚本，支持MySQL、Oracle 、EnterpriseDB、PostgreSQL以及SQL Server 等数据库的性能压力测试。模拟多种事务处理：新订单、支付操作、订单状态查询、发货、库存状态查询等，从而获得最终的压测值。
 安装及压测大致步骤 总结在linux安装BenchmarkSQL工具，并使用的步骤。压测工具安装的主机是单独的，即不是放在待压测的数据库服务器上，前者通过jdbc连接到后者进行压测。
 将BenchmarkSQL安装包传到主机上，并解压 额外需要安装ant和jdk 使用ant编译BenchmarkSQL 在待压测数据库中，创建压测用户 修改BenchmarkSQL配置文件props.xxx，将连接驱动、地址、用户配置正确。并设置所需的压测参数 执行压测数据导入命令 sh runDatabaseBuild.sh props.xxx 执行正式压测命令 ./runBenchmark.sh props.xxx。运行后可以看到实时的tpmC数值，运行结束后会显示平均的tpmC数值。 压测结果生成 执行删除压测数据命令 ./runDatabaseDestroy.sh props.xxx props配置文件解析 可参考：

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>其他 on </title>
-    <link>https://huangxindi.com/tags/%E5%85%B6%E4%BB%96/</link>
+    <link>http://pipony.github.io/tags/%E5%85%B6%E4%BB%96/</link>
     <description>Recent content in 其他 on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>认识编码</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
       <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
       <description>认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
 https://www.cnblogs.com/faetbwac/p/16355273.html
@@ -27,20 +27,20 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
     
     <item>
       <title>win10常用快捷键</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
       <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
       <description>win10常用快捷键 【个人向】由于工作机是win10，故整理一些个人比较常用快捷键。还有很多好用的快捷键等待学习～～
 Win+* Win+L 快速锁屏 Win+D 显示桌面 Win+I 打开设置界面 Win+E 打开我的电脑 Win+M 最小化所有窗口 Win+Shift+M 还原所有窗口 Win+R 打开运行窗口 Win+Tab 多任务视图 Win+上/下 缩放界面 Win+左/右 界面左/右停靠（分屏） Win+1/2/3/&amp;hellip; 打开任务栏的第1/2/3/&amp;hellip;个软件界面 Win+V 显示历史复制内容并选择粘贴 Win+W 调出工作区，包括白板等功能 Win+Tab 创建虚拟桌面 Win+Ctrl+←\→，快速切换虚拟桌面\ Win+“+/-” 放大/缩小屏幕 Ctrl+* Ctrl+Shift+Esc 打开任务管理器 Ctrl+Shift+N 新建文件夹并命名 Ctrl+W 关闭当前界面 Ctrl+Y 恢复上一次的撤销（Ctrl+Z） Ctrl+Shift+T 恢复被关闭的网页 Ctrl+Shift+F 输入法切换为繁体 Alt+* Alt+Tab 多窗口快速切换 Alt+Enter(或鼠标双击) 快速查看文件属性 Alt+Space+C 关闭窗口 Alt+Space+N 最小化窗口 Alt+Space+X 最大化窗口 Shift+* Shift+Delete 永久删除文件 其他 Backspace 资源管理器中是返回上一个打开的目录 快捷键设置技巧 一键打开某软件 右键软件（需要先创建为快捷方式） - 属性 - 快捷方式 - 修改快捷键值即可 （默认是Ctrl+Alt+自定义格式）</description>
     </item>
     
     <item>
       <title>开始Hugo&#43;Github Pages</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</link>
       <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
       <description>开始Hugo+Github Pages 参考：https://www.gohugo.org/#/
 准备工作准备 安装Hugo，git过程略
 配置Hugo路径到环境变量Path 过程略

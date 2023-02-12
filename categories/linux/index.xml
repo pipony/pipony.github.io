@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on </title>
-    <link>https://huangxindi.com/categories/linux/</link>
+    <link>http://pipony.github.io/categories/linux/</link>
     <description>Recent content in Linux on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux-文本处理三剑客</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</link>
       <pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</guid>
       <description>Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。
 但是三者有所侧重点：
 awk：功能最强，也是最复杂的。更适合格式化文本，对文本作复杂格式处理 grep：更适合查找、匹配 sed：更适合编辑匹配到的文本 grep grep命令已经在 linux-管道篇 学习过了，这里就略过。
@@ -22,10 +22,10 @@ sed sed是一种流编辑器，它一次处理一行内容。处理时，把当�
     
     <item>
       <title>Linux-磁盘管理</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</link>
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</guid>
       <description>Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
 磁盘管理命令：
 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
@@ -35,10 +35,10 @@ sed sed是一种流编辑器，它一次处理一行内容。处理时，把当�
     
     <item>
       <title>Linux-磁盘扩容</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</link>
       <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</guid>
       <description>Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
 ⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
 基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
@@ -48,10 +48,10 @@ sed sed是一种流编辑器，它一次处理一行内容。处理时，把当�
     
     <item>
       <title>Linux-系统信息查看命令</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/</guid>
       <description>Linux-系统信息查看命令 整理一些关于linux的系统信息查看命令，无逻辑，纯自用。
 查看系统版本 1、查看发行版本（适用所有linux系统）
 lsb_release -a
@@ -62,10 +62,10 @@ uname -a 和 cat /proc/version
     
     <item>
       <title>Linux-防火墙firewall</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/</guid>
       <description>Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
 由于目前我的云主机是ConterOS7.0+，所以就先只学习firewall。
 基本命令 查看防火墙状态和规则 查看防火墙状态：
@@ -75,10 +75,10 @@ systemctl status firewalld
     
     <item>
       <title>Linux-管道篇</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</link>
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
       <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
 格式：命令1 | 命令2 | ...
 管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
@@ -90,10 +90,10 @@ grep [options] [pattern] file or command | grep [options] [pattern] [options] -v
     
     <item>
       <title>Linux-top命令</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
       <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
 执行权限：所有用户
 命令 #TODO

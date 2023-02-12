@@ -65,13 +65,13 @@
   
   
   
-  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
 
   
 
   
      
-  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
 
   
   
@@ -79,14 +79,14 @@
   
 
   
-  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
   
-  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
   
 
   
-  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
 
   
   <meta name="generator" content="Hugo 0.101.0" />
@@ -110,7 +110,7 @@
 扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &#39;/dev&#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
 创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/" /><meta property="article:section" content="post" />
+<meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-15T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-11-15T00:00:00+00:00" />
 
@@ -143,7 +143,7 @@
   <div class="relative z-50 mr-auto flex items-center">
     <a
       class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="https://huangxindi.com/"
+      href="http://pipony.github.io/"
       ></a
     >
     <a
@@ -255,7 +255,7 @@
       <a
         class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
         style="--url: url(./rss.svg)"
-        href="https://huangxindi.com/index.xml"
+        href="http://pipony.github.io/index.xml"
         target="_blank"
         
       ></a>
@@ -368,7 +368,7 @@ resize2fs /dev/ubuntu-vg/ubuntu-lv
      
     <a
       class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="https://huangxindi.com/tags/linux"
+      href="http://pipony.github.io/tags/linux"
       >Linux</a
     >
     
@@ -382,14 +382,14 @@ resize2fs /dev/ubuntu-vg/ubuntu-lv
     
     <a
       class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="https://huangxindi.com/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"
+      href="http://pipony.github.io/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"
       ><span class="mr-1.5">←</span><span>BenchmarkSQL性能测试</span></a
     >
     
     
     <a
       class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/"
+      href="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/"
       ><span>Java基础之Calendar日历类</span><span class="ml-1.5">→</span></a
     >
     
@@ -440,7 +440,7 @@ resize2fs /dev/ubuntu-vg/ubuntu-lv
 >
   <div class="mr-auto">
     &copy; 2023
-    <a class="link" href="https://huangxindi.com/"></a>
+    <a class="link" href="http://pipony.github.io/"></a>
   </div>
   <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
     >Powered by Hugo️️</a

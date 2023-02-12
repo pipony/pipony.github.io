@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MiniApp on </title>
-    <link>https://huangxindi.com/categories/miniapp/</link>
+    <link>http://pipony.github.io/categories/miniapp/</link>
     <description>Recent content in MiniApp on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/miniapp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/miniapp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>小程序之三：官方开发文档学习（指南篇）</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</guid>
       <description>小程序之三：官方开发文档学习（指南篇） 学习教程：https://developers.weixin.qq.com/miniprogram/dev/framework/
 知道了小程序大概是咋回事之后，是时候学习下小程序的基础语法规则了。微信官方有提供教程，故本文通过第一部分指南篇进行学习。</description>
     </item>
     
     <item>
       <title>小程序之二：HelloWorld</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</guid>
       <description>小程序之二：HelloWorld 学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
 跟着阮一峰老师的教程写个最简单的hello world：
 1、新建项目目录wechat-miniprogram-demo，进入项目目录
@@ -42,10 +42,10 @@ hello world 6、一个最简单的项目就完成啦。现在导入小程序开�
     
     <item>
       <title>小程序之一：开始</title>
-      <link>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</link>
+      <link>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</link>
       <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</guid>
+      <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</guid>
       <description>小程序之一：开始 开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！
 推荐新手先阅读阮一峰老师的微信小程序入门教程：
 https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
