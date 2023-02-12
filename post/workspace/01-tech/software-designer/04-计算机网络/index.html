@@ -1,184 +1,354 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>软考-中级软件设计师-04 计算机网络 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台） 例题： 分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="软考-中级软件设计师-04 计算机网络" />
-<meta property="og:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台） 例题： 分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>软考-中级软件设计师-04 计算机网络 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址" />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="软考-中级软件设计师-04 计算机网络" />
+<meta property="og:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
-<meta itemprop="name" content="软考-中级软件设计师-04 计算机网络">
-<meta itemprop="description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台） 例题： 分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="582">
-<meta itemprop="keywords" content="软考-中级软件设计师," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-04 计算机网络"/>
-<meta name="twitter:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台） 例题： 分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="软考-中级软件设计师-04 计算机网络">
+<meta itemprop="description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="wordCount" content="37">
+<meta itemprop="keywords" content="软考-中级软件设计师," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-04 计算机网络"/>
+<meta name="twitter:description" content="04 计算机网络 OSI/RM七层模型 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+网络技术标准和协议 TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）
+迭代查询：只提供线索，没有刨根究底（如根域名服务器）
+计算机网络分类 拓扑结构 单点故障：环形比星型稳定，因为一个点故障可以从另一头走
+网络规划与设计 逻辑网格设计 物理网络设计 分层设计（考比较多） IP地址与子网划分 全0：网络地址；全1：广播地址
+A类：前8位网络号，后24位为主机号，可包含2^24-2主机
+B类：前16位网络号，后16位为主机号，可包含2^16-2主机
+C类：前24位网络号，后8位为主机号，可包含2^8-2主机
+例题：
+或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同
+无分类编制 例题：
+分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16
+特殊含义的IP地址 HTML（考的少） 无线网 网络接入技术 IPv6 IPv4：32位地址，地址不够用
+IPv4：128位地址"/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">软考-中级软件设计师-04 计算机网络</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-05-14 </span>
-        <div class="post-category">
-            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/"> 软考-中级软件设计师 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#04-计算机网络">04 计算机网络</a>
-      <ul>
-        <li><a href="#osirm七层模型">OSI/RM七层模型</a></li>
-        <li><a href="#网络技术标准和协议">网络技术标准和协议</a></li>
-        <li><a href="#计算机网络分类">计算机网络分类</a>
-          <ul>
-            <li><a href="#拓扑结构">拓扑结构</a></li>
-          </ul>
-        </li>
-        <li><a href="#网络规划与设计">网络规划与设计</a>
-          <ul>
-            <li><a href="#逻辑网格设计">逻辑网格设计</a></li>
-            <li><a href="#物理网络设计">物理网络设计</a></li>
-            <li><a href="#分层设计考比较多">分层设计（考比较多）</a></li>
-          </ul>
-        </li>
-        <li><a href="#ip地址与子网划分">IP地址与子网划分</a>
-          <ul>
-            <li><a href="#无分类编制">无分类编制</a></li>
-            <li><a href="#特殊含义的ip地址">特殊含义的IP地址</a></li>
-          </ul>
-        </li>
-        <li><a href="#html考的少">HTML（考的少）</a></li>
-        <li><a href="#无线网">无线网</a></li>
-        <li><a href="#网络接入技术">网络接入技术</a></li>
-        <li><a href="#ipv6">IPv6</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="04-计算机网络">04 计算机网络</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">软考-中级软件设计师-04 计算机网络</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>May 14, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="04-计算机网络">04 计算机网络</h1>
 <h2 id="osirm七层模型">OSI/RM七层模型</h2>
 <p><img src="http://cdn.huangxindi.com/img/image-20220502151216512.png" alt="image-20220502151216512"></p>
 <p>中继器/集线器：延长传输距离（类似烽火台）</p>
@@ -233,97 +403,99 @@
 <p><img src="http://cdn.huangxindi.com/img/image-20220503115542508.png" alt="image-20220503115542508"></p>
 <p>IPv4：32位地址，地址不够用</p>
 <p>IPv4：128位地址</p>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88"
+      >软考-中级软件设计师</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-05-14
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/"
+      ><span class="mr-1.5">←</span><span>软考-中级软件设计师-03 数据库系统</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/"
+      ><span>软考-中级软件设计师-05 计算机安全</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">软考-中级软件设计师-03 数据库系统</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">
-            <span class="next-text nav-default">软考-中级软件设计师-05 计算机安全</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

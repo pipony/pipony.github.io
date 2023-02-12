@@ -1,431 +1,461 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Redis-Redis6新数据类型 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Redis-Redis6新数据类型" />
-<meta property="og:description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Redis-Redis6新数据类型 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
+[commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.0.0.1:6379&gt; setbit online1 0 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 1 1 (integer) 0 127.0.0.1:6379&gt; getbit online1 0 (integer) 1 127.0.0.1:6379&gt; bitcount online1 # 没有指定前后，就是求所有的1的个数 (integer) 2 127.0.0.1:6379&gt; setbit online1 15 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 16 1 (integer) 0 127." />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Redis-Redis6新数据类型" />
+<meta property="og:description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
+[commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.0.0.1:6379&gt; setbit online1 0 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 1 1 (integer) 0 127.0.0.1:6379&gt; getbit online1 0 (integer) 1 127.0.0.1:6379&gt; bitcount online1 # 没有指定前后，就是求所有的1的个数 (integer) 2 127.0.0.1:6379&gt; setbit online1 15 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 16 1 (integer) 0 127." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-07-31T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-07-31T00:00:00+00:00" />
 
-<meta itemprop="name" content="Redis-Redis6新数据类型">
-<meta itemprop="description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从"><meta itemprop="datePublished" content="2022-07-31T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-07-31T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1123">
-<meta itemprop="keywords" content="Redis," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Redis-Redis6新数据类型"/>
-<meta name="twitter:description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="Redis-Redis6新数据类型">
+<meta itemprop="description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
+[commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.0.0.1:6379&gt; setbit online1 0 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 1 1 (integer) 0 127.0.0.1:6379&gt; getbit online1 0 (integer) 1 127.0.0.1:6379&gt; bitcount online1 # 没有指定前后，就是求所有的1的个数 (integer) 2 127.0.0.1:6379&gt; setbit online1 15 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 16 1 (integer) 0 127."><meta itemprop="datePublished" content="2022-07-31T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-07-31T00:00:00+00:00" />
+<meta itemprop="wordCount" content="305">
+<meta itemprop="keywords" content="Redis," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis-Redis6新数据类型"/>
+<meta name="twitter:description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
+[commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.0.0.1:6379&gt; setbit online1 0 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 1 1 (integer) 0 127.0.0.1:6379&gt; getbit online1 0 (integer) 1 127.0.0.1:6379&gt; bitcount online1 # 没有指定前后，就是求所有的1的个数 (integer) 2 127.0.0.1:6379&gt; setbit online1 15 1 (integer) 0 127.0.0.1:6379&gt; setbit online1 16 1 (integer) 0 127."/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Redis-Redis6新数据类型</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-07-31 </span>
-        <div class="post-category">
-            <a href="/categories/redis/"> Redis </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#redis-redis6新数据类型">Redis-Redis6新数据类型</a>
-      <ul>
-        <li><a href="#bitmaps">Bitmaps</a></li>
-        <li><a href="#hyperloglog">HyperLogLog</a>
-          <ul>
-            <li><a href="#基数问题">基数问题</a></li>
-            <li><a href="#优势">优势</a></li>
-          </ul>
-        </li>
-        <li><a href="#geospatial">Geospatial</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="redis-redis6新数据类型">Redis-Redis6新数据类型</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">Redis-Redis6新数据类型</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>Jul 31, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="redis-redis6新数据类型">Redis-Redis6新数据类型</h1>
 <h2 id="bitmaps">Bitmaps</h2>
 <p>本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>commands<span class="o">]</span>
-</span></span><span class="line"><span class="cl">	- setbit key offset value  <span class="c1">#</span>
-</span></span><span class="line"><span class="cl">	- getbit key offset
-</span></span><span class="line"><span class="cl">	- bitcount key <span class="o">[</span>start<span class="o">]</span> <span class="o">[</span>end<span class="o">]</span>  <span class="c1"># 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同</span>
-</span></span><span class="line"><span class="cl">	- bitop ope destkey key <span class="o">[</span>key...<span class="o">]</span>  <span class="c1"># 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） </span>
-</span></span><span class="line"><span class="cl">	
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online1 <span class="m">0</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online1 <span class="m">1</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; getbit online1 <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitcount online1  <span class="c1"># 没有指定前后，就是求所有的1的个数</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">2</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online1 <span class="m">15</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online1 <span class="m">16</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitcount online1 <span class="m">0</span> <span class="m">1</span>  <span class="c1"># 此时online1= 11000000 00000001 10000000</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">3</span>  <span class="c1"># 求的是第0到第1个字节中的1的个数</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitcount online1 <span class="m">0</span> <span class="m">2</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">4</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online2 <span class="m">1</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online2 <span class="m">15</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitop and online1 online2
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">2</span>  <span class="c1"># 返回and 1 1 的位个数</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitop or online1 online2
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">2</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit online2 <span class="m">16</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitop or online1 online2
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">3</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; setbit key1 <span class="m">0</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitop not key2 key1  <span class="c1"># key1的取反结果保存到key2</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitop xor key3 key1 key2  <span class="c1"># key1和key2的异或结果保存到key3，key3应该是全1</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; bitcount key3
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">8</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="hyperloglog">HyperLogLog</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>commands<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>	- setbit key offset value  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>	- getbit key offset
+</span></span><span style="display:flex;"><span>	- bitcount key <span style="color:#f92672">[</span>start<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>end<span style="color:#f92672">]</span>  <span style="color:#75715e"># 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同</span>
+</span></span><span style="display:flex;"><span>	- bitop ope destkey key <span style="color:#f92672">[</span>key...<span style="color:#f92672">]</span>  <span style="color:#75715e"># 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） </span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online1 <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; getbit online1 <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitcount online1  <span style="color:#75715e"># 没有指定前后，就是求所有的1的个数</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online1 <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online1 <span style="color:#ae81ff">16</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitcount online1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>  <span style="color:#75715e"># 此时online1= 11000000 00000001 10000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">3</span>  <span style="color:#75715e"># 求的是第0到第1个字节中的1的个数</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitcount online1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online2 <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online2 <span style="color:#ae81ff">15</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitop and online1 online2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># 返回and 1 1 的位个数</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitop or online1 online2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit online2 <span style="color:#ae81ff">16</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitop or online1 online2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; setbit key1 <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitop not key2 key1  <span style="color:#75715e"># key1的取反结果保存到key2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitop xor key3 key1 key2  <span style="color:#75715e"># key1和key2的异或结果保存到key3，key3应该是全1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; bitcount key3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">8</span>
+</span></span></code></pre></div><h2 id="hyperloglog">HyperLogLog</h2>
 <h3 id="基数问题">基数问题</h3>
 <p>例如给一个大的数字集合，要求里面包含有多少个不重复的数字。如{1,2,2,3,3,5}的基数是4。</p>
 <p>如果是用set、bitmaps等数据结构来处理的话，占用空间会较大。能否能够降低一定的精度来平衡存储空间？于是HyperLogLog就出现了。</p>
 <p>需要注意的是，HyperLogLog只统计基数，不存储元素，所以无法获取真实的元素。</p>
 <h3 id="优势">优势</h3>
 <p>Redis HyperLogLog 是用来做<strong>基数统计的算法</strong>，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是<strong>固定</strong>的、并且是很小的。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>commands<span class="o">]</span>
-</span></span><span class="line"><span class="cl">	- pfadd key values1 <span class="o">[</span>values2 ...<span class="o">]</span> <span class="c1"># 加入1或多个value</span>
-</span></span><span class="line"><span class="cl">	- pfcount key  <span class="c1"># 获取基数</span>
-</span></span><span class="line"><span class="cl">	- pfmerge destkey key1 key2 <span class="o">[</span>...<span class="o">]</span> <span class="c1"># 合并多个key到destkey</span>
-</span></span><span class="line"><span class="cl">	
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfadd pfkey1 <span class="s2">&#34;v1&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfadd pfkey1 <span class="s2">&#34;v2&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfadd pfkey1 <span class="s2">&#34;v1&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfcount pfkey1
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">2</span>  <span class="c1"># 两个v1算一个</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfadd pfkey2 <span class="s2">&#34;v3&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfadd pfkey2 <span class="s2">&#34;v1&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfmerge pfkey3 pfkey1 pfkey2  <span class="c1"># 将pfkey1和pfkey2合并到pfkey3</span>
-</span></span><span class="line"><span class="cl">OK
-</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; pfcount pfkey3  <span class="c1"># 由于pfkey1和pfkey2中都含有v1，所以v1只算一个</span>
-</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">3</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="geospatial">Geospatial</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>commands<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>	- pfadd key values1 <span style="color:#f92672">[</span>values2 ...<span style="color:#f92672">]</span> <span style="color:#75715e"># 加入1或多个value</span>
+</span></span><span style="display:flex;"><span>	- pfcount key  <span style="color:#75715e"># 获取基数</span>
+</span></span><span style="display:flex;"><span>	- pfmerge destkey key1 key2 <span style="color:#f92672">[</span>...<span style="color:#f92672">]</span> <span style="color:#75715e"># 合并多个key到destkey</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfadd pfkey1 <span style="color:#e6db74">&#34;v1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfadd pfkey1 <span style="color:#e6db74">&#34;v2&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfadd pfkey1 <span style="color:#e6db74">&#34;v1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfcount pfkey1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">2</span>  <span style="color:#75715e"># 两个v1算一个</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfadd pfkey2 <span style="color:#e6db74">&#34;v3&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfadd pfkey2 <span style="color:#e6db74">&#34;v1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfmerge pfkey3 pfkey1 pfkey2  <span style="color:#75715e"># 将pfkey1和pfkey2合并到pfkey3</span>
+</span></span><span style="display:flex;"><span>OK
+</span></span><span style="display:flex;"><span>127.0.0.1:6379&gt; pfcount pfkey3  <span style="color:#75715e"># 由于pfkey1和pfkey2中都含有v1，所以v1只算一个</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>integer<span style="color:#f92672">)</span> <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><h2 id="geospatial">Geospatial</h2>
 <p>redis对地理坐标操作的数据类型</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>commands<span class="o">]</span>
-</span></span><span class="line"><span class="cl">	- geoadd key longitude latitude member <span class="o">[</span>longitude latitude member...<span class="o">]</span> <span class="c1"># 添加一或多个地理位置（经度、纬度、名称）</span>
-</span></span><span class="line"><span class="cl">	- geopos key member <span class="c1"># 获得指定地区的坐标值</span>
-</span></span><span class="line"><span class="cl">	- geodist key member1 member2 <span class="o">[</span>m/km/ft/mi<span class="o">]</span> <span class="c1"># 获取两个位置之间的直线距离（默认以米为单位）</span>
-</span></span><span class="line"><span class="cl">	- georadius key longitude latitude radius m/km/ft/mi <span class="c1"># 获取给定位置为中心的，半径radius内的元素</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>commands<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>	- geoadd key longitude latitude member <span style="color:#f92672">[</span>longitude latitude member...<span style="color:#f92672">]</span> <span style="color:#75715e"># 添加一或多个地理位置（经度、纬度、名称）</span>
+</span></span><span style="display:flex;"><span>	- geopos key member <span style="color:#75715e"># 获得指定地区的坐标值</span>
+</span></span><span style="display:flex;"><span>	- geodist key member1 member2 <span style="color:#f92672">[</span>m/km/ft/mi<span style="color:#f92672">]</span> <span style="color:#75715e"># 获取两个位置之间的直线距离（默认以米为单位）</span>
+</span></span><span style="display:flex;"><span>	- georadius key longitude latitude radius m/km/ft/mi <span style="color:#75715e"># 获取给定位置为中心的，半径radius内的元素</span>
+</span></span></code></pre></div><p>注意：</p>
 <ul>
 <li>两极无法直接添加，一般会下载城市数据，直接通过 Java 程序一次性导入。</li>
 <li>有效的经度从 -180 度到 180 度。有效的纬度从 -85.05112878 度到 85.05112878 度。</li>
 <li>当坐标位置超出指定范围时，geoadd将会返回一个错误。</li>
 <li>m米；km千米；mi英里；ft英尺</li>
 </ul>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/redis"
+      >Redis</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-07-31
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/redis/redis-jedis/"
+      ><span class="mr-1.5">←</span><span>Redis-Jedis</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/"
+      ><span>Redis-发布和订阅</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/redis/">Redis</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/redis/redis-jedis/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Redis-Jedis</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/">
-            <span class="next-text nav-default">Redis-发布和订阅</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

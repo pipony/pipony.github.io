@@ -1,165 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>数据库无效对象 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象” 概念 无效：INVALID 对象：视图、物化视图、函数、包" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="数据库无效对象" />
-<meta property="og:description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象” 概念 无效：INVALID 对象：视图、物化视图、函数、包" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>数据库无效对象 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
+概念 无效：INVALID 对象：视图、物化视图、函数、包、触发器等 无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
+如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
+1.不做任何处理。如果需要，大多数 PL/SQL 对象在调用时会自动重新编译。用户在对象重新编译时会经历短暂的延迟。（大多数情况下，这种延迟不十分明显。）
+2.手动重新编译无效对象。
+无效对象产生的原因 当被引用对象的结构变更时，都会使得相关的依赖对象转变为INVALID状态
+如视图A来源于表B，当表B的结构改变时，会导致视图A变成无效对象。但当再一次调用视图A时，会自动编译视图A，使其再次变为有效。
+发布SQL脚本时（包、存储过程、函数等），没有充分测试，编译时出错，这时对象变为无效。
+数据库升级、迁移时，出现大量无效对象(本质原因，臆测归结为原因1)
+诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
+查找无效对象 统计失效对象 执行用户：SYSTEM用户或其他有权限的用户
+SQL&gt; select owner, object_name, object_type from dba_objects t where status = &#39;INVALID&#39; order by t.owner,t.object_type; 或者
+select owner, object_type, status, count(*) from dba_objects where status=&#39;INVALID&#39; group by owner, object_type, status order by owner, object_type 查看具体失效对象 col owner for a20; col object_name for a32; col object_type for a16 col status for a8 select owner, object_name, object_type, status from dba_objects where status=&#39;INVALID&#39; order by 1,2,3; 解决 重新编译失效的对象（以下步骤参考：https://developer." />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="数据库无效对象" />
+<meta property="og:description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
+概念 无效：INVALID 对象：视图、物化视图、函数、包、触发器等 无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
+如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
+1.不做任何处理。如果需要，大多数 PL/SQL 对象在调用时会自动重新编译。用户在对象重新编译时会经历短暂的延迟。（大多数情况下，这种延迟不十分明显。）
+2.手动重新编译无效对象。
+无效对象产生的原因 当被引用对象的结构变更时，都会使得相关的依赖对象转变为INVALID状态
+如视图A来源于表B，当表B的结构改变时，会导致视图A变成无效对象。但当再一次调用视图A时，会自动编译视图A，使其再次变为有效。
+发布SQL脚本时（包、存储过程、函数等），没有充分测试，编译时出错，这时对象变为无效。
+数据库升级、迁移时，出现大量无效对象(本质原因，臆测归结为原因1)
+诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
+查找无效对象 统计失效对象 执行用户：SYSTEM用户或其他有权限的用户
+SQL&gt; select owner, object_name, object_type from dba_objects t where status = &#39;INVALID&#39; order by t.owner,t.object_type; 或者
+select owner, object_type, status, count(*) from dba_objects where status=&#39;INVALID&#39; group by owner, object_type, status order by owner, object_type 查看具体失效对象 col owner for a20; col object_name for a32; col object_type for a16 col status for a8 select owner, object_name, object_type, status from dba_objects where status=&#39;INVALID&#39; order by 1,2,3; 解决 重新编译失效的对象（以下步骤参考：https://developer." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
-<meta itemprop="name" content="数据库无效对象">
-<meta itemprop="description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象” 概念 无效：INVALID 对象：视图、物化视图、函数、包"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="1549">
-<meta itemprop="keywords" content="数据库," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="数据库无效对象"/>
-<meta name="twitter:description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象” 概念 无效：INVALID 对象：视图、物化视图、函数、包"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="数据库无效对象">
+<meta itemprop="description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
+概念 无效：INVALID 对象：视图、物化视图、函数、包、触发器等 无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
+如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
+1.不做任何处理。如果需要，大多数 PL/SQL 对象在调用时会自动重新编译。用户在对象重新编译时会经历短暂的延迟。（大多数情况下，这种延迟不十分明显。）
+2.手动重新编译无效对象。
+无效对象产生的原因 当被引用对象的结构变更时，都会使得相关的依赖对象转变为INVALID状态
+如视图A来源于表B，当表B的结构改变时，会导致视图A变成无效对象。但当再一次调用视图A时，会自动编译视图A，使其再次变为有效。
+发布SQL脚本时（包、存储过程、函数等），没有充分测试，编译时出错，这时对象变为无效。
+数据库升级、迁移时，出现大量无效对象(本质原因，臆测归结为原因1)
+诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
+查找无效对象 统计失效对象 执行用户：SYSTEM用户或其他有权限的用户
+SQL&gt; select owner, object_name, object_type from dba_objects t where status = &#39;INVALID&#39; order by t.owner,t.object_type; 或者
+select owner, object_type, status, count(*) from dba_objects where status=&#39;INVALID&#39; group by owner, object_type, status order by owner, object_type 查看具体失效对象 col owner for a20; col object_name for a32; col object_type for a16 col status for a8 select owner, object_name, object_type, status from dba_objects where status=&#39;INVALID&#39; order by 1,2,3; 解决 重新编译失效的对象（以下步骤参考：https://developer."><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="wordCount" content="139">
+<meta itemprop="keywords" content="数据库," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据库无效对象"/>
+<meta name="twitter:description" content="数据库无效对象 背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”
+概念 无效：INVALID 对象：视图、物化视图、函数、包、触发器等 无效 PL/SQL 对象和不可用索引会对性能产生影响。无效 PL/SQL 对象必须先进行重编译，然后才能使用。这需要在执行尝试访问 PL/SQL 程序包、过程或函数的第一个操作之前花费一段编译时间。如果 PL/SQL 重编译未成功，，则操作会因发生错误而失败。优化程序会忽略不可用索引。如果 SQL 语句性能的好坏取决于已标记为不可用的索引，则只有重建索引才能改善性能。
+如果查找到 INVALID 状态的 PL/SQL 对象，需要回答的第一个问题是“此对象曾经是 VALID 的吗？”应用程序开发人员常常会忘记清除不起作用的代码。如果 PL/SQL 对象因代码错误而无效，则除了纠正该错误之外，没有什么别的方法。如果该过程在过去曾经有效，最近才变为无效，则可选择以下两种方法解决这个问题：
+1.不做任何处理。如果需要，大多数 PL/SQL 对象在调用时会自动重新编译。用户在对象重新编译时会经历短暂的延迟。（大多数情况下，这种延迟不十分明显。）
+2.手动重新编译无效对象。
+无效对象产生的原因 当被引用对象的结构变更时，都会使得相关的依赖对象转变为INVALID状态
+如视图A来源于表B，当表B的结构改变时，会导致视图A变成无效对象。但当再一次调用视图A时，会自动编译视图A，使其再次变为有效。
+发布SQL脚本时（包、存储过程、函数等），没有充分测试，编译时出错，这时对象变为无效。
+数据库升级、迁移时，出现大量无效对象(本质原因，臆测归结为原因1)
+诸如此类各种情况：例如，Oracle 会自动维护分区索引，对于全局索引，如果在对分区表操作时，没有指定update index，则会导致全局索引失效，需要重建。
+查找无效对象 统计失效对象 执行用户：SYSTEM用户或其他有权限的用户
+SQL&gt; select owner, object_name, object_type from dba_objects t where status = &#39;INVALID&#39; order by t.owner,t.object_type; 或者
+select owner, object_type, status, count(*) from dba_objects where status=&#39;INVALID&#39; group by owner, object_type, status order by owner, object_type 查看具体失效对象 col owner for a20; col object_name for a32; col object_type for a16 col status for a8 select owner, object_name, object_type, status from dba_objects where status=&#39;INVALID&#39; order by 1,2,3; 解决 重新编译失效的对象（以下步骤参考：https://developer."/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">数据库无效对象</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-05-14 </span>
-        <div class="post-category">
-            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#数据库无效对象">数据库无效对象</a>
-      <ul>
-        <li><a href="#概念">概念</a></li>
-        <li><a href="#无效对象产生的原因">无效对象产生的原因</a></li>
-        <li><a href="#查找无效对象">查找无效对象</a></li>
-        <li><a href="#解决">解决</a></li>
-        <li><a href="#参考链接">参考链接</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="数据库无效对象">数据库无效对象</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">数据库无效对象</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>May 14, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="数据库无效对象">数据库无效对象</h1>
 <blockquote>
 <p>背景：报“ORACLE存在无效对象，可能影响应用性能，评估是否重建对象”</p>
 </blockquote>
@@ -197,63 +358,28 @@
 <li>统计失效对象</li>
 </ul>
 <p>执行用户：SYSTEM用户或其他有权限的用户</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">owner</span><span class="p">,</span><span class="w"> </span><span class="n">object_name</span><span class="p">,</span><span class="w"> </span><span class="n">object_type</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">dba_objects</span><span class="w"> </span><span class="n">t</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;INVALID&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="k">owner</span><span class="p">,</span><span class="n">t</span><span class="p">.</span><span class="n">object_type</span><span class="p">;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>或者</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="k">owner</span><span class="p">,</span><span class="w"> </span><span class="n">object_type</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">dba_objects</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;INVALID&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">owner</span><span class="p">,</span><span class="w"> </span><span class="n">object_type</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">owner</span><span class="p">,</span><span class="w"> </span><span class="n">object_type</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#66d9ef">owner</span>, object_name, object_type
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> dba_objects t
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> status <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;INVALID&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> t.<span style="color:#66d9ef">owner</span>,t.object_type;
+</span></span></code></pre></div><p>或者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">owner</span>, object_type, status, <span style="color:#66d9ef">count</span>(<span style="color:#f92672">*</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> dba_objects
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> status<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;INVALID&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">owner</span>, object_type, status
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> <span style="color:#66d9ef">owner</span>, object_type
+</span></span></code></pre></div><ul>
 <li>查看具体失效对象</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">col</span><span class="w"> </span><span class="k">owner</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a20</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">col</span><span class="w"> </span><span class="n">object_name</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a32</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">col</span><span class="w"> </span><span class="n">object_type</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a16</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">col</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a8</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="k">owner</span><span class="p">,</span><span class="w"> </span><span class="n">object_name</span><span class="p">,</span><span class="w"> </span><span class="n">object_type</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">dba_objects</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">where</span><span class="w"> </span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;INVALID&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="解决">解决</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>col <span style="color:#66d9ef">owner</span> <span style="color:#66d9ef">for</span> a20;
+</span></span><span style="display:flex;"><span>col object_name <span style="color:#66d9ef">for</span> a32;
+</span></span><span style="display:flex;"><span>col object_type <span style="color:#66d9ef">for</span> a16
+</span></span><span style="display:flex;"><span>col status <span style="color:#66d9ef">for</span> a8
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">owner</span>, object_name, object_type, status
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> dba_objects
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> status<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;INVALID&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>;
+</span></span></code></pre></div><h2 id="解决">解决</h2>
 <p>重新编译失效的对象（以下步骤参考：https://developer.aliyun.com/article/34172?spm=5176.24320532.content1.1.1b6b12c2lTMMVr#/）</p>
 <ul>
 <li>
@@ -263,36 +389,19 @@
 <li>
 <p>方法2：利用utlrp.sql（执行@$ORACLE_HOME/rdbms/admin/utlrp.sql脚本）脚本编译无效对象</p>
 <p>该脚本可以在数据库运行的状态下执行编译invalid对象；建立在数据库进行迁移、升级、降级后都运行一遍utlrp.sql</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">oracle用户下执行</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">$</span><span class="n">cd</span><span class="w"> </span><span class="err">$</span><span class="n">ORACLE_HOME</span><span class="o">/</span><span class="n">rdbms</span><span class="o">/</span><span class="k">admin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">$</span><span class="n">sqlplus</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sysdba</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;@</span><span class="n">utlprp</span><span class="p">.</span><span class="k">sql</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>oracle用户下执行
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span>cd <span style="color:#960050;background-color:#1e0010">$</span>ORACLE_HOME<span style="color:#f92672">/</span>rdbms<span style="color:#f92672">/</span><span style="color:#66d9ef">admin</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">$</span>sqlplus <span style="color:#f92672">/</span> <span style="color:#66d9ef">as</span> sysdba
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;@</span>utlprp.<span style="color:#66d9ef">sql</span>
+</span></span></code></pre></div><blockquote>
 <p>许多情况下，由于数据库的升级或迁移，会导致数据库中的对象失效。由于对象 之间可能存在复杂的倚赖关系，所以手工编译通常无法顺利通过。通常我们会在Oracle的升级指导中看到这个脚本，Oracle强烈推荐在 migration/upgrade/downgrade之后，通过运行此脚本编译失效对象。但是注意,Oracle提醒，此脚本需要用SQLPLUS以 SYSDBA身份运行，并且当时数据库中最好不要有活动事物或DDL操作，否则极容易导致死锁的出现（这是很容易理解的）。</p>
 </blockquote>
 </li>
 <li>
 <p>方法3：利用ORACLE提供的自动编译接口dbms_utility.compile_schema(user,false);</p>
 <p>调用这个过程就会编译所有失效的过程、函数、触发器、包</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">exec</span><span class="w"> </span><span class="n">dbms_utility</span><span class="p">.</span><span class="n">compile_schema</span><span class="p">(</span><span class="w"> </span><span class="s1">&#39;SCOTT&#39;</span><span class="w"> </span><span class="p">)</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">exec</span> dbms_utility.compile_schema( <span style="color:#e6db74">&#39;SCOTT&#39;</span> )
+</span></span></code></pre></div></li>
 <li>
 <p>方法4：利用网友提供的sql解决（例如 <a href="https://developer.aliyun.com/article/34172?spm=5176.24320532.content1.1.1b6b12c2lTMMVr#/">https://developer.aliyun.com/article/34172?spm=5176.24320532.content1.1.1b6b12c2lTMMVr#/</a> 给出的）</p>
 </li>
@@ -305,97 +414,99 @@
 <p>​	https://www.shuzhiduo.com/A/A7zg7WNWz4/#/</p>
 <p>​	https://blog.csdn.net/weixin_39617318/article/details/116344253#/</p>
 <p>​	https://blog.csdn.net/weixin_30661579/article/details/116439657#/</p>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"
+      >数据库</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-05-14
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/"
+      ><span class="mr-1.5">←</span><span>开始Hugo&#43;Github Pages</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/"
+      ><span>软考-中级软件设计师-00 无分类</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">开始Hugo&#43;Github Pages</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">
-            <span class="next-text nav-default">软考-中级软件设计师-00 无分类</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

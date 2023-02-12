@@ -1,174 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Linux-防火墙firewall - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Linux-防火墙firewall" />
-<meta property="og:description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Linux-防火墙firewall - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
+由于目前我的云主机是ConterOS7.0&#43;，所以就先只学习firewall。
+基本命令 查看防火墙状态和规则 查看防火墙状态：
+systemctl status firewalld
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status firewalld ● firewalld.service - firewalld - dynamic firewall daemon Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled) Active: active (running) since Thu 2022-04-28 21:54:51 CST; 4 months 21 days ago Docs: man:firewalld(1) Main PID: 560 (firewalld) CGroup: /system.slice/firewalld.service └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable." />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Linux-防火墙firewall" />
+<meta property="og:description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
+由于目前我的云主机是ConterOS7.0&#43;，所以就先只学习firewall。
+基本命令 查看防火墙状态和规则 查看防火墙状态：
+systemctl status firewalld
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status firewalld ● firewalld.service - firewalld - dynamic firewall daemon Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled) Active: active (running) since Thu 2022-04-28 21:54:51 CST; 4 months 21 days ago Docs: man:firewalld(1) Main PID: 560 (firewalld) CGroup: /system.slice/firewalld.service └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-09-18T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-09-18T00:00:00+00:00" />
 
-<meta itemprop="name" content="Linux-防火墙firewall">
-<meta itemprop="description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以"><meta itemprop="datePublished" content="2022-09-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-09-18T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1139">
-<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux-防火墙firewall"/>
-<meta name="twitter:description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="Linux-防火墙firewall">
+<meta itemprop="description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
+由于目前我的云主机是ConterOS7.0&#43;，所以就先只学习firewall。
+基本命令 查看防火墙状态和规则 查看防火墙状态：
+systemctl status firewalld
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status firewalld ● firewalld.service - firewalld - dynamic firewall daemon Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled) Active: active (running) since Thu 2022-04-28 21:54:51 CST; 4 months 21 days ago Docs: man:firewalld(1) Main PID: 560 (firewalld) CGroup: /system.slice/firewalld.service └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable."><meta itemprop="datePublished" content="2022-09-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="351">
+<meta itemprop="keywords" content="Linux," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux-防火墙firewall"/>
+<meta name="twitter:description" content="Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
+由于目前我的云主机是ConterOS7.0&#43;，所以就先只学习firewall。
+基本命令 查看防火墙状态和规则 查看防火墙状态：
+systemctl status firewalld
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status firewalld ● firewalld.service - firewalld - dynamic firewall daemon Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled) Active: active (running) since Thu 2022-04-28 21:54:51 CST; 4 months 21 days ago Docs: man:firewalld(1) Main PID: 560 (firewalld) CGroup: /system.slice/firewalld.service └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable."/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Linux-防火墙firewall</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-09-18 </span>
-        <div class="post-category">
-            <a href="/categories/linux/"> Linux </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#linux-防火墙firewall">Linux-防火墙firewall</a>
-      <ul>
-        <li><a href="#基本命令">基本命令</a>
-          <ul>
-            <li><a href="#查看防火墙状态和规则">查看防火墙状态和规则</a></li>
-            <li><a href="#开启和关闭防火墙">开启和关闭防火墙</a></li>
-            <li><a href="#端口开放或关闭">端口开放或关闭</a></li>
-          </ul>
-        </li>
-        <li><a href="#macos使用telnet">Macos使用telnet</a>
-          <ul>
-            <li><a href="#mac安装telnet">Mac安装telnet</a></li>
-            <li><a href="#验证防火墙开放结果">验证防火墙开放结果</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="linux-防火墙firewall">Linux-防火墙firewall</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">Linux-防火墙firewall</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>Sep 18, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="linux-防火墙firewall">Linux-防火墙firewall</h1>
 <blockquote>
 <p>Linux中有两种防火墙软件，ConterOS7.0以上使用的是<strong>firewall</strong>，ConterOS7.0以下使用的是<strong>iptables</strong>。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。</p>
 <p>由于目前我的云主机是ConterOS7.0+，所以就先只学习firewall。</p>
@@ -177,70 +297,34 @@
 <h3 id="查看防火墙状态和规则">查看防火墙状态和规则</h3>
 <p>查看防火墙状态：</p>
 <p><code>systemctl status firewalld</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ systemctl status firewalld
-</span></span><span class="line"><span class="cl">● firewalld.service - firewalld - dynamic firewall daemon
-</span></span><span class="line"><span class="cl">   Loaded: loaded <span class="o">(</span>/usr/lib/systemd/system/firewalld.service<span class="p">;</span> enabled<span class="p">;</span> vendor preset: enabled<span class="o">)</span>
-</span></span><span class="line"><span class="cl">   Active: active <span class="o">(</span>running<span class="o">)</span> since Thu 2022-04-28 21:54:51 CST<span class="p">;</span> <span class="m">4</span> months <span class="m">21</span> days ago
-</span></span><span class="line"><span class="cl">     Docs: man:firewalld<span class="o">(</span>1<span class="o">)</span>
-</span></span><span class="line"><span class="cl"> Main PID: <span class="m">560</span> <span class="o">(</span>firewalld<span class="o">)</span>
-</span></span><span class="line"><span class="cl">   CGroup: /system.slice/firewalld.service
-</span></span><span class="line"><span class="cl">           └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>看到<code>Active: active (running)</code>字样，表示防火墙是启动状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span>$ systemctl status firewalld
+</span></span><span style="display:flex;"><span>● firewalld.service - firewalld - dynamic firewall daemon
+</span></span><span style="display:flex;"><span>   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   Active: active <span style="color:#f92672">(</span>running<span style="color:#f92672">)</span> since Thu 2022-04-28 21:54:51 CST; <span style="color:#ae81ff">4</span> months <span style="color:#ae81ff">21</span> days ago
+</span></span><span style="display:flex;"><span>     Docs: man:firewalld<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span> Main PID: <span style="color:#ae81ff">560</span> <span style="color:#f92672">(</span>firewalld<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>   CGroup: /system.slice/firewalld.service
+</span></span><span style="display:flex;"><span>           └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
+</span></span></code></pre></div><p>看到<code>Active: active (running)</code>字样，表示防火墙是启动状态</p>
 <p>查看防火墙规则：</p>
 <p><code>firewall-cmd --list-all</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --list-all</span>
-</span></span><span class="line"><span class="cl">public <span class="o">(</span>active<span class="o">)</span>
-</span></span><span class="line"><span class="cl">  target: default
-</span></span><span class="line"><span class="cl">  icmp-block-inversion: no
-</span></span><span class="line"><span class="cl">  interfaces: eth0
-</span></span><span class="line"><span class="cl">  sources: 
-</span></span><span class="line"><span class="cl">  services: <span class="c1"># 略</span>
-</span></span><span class="line"><span class="cl">  ports: <span class="c1"># 略</span>
-</span></span><span class="line"><span class="cl">  protocols: 
-</span></span><span class="line"><span class="cl">  masquerade: no
-</span></span><span class="line"><span class="cl">  forward-ports: 
-</span></span><span class="line"><span class="cl">  source-ports: 
-</span></span><span class="line"><span class="cl">  icmp-blocks: 
-</span></span><span class="line"><span class="cl">  rich rules: 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="开启和关闭防火墙">开启和关闭防火墙</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --list-all</span>
+</span></span><span style="display:flex;"><span>public <span style="color:#f92672">(</span>active<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  target: default
+</span></span><span style="display:flex;"><span>  icmp-block-inversion: no
+</span></span><span style="display:flex;"><span>  interfaces: eth0
+</span></span><span style="display:flex;"><span>  sources: 
+</span></span><span style="display:flex;"><span>  services: <span style="color:#75715e"># 略</span>
+</span></span><span style="display:flex;"><span>  ports: <span style="color:#75715e"># 略</span>
+</span></span><span style="display:flex;"><span>  protocols: 
+</span></span><span style="display:flex;"><span>  masquerade: no
+</span></span><span style="display:flex;"><span>  forward-ports: 
+</span></span><span style="display:flex;"><span>  source-ports: 
+</span></span><span style="display:flex;"><span>  icmp-blocks: 
+</span></span><span style="display:flex;"><span>  rich rules: 
+</span></span></code></pre></div><h3 id="开启和关闭防火墙">开启和关闭防火墙</h3>
 <p>开启：</p>
 <p><code>systemctl start firewalld</code></p>
 <p>关闭：</p>
@@ -254,282 +338,176 @@
 <h3 id="端口开放或关闭">端口开放或关闭</h3>
 <p>查看开放的端口（root执行）：</p>
 <p><code>firewall-cmd --list-ports</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --list-ports</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 结果略，查询结果格式： 端口号/协议名称（如20/tcp）</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>查询特定端口是否开放：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --list-ports</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 结果略，查询结果格式： 端口号/协议名称（如20/tcp）</span>
+</span></span></code></pre></div><p>查询特定端口是否开放：</p>
 <p><code>firewall-cmd --query-port=#port#/#protocol#</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 例如查询3306端口是否开放</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --query-port=3306/tcp</span>
-</span></span><span class="line"><span class="cl">no
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>开放端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 例如查询3306端口是否开放</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --query-port=3306/tcp</span>
+</span></span><span style="display:flex;"><span>no
+</span></span></code></pre></div><p>开放端口：</p>
 <p><code>irewall-cmd --zone=public --add-port=#port#/#protocol# --permanent</code></p>
 <p>permanent：表示设置为持久</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 例如，开放mysql 3306端口</span>
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --zone=public --add-port=3306/tcp --permanent</span>
-</span></span><span class="line"><span class="cl">success
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --reload</span>
-</span></span><span class="line"><span class="cl">success
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --query-port=3306/tcp</span>
-</span></span><span class="line"><span class="cl">yes
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>关闭端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># 例如，开放mysql 3306端口</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --zone=public --add-port=3306/tcp --permanent</span>
+</span></span><span style="display:flex;"><span>success
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --reload</span>
+</span></span><span style="display:flex;"><span>success
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --query-port=3306/tcp</span>
+</span></span><span style="display:flex;"><span>yes
+</span></span></code></pre></div><p>关闭端口：</p>
 <p><code>firewall-cmd --zone=public --remove-port=#port#/#protocol# --permanent</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --zone=public --remove-port=3306/tcp --permanent</span>
-</span></span><span class="line"><span class="cl">success
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --reload</span>
-</span></span><span class="line"><span class="cl">success
-</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># firewall-cmd --query-port=3306/tcp</span>
-</span></span><span class="line"><span class="cl">no
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>注意，修改配置后，需要重启防火墙方可生效</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --zone=public --remove-port=3306/tcp --permanent</span>
+</span></span><span style="display:flex;"><span>success
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --reload</span>
+</span></span><span style="display:flex;"><span>success
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span style="color:#f92672">]</span><span style="color:#75715e"># firewall-cmd --query-port=3306/tcp</span>
+</span></span><span style="display:flex;"><span>no
+</span></span></code></pre></div><p><strong>注意，修改配置后，需要重启防火墙方可生效</strong></p>
 <h2 id="macos使用telnet">Macos使用telnet</h2>
 <p>为了验证是否主机的某端口是否可正常access，可以在本机telnet到主机的特定端口。</p>
 <h3 id="mac安装telnet">Mac安装telnet</h3>
 <p>终端默认不支持telnet，所以需要先安装：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brew install telnet
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>测试telnet已安装成功：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Mac ~ % telnet
-</span></span><span class="line"><span class="cl">telnet&gt; 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="验证防火墙开放结果">验证防火墙开放结果</h3>
+<pre tabindex="0"><code>brew install telnet
+</code></pre><p>测试telnet已安装成功：</p>
+<pre tabindex="0"><code>Mac ~ % telnet
+telnet&gt; 
+</code></pre><h3 id="验证防火墙开放结果">验证防火墙开放结果</h3>
 <h4 id="开放3306端口前">开放3306端口前</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Mac ~ % telnet 101.37.146.100 3306
-</span></span><span class="line"><span class="cl">Trying 101.37.146.100...
-</span></span><span class="line"><span class="cl">telnet: connect to address 101.37.146.100: Connection refused
-</span></span><span class="line"><span class="cl">telnet: Unable to connect to remote host
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="开放3306端口并重启防火墙服务后">开放3306端口并重启防火墙服务后</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Mac ~ % telnet 101.37.146.100 3306
-</span></span><span class="line"><span class="cl">Trying 101.37.146.100...
-</span></span><span class="line"><span class="cl">Connected to 101.37.146.100.
-</span></span><span class="line"><span class="cl">Escape character is &#39;^]&#39;.
-</span></span><span class="line"><span class="cl">FHost &#39;xxx&#39;（隐去） is not allowed to connect to this MySQL serverConnection closed by foreign host.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>看起来，<strong>是可以通的</strong>。说明防火墙开启3306端口服务生效了。</p>
+<pre tabindex="0"><code>Mac ~ % telnet 101.37.146.100 3306
+Trying 101.37.146.100...
+telnet: connect to address 101.37.146.100: Connection refused
+telnet: Unable to connect to remote host
+</code></pre><h4 id="开放3306端口并重启防火墙服务后">开放3306端口并重启防火墙服务后</h4>
+<pre tabindex="0"><code>Mac ~ % telnet 101.37.146.100 3306
+Trying 101.37.146.100...
+Connected to 101.37.146.100.
+Escape character is &#39;^]&#39;.
+FHost &#39;xxx&#39;（隐去） is not allowed to connect to this MySQL serverConnection closed by foreign host.
+</code></pre><p>看起来，<strong>是可以通的</strong>。说明防火墙开启3306端口服务生效了。</p>
 <p>题外话：但是上面还是有报错，那可能是因为mysql的设置，不允许远程访问。为了确保安全，就不设置root用户的远程访问授权了。执行以下命令，使其支持<code>cindy</code>用户远程访问。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">changed</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;cindy&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">-----------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="k">host</span><span class="w">      </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">-----------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="n">localhost</span><span class="w"> </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">-----------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">host</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cindy&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Rows</span><span class="w"> </span><span class="n">matched</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="n">Changed</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="n">Warnings</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">user</span><span class="o">=</span><span class="s1">&#39;cindy&#39;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w">    </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">rows</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>此时，用数据库连接工具使用cindy用户连接mysql数据库，已经可以正常远程连上了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> use mysql;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Database</span> changed
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#66d9ef">host</span> <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cindy&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">-----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#66d9ef">host</span>      <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">-----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> localhost <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">-----------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">update</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">set</span> <span style="color:#66d9ef">host</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;%&#39;</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;cindy&#39;</span>;
+</span></span><span style="display:flex;"><span>Query OK, <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Rows</span> matched: <span style="color:#ae81ff">1</span>  Changed: <span style="color:#ae81ff">1</span>  Warnings: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#66d9ef">host</span> <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">where</span> <span style="color:#66d9ef">user</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;cindy&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#66d9ef">host</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#f92672">%</span>    <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
+</span></span><span style="display:flex;"><span>Query OK, <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">rows</span> affected (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">00</span> sec)
+</span></span></code></pre></div><p>此时，用数据库连接工具使用cindy用户连接mysql数据库，已经可以正常远程连上了。</p>
 <h2 id="参考链接">参考链接</h2>
 <p><a href="https://blog.csdn.net/wade3015/article/details/90725871">https://blog.csdn.net/wade3015/article/details/90725871</a></p>
 <p><a href="https://juejin.cn/post/6844903865146425351">https://juejin.cn/post/6844903865146425351</a></p>
 <p><a href="https://blog.csdn.net/weixin_42521949/article/details/119362634">https://blog.csdn.net/weixin_42521949/article/details/119362634</a></p>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/linux"
+      >Linux</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-09-18
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/"
+      ><span class="mr-1.5">←</span><span>Linux-系统信息查看命令</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/"
+      ><span>Maven之三：坐标、依赖范围、依赖冲突</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">Linux</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Linux-系统信息查看命令</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
-            <span class="next-text nav-default">Maven之三：坐标、依赖范围、依赖冲突</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

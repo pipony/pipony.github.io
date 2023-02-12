@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Maven on 2MUCH-Tech-Notes</title>
+    <title>Maven on </title>
     <link>https://huangxindi.com/tags/maven/</link>
-    <description>Recent content in Maven on 2MUCH-Tech-Notes</description>
+    <description>Recent content in Maven on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/maven/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,15 @@
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
-      <description>Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html Maven构件 构件：在Maven</description>
+      <description>Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
+Maven构件 构件：在Maven中，任何项目输出都可成为构件。
+构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&amp;hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&amp;gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk13&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
+区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15-javadoc&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
+注意&amp;lt;classifier&amp;gt;的位置：
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;jdk15-javadoc&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;2.</description>
     </item>
     
     <item>
@@ -22,7 +30,20 @@
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
-      <description>Maven之一：基础 学习网站：http://mvnbook.com/index.html 简介 Maven英文：专家、内行 Maven：项目管理工</description>
+      <description>Maven之一：基础 学习网站：http://mvnbook.com/index.html
+简介 Maven英文：专家、内行
+Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
+项目构建：即软件项目生产的整个过程 文档和代码的生成 代码编译、测试、打包 打包好的代码进行分发和部署 依赖管理 我们需要做的就是在 POM 文件里指定依赖 Jar 包的名称、版本号，Maven 会自动下载，并递归地去下载依赖的进一步依赖 快照依赖：使用快照依赖可以确保本地仓库中的每一个 Build 版本都是最新的 组成：
+项目对象模型 POM(project object model) 项目生命周期 project lifecycle 依赖管理系统 dependency management system 各种插件 官网地址是：https://maven.apache.org/index.html
+下载和安装 官网下载地址是：https://maven.apache.org/download.cgi
+Mac安装maven步骤：
+参考链接：https://blog.csdn.net/m0_67400973/article/details/123656632
+1、下载Binary zip archive（如目前的最新版 apache-maven-3.8.6-bin.zip），解压并重命名文件夹为maven（或者外面再套一层maven文件夹，不需要修改原有的文件夹名称）
+2、配置环境变量
+编辑文件 .bash_profile：
+vim ~/.bash_profile # 添加以下内容 export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径 export PATH=$PATH:$M2_HOME/bin 编辑文件 .zshrc
+vim ~/.zshrc # 添加以下内容 export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径 export PATH=$PATH:$M2_HOME/bin 3、使修改立即生效
+source ~/.bash_profile source ~/.</description>
     </item>
     
     <item>
@@ -31,7 +52,14 @@
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
-      <description>Maven之二：创建Maven项目 学习网站：http://mvnbook.com/index.html Maven项目创建 约定标准目录结构 目录</description>
+      <description>Maven之二：创建Maven项目 学习网站：http://mvnbook.com/index.html
+Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.xml 和所有子目录 ${basedir}/src/main/java 项目的 java 源代码所在的目录 ${basedir}/src/main/resources 项目的资源文件所在的目录，例如：propert文件 ${basedir}/src/test/java 测试代码所在的目录，例如：JUnit 代码 ${basedir}/src/test/resources 测试相关的资源文件所在的目录 ${basedir}/src/main/webapp/WEB-INF web 应用文件目录，web 项目的信息，比如存放 web.xml、本地图片、jsp 视图页面 ${basedir}/target 打包输出目录 ${basedir}/target/classes 编译输出目录 ${basedir}/target/test-classes 测试编译输出目录 IDEA创建Maven项目 可参考：https://blog.csdn.net/hgnuxc_1993/article/details/125427590
+注意点：
+需要进入设置，编辑maven配置为自己下载的maven路径 修改自己的/conf/setting.xml文件，将maven源改为阿里云，不然后面下载依赖会慢
+可参考 https://zhuanlan.zhihu.com/p/434179938 解决下一次打开IDEA，之前设置的maven路径参数被复原的问题（即，要设置preferences for new projects）
+可参考 https://blog.csdn.net/m0_49286452/article/details/124729379 创建maven项目
+点击创建后，需要一定时间的构建。构建结束（BUILD SUCCESS），查看目录是否正常
+相比标准目录结构，自动创建后缺少的/main/resources和/test/resources就自己手动创建吧。</description>
     </item>
     
   </channel>

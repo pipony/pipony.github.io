@@ -1,177 +1,310 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Maven之三：坐标、依赖范围、依赖冲突 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html Maven构件 构件：在Maven" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Maven之三：坐标、依赖范围、依赖冲突" />
-<meta property="og:description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html Maven构件 构件：在Maven" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Maven之三：坐标、依赖范围、依赖冲突 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
+Maven构件 构件：在Maven中，任何项目输出都可成为构件。
+构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk13&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
+区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
+注意&lt;classifier&gt;的位置：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;version&gt;2." />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Maven之三：坐标、依赖范围、依赖冲突" />
+<meta property="og:description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
+Maven构件 构件：在Maven中，任何项目输出都可成为构件。
+构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk13&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
+区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
+注意&lt;classifier&gt;的位置：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;version&gt;2." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-09-18T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-09-18T00:00:00+00:00" />
 
-<meta itemprop="name" content="Maven之三：坐标、依赖范围、依赖冲突">
-<meta itemprop="description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html Maven构件 构件：在Maven"><meta itemprop="datePublished" content="2022-09-18T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-09-18T00:00:00+00:00" />
-<meta itemprop="wordCount" content="2657">
-<meta itemprop="keywords" content="Maven," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Maven之三：坐标、依赖范围、依赖冲突"/>
-<meta name="twitter:description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html Maven构件 构件：在Maven"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="Maven之三：坐标、依赖范围、依赖冲突">
+<meta itemprop="description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
+Maven构件 构件：在Maven中，任何项目输出都可成为构件。
+构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk13&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
+区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
+注意&lt;classifier&gt;的位置：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;version&gt;2."><meta itemprop="datePublished" content="2022-09-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="269">
+<meta itemprop="keywords" content="Maven," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maven之三：坐标、依赖范围、依赖冲突"/>
+<meta name="twitter:description" content="Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
+Maven构件 构件：在Maven中，任何项目输出都可成为构件。
+构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15&lt;/classifier&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk13&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
+区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;version&gt;2.2.2&lt;/version&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;/dependency&gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
+注意&lt;classifier&gt;的位置：
+&lt;dependency&gt; &lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt; &lt;artifactId&gt;json-lib&lt;/artifactId&gt; &lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt; &lt;version&gt;2."/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Maven之三：坐标、依赖范围、依赖冲突</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-09-18 </span>
-        <div class="post-category">
-            <a href="/categories/java/"> Java </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#maven之三坐标依赖范围依赖冲突">Maven之三：坐标、依赖范围、依赖冲突</a>
-      <ul>
-        <li><a href="#maven构件">Maven构件</a>
-          <ul>
-            <li><a href="#构件标识唯一标识也称为唯一坐标">构件标识（唯一标识，也称为唯一坐标）</a></li>
-            <li><a href="#classifier标识使用场景">classifier标识使用场景</a></li>
-            <li><a href="#构件特性">构件特性</a></li>
-          </ul>
-        </li>
-        <li><a href="#maven依赖范围">Maven依赖范围</a></li>
-        <li><a href="#maven依赖冲突">Maven依赖冲突</a>
-          <ul>
-            <li><a href="#直接依赖冲突">直接依赖冲突</a></li>
-            <li><a href="#传递依赖冲突">传递依赖冲突</a></li>
-            <li><a href="#maven-依赖优化">Maven 依赖优化</a></li>
-            <li><a href="#maven依赖冲突调解规则">Maven依赖冲突调解规则</a></li>
-            <li><a href="#解决依赖冲突">解决依赖冲突</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="maven之三坐标依赖范围依赖冲突">Maven之三：坐标、依赖范围、依赖冲突</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">Maven之三：坐标、依赖范围、依赖冲突</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>Sep 18, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="maven之三坐标依赖范围依赖冲突">Maven之三：坐标、依赖范围、依赖冲突</h1>
 <p>学习网站：http://mvnbook.com/index.html</p>
 <h2 id="maven构件">Maven构件</h2>
 <p>构件：在Maven中，任何项目输出都可成为构件。</p>
@@ -188,109 +321,51 @@
 </ul>
 </blockquote>
 <p>标识和jar包名的对应关系（顺序拼接）：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;groupId&gt;</span>net.sf.json-lib<span class="nt">&lt;/groupId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>json-lib<span class="nt">&lt;/artifactId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;version&gt;</span>2.2.2<span class="nt">&lt;/version&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;classifier&gt;</span>jdk15<span class="nt">&lt;/classifier&gt;</span>    
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 对应的jar包名:
-</span></span></span><span class="line"><span class="cl"><span class="c">json-lib-2.2.2-jdk15.jar 
-</span></span></span><span class="line"><span class="cl"><span class="c"> --&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="classifier标识使用场景">classifier标识使用场景</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;groupId&gt;</span>net.sf.json-lib<span style="color:#f92672">&lt;/groupId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;artifactId&gt;</span>json-lib<span style="color:#f92672">&lt;/artifactId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;version&gt;</span>2.2.2<span style="color:#f92672">&lt;/version&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;classifier&gt;</span>jdk15<span style="color:#f92672">&lt;/classifier&gt;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- 对应的jar包名:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">json-lib-2.2.2-jdk15.jar 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> --&gt;</span>
+</span></span></code></pre></div><h3 id="classifier标识使用场景">classifier标识使用场景</h3>
 <ul>
 <li>区分不同JDK版本所生成的jar包</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;groupId&gt;</span>net.sf.json-lib<span class="nt">&lt;/groupId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>json-lib<span class="nt">&lt;/artifactId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;version&gt;</span>2.2.2<span class="nt">&lt;/version&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;classifier&gt;</span>jdk15<span class="nt">&lt;/classifier&gt;</span>    
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;groupId&gt;</span>net.sf.json-lib<span class="nt">&lt;/groupId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>json-lib<span class="nt">&lt;/artifactId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;version&gt;</span>2.2.2<span class="nt">&lt;/version&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;classifier&gt;</span>jdk13<span class="nt">&lt;/classifier&gt;</span>    
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;groupId&gt;</span>net.sf.json-lib<span style="color:#f92672">&lt;/groupId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;artifactId&gt;</span>json-lib<span style="color:#f92672">&lt;/artifactId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;version&gt;</span>2.2.2<span style="color:#f92672">&lt;/version&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;classifier&gt;</span>jdk15<span style="color:#f92672">&lt;/classifier&gt;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;groupId&gt;</span>net.sf.json-lib<span style="color:#f92672">&lt;/groupId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;artifactId&gt;</span>json-lib<span style="color:#f92672">&lt;/artifactId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;version&gt;</span>2.2.2<span style="color:#f92672">&lt;/version&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;classifier&gt;</span>jdk13<span style="color:#f92672">&lt;/classifier&gt;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。</p>
 <ul>
 <li>区分项目的不同组成部分，例如，源代码、javadoc、类文件等</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;groupId&gt;</span>net.sf.json-lib<span class="nt">&lt;/groupId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>json-lib<span class="nt">&lt;/artifactId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;version&gt;</span>2.2.2<span class="nt">&lt;/version&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;classifier&gt;</span>jdk15-javadoc<span class="nt">&lt;/classifier&gt;</span>    
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span> 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;groupId&gt;</span>net.sf.json-lib<span style="color:#f92672">&lt;/groupId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;artifactId&gt;</span>json-lib<span style="color:#f92672">&lt;/artifactId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;version&gt;</span>2.2.2<span style="color:#f92672">&lt;/version&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;classifier&gt;</span>jdk15-javadoc<span style="color:#f92672">&lt;/classifier&gt;</span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span> 
+</span></span></code></pre></div><p>以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。</p>
 <p>注意<code>&lt;classifier&gt;</code>的位置：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;groupId&gt;</span>net.sf.json-lib<span class="nt">&lt;/groupId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>json-lib<span class="nt">&lt;/artifactId&gt;</span>   
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;classifier&gt;</span>jdk15-javadoc<span class="nt">&lt;/classifier&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;version&gt;</span>2.2.2<span class="nt">&lt;/version&gt;</span>   
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span> 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>对应的是 json-lib-jdk15-<strong>javadoc-2.2.2</strong>.jar，可能会出现找不到jar包的情况。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;groupId&gt;</span>net.sf.json-lib<span style="color:#f92672">&lt;/groupId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;artifactId&gt;</span>json-lib<span style="color:#f92672">&lt;/artifactId&gt;</span>   
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;classifier&gt;</span>jdk15-javadoc<span style="color:#f92672">&lt;/classifier&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;version&gt;</span>2.2.2<span style="color:#f92672">&lt;/version&gt;</span>   
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span> 
+</span></span></code></pre></div><p>对应的是 json-lib-jdk15-<strong>javadoc-2.2.2</strong>.jar，可能会出现找不到jar包的情况。</p>
 <h3 id="构件特性">构件特性</h3>
 <ul>
 <li>
@@ -330,149 +405,69 @@
 </ul>
 <p>系统依赖范围，使用 system 范围的依赖时必须通过 systemPath 元素显示地指定依赖文件的路径，不依赖 Maven 仓库解析，所以可能会造成建构的不可移植。</p>
 <p>如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;dependency&gt;</span>  
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;groupId&gt;</span>javax.sql<span class="nt">&lt;/groupId&gt;</span>  
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;artifactId&gt;</span>jdbc-stdext<span class="nt">&lt;/artifactId&gt;</span>  
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;version&gt;</span>2.0<span class="nt">&lt;/version&gt;</span>  
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;scope&gt;</span>system<span class="nt">&lt;/scope&gt;</span>  
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;systemPath&gt;</span>${java.home}/lib/rt.jar<span class="nt">&lt;/systemPath&gt;</span>  
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;/dependency&gt;</span>  
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="maven依赖冲突">Maven依赖冲突</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;dependency&gt;</span>  
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;groupId&gt;</span>javax.sql<span style="color:#f92672">&lt;/groupId&gt;</span>  
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;artifactId&gt;</span>jdbc-stdext<span style="color:#f92672">&lt;/artifactId&gt;</span>  
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;version&gt;</span>2.0<span style="color:#f92672">&lt;/version&gt;</span>  
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;scope&gt;</span>system<span style="color:#f92672">&lt;/scope&gt;</span>  
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;systemPath&gt;</span>${java.home}/lib/rt.jar<span style="color:#f92672">&lt;/systemPath&gt;</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/dependency&gt;</span>  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span></code></pre></div><h2 id="maven依赖冲突">Maven依赖冲突</h2>
 <h3 id="直接依赖冲突">直接依赖冲突</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;artifactId&gt;</span>mybatis<span class="nt">&lt;/artifactId&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;version&gt;</span>3.3.0<span class="nt">&lt;/version&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;/dependency&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;groupId&gt;</span>org.mybatis<span class="nt">&lt;/groupId&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;artifactId&gt;</span>mybatis<span class="nt">&lt;/artifactId&gt;</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&lt;version&gt;</span>3.5.0<span class="nt">&lt;/version&gt;</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&lt;/dependency&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>根据上列的依赖顺序，项目将使用<strong>3.5.0</strong>版本的 MyBatis Jar。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;groupId&gt;</span>org.mybatis<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;artifactId&gt;</span>mybatis<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;version&gt;</span>3.3.0<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;groupId&gt;</span>org.mybatis<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;artifactId&gt;</span>mybatis<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">&lt;version&gt;</span>3.5.0<span style="color:#f92672">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><p>根据上列的依赖顺序，项目将使用<strong>3.5.0</strong>版本的 MyBatis Jar。</p>
 <h3 id="传递依赖冲突">传递依赖冲突</h3>
 <p>例如，项目 A 有这样的依赖关系：X-&gt;Y-&gt;Z（1.0）、X-&gt;G-&gt;Z（2.0），Z 是 X 的传递性依赖，但是两条依赖路径上有两个版本的 Z，那么哪个 Z 会被 Maven 解析使用呢？两个版本都被解析显然是不对的，因为那会造成依赖重复，因此必须选择一个。</p>
 <h3 id="maven-依赖优化">Maven 依赖优化</h3>
 <p>实际上 Maven 是比较智能的，它能够自动解析直接依赖和传递性依赖，根据预定义规则判断依赖范围的合理性，也可以对部分依赖进行适当调整来保证构件版本唯一。</p>
 <p>即使这样，还会有些情况使 Maven 发生误判，因此手工进行依赖优化还是相当有必要的。我们可以使用 maven-dependency-plugin 提供的三个目标来实现依赖分析：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">$ mvn dependency:list
-</span></span><span class="line"><span class="cl">$ mvn dependency:tree
-</span></span><span class="line"><span class="cl">$ mvn dependency:analyze
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如若需更精细的分析结果，可以在命令后使用诸如以下参数：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">-Dverbose
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">-Dincludes<span class="o">=</span>&lt;groupId&gt;:&lt;artifactId&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="maven依赖冲突调解规则">Maven依赖冲突调解规则</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ mvn dependency:list
+</span></span><span style="display:flex;"><span>$ mvn dependency:tree
+</span></span><span style="display:flex;"><span>$ mvn dependency:analyze
+</span></span></code></pre></div><p>如若需更精细的分析结果，可以在命令后使用诸如以下参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>-Dverbose
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-Dincludes<span style="color:#f92672">=</span>&lt;groupId&gt;:&lt;artifactId&gt;
+</span></span></code></pre></div><h3 id="maven依赖冲突调解规则">Maven依赖冲突调解规则</h3>
 <p>四大原则：</p>
 <ul>
 <li><strong>路径近者优先原则</strong></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">A --&gt; B --&gt; X(1.1)         // dist(A-&gt;X) = 2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">A --&gt; C --&gt; D --&gt; X(1.0)   // dist(A-&gt;X) = 3
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Maven可以按照第一原则自动调解依赖，结果是使用X(1.1)作为依赖。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>A --&gt; B --&gt; X(1.1)         // dist(A-&gt;X) = 2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A --&gt; C --&gt; D --&gt; X(1.0)   // dist(A-&gt;X) = 3
+</span></span></code></pre></div><p>Maven可以按照第一原则自动调解依赖，结果是使用X(1.1)作为依赖。</p>
 <ul>
 <li><strong>第一声明者优先原则</strong></li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">A --&gt; B --&gt; X(1.1)   // dist(A-&gt;X) = 2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">A --&gt; C --&gt; X(1.0)   // dist(A-&gt;X) = 2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- A pom.xml --&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;dependencies&gt;</span>
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">    dependency B
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">    dependency C
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependencies&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>若冲突依赖的路径长度相同，那么第一原则就无法起作用了。当路径长度相同，则需要根据A直接依赖包在pom.xml文件中的先后顺序来判定使用那条依赖路径，如果次级模块相同则向下级模块推，直至可以判断先后位置为止。假设依赖B位置在依赖C之前，则最终会选择X(1.1)依赖。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>A --&gt; B --&gt; X(1.1)   // dist(A-&gt;X) = 2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A --&gt; C --&gt; X(1.0)   // dist(A-&gt;X) = 2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- A pom.xml --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependencies&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    dependency B
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    dependency C
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependencies&gt;</span>
+</span></span></code></pre></div><p>若冲突依赖的路径长度相同，那么第一原则就无法起作用了。当路径长度相同，则需要根据A直接依赖包在pom.xml文件中的先后顺序来判定使用那条依赖路径，如果次级模块相同则向下级模块推，直至可以判断先后位置为止。假设依赖B位置在依赖C之前，则最终会选择X(1.1)依赖。</p>
 <ul>
 <li>
 <p>排除原则</p>
@@ -486,127 +481,111 @@
 </ul>
 <h3 id="解决依赖冲突">解决依赖冲突</h3>
 <p>冲突解决方式简单粗暴，直接在 pom.xml 文件中排除冲突依赖即可（使用<code> &lt;exclusions&gt;&lt;/exclusions&gt;</code>显式排除）。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;groupId&gt;</span>org.glassfish.jersey.containers<span class="nt">&lt;/groupId&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;artifactId&gt;</span>jersey-container-grizzly2-http<span class="nt">&lt;/artifactId&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="c">&lt;!-- 剔除依赖 --&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;exclusions&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;exclusion&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;groupId&gt;</span>org.glassfish.hk2.external<span class="nt">&lt;/groupId&gt;</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&lt;artifactId&gt;</span>jakarta.inject<span class="nt">&lt;/artifactId&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/exclusion&gt;</span>
-</span></span><span class="line"><span class="cl">    ...
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/exclusions&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;groupId&gt;</span>org.glassfish.jersey.containers<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;artifactId&gt;</span>jersey-container-grizzly2-http<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">&lt;!-- 剔除依赖 --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;exclusions&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;exclusion&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;groupId&gt;</span>org.glassfish.hk2.external<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;artifactId&gt;</span>jakarta.inject<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/exclusion&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/exclusions&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div></section>
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-09-18
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/maven"
+      >Maven</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/"
+      ><span class="mr-1.5">←</span><span>Linux-防火墙firewall</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/"
+      ><span>小程序之三：官方开发文档学习（指南篇）</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/maven/">Maven</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Linux-防火墙firewall</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/">
-            <span class="next-text nav-default">小程序之三：官方开发文档学习（指南篇）</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

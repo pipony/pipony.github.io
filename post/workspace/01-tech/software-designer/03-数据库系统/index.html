@@ -1,198 +1,390 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>软考-中级软件设计师-03 数据库系统 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】）" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="软考-中级软件设计师-03 数据库系统" />
-<meta property="og:description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】）" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>软考-中级软件设计师-03 数据库系统 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】） 外模式（用户级数据库）：视图（隔绝概念模式的修改【外模式-概念模式映射】，灵活性） 数据库设计过程 ER模型：与物理数据库无关
+关系模式：表形式，规范化理论
+E-R模型 矩形：实体；椭圆：属性；菱形：关系
+子模型集成
+逐步集成 一次集成 集成产生的冲突
+属性冲突（属性域或取值冲突） 命名冲突（同名异义，异名同义） 结构冲突（可能一个作为表，一个作为列） 实体型转换为关系模式
+1：1 - 转成两张表，菱形联系可跟任意一个 1：n - 转成两张表，菱形联系跟N m：n - 转成三章表，菱形联系单独一张表 ps.即使是多对多对多的，也只需一个关系来表示菱形
+关系代数 并：注意：相同行只显示一次
+交
+差
+笛卡尔积（✖）：完全组合；属性数为两关系相加；行数为两关系行数相乘
+投影
+选择
+连接：都有的属性只保留一个**（这点和笛卡尔积不同）**；等值连接、自然连接 规范化理论 函数依赖 部分函数依赖：其中的某一个属性，可以形成函数依赖
+价值与作用 非规范化可能存在的问题：数据冗余，更新/插入/删除异常
+键 超键（可能存在冗余属性）：唯一标识元组 候选键（超键消除多余属性-&gt;候选键，可以有多个） 主键（候选键任选一个） 外键：其他关系的主键，对表做关联的时候可用 求候选键：图示法
+根据依赖关系画依赖图，找到所有入度为0的节点，尝试遍历所有节点，成立则为候选键。注意有可能是多个节点组合成候选键。若没有入度为0的节点，则找既有入度也有出度的节点，同样进行遍历分析。
+范式 级别越高，规范程度越高
+主属性：属于候选键的一部分
+第一范式：当且仅当所有域只包含原子值，即不可再分
+第二范式：第一范式的基础上，不存在部分依赖
+第三范式：第一范式的基础上，没有非主属性传递依赖于码时
+BC范式：所有函数依赖的左边部分必须包含候选键
+例题：
+答案：C D A
+模式分解 保持函数依赖分解：函数依赖关系不变（冗余的函数依赖不需要保持） 无损分解：可以还原，可通过联结还原成原始的关系模式 或者：表格法
+假设有一行全部是a，则说明还原好了，也就是无损分解。
+或者：代数运算法（仅限于分解为两个的情况）
+并发控制 事务 原子性（全做or全不做） 一致性（转账前后加起来钱都一样） 隔离性 持续性 并发存在的问题 丢失更新 不可重复读 读脏数据 封锁协议 死锁 预防 解除 数据库完整性约束 分类 实体完整性约束：如主键不能为空 参照完整性约束：外键约束 用户自定义完整性约束 触发器：更加复杂的用脚本写的约束 数据库安全 数据备份 冷备份（静态备份）：数据库关闭情况下的备份 热备份（动态备份）：正常运行时的备份 根据备份量区别：" />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="软考-中级软件设计师-03 数据库系统" />
+<meta property="og:description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】） 外模式（用户级数据库）：视图（隔绝概念模式的修改【外模式-概念模式映射】，灵活性） 数据库设计过程 ER模型：与物理数据库无关
+关系模式：表形式，规范化理论
+E-R模型 矩形：实体；椭圆：属性；菱形：关系
+子模型集成
+逐步集成 一次集成 集成产生的冲突
+属性冲突（属性域或取值冲突） 命名冲突（同名异义，异名同义） 结构冲突（可能一个作为表，一个作为列） 实体型转换为关系模式
+1：1 - 转成两张表，菱形联系可跟任意一个 1：n - 转成两张表，菱形联系跟N m：n - 转成三章表，菱形联系单独一张表 ps.即使是多对多对多的，也只需一个关系来表示菱形
+关系代数 并：注意：相同行只显示一次
+交
+差
+笛卡尔积（✖）：完全组合；属性数为两关系相加；行数为两关系行数相乘
+投影
+选择
+连接：都有的属性只保留一个**（这点和笛卡尔积不同）**；等值连接、自然连接 规范化理论 函数依赖 部分函数依赖：其中的某一个属性，可以形成函数依赖
+价值与作用 非规范化可能存在的问题：数据冗余，更新/插入/删除异常
+键 超键（可能存在冗余属性）：唯一标识元组 候选键（超键消除多余属性-&gt;候选键，可以有多个） 主键（候选键任选一个） 外键：其他关系的主键，对表做关联的时候可用 求候选键：图示法
+根据依赖关系画依赖图，找到所有入度为0的节点，尝试遍历所有节点，成立则为候选键。注意有可能是多个节点组合成候选键。若没有入度为0的节点，则找既有入度也有出度的节点，同样进行遍历分析。
+范式 级别越高，规范程度越高
+主属性：属于候选键的一部分
+第一范式：当且仅当所有域只包含原子值，即不可再分
+第二范式：第一范式的基础上，不存在部分依赖
+第三范式：第一范式的基础上，没有非主属性传递依赖于码时
+BC范式：所有函数依赖的左边部分必须包含候选键
+例题：
+答案：C D A
+模式分解 保持函数依赖分解：函数依赖关系不变（冗余的函数依赖不需要保持） 无损分解：可以还原，可通过联结还原成原始的关系模式 或者：表格法
+假设有一行全部是a，则说明还原好了，也就是无损分解。
+或者：代数运算法（仅限于分解为两个的情况）
+并发控制 事务 原子性（全做or全不做） 一致性（转账前后加起来钱都一样） 隔离性 持续性 并发存在的问题 丢失更新 不可重复读 读脏数据 封锁协议 死锁 预防 解除 数据库完整性约束 分类 实体完整性约束：如主键不能为空 参照完整性约束：外键约束 用户自定义完整性约束 触发器：更加复杂的用脚本写的约束 数据库安全 数据备份 冷备份（静态备份）：数据库关闭情况下的备份 热备份（动态备份）：正常运行时的备份 根据备份量区别：" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
-<meta itemprop="name" content="软考-中级软件设计师-03 数据库系统">
-<meta itemprop="description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】）"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="1229">
-<meta itemprop="keywords" content="软考-中级软件设计师," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-03 数据库系统"/>
-<meta name="twitter:description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】）"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="软考-中级软件设计师-03 数据库系统">
+<meta itemprop="description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】） 外模式（用户级数据库）：视图（隔绝概念模式的修改【外模式-概念模式映射】，灵活性） 数据库设计过程 ER模型：与物理数据库无关
+关系模式：表形式，规范化理论
+E-R模型 矩形：实体；椭圆：属性；菱形：关系
+子模型集成
+逐步集成 一次集成 集成产生的冲突
+属性冲突（属性域或取值冲突） 命名冲突（同名异义，异名同义） 结构冲突（可能一个作为表，一个作为列） 实体型转换为关系模式
+1：1 - 转成两张表，菱形联系可跟任意一个 1：n - 转成两张表，菱形联系跟N m：n - 转成三章表，菱形联系单独一张表 ps.即使是多对多对多的，也只需一个关系来表示菱形
+关系代数 并：注意：相同行只显示一次
+交
+差
+笛卡尔积（✖）：完全组合；属性数为两关系相加；行数为两关系行数相乘
+投影
+选择
+连接：都有的属性只保留一个**（这点和笛卡尔积不同）**；等值连接、自然连接 规范化理论 函数依赖 部分函数依赖：其中的某一个属性，可以形成函数依赖
+价值与作用 非规范化可能存在的问题：数据冗余，更新/插入/删除异常
+键 超键（可能存在冗余属性）：唯一标识元组 候选键（超键消除多余属性-&gt;候选键，可以有多个） 主键（候选键任选一个） 外键：其他关系的主键，对表做关联的时候可用 求候选键：图示法
+根据依赖关系画依赖图，找到所有入度为0的节点，尝试遍历所有节点，成立则为候选键。注意有可能是多个节点组合成候选键。若没有入度为0的节点，则找既有入度也有出度的节点，同样进行遍历分析。
+范式 级别越高，规范程度越高
+主属性：属于候选键的一部分
+第一范式：当且仅当所有域只包含原子值，即不可再分
+第二范式：第一范式的基础上，不存在部分依赖
+第三范式：第一范式的基础上，没有非主属性传递依赖于码时
+BC范式：所有函数依赖的左边部分必须包含候选键
+例题：
+答案：C D A
+模式分解 保持函数依赖分解：函数依赖关系不变（冗余的函数依赖不需要保持） 无损分解：可以还原，可通过联结还原成原始的关系模式 或者：表格法
+假设有一行全部是a，则说明还原好了，也就是无损分解。
+或者：代数运算法（仅限于分解为两个的情况）
+并发控制 事务 原子性（全做or全不做） 一致性（转账前后加起来钱都一样） 隔离性 持续性 并发存在的问题 丢失更新 不可重复读 读脏数据 封锁协议 死锁 预防 解除 数据库完整性约束 分类 实体完整性约束：如主键不能为空 参照完整性约束：外键约束 用户自定义完整性约束 触发器：更加复杂的用脚本写的约束 数据库安全 数据备份 冷备份（静态备份）：数据库关闭情况下的备份 热备份（动态备份）：正常运行时的备份 根据备份量区别："><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
+<meta itemprop="wordCount" content="113">
+<meta itemprop="keywords" content="软考-中级软件设计师," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-03 数据库系统"/>
+<meta name="twitter:description" content="03 数据库系统 三级模式-两级映射 内模式（物理级数据库）：如何存储数据（格式等） 概念模式（概念级数据库）：表级别（关注【概念模式-内模式映射】） 外模式（用户级数据库）：视图（隔绝概念模式的修改【外模式-概念模式映射】，灵活性） 数据库设计过程 ER模型：与物理数据库无关
+关系模式：表形式，规范化理论
+E-R模型 矩形：实体；椭圆：属性；菱形：关系
+子模型集成
+逐步集成 一次集成 集成产生的冲突
+属性冲突（属性域或取值冲突） 命名冲突（同名异义，异名同义） 结构冲突（可能一个作为表，一个作为列） 实体型转换为关系模式
+1：1 - 转成两张表，菱形联系可跟任意一个 1：n - 转成两张表，菱形联系跟N m：n - 转成三章表，菱形联系单独一张表 ps.即使是多对多对多的，也只需一个关系来表示菱形
+关系代数 并：注意：相同行只显示一次
+交
+差
+笛卡尔积（✖）：完全组合；属性数为两关系相加；行数为两关系行数相乘
+投影
+选择
+连接：都有的属性只保留一个**（这点和笛卡尔积不同）**；等值连接、自然连接 规范化理论 函数依赖 部分函数依赖：其中的某一个属性，可以形成函数依赖
+价值与作用 非规范化可能存在的问题：数据冗余，更新/插入/删除异常
+键 超键（可能存在冗余属性）：唯一标识元组 候选键（超键消除多余属性-&gt;候选键，可以有多个） 主键（候选键任选一个） 外键：其他关系的主键，对表做关联的时候可用 求候选键：图示法
+根据依赖关系画依赖图，找到所有入度为0的节点，尝试遍历所有节点，成立则为候选键。注意有可能是多个节点组合成候选键。若没有入度为0的节点，则找既有入度也有出度的节点，同样进行遍历分析。
+范式 级别越高，规范程度越高
+主属性：属于候选键的一部分
+第一范式：当且仅当所有域只包含原子值，即不可再分
+第二范式：第一范式的基础上，不存在部分依赖
+第三范式：第一范式的基础上，没有非主属性传递依赖于码时
+BC范式：所有函数依赖的左边部分必须包含候选键
+例题：
+答案：C D A
+模式分解 保持函数依赖分解：函数依赖关系不变（冗余的函数依赖不需要保持） 无损分解：可以还原，可通过联结还原成原始的关系模式 或者：表格法
+假设有一行全部是a，则说明还原好了，也就是无损分解。
+或者：代数运算法（仅限于分解为两个的情况）
+并发控制 事务 原子性（全做or全不做） 一致性（转账前后加起来钱都一样） 隔离性 持续性 并发存在的问题 丢失更新 不可重复读 读脏数据 封锁协议 死锁 预防 解除 数据库完整性约束 分类 实体完整性约束：如主键不能为空 参照完整性约束：外键约束 用户自定义完整性约束 触发器：更加复杂的用脚本写的约束 数据库安全 数据备份 冷备份（静态备份）：数据库关闭情况下的备份 热备份（动态备份）：正常运行时的备份 根据备份量区别："/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">软考-中级软件设计师-03 数据库系统</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-05-14 </span>
-        <div class="post-category">
-            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/"> 软考-中级软件设计师 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#03-数据库系统">03 数据库系统</a>
-      <ul>
-        <li><a href="#三级模式-两级映射">三级模式-两级映射</a></li>
-        <li><a href="#数据库设计过程">数据库设计过程</a>
-          <ul>
-            <li><a href="#e-r模型">E-R模型</a></li>
-          </ul>
-        </li>
-        <li><a href="#关系代数">关系代数</a></li>
-        <li><a href="#规范化理论">规范化理论</a>
-          <ul>
-            <li><a href="#函数依赖">函数依赖</a></li>
-            <li><a href="#价值与作用">价值与作用</a></li>
-            <li><a href="#键">键</a></li>
-            <li><a href="#范式">范式</a></li>
-            <li><a href="#模式分解">模式分解</a></li>
-          </ul>
-        </li>
-        <li><a href="#并发控制">并发控制</a>
-          <ul>
-            <li><a href="#事务">事务</a></li>
-            <li><a href="#并发存在的问题">并发存在的问题</a></li>
-            <li><a href="#封锁协议">封锁协议</a></li>
-            <li><a href="#死锁">死锁</a></li>
-          </ul>
-        </li>
-        <li><a href="#数据库完整性约束">数据库完整性约束</a>
-          <ul>
-            <li><a href="#分类">分类</a></li>
-          </ul>
-        </li>
-        <li><a href="#数据库安全">数据库安全</a>
-          <ul>
-            <li><a href="#数据备份">数据备份</a></li>
-            <li><a href="#数据库故障与恢复">数据库故障与恢复</a></li>
-          </ul>
-        </li>
-        <li><a href="#数据仓库与数据挖掘">数据仓库与数据挖掘</a></li>
-        <li><a href="#反规范化逆规范化">反规范化（逆规范化）</a></li>
-        <li><a href="#大数据">大数据</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="03-数据库系统">03 数据库系统</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">软考-中级软件设计师-03 数据库系统</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>May 14, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="03-数据库系统">03 数据库系统</h1>
 <h2 id="三级模式-两级映射">三级模式-两级映射</h2>
 <p><img src="http://cdn.huangxindi.com/img/image-20220501112955239.png" alt="image-20220501112955239"></p>
 <ul>
@@ -355,97 +547,99 @@
 <li>value 值</li>
 </ul>
 <p><img src="http://cdn.huangxindi.com/img/image-20220502151042416.png" alt="image-20220502151042416"></p>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88"
+      >软考-中级软件设计师</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-05-14
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+      ><span class="mr-1.5">←</span><span>软考-中级软件设计师-02 操作系统</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
+      ><span>软考-中级软件设计师-04 计算机网络</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">软考-中级软件设计师-02 操作系统</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-            <span class="next-text nav-default">软考-中级软件设计师-04 计算机网络</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

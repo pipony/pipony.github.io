@@ -1,198 +1,314 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>认识编码 - 2MUCH-Tech-Notes</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Cindy.H" /><meta name="description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.101.0 with theme even" />
-
-
-<link rel="canonical" href="https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="认识编码" />
-<meta property="og:description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready text-sm lg:text-base"
+  style="--bg: #faf6f1"
+  lang="en-us"
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>认识编码 - </title>
+
+  
+  <meta name="theme-color" />
+  
+  <meta name="description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
+https://www.cnblogs.com/faetbwac/p/16355273.html
+字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
+https://www.cnblogs.com/chiguozi/p/5860364.html
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言（在扩展版中）
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
+分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
+01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。" />
+  <meta
+    name="author"
+    content="Cindy.H"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://huangxindi.com/main.min.css" />
+
+  
+
+  
+     
+  <link rel="preload" as="image" href="https://huangxindi.com/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/github.svg" />
+  
+  <link rel="preload" as="image" href="https://huangxindi.com/rss.svg" />
+  
+
+  
+  <link rel="icon" href="https://huangxindi.com/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://huangxindi.com/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.101.0" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="认识编码" />
+<meta property="og:description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
+https://www.cnblogs.com/faetbwac/p/16355273.html
+字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
+https://www.cnblogs.com/chiguozi/p/5860364.html
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言（在扩展版中）
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
+分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
+01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-19T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-12-19T00:00:00+00:00" />
 
-<meta itemprop="name" content="认识编码">
-<meta itemprop="description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字"><meta itemprop="datePublished" content="2022-12-19T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-12-19T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4084">
-<meta itemprop="keywords" content="其他," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="认识编码"/>
-<meta name="twitter:description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">2MUCH</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
-      </a><a href="/post/about">
-        <li class="mobile-menu-item">About</li>
-      </a>
-  </ul>
 
   
+  <meta itemprop="name" content="认识编码">
+<meta itemprop="description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
+https://www.cnblogs.com/faetbwac/p/16355273.html
+字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
+https://www.cnblogs.com/chiguozi/p/5860364.html
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言（在扩展版中）
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
+分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
+01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。"><meta itemprop="datePublished" content="2022-12-19T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-19T00:00:00+00:00" />
+<meta itemprop="wordCount" content="298">
+<meta itemprop="keywords" content="其他," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="认识编码"/>
+<meta name="twitter:description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
+https://www.cnblogs.com/faetbwac/p/16355273.html
+字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
+https://www.cnblogs.com/chiguozi/p/5860364.html
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+主要用来表示英文或其他西欧语言（在扩展版中）
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
+分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
+01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。"/>
 
+  
+  
+</head>
 
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">2MUCH</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/about">About</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">认识编码</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2022-12-19 </span>
-        <div class="post-category">
-            <a href="/categories/%E5%85%B6%E4%BB%96/"> 其他 </a>
-            </div>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#认识编码">认识编码</a>
-      <ul>
-        <li><a href="#概念">概念</a></li>
-        <li><a href="#字符集对比">字符集对比</a></li>
-        <li><a href="#ascii">ASCII</a>
-          <ul>
-            <li><a href="#编码格式">编码格式</a></li>
-          </ul>
-        </li>
-        <li><a href="#gb2312">GB2312</a>
-          <ul>
-            <li><a href="#编码格式-1">编码格式</a></li>
-          </ul>
-        </li>
-        <li><a href="#gbk">GBK</a>
-          <ul>
-            <li><a href="#编码格式-2">编码格式</a></li>
-          </ul>
-        </li>
-        <li><a href="#gb18030">GB18030</a>
-          <ul>
-            <li><a href="#编码格式-3">编码格式</a></li>
-          </ul>
-        </li>
-        <li><a href="#unicode">Unicode</a>
-          <ul>
-            <li><a href="#编码格式-4">编码格式</a></li>
-          </ul>
-        </li>
-        <li><a href="#utf-8">UTF-8</a></li>
-        <li><a href="#utf-16">UTF-16</a></li>
-        <li><a href="#utf-32">UTF-32</a></li>
-        <li><a href="#宽字符和窄字符多字节字符">宽字符和窄字符（多字节字符）</a></li>
-        <li><a href="#数据库中的编码知识">数据库中的编码知识</a>
-          <ul>
-            <li><a href="#查看数据库设置的编码方式">查看数据库设置的编码方式</a></li>
-            <li><a href="#字符串类型的编码">字符串类型的编码</a></li>
-          </ul>
-        </li>
-        <li><a href="#参考链接">参考链接</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
+      href="https://huangxindi.com/"
+      ></a
+    >
+    <a
+      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
+    ></a>
   </div>
-</div>
-    <div class="post-content">
-      <h1 id="认识编码">认识编码</h1>
+
+  <a
+    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+  ></a>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = `"#faf6f1"`.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/"
+        >Home</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post"
+        >Archives</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href=""
+        >Tags</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/categories"
+        >Categories</a
+      >
+      
+      <a
+        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
+        href="/post/about"
+        >About</a
+      >
+      
+    </nav>
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/https://github.com/pipony"
+        target="_blank"
+        rel="me"
+      ></a>
+      
+      <a
+        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./rss.svg)"
+        href="https://huangxindi.com/index.xml"
+        target="_blank"
+        
+      ></a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-20">
+    <h1 class="!my-0 pb-2.5">认识编码</h1>
+
+    
+    <div class="text-sm opacity-60">
+      
+      <time>Dec 19, 2022</time>
+      
+      
+      <span class="mx-1">&middot;</span>
+      <span>Cindy.H</span>
+      
+    </div>
+    
+  </header>
+
+  <section><h1 id="认识编码">认识编码</h1>
 <h2 id="概念">概念</h2>
 <p>字符集 vs. 编码方式：编码方式就是将字符集里的字符<strong>映射</strong>成可以被计算机识别的若干位二进制来表示。</p>
 <blockquote>
@@ -355,27 +471,14 @@ CREATE TABLE t3 (<code>name</code> VARCHAR(32767)) CHARACTER SET gbk; # ❌</p>
 </blockquote>
 <p>举个例子：</p>
 <p>我的mysql版本是5.6.5</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">version</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="k">version</span><span class="p">()</span><span class="w">  </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="mi">5</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">50</span><span class="o">-</span><span class="n">log</span><span class="w"> </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考链接">参考链接</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>mysql<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">select</span> <span style="color:#66d9ef">version</span>();
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#66d9ef">version</span>()  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">5</span>.<span style="color:#ae81ff">6</span>.<span style="color:#ae81ff">50</span><span style="color:#f92672">-</span>log <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">row</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">set</span> (<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">01</span> sec)
+</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
 <p><a href="https://www.cnblogs.com/klb561/p/12064095.html#/">https://www.cnblogs.com/klb561/p/12064095.html#/</a></p>
 <p><a href="https://www.cnblogs.com/klb561/p/12064095.html#/">https://www.cnblogs.com/klb561/p/12064095.html#/</a></p>
 <p><a href="https://www.cnblogs.com/chiguozi/p/5860364.html">https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
@@ -383,97 +486,99 @@ CREATE TABLE t3 (<code>name</code> VARCHAR(32767)) CHARACTER SET gbk; # ❌</p>
 <p><a href="https://www.cnblogs.com/strive-sun/p/15211950.html">https://www.cnblogs.com/strive-sun/p/15211950.html</a></p>
 <p><a href="https://www.cnblogs.com/yougoo/p/11958649.html">https://www.cnblogs.com/yougoo/p/11958649.html</a></p>
 <p><a href="https://blog.csdn.net/guxiaonuan/article/details/78678043">https://blog.csdn.net/guxiaonuan/article/details/78678043</a></p>
+</section>
 
-    </div>
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="https://huangxindi.com/tags/%E5%85%B6%E4%BB%96"
+      >其他</a
+    >
+    
+  </footer>
+  
 
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Cindy.H</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        2022-12-19
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/"
+      ><span class="mr-1.5">←</span><span>Java基础之IO流</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
+      href="https://huangxindi.com/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/"
+      ><span>Linux-文本处理三剑客</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+  <div class="mt-24" id="graphcomment"></div>
+  <script type="text/javascript">
+    var __semio__params = {
+      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
+      behaviour: {
         
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Java基础之IO流</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/">
-            <span class="next-text nav-default">Linux-文本处理三剑客</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
+      },
+      
+    };
 
-  
+    function __semio__onload() {
+      __semio__gc_graphlogin(__semio__params);
+    }
 
+    (function () {
+      var gc = document.createElement('script');
+      gc.type = 'text/javascript';
+      gc.async = true;
+      gc.onload = __semio__onload;
+      gc.defer = true;
+      gc.src =
+        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
+      (
+        document.getElementsByTagName('head')[0] ||
+        document.getElementsByTagName('body')[0]
+      ).appendChild(gc);
+    })();
+  </script>
   
+</article>
 
-      </div>
+
     </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-  <a href="https://huangxindi.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2017 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Cindy.H</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
+    <footer
+  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://huangxindi.com/"></a>
   </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >▷ Paper 6</a
+  >
+</footer>
 
-
-
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

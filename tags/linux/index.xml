@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on 2MUCH-Tech-Notes</title>
+    <title>Linux on </title>
     <link>https://huangxindi.com/tags/linux/</link>
-    <description>Recent content in Linux on 2MUCH-Tech-Notes</description>
+    <description>Recent content in Linux on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 07 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,11 @@
       <pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/</guid>
-      <description>Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。 但是三者有所侧重点： awk：功能最强，也是</description>
+      <description>Linux-文本处理三剑客 awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。
+但是三者有所侧重点：
+awk：功能最强，也是最复杂的。更适合格式化文本，对文本作复杂格式处理 grep：更适合查找、匹配 sed：更适合编辑匹配到的文本 grep grep命令已经在 linux-管道篇 学习过了，这里就略过。
+sed sed是一种流编辑器，它一次处理一行内容。处理时，把当前处理的行存储在临时缓冲区中，称为**“模式空间”，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下一行，执行下一个循环。如果没有使用诸如“D”的特殊命令，那会在两个循环之间清空模式空间，但不会清空保留空间**。这样不断重复，直到文件末尾。文件内容并没有改变，除非使用重定向存储输出或-i。
+参数说明 sed --help Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]... -n, --quiet, --silent # 只打印匹配的行 suppress automatic printing of pattern space -e script, --expression=script add the script to the commands to be executed -f script-file, --file=script-file # 写入文档中，后接文件名 add the contents of script-file to the commands to be executed --follow-symlinks follow symlinks when processing in place -i[SUFFIX], --in-place[=SUFFIX] # 直接将处理结果写入文件 edit files in place (makes backup if SUFFIX supplied) -c, --copy use copy instead of rename when shuffling files in -i mode -b, --binary does nothing; for compatibility with WIN32/CYGWIN/MSDOS/EMX ( open files in binary mode (CR+LFs are not treated specially)) -l N, --line-length=N specify the desired line-wrap length for the `l&amp;#39; command --posix disable all GNU extensions.</description>
     </item>
     
     <item>
@@ -22,7 +26,11 @@
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/</guid>
-      <description>Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法： 磁盘管理命令： 查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询</description>
+      <description>Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+[root@iZbp15qc4wmx335c268l5mZ home]# df Filesystem 1K-blocks Used Available Use% Mounted on devtmpfs 471568 0 471568 0% /dev tmpfs 482068 8 482060 1% /dev/shm tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup /dev/vda1 41152812 21695184 17553920 56% / # 默认情况下，磁盘空间将以1KB为单位进行显示 后接支持的参数，可通过df --help获取
+常见用法： # 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。 [root@iZbp15qc4wmx335c268l5mZ home]# df -a Filesystem 1K-blocks Used Available Use% Mounted on sysfs 0 0 0 - /sys proc 0 0 0 - /proc devtmpfs 471568 0 471568 0% /dev securityfs 0 0 0 - /sys/kernel/security tmpfs 482068 8 482060 1% /dev/shm devpts 0 0 0 - /dev/pts tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup cgroup 0 0 0 - /sys/fs/cgroup/systemd pstore 0 0 0 - /sys/fs/pstore cgroup 0 0 0 - /sys/fs/cgroup/devices cgroup 0 0 0 - /sys/fs/cgroup/cpu,cpuacct cgroup 0 0 0 - /sys/fs/cgroup/net_cls,net_prio cgroup 0 0 0 - /sys/fs/cgroup/memory cgroup 0 0 0 - /sys/fs/cgroup/cpuset cgroup 0 0 0 - /sys/fs/cgroup/blkio cgroup 0 0 0 - /sys/fs/cgroup/pids cgroup 0 0 0 - /sys/fs/cgroup/perf_event cgroup 0 0 0 - /sys/fs/cgroup/freezer cgroup 0 0 0 - /sys/fs/cgroup/hugetlb configfs 0 0 0 - /sys/kernel/config /dev/vda1 41152812 21695332 17553772 56% / systemd-1 - - - - /proc/sys/fs/binfmt_misc mqueue 0 0 0 - /dev/mqueue hugetlbfs 0 0 0 - /dev/hugepages debugfs 0 0 0 - /sys/kernel/debug binfmt_misc 0 0 0 - /proc/sys/fs/binfmt_misc tmpfs 96416 0 96416 0% /run/user/0 # 可读形式展现 [root@iZbp15qc4wmx335c268l5mZ home]# df -h Filesystem Size Used Avail Use% Mounted on devtmpfs 461M 0 461M 0% /dev tmpfs 471M 8.</description>
     </item>
     
     <item>
@@ -31,7 +39,11 @@
       <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</guid>
-      <description>Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from</description>
+      <description>Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
+⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
+基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
+扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &amp;#39;/dev&amp;#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
+创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L +10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间+10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：</description>
     </item>
     
     <item>
@@ -40,7 +52,12 @@
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/</guid>
-      <description>Linux-系统信息查看命令 整理一些关于linux的系统信息查看命令，无逻辑，纯自用。 查看系统版本 1、查看发行版本（适用所有linux系统）</description>
+      <description>Linux-系统信息查看命令 整理一些关于linux的系统信息查看命令，无逻辑，纯自用。
+查看系统版本 1、查看发行版本（适用所有linux系统）
+lsb_release -a
+2、查看Linux内核版本
+uname -a 和 cat /proc/version
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ lsb_release -a LSB Version: :core-4.1-amd64:core-4.1-noarch Distributor ID: CentOS Description: CentOS Linux release 7.8.2003 (Core) Release: 7.8.2003 Codename: Core [cindy@iZbp15qc4wmx335c268l5mZ ~]$ uname -a Linux iZbp15qc4wmx335c268l5mZ 3.10.0-1127.19.1.el7.x86_64 #1 SMP Tue Aug 25 17:23:54 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux [cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat /proc/version Linux version 3.10.0-1127.19.1.el7.x86_64 (mockbuild@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) ) #1 SMP Tue Aug 25 17:23:54 UTC 2020 参考链接</description>
     </item>
     
     <item>
@@ -49,7 +66,11 @@
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/</guid>
-      <description>Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以</description>
+      <description>Linux-防火墙firewall Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables。ConterOS7.0以上默认使用firewalld防火墙，如果想换回iptables防火墙，可关闭firewalld并安装iptables。
+由于目前我的云主机是ConterOS7.0+，所以就先只学习firewall。
+基本命令 查看防火墙状态和规则 查看防火墙状态：
+systemctl status firewalld
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status firewalld ● firewalld.service - firewalld - dynamic firewall daemon Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled) Active: active (running) since Thu 2022-04-28 21:54:51 CST; 4 months 21 days ago Docs: man:firewalld(1) Main PID: 560 (firewalld) CGroup: /system.slice/firewalld.service └─560 /usr/bin/python2 -Es /usr/sbin/firewalld --nofork --nopid Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.</description>
     </item>
     
     <item>
@@ -58,7 +79,13 @@
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/</guid>
-      <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准</description>
+      <description>Linux-管道篇 概念 管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
+格式：命令1 | 命令2 | ...
+管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
+管道（又称无名管道）和命名管道FIFO的区别：等后面学到命名管道了再说
+注意点 管道只能传输正确输出，而无法传输错误信息。从管道接连输出的标准错误会混合到一起。 常见相关命令 grep (Global search REgular expression and Print out the line) 根据模式（正则表达式）对文本逐行扫描，找到并打印匹配的行
+格式：
+grep [options] [pattern] file or command | grep [options] [pattern] [options] -v # 反向匹配 invert (等同于--invert-match) -n # 输出加上行号 -i # 忽略大小写匹配 ignorecase -c # 只输出匹配的行数 -E # 适用egrep匹配 --color=auto # 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep=&amp;#39;grep --color=auto&amp;#39;) -w # 整词对比，而不是字符 -o # 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数） -q # 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等） -l # 只输出匹配的文件名 -r # 递归模式，查找所有层级子目录里的文件 [pattern] # 匹配模式，见正则表达式篇 例子：</description>
     </item>
     
     <item>
@@ -67,7 +94,17 @@
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/</guid>
-      <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器） 执行权限：所</description>
+      <description>Linux-top命令 概念 实时显示系统进程信息的命令、内存使用情况、系统负载情况等（有点类似于Windows系统下的任务管理器）
+执行权限：所有用户
+命令 #TODO
+快捷键 摘自：https://blog.csdn.net/Luckiers/article/details/123909819#/
+Ctrl+L 擦除并且重写屏幕。 h或者? 显示帮助画面，给出一些简短的命令总结说明。 k 终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。 i 忽略闲置和僵死进程。这是一个开关式命令。 q 退出程序。 r 重新安排一个进程的优先级别。系统提示用户输入需要改变的进程PID以及需要设置的进程优先级值。输入一个正值将使优先级降低，反之则可以使该进程拥有更高的优先权。默认值是10。 S 切换到累计模式。 s 改变两次刷新之间的延迟时间。系统将提示用户输入新的时间，单位为s。如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s。需要注意的是如果设置太小的时间，很可能会引起不断刷新，从而根本来不及看清显示的情况，而且系统负载也会大大增加。 f或者F 从当前显示中添加或者删除项目。 o或者O 改变显示项目的顺序。 l 切换显示平均负载和启动时间信息。 m 切换显示内存信息。 t 切换显示进程和CPU状态信息。 c 切换显示命令名称和完整命令行。 M 根据驻留内存大小进行排序。 P 根据CPU使用百分比大小进行排序。 T 根据时间/累计时间进行排序。 W 将当前设置写入~/.toprc文件中。这是写top配置文件的推荐方法。 结果解读 解读截图（来自 https://blog.csdn.net/zhuoya_/article/details/81049967#/）：
+分析：top命令截图（以我自己的云主机为例）
+前5行是系统状态总览，后面是依次分析系统正在运行的每个任务的状态
+第1行：任务队列信息（同 uptime 命令的执行结果，依次是当前时间、系统已经运行的时间、当前用户数、系统负载【即任务队列的平均长度。 三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值】）
+第2行：进程任务信息（依次是进程总数、正在运行、睡眠、停止、僵尸进程数）
+第3行：用户空间CPU的占比
+us: is meaning of &amp;#34;user CPU time&amp;#34; sy: is meaning of &amp;#34;system CPU time&amp;#34; ni: is meaning of&amp;#34; nice CPU time&amp;#34; id: is meaning of &amp;#34;idle&amp;#34; wa: is meaning of &amp;#34;iowait&amp;#34; hi：is meaning of &amp;#34;hardware irq&amp;#34; si : is meaning of &amp;#34;software irq&amp;#34; st : is meaning of &amp;#34;steal time&amp;#34; us 用户空间占用CPU百分比 sy 内核空间占用CPU百分比 ni 用户进程空间内改变过优先级的进程占用CPU百分比 id 空闲CPU百分比 wa 等待输入输出的CPU时间百分比 hi 硬件中断 si 软件中断 st: 实时 https://blog.</description>
     </item>
     
   </channel>
