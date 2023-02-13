@@ -1,418 +1,432 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>软考-中级软件设计师-07 程序设计语言与语言处理程序基础 - </title>
+    
+  <title>软考-中级软件设计师-07 程序设计语言与语言处理程序基础 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）： 答案：C 正规式 例题： 答案：D C 表达式 答案：D 函数调用 - 传值和传址 传值">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）：
-答案：C
-正规式 例题：
-答案：D C
-表达式 答案：D
-函数调用 - 传值和传址 传值：不真正改变实参 传址：真正改变实参 各种程序语言特点 " />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-07 程序设计语言与语言处理程序基础"/>
+<meta name="twitter:description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）： 答案：C 正规式 例题： 答案：D C 表达式 答案：D 函数调用 - 传值和传址 传值"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="软考-中级软件设计师-07 程序设计语言与语言处理程序基础" />
-<meta property="og:description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）：
-答案：C
-正规式 例题：
-答案：D C
-表达式 答案：D
-函数调用 - 传值和传址 传值：不真正改变实参 传址：真正改变实参 各种程序语言特点 " />
+<meta property="og:description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）： 答案：C 正规式 例题： 答案：D C 表达式 答案：D 函数调用 - 传值和传址 传值" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="软考-中级软件设计师-07 程序设计语言与语言处理程序基础">
-<meta itemprop="description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）：
-答案：C
-正规式 例题：
-答案：D C
-表达式 答案：D
-函数调用 - 传值和传址 传值：不真正改变实参 传址：真正改变实参 各种程序语言特点 "><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="19">
-<meta itemprop="keywords" content="软考-中级软件设计师," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-07 程序设计语言与语言处理程序基础"/>
-<meta name="twitter:description" content="07 程序设计语言与语言处理程序基础 编译过程 文法定义 有限自动机 例题（常考）：
-答案：C
-正规式 例题：
-答案：D C
-表达式 答案：D
-函数调用 - 传值和传址 传值：不真正改变实参 传址：真正改变实参 各种程序语言特点 "/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/" title="软考-中级软件设计师">软考-中级软件设计师</a>
+            
+          </div>
+          <h1>软考-中级软件设计师-07 程序设计语言与语言处理程序基础</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Sat, May 14, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">软考-中级软件设计师-07 程序设计语言与语言处理程序基础</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>May 14, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="07-程序设计语言与语言处理程序基础">07 程序设计语言与语言处理程序基础</h1>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503180303982.png" alt="image-20220503180303982"></p>
-<h2 id="编译过程">编译过程</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503180335797.png" alt="image-20220503180335797"></p>
-<h2 id="文法定义">文法定义</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201153738.png" alt="image-20220503201153738"></p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201219957.png" alt="image-20220503201219957"></p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201247067.png" alt="image-20220503201247067"></p>
-<h2 id="有限自动机">有限自动机</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201435461.png" alt="image-20220503201435461"></p>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="07-程序设计语言与语言处理程序基础">07 程序设计语言与语言处理程序基础<a class="anchorjs-link" href="#07-%e7%a8%8b%e5%ba%8f%e8%ae%be%e8%ae%a1%e8%af%ad%e8%a8%80%e4%b8%8e%e8%af%ad%e8%a8%80%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f%e5%9f%ba%e7%a1%80"></a></h1><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503180303982.png" data-action="zoom" alt="image-20220503180303982"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="编译过程">编译过程<a class="anchorjs-link" href="#%e7%bc%96%e8%af%91%e8%bf%87%e7%a8%8b"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503180335797.png" data-action="zoom" alt="image-20220503180335797"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="文法定义">文法定义<a class="anchorjs-link" href="#%e6%96%87%e6%b3%95%e5%ae%9a%e4%b9%89"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201153738.png" data-action="zoom" alt="image-20220503201153738"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201219957.png" data-action="zoom" alt="image-20220503201219957"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201247067.png" data-action="zoom" alt="image-20220503201247067"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="有限自动机">有限自动机<a class="anchorjs-link" href="#%e6%9c%89%e9%99%90%e8%87%aa%e5%8a%a8%e6%9c%ba"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201435461.png" data-action="zoom" alt="image-20220503201435461"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>例题（常考）：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503202104502.png" alt="image-20220503202104502"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503202104502.png" data-action="zoom" alt="image-20220503202104502"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>答案：C</p>
-<h3 id="正规式">正规式</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201557877.png" alt="image-20220503201557877"></p>
+<h3 id="正规式">正规式<a class="anchorjs-link" href="#%e6%ad%a3%e8%a7%84%e5%bc%8f"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201557877.png" data-action="zoom" alt="image-20220503201557877"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>例题：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503201951967.png" alt="image-20220503201951967"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503201951967.png" data-action="zoom" alt="image-20220503201951967"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>答案：D C</p>
-<h2 id="表达式">表达式</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503202152055.png" alt="image-20220503202152055"></p>
+<h2 id="表达式">表达式<a class="anchorjs-link" href="#%e8%a1%a8%e8%be%be%e5%bc%8f"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503202152055.png" data-action="zoom" alt="image-20220503202152055"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>答案：D</p>
-<h2 id="函数调用---传值和传址">函数调用 - 传值和传址</h2>
-<ul>
+<h2 id="函数调用---传值和传址">函数调用 - 传值和传址<a class="anchorjs-link" href="#%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8---%e4%bc%a0%e5%80%bc%e5%92%8c%e4%bc%a0%e5%9d%80"></a></h2><ul>
 <li>传值：不真正改变实参</li>
 <li>传址：真正改变实参</li>
 </ul>
-<h2 id="各种程序语言特点">各种程序语言特点</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220503202649925.png" alt="image-20220503202649925"></p>
+<h2 id="各种程序语言特点">各种程序语言特点<a class="anchorjs-link" href="#%e5%90%84%e7%a7%8d%e7%a8%8b%e5%ba%8f%e8%af%ad%e8%a8%80%e7%89%b9%e7%82%b9"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220503202649925.png" data-action="zoom" alt="image-20220503202649925"  class="lazyload">
+  </a>
+  
+</figure></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-08 法律法规">
+              Previous<br>
+              <span>软考-中级软件设计师-08 法律法规</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-06 数据结构与算法基础">
+              Next<br>
+              <span>软考-中级软件设计师-06 数据结构与算法基础</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88"
-      >软考-中级软件设计师</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/"
-      ><span class="mr-1.5">←</span><span>软考-中级软件设计师-06 数据结构与算法基础</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/"
-      ><span>软考-中级软件设计师-08 法律法规</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

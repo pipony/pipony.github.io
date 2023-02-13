@@ -1,455 +1,410 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>Java基础之IO流 - </title>
+    
+  <title>Java基础之IO流 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
-概念 IO流（stream）
-流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
-流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
-http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip; 按用法分类：
-(1) 按数据来源（去向）使用是文件： FileInputStream, FileOutputStream, FileReader, FileWriter是byte[]：ByteArrayInputStream, ByteArrayOutputStream是Char[]: CharArrayReader, CharArrayWriter是String: StringBufferInputStream, StringReader, StringWriter网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。(4) 按数据格式使用二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter对象输入输出：ObjectInputStream, ObjectOutputStream进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java基础之IO流"/>
+<meta name="twitter:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="Java基础之IO流" />
-<meta property="og:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
-概念 IO流（stream）
-流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
-流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
-http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip; 按用法分类：
-(1) 按数据来源（去向）使用是文件： FileInputStream, FileOutputStream, FileReader, FileWriter是byte[]：ByteArrayInputStream, ByteArrayOutputStream是Char[]: CharArrayReader, CharArrayWriter是String: StringBufferInputStream, StringReader, StringWriter网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。(4) 按数据格式使用二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter对象输入输出：ObjectInputStream, ObjectOutputStream进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?" />
+<meta property="og:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-01-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2023-01-11T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="Java基础之IO流">
-<meta itemprop="description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
-概念 IO流（stream）
-流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
-流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
-http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip; 按用法分类：
-(1) 按数据来源（去向）使用是文件： FileInputStream, FileOutputStream, FileReader, FileWriter是byte[]：ByteArrayInputStream, ByteArrayOutputStream是Char[]: CharArrayReader, CharArrayWriter是String: StringBufferInputStream, StringReader, StringWriter网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。(4) 按数据格式使用二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter对象输入输出：ObjectInputStream, ObjectOutputStream进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?"><meta itemprop="datePublished" content="2023-01-11T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-01-11T00:00:00+00:00" />
-<meta itemprop="wordCount" content="99">
-<meta itemprop="keywords" content="Java," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Java基础之IO流"/>
-<meta name="twitter:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
-概念 IO流（stream）
-流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
-流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
-http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip; 按用法分类：
-(1) 按数据来源（去向）使用是文件： FileInputStream, FileOutputStream, FileReader, FileWriter是byte[]：ByteArrayInputStream, ByteArrayOutputStream是Char[]: CharArrayReader, CharArrayWriter是String: StringBufferInputStream, StringReader, StringWriter网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。(4) 按数据格式使用二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter对象输入输出：ObjectInputStream, ObjectOutputStream进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/java/" title="Java">Java</a>
+            
+          </div>
+          <h1>Java基础之IO流</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Wed, Jan 11, 2023
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">Java基础之IO流</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Jan 11, 2023</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="java基础之io流">Java基础之IO流</h1>
-<blockquote>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="java基础之io流">Java基础之IO流<a class="anchorjs-link" href="#java%e5%9f%ba%e7%a1%80%e4%b9%8bio%e6%b5%81"></a></h1><blockquote>
 <p>参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html</p>
 </blockquote>
-<h2 id="概念">概念</h2>
-<p>IO流（stream）</p>
+<h2 id="概念">概念<a class="anchorjs-link" href="#%e6%a6%82%e5%bf%b5"></a></h2><p>IO流（stream）</p>
 <blockquote>
 <p>流的源端和目的端可简单地看成是<strong>字节的生产者和消费者</strong>，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。</p>
 <p>流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。</p>
-<p><a href="http://www.51gjie.com/java/686.html">http://www.51gjie.com/java/686.html</a></p>
+<p><a href="http://www.51gjie.com/java/686.html" target="_blank">http://www.51gjie.com/java/686.html</a></p>
 </blockquote>
-<p><img src="http://cdn.huangxindi.com/img/lkqixikw.lqs.jpg" alt="Java IO流类图"></p>
-<h2 id="分类">分类</h2>
-<ul>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/lkqixikw.lqs.jpg" data-action="zoom" alt="Java IO流类图"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="分类">分类<a class="anchorjs-link" href="#%e5%88%86%e7%b1%bb"></a></h2><ul>
 <li>数据类型：字符、字节</li>
 <li>流向：输入、输出</li>
 <li>方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip;</li>
 </ul>
 <p>按用法分类：</p>
-<pre tabindex="0"><code>(1) 按数据来源（去向）使用
-是文件： FileInputStream, FileOutputStream, FileReader, FileWriter
-是byte[]：ByteArrayInputStream, ByteArrayOutputStream
-是Char[]: CharArrayReader, CharArrayWriter
-是String: StringBufferInputStream, StringReader, StringWriter
-网络数据流：InputStream, OutputStream, Reader, Writer 
-
-(2) 按是否格式化输出使用
-要格式化输出：PrintStream, PrintWriter 
-
-(3) 按是否要缓冲使用
-要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。
-
-(4) 按数据格式使用
-二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类
-纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 
-
-(5) 按输入输出使用
-输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 
-
-(6) 特殊需要
-从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter
-对象输入输出：ObjectInputStream, ObjectOutputStream
-进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 
-合并输入：SequenceInputStream
-更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader
-
-(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 
-考虑最原始的数据格式是什么：是否为文本？是输入还是输出?是否需要转换流：InputStreamReader, OutputStreamWriter?数据来源（去向）是什么：文件？内存？网络？是否要缓冲：bufferedReader （特别注明：一定要注意的是readLine()是否有定义，有什么比read, write更特殊的输入或输出方法）是否要格式化输出：print。
-
-http://www.51gjie.com/java/686.html
-</code></pre><h2 id="字符流和字节流的转换">字符流和字节流的转换</h2>
-<p>转换流：是两者之间的桥梁</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>(1) 按数据来源（去向）使用
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>是文件： FileInputStream, FileOutputStream, FileReader, FileWriter
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>是byte[]：ByteArrayInputStream, ByteArrayOutputStream
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>是Char[]: CharArrayReader, CharArrayWriter
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>是String: StringBufferInputStream, StringReader, StringWriter
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>网络数据流：InputStream, OutputStream, Reader, Writer 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>(2) 按是否格式化输出使用
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>要格式化输出：PrintStream, PrintWriter 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>(3) 按是否要缓冲使用
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>(4) 按数据格式使用
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>(5) 按输入输出使用
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>(6) 特殊需要
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>对象输入输出：ObjectInputStream, ObjectOutputStream
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>合并输入：SequenceInputStream
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span>考虑最原始的数据格式是什么：是否为文本？是输入还是输出?是否需要转换流：InputStreamReader, OutputStreamWriter?数据来源（去向）是什么：文件？内存？网络？是否要缓冲：bufferedReader （特别注明：一定要注意的是readLine()是否有定义，有什么比read, write更特殊的输入或输出方法）是否要格式化输出：print。
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span>http://www.51gjie.com/java/686.html
+</span></span></code></pre></div><h2 id="字符流和字节流的转换">字符流和字节流的转换<a class="anchorjs-link" href="#%e5%ad%97%e7%ac%a6%e6%b5%81%e5%92%8c%e5%ad%97%e8%8a%82%e6%b5%81%e7%9a%84%e8%bd%ac%e6%8d%a2"></a></h2><p>转换流：是两者之间的桥梁</p>
 <ul>
 <li>字节到字符的桥梁：InputStreamReader</li>
 <li>字符到字节的桥梁：OutputStreamWriter</li>
 </ul>
-<h2 id="file类">File类</h2>
-<h2 id="inputstream类">InputStream类</h2>
-<h3 id="定义">定义</h3>
-<p><code>public abstract class InputStream  extends Object  implements Closeable</code></p>
-<h3 id="读取文件">读取文件</h3>
-<p>使用InputStream对文件进行读取，读取内容可用一个byte数组来存储</p>
-<h2 id="outputstream类">OutputStream类</h2>
-<h2 id="reader类">Reader类</h2>
-<h2 id="writer类">Writer类</h2>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="http://www.51gjie.com/java/686.html">http://www.51gjie.com/java/686.html</a></p>
+<h2 id="file类">File类<a class="anchorjs-link" href="#file%e7%b1%bb"></a></h2><h2 id="inputstream类">InputStream类<a class="anchorjs-link" href="#inputstream%e7%b1%bb"></a></h2><h3 id="定义">定义<a class="anchorjs-link" href="#%e5%ae%9a%e4%b9%89"></a></h3><p><code>public abstract class InputStream  extends Object  implements Closeable</code></p>
+<h3 id="读取文件">读取文件<a class="anchorjs-link" href="#%e8%af%bb%e5%8f%96%e6%96%87%e4%bb%b6"></a></h3><p>使用InputStream对文件进行读取，读取内容可用一个byte数组来存储</p>
+<h2 id="outputstream类">OutputStream类<a class="anchorjs-link" href="#outputstream%e7%b1%bb"></a></h2><h2 id="reader类">Reader类<a class="anchorjs-link" href="#reader%e7%b1%bb"></a></h2><h2 id="writer类">Writer类<a class="anchorjs-link" href="#writer%e7%b1%bb"></a></h2><h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="http://www.51gjie.com/java/686.html" target="_blank">http://www.51gjie.com/java/686.html</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="认识编码">
+              Previous<br>
+              <span>认识编码</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/java"
-      >Java</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/"
-      ><span>认识编码</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

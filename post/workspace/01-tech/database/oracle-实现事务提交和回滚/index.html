@@ -1,455 +1,415 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>Oracle-实现事务提交和回滚 - </title>
+    
+  <title>Oracle-实现事务提交和回滚 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
-失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
-常见用法 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：
-参考 https://juejin.cn/post/7075307770173456392
-whenever sqlerror continue commit spool命令 此外，可以先认识下spool命令。" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Oracle-实现事务提交和回滚"/>
+<meta name="twitter:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="Oracle-实现事务提交和回滚" />
-<meta property="og:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
-失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
-常见用法 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：
-参考 https://juejin.cn/post/7075307770173456392
-whenever sqlerror continue commit spool命令 此外，可以先认识下spool命令。" />
+<meta property="og:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的s" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-08-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-08-02T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="Oracle-实现事务提交和回滚">
-<meta itemprop="description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
-失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
-常见用法 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：
-参考 https://juejin.cn/post/7075307770173456392
-whenever sqlerror continue commit spool命令 此外，可以先认识下spool命令。"><meta itemprop="datePublished" content="2022-08-02T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-08-02T00:00:00+00:00" />
-<meta itemprop="wordCount" content="173">
-<meta itemprop="keywords" content="数据库," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Oracle-实现事务提交和回滚"/>
-<meta name="twitter:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
-失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
-常见用法 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：
-参考 https://juejin.cn/post/7075307770173456392
-whenever sqlerror continue commit spool命令 此外，可以先认识下spool命令。"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
+            
+          </div>
+          <h1>Oracle-实现事务提交和回滚</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Tue, Aug 2, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">Oracle-实现事务提交和回滚</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Aug 2, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="oracle-实现事务提交和回滚">Oracle-实现事务提交和回滚</h1>
-<blockquote>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="oracle-实现事务提交和回滚">Oracle-实现事务提交和回滚<a class="anchorjs-link" href="#oracle-%e5%ae%9e%e7%8e%b0%e4%ba%8b%e5%8a%a1%e6%8f%90%e4%ba%a4%e5%92%8c%e5%9b%9e%e6%bb%9a"></a></h1><blockquote>
 <p>背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。</p>
 </blockquote>
-<h2 id="失败回滚命令">失败回滚命令</h2>
-<p><code>WHENEVER SQLERROR</code>官网介绍： <a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
-<h3 id="常见用法">常见用法</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WHENEVER</span> <span style="color:#66d9ef">SQLERROR</span> <span style="color:#960050;background-color:#1e0010">{</span>EXIT [SUCCESS <span style="color:#f92672">|</span> FAILURE <span style="color:#f92672">|</span> WARNING <span style="color:#f92672">|</span> n <span style="color:#f92672">|</span> <span style="color:#66d9ef">variable</span>  <span style="color:#f92672">|</span> :BindVariable] [<span style="color:#66d9ef">COMMIT</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">ROLLBACK</span>] <span style="color:#f92672">|</span> <span style="color:#66d9ef">CONTINUE</span> [<span style="color:#66d9ef">COMMIT</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">ROLLBACK</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NONE</span>]<span style="color:#960050;background-color:#1e0010">}</span>
-</span></span></code></pre></div><h4 id="出现错误后退出sql执行">出现错误后退出sql执行</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">WHENEVER</span> <span style="color:#66d9ef">SQLERROR</span> EXIT <span style="color:#66d9ef">SQL</span>.<span style="color:#66d9ef">SQLCODE</span>
-</span></span></code></pre></div><h4 id="出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">WHENEVER</span> <span style="color:#66d9ef">SQLERROR</span> EXIT <span style="color:#66d9ef">SQL</span>.<span style="color:#66d9ef">SQLCODE</span> <span style="color:#66d9ef">ROLLBACK</span> <span style="color:#75715e">---回滚退出，并返回错误码SQL.SQLCODE
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">or</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">WHENEVER</span> <span style="color:#66d9ef">SQLERROR</span> <span style="color:#66d9ef">SQL</span>.<span style="color:#66d9ef">SQLCODE</span> EXIT <span style="color:#66d9ef">ROLLBACK</span>
-</span></span></code></pre></div><h2 id="失败不回滚命令">失败不回滚命令</h2>
-<p>如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：</p>
-<p>参考 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">whenever</span> <span style="color:#66d9ef">sqlerror</span> <span style="color:#66d9ef">continue</span> <span style="color:#66d9ef">commit</span>
-</span></span></code></pre></div><h2 id="spool命令">spool命令</h2>
-<p>此外，可以先认识下<code>spool</code>命令。</p>
+<h2 id="失败回滚命令">失败回滚命令<a class="anchorjs-link" href="#%e5%a4%b1%e8%b4%a5%e5%9b%9e%e6%bb%9a%e5%91%bd%e4%bb%a4"></a></h2><p><code>WHENEVER SQLERROR</code>官网介绍： <a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C" target="_blank">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+<h3 id="常见用法">常见用法<a class="anchorjs-link" href="#%e5%b8%b8%e8%a7%81%e7%94%a8%e6%b3%95"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">WHENEVER</span> <span style="color:#ff79c6">SQLERROR</span> {EXIT [SUCCESS <span style="color:#ff79c6">|</span> FAILURE <span style="color:#ff79c6">|</span> WARNING <span style="color:#ff79c6">|</span> n <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">variable</span>  <span style="color:#ff79c6">|</span> :BindVariable] [<span style="color:#ff79c6">COMMIT</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">ROLLBACK</span>] <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">CONTINUE</span> [<span style="color:#ff79c6">COMMIT</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">ROLLBACK</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">NONE</span>]}
+</span></span></code></pre></div><h4 id="出现错误后退出sql执行">出现错误后退出sql执行<a class="anchorjs-link" href="#%e5%87%ba%e7%8e%b0%e9%94%99%e8%af%af%e5%90%8e%e9%80%80%e5%87%basql%e6%89%a7%e8%a1%8c"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">WHENEVER</span> <span style="color:#ff79c6">SQLERROR</span> EXIT <span style="color:#ff79c6">SQL</span>.<span style="color:#ff79c6">SQLCODE</span>
+</span></span></code></pre></div><h4 id="出现错误后先回滚还没提交的变化再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行<a class="anchorjs-link" href="#%e5%87%ba%e7%8e%b0%e9%94%99%e8%af%af%e5%90%8e%e5%85%88%e5%9b%9e%e6%bb%9a%e8%bf%98%e6%b2%a1%e6%8f%90%e4%ba%a4%e7%9a%84%e5%8f%98%e5%8c%96%e5%86%8d%e9%80%80%e5%87%basql%e6%89%a7%e8%a1%8c"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">WHENEVER</span> <span style="color:#ff79c6">SQLERROR</span> EXIT <span style="color:#ff79c6">SQL</span>.<span style="color:#ff79c6">SQLCODE</span> <span style="color:#ff79c6">ROLLBACK</span> <span style="color:#6272a4">---回滚退出，并返回错误码SQL.SQLCODE
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">or</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">WHENEVER</span> <span style="color:#ff79c6">SQLERROR</span> <span style="color:#ff79c6">SQL</span>.<span style="color:#ff79c6">SQLCODE</span> EXIT <span style="color:#ff79c6">ROLLBACK</span>
+</span></span></code></pre></div><h2 id="失败不回滚命令">失败不回滚命令<a class="anchorjs-link" href="#%e5%a4%b1%e8%b4%a5%e4%b8%8d%e5%9b%9e%e6%bb%9a%e5%91%bd%e4%bb%a4"></a></h2><p>如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：</p>
+<p>参考 <a href="https://juejin.cn/post/7075307770173456392" target="_blank">https://juejin.cn/post/7075307770173456392</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">whenever</span> <span style="color:#ff79c6">sqlerror</span> <span style="color:#ff79c6">continue</span> <span style="color:#ff79c6">commit</span>
+</span></span></code></pre></div><h2 id="spool命令">spool命令<a class="anchorjs-link" href="#spool%e5%91%bd%e4%bb%a4"></a></h2><p>此外，可以先认识下<code>spool</code>命令。</p>
 <p>常用语法可参考：</p>
-<p><a href="https://blog.csdn.net/lixiaomei0623/article/details/121274473">https://blog.csdn.net/lixiaomei0623/article/details/121274473</a></p>
+<p><a href="https://blog.csdn.net/lixiaomei0623/article/details/121274473" target="_blank">https://blog.csdn.net/lixiaomei0623/article/details/121274473</a></p>
 <blockquote>
 <p>spool的作用可以用一句话来描述：在sqlplus中用来保存或打印查询结果。</p>
 <p>通过spool 命令，可以将select 数据库的内容写到文件中，通过在sqlplus设置一些参数，使得按指定方式写到文件中。</p>
 </blockquote>
 <p>sql执行内容导出到某文件例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>sqlplus oracle<span style="color:#f92672">/</span>pwd<span style="color:#f92672">@</span><span style="color:#ae81ff">192</span>.<span style="color:#ae81ff">168</span>.<span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">16</span>:<span style="color:#ae81ff">1521</span><span style="color:#f92672">/</span>orl <span style="color:#f92672">@/</span>tmp<span style="color:#f92672">/</span>lxm<span style="color:#f92672">/</span>export.<span style="color:#66d9ef">sql</span> <span style="color:#75715e">-- 执行语句
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span><span style="color:#75715e">-- 以下为export.sql内容
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">set</span> trimspool <span style="color:#66d9ef">on</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> linesize <span style="color:#ae81ff">20000</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> pagesize <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> echo off
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> feedback off
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> newpage <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> heading off
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> wrap off SQLBLANKLINES <span style="color:#66d9ef">ON</span>  <span style="color:#f92672">---</span><span style="color:#960050;background-color:#1e0010">去掉空行</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">set</span> term off
-</span></span><span style="display:flex;"><span><span style="color:#f92672">---</span><span style="color:#960050;background-color:#1e0010">以上为输出格式设置</span>
-</span></span><span style="display:flex;"><span>spool <span style="color:#f92672">/</span>home<span style="color:#f92672">/</span>oracle<span style="color:#f92672">/</span>aaa.csv  <span style="color:#f92672">---</span><span style="color:#960050;background-color:#1e0010">保存查询结果集的的路径和文件名</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> python_student.name<span style="color:#f92672">||</span><span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">||</span>python_student.age
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> python_student;
-</span></span><span style="display:flex;"><span>spool off  <span style="color:#f92672">---</span><span style="color:#960050;background-color:#1e0010">完成</span>spool
-</span></span></code></pre></div><h2 id="举例">举例</h2>
-<h3 id="使用命令行">使用命令行</h3>
-<p>来自 <a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a> 的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span>spool e:<span style="color:#960050;background-color:#1e0010">\</span>test.txt
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span><span style="color:#66d9ef">whenever</span> <span style="color:#66d9ef">sqlerror</span> exit <span style="color:#66d9ef">rollback</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> test1233;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> dual;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SQL</span><span style="color:#f92672">&gt;</span>spool <span style="color:#66d9ef">off</span>
-</span></span></code></pre></div><h3 id="使用sqlplus">使用sqlplus</h3>
-<p>来自 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a> 的例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;SQL*Plus-语句执行异常则退出&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sqlplus user/password@x.x.x.x:x/orcl <span style="color:#e6db74">&lt;&lt;EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">whenever sqlerror exit failure rollback
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">${1}
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> $?
-</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
-<p><a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a></p>
-<p><a href="https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html">https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html</a></p>
-<p><a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
-<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>sqlplus oracle<span style="color:#ff79c6">/</span>pwd<span style="color:#ff79c6">@</span><span style="color:#bd93f9">192</span>.<span style="color:#bd93f9">168</span>.<span style="color:#bd93f9">10</span>.<span style="color:#bd93f9">16</span>:<span style="color:#bd93f9">1521</span><span style="color:#ff79c6">/</span>orl <span style="color:#ff79c6">@/</span>tmp<span style="color:#ff79c6">/</span>lxm<span style="color:#ff79c6">/</span>export.<span style="color:#ff79c6">sql</span> <span style="color:#6272a4">-- 执行语句
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#ff79c6">-</span><span style="color:#6272a4">-- 以下为export.sql内容
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd">set</span> trimspool <span style="color:#ff79c6">on</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#8be9fd">set</span> linesize <span style="color:#bd93f9">20000</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#8be9fd">set</span> pagesize <span style="color:#bd93f9">0</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#8be9fd">set</span> echo off
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#8be9fd">set</span> feedback off
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#8be9fd">set</span> newpage <span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span><span style="color:#8be9fd">set</span> heading off
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#8be9fd">set</span> wrap off SQLBLANKLINES <span style="color:#ff79c6">ON</span>  <span style="color:#ff79c6">---</span>去掉空行
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#8be9fd">set</span> term off
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span><span style="color:#ff79c6">---</span>以上为输出格式设置
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>spool <span style="color:#ff79c6">/</span>home<span style="color:#ff79c6">/</span>oracle<span style="color:#ff79c6">/</span>aaa.csv  <span style="color:#ff79c6">---</span>保存查询结果集的的路径和文件名
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span><span style="color:#ff79c6">select</span> python_student.name<span style="color:#ff79c6">||</span><span style="color:#f1fa8c">&#39;,&#39;</span><span style="color:#ff79c6">||</span>python_student.age
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span><span style="color:#ff79c6">from</span> python_student;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>spool off  <span style="color:#ff79c6">---</span>完成spool
+</span></span></code></pre></div><h2 id="举例">举例<a class="anchorjs-link" href="#%e4%b8%be%e4%be%8b"></a></h2><h3 id="使用命令行">使用命令行<a class="anchorjs-link" href="#%e4%bd%bf%e7%94%a8%e5%91%bd%e4%bb%a4%e8%a1%8c"></a></h3><p>来自 <a href="http://blog.itpub.net/28916011/viewspace-2774514/" target="_blank">http://blog.itpub.net/28916011/viewspace-2774514/</a> 的例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span>spool e:\test.txt
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span><span style="color:#ff79c6">whenever</span> <span style="color:#ff79c6">sqlerror</span> exit <span style="color:#ff79c6">rollback</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> test1233;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> dual;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">SQL</span><span style="color:#ff79c6">&gt;</span>spool <span style="color:#ff79c6">off</span>
+</span></span></code></pre></div><h3 id="使用sqlplus">使用sqlplus<a class="anchorjs-link" href="#%e4%bd%bf%e7%94%a8sqlplus"></a></h3><p>来自 <a href="https://juejin.cn/post/7075307770173456392" target="_blank">https://juejin.cn/post/7075307770173456392</a> 的例子：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">#!/bin/sh
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#ff79c6"></span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;SQL*Plus-语句执行异常则退出&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>sqlplus user/password@x.x.x.x:x/orcl <span style="color:#f1fa8c">&lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#f1fa8c">whenever sqlerror exit failure rollback
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#f1fa8c">${1}
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#f1fa8c">EOF</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span><span style="color:#ff79c6">return</span> <span style="color:#8be9fd;font-style:italic">$?</span>
+</span></span></code></pre></div><h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="http://blog.itpub.net/28916011/viewspace-2774514/" target="_blank">http://blog.itpub.net/28916011/viewspace-2774514/</a></p>
+<p><a href="https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html" target="_blank">https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html</a></p>
+<p><a href="https://juejin.cn/post/7075307770173456392" target="_blank">https://juejin.cn/post/7075307770173456392</a></p>
+<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C" target="_blank">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/" data-toggle="tooltip" data-placement="top" title="认识Jar包">
+              Previous<br>
+              <span>认识Jar包</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/" data-toggle="tooltip" data-placement="top" title="Linux-安装Oracle">
+              Next<br>
+              <span>Linux-安装Oracle</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"
-      >数据库</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/"
-      ><span class="mr-1.5">←</span><span>Linux-安装Oracle</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/"
-      ><span>认识Jar包</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

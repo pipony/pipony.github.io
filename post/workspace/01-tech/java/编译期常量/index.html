@@ -1,301 +1,202 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>编译期常量 - </title>
+    
+  <title>编译期常量 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="编译期常量先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="编译期常量 先说结论，编译期常量=final&#43;常量
-java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
-除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
-编译期常量定义方式 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
-public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
-public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后... public final int a; descriptor: I flags: (0x0011) ACC_PUBLIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 public static final int b; descriptor: I flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 此外 被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="编译期常量"/>
+<meta name="twitter:description" content="编译期常量先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="编译期常量" />
-<meta property="og:description" content="编译期常量 先说结论，编译期常量=final&#43;常量
-java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
-除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
-编译期常量定义方式 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
-public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
-public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后... public final int a; descriptor: I flags: (0x0011) ACC_PUBLIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 public static final int b; descriptor: I flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 此外 被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。" />
+<meta property="og:description" content="编译期常量先说结论，编译期常量=final&#43;常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-22T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-11-22T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="编译期常量">
-<meta itemprop="description" content="编译期常量 先说结论，编译期常量=final&#43;常量
-java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
-除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
-编译期常量定义方式 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
-public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
-public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后... public final int a; descriptor: I flags: (0x0011) ACC_PUBLIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 public static final int b; descriptor: I flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 此外 被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。"><meta itemprop="datePublished" content="2022-11-22T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-11-22T00:00:00+00:00" />
-<meta itemprop="wordCount" content="105">
-<meta itemprop="keywords" content="Java," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="编译期常量"/>
-<meta name="twitter:description" content="编译期常量 先说结论，编译期常量=final&#43;常量
-java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
-除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
-编译期常量定义方式 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
-public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
-public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后... public final int a; descriptor: I flags: (0x0011) ACC_PUBLIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 public static final int b; descriptor: I flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 此外 被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/java/" title="Java">Java</a>
+            
+          </div>
+          <h1>编译期常量</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Tue, Nov 22, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">编译期常量</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Nov 22, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="编译期常量">编译期常量</h1>
-<p>先说结论，<strong>编译期常量=final+常量</strong></p>
-<h2 id="java四个阶段">java四个阶段</h2>
-<ul>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="编译期常量">编译期常量<a class="anchorjs-link" href="#%e7%bc%96%e8%af%91%e6%9c%9f%e5%b8%b8%e9%87%8f"></a></h1><p>先说结论，<strong>编译期常量=final+常量</strong></p>
+<h2 id="java四个阶段">java四个阶段<a class="anchorjs-link" href="#java%e5%9b%9b%e4%b8%aa%e9%98%b6%e6%ae%b5"></a></h2><ul>
 <li>编辑期</li>
 <li>编译期：将.java文件编译为.class文件</li>
 <li>加载期：将.class文件加载到内存 并 生成.class类</li>
@@ -303,126 +204,186 @@ public class Class { public final int a = 10000; public static final int b = 100
 </ul>
 <p>参考：https://www.modb.pro/db/211851</p>
 <p>除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: <strong>「编译期常量不会触发类加载」</strong>。</p>
-<h2 id="编译期常量定义方式">编译期常量定义方式</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10000<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> b  <span style="color:#f92672">=</span> 10000<span style="color:#f92672">;</span>
+<h2 id="编译期常量定义方式">编译期常量定义方式<a class="anchorjs-link" href="#%e7%bc%96%e8%af%91%e6%9c%9f%e5%b8%b8%e9%87%8f%e5%ae%9a%e4%b9%89%e6%96%b9%e5%bc%8f"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">// final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> 10000<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> b  <span style="color:#ff79c6">=</span> 10000<span style="color:#ff79c6">;</span>
 </span></span></code></pre></div><p>反例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span> <span style="color:#75715e">// 没用final修饰，不是编译期常量
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">currentTimeMillis</span><span style="color:#f92672">();</span> <span style="color:#75715e">// 值不是常量，所以不是编译期常量
-</span></span></span></code></pre></div><h2 id="编译期常量的表现">编译期常量的表现</h2>
-<p>编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Class</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10000<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> b  <span style="color:#f92672">=</span> 10000<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 查看编译后...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> a<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    descriptor<span style="color:#f92672">:</span> I
-</span></span><span style="display:flex;"><span>    flags<span style="color:#f92672">:</span> <span style="color:#f92672">(</span>0x0011<span style="color:#f92672">)</span> ACC_PUBLIC<span style="color:#f92672">,</span> ACC_FINAL
-</span></span><span style="display:flex;"><span>    ConstantValue<span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> 10000  <span style="color:#75715e">// 有ConstantValue，说明是编译期常量
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> b<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    descriptor<span style="color:#f92672">:</span> I
-</span></span><span style="display:flex;"><span>    flags<span style="color:#f92672">:</span> <span style="color:#f92672">(</span>0x0019<span style="color:#f92672">)</span> ACC_PUBLIC<span style="color:#f92672">,</span> ACC_STATIC<span style="color:#f92672">,</span> ACC_FINAL
-</span></span><span style="display:flex;"><span>    ConstantValue<span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> 10000 <span style="color:#75715e">// 有ConstantValue，说明是编译期常量
-</span></span></span></code></pre></div><h2 id="此外">此外</h2>
-<p>被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> 10<span style="color:#ff79c6">;</span> <span style="color:#6272a4">// 没用final修饰，不是编译期常量
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> b <span style="color:#ff79c6">=</span> System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">currentTimeMillis</span><span style="color:#ff79c6">();</span> <span style="color:#6272a4">// 值不是常量，所以不是编译期常量
+</span></span></span></code></pre></div><h2 id="编译期常量的表现">编译期常量的表现<a class="anchorjs-link" href="#%e7%bc%96%e8%af%91%e6%9c%9f%e5%b8%b8%e9%87%8f%e7%9a%84%e8%a1%a8%e7%8e%b0"></a></h2><p>编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">class</span> <span style="color:#50fa7b">Class</span> <span style="color:#ff79c6">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>	<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> a <span style="color:#ff79c6">=</span> 10000<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>	<span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> b  <span style="color:#ff79c6">=</span> 10000<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#ff79c6">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4">// 查看编译后...
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> a<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    descriptor<span style="color:#ff79c6">:</span> I
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>    flags<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">(</span>0x0011<span style="color:#ff79c6">)</span> ACC_PUBLIC<span style="color:#ff79c6">,</span> ACC_FINAL
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>    ConstantValue<span style="color:#ff79c6">:</span> <span style="color:#8be9fd">int</span> 10000  <span style="color:#6272a4">// 有ConstantValue，说明是编译期常量
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">public</span> <span style="color:#8be9fd;font-style:italic">static</span> <span style="color:#8be9fd;font-style:italic">final</span> <span style="color:#8be9fd">int</span> b<span style="color:#ff79c6">;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>    descriptor<span style="color:#ff79c6">:</span> I
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>    flags<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">(</span>0x0019<span style="color:#ff79c6">)</span> ACC_PUBLIC<span style="color:#ff79c6">,</span> ACC_STATIC<span style="color:#ff79c6">,</span> ACC_FINAL
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    ConstantValue<span style="color:#ff79c6">:</span> <span style="color:#8be9fd">int</span> 10000 <span style="color:#6272a4">// 有ConstantValue，说明是编译期常量
+</span></span></span></code></pre></div><h2 id="此外">此外<a class="anchorjs-link" href="#%e6%ad%a4%e5%a4%96"></a></h2><p>被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。</p>
 <p>在实际开发中，如果A类之前调用到了B类的编译期常量，当修改B的编译期常量值后，还需要再次编译A类，否则A类对于该值的调用还是修改之前的值（因为已经固定在class文件里了）。</p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.modb.pro/db/211851">https://www.modb.pro/db/211851</a></p>
+<h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://www.modb.pro/db/211851" target="_blank">https://www.modb.pro/db/211851</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" data-toggle="tooltip" data-placement="top" title="数据库分页查询">
+              Previous<br>
+              <span>数据库分页查询</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" data-toggle="tooltip" data-placement="top" title="Linux-磁盘管理">
+              Next<br>
+              <span>Linux-磁盘管理</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/java"
-      >Java</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/"
-      ><span class="mr-1.5">←</span><span>Linux-磁盘管理</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/"
-      ><span>数据库分页查询</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

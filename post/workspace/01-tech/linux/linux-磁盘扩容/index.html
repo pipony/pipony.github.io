@@ -1,458 +1,456 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>Linux-磁盘扩容 - </title>
+    
+  <title>Linux-磁盘扩容 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
-⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
-基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
-扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &#39;/dev&#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
-创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux-磁盘扩容"/>
+<meta name="twitter:description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="Linux-磁盘扩容" />
-<meta property="og:description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
-⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
-基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
-扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &#39;/dev&#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
-创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：" />
+<meta property="og:description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-15T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-11-15T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="Linux-磁盘扩容">
-<meta itemprop="description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
-⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
-基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
-扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &#39;/dev&#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
-创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用："><meta itemprop="datePublished" content="2022-11-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-11-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="90">
-<meta itemprop="keywords" content="Linux," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux-磁盘扩容"/>
-<meta name="twitter:description" content="Linux-磁盘扩容 看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记
-⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。
-基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
-扩容基本操作 查看当前挂载点 df -h 显示当前的lv lvdisplay 显示当前的vg vgdisplay 显示当前的pv pvdisplay 查看磁盘内容 fdisk -lfdisk -l | grep &#39;/dev&#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
-创建新分区，格式化 fdisk /dev/sdbmkfs -t ext4 /dev/sdb1 创建pv pvcreate /dev/sdb1pvscan #查看所有的pv情况 扩容vg vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称pvscan #查看扩容结果vgdisplay #查看扩容结果 扩容lv lvdisplay #查看要扩容的lv path和lv namelvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lvdf -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用："/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/linux/" title="Linux">Linux</a>
+            
+          </div>
+          <h1>Linux-磁盘扩容</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Tue, Nov 15, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">Linux-磁盘扩容</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Nov 15, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="linux-磁盘扩容">Linux-磁盘扩容</h1>
-<blockquote>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="linux-磁盘扩容">Linux-磁盘扩容<a class="anchorjs-link" href="#linux-%e7%a3%81%e7%9b%98%e6%89%a9%e5%ae%b9"></a></h1><blockquote>
 <p>看b站：https://www.bilibili.com/video/BV1NK411w7DL/?spm_id_from=333.337.search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719 的教学视频笔记</p>
 </blockquote>
 <p>⚠️此操作只适用于扩容已有目录size，不涉及挂载等前置操作。</p>
-<h2 id="基础概念">基础概念</h2>
-<ul>
+<h2 id="基础概念">基础概念<a class="anchorjs-link" href="#%e5%9f%ba%e7%a1%80%e6%a6%82%e5%bf%b5"></a></h2><ul>
 <li>lv (logical volume)：逻辑卷</li>
 <li>vg (volume group)：卷组</li>
 <li>pv (physical volume)：物理卷</li>
 <li>pe (physical extent)：物理区域</li>
 </ul>
-<p><img src="http://cdn.huangxindi.com/img/image-20221116062308834.png" alt="8"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116062308834.png" data-action="zoom" alt="8"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p><strong>目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。</strong></p>
-<h2 id="扩容基本操作">扩容基本操作</h2>
-<ol>
+<h2 id="扩容基本操作">扩容基本操作<a class="anchorjs-link" href="#%e6%89%a9%e5%ae%b9%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c"></a></h2><ol>
 <li>查看当前挂载点</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">df -h
-</code></pre><ol start="2">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>df -h
+</span></span></code></pre></div><ol start="2">
 <li>显示当前的lv</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">lvdisplay
-</code></pre><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>lvdisplay
+</span></span></code></pre></div><ol start="3">
 <li>显示当前的vg</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">vgdisplay
-</code></pre><ol start="4">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>vgdisplay
+</span></span></code></pre></div><ol start="4">
 <li>显示当前的pv</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">pvdisplay
-</code></pre><ol start="5">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>pvdisplay
+</span></span></code></pre></div><ol start="5">
 <li>查看磁盘内容</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">fdisk -l
-fdisk -l | grep &#39;/dev&#39;
-</code></pre><p><img src="http://cdn.huangxindi.com/img/image-20221116063822723.png" alt="image-20221116063822723"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>fdisk -l
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>fdisk -l | grep &#39;/dev&#39;
+</span></span></code></pre></div><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116063822723.png" data-action="zoom" alt="image-20221116063822723"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）</p>
 <ol start="6">
 <li>创建新分区，格式化</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">fdisk /dev/sdb
-mkfs -t ext4 /dev/sdb1  
-</code></pre><p><img src="http://cdn.huangxindi.com/img/image-20221116064732367.png" alt="image-20221116064732367"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>fdisk /dev/sdb
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>mkfs -t ext4 /dev/sdb1  
+</span></span></code></pre></div><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116064732367.png" data-action="zoom" alt="image-20221116064732367"  class="lazyload">
+  </a>
+  
+</figure></p>
 <ol start="7">
 <li>创建pv</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">pvcreate /dev/sdb1
-pvscan  #查看所有的pv情况
-</code></pre><ol start="8">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>pvcreate /dev/sdb1
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>pvscan  #查看所有的pv情况
+</span></span></code></pre></div><ol start="8">
 <li>扩容vg</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称
-pvscan  #查看扩容结果
-vgdisplay  #查看扩容结果
-</code></pre><p><img src="http://cdn.huangxindi.com/img/image-20221116065125704.png" alt="image-20221116065125704"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>pvscan  #查看扩容结果
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>vgdisplay  #查看扩容结果
+</span></span></code></pre></div><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116065125704.png" data-action="zoom" alt="image-20221116065125704"  class="lazyload">
+  </a>
+  
+</figure></p>
 <ol start="9">
 <li>扩容lv</li>
 </ol>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">lvdisplay  #查看要扩容的lv path和lv name
-lvextend -L +10G /dev/ubuntu-vg/ubuntu-lv  #扩容10G 
-resize2fs /dev/ubuntu-vg/ubuntu-lv
-df -h  #查看扩容结果
-</code></pre><p><img src="http://cdn.huangxindi.com/img/image-20221116070529702.png" alt="image-20221116070529702"></p>
-<p><img src="http://cdn.huangxindi.com/img/image-20221116065650757.png" alt="image-20221116065650757"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>lvdisplay  #查看要扩容的lv path和lv name
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>lvextend -L +10G /dev/ubuntu-vg/ubuntu-lv  #扩容10G 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>resize2fs /dev/ubuntu-vg/ubuntu-lv
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>df -h  #查看扩容结果
+</span></span></code></pre></div><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116070529702.png" data-action="zoom" alt="image-20221116070529702"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20221116065650757.png" data-action="zoom" alt="image-20221116065650757"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间+10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：</p>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
-resize2fs /dev/ubuntu-vg/ubuntu-lv
-</code></pre><p><!-- raw HTML omitted -->值得注意的是：<!-- raw HTML omitted --></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>resize2fs /dev/ubuntu-vg/ubuntu-lv
+</span></span></code></pre></div><p><font color='red'>值得注意的是：</font></p>
 <p>resize2fs命令是用来增大或者收缩未加载的“ext2/ext3/ext4”文件系统的大小。并不适用于xfs文件系统（会报错）。如果是<strong>xfs文件系统</strong>，则使用以下命令来达到同样的效果；</p>
-<pre tabindex="0"><code class="language-linux" data-lang="linux">xfs_growfs /dev/ubuntu-vg/ubuntu-lv
-</code></pre><p>可参考： <a href="https://blog.csdn.net/MssGuo/article/details/120475752">https://blog.csdn.net/MssGuo/article/details/120475752</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>xfs_growfs /dev/ubuntu-vg/ubuntu-lv
+</span></span></code></pre></div><p>可参考： <a href="https://blog.csdn.net/MssGuo/article/details/120475752" target="_blank">https://blog.csdn.net/MssGuo/article/details/120475752</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/" data-toggle="tooltip" data-placement="top" title="Java基础之Calendar日历类">
+              Previous<br>
+              <span>Java基础之Calendar日历类</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" data-toggle="tooltip" data-placement="top" title="BenchmarkSQL性能测试">
+              Next<br>
+              <span>BenchmarkSQL性能测试</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/linux"
-      >Linux</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/"
-      ><span class="mr-1.5">←</span><span>BenchmarkSQL性能测试</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/"
-      ><span>Java基础之Calendar日历类</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

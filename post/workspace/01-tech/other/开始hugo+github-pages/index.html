@@ -1,475 +1,390 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>开始Hugo&#43;Github Pages - </title>
+    
+  <title>开始Hugo&#43;Github Pages | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="开始Hugo&#43;Github Pages参考：https://www.gohugo.org/#/ 准备工作准备安装Hugo，git过程略 配置Hug">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="开始Hugo&#43;Github Pages 参考：https://www.gohugo.org/#/
-准备工作准备 安装Hugo，git过程略
-配置Hugo路径到环境变量Path 过程略
-生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
-可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
-▸ archetypes/▸ content/▸ layouts/▸ static/config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
-hugo new post/first.md 生成路径自动为：/content/post/about.md
-安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
-$ cd themes$ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
-hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
-如果已经在config.toml中配置了theme，则运行语句可以缩减为：
-hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
-http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：
-hugo --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）
-（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="开始Hugo&#43;Github Pages"/>
+<meta name="twitter:description" content="开始Hugo&#43;Github Pages参考：https://www.gohugo.org/#/ 准备工作准备安装Hugo，git过程略 配置Hug"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="开始Hugo&#43;Github Pages" />
-<meta property="og:description" content="开始Hugo&#43;Github Pages 参考：https://www.gohugo.org/#/
-准备工作准备 安装Hugo，git过程略
-配置Hugo路径到环境变量Path 过程略
-生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
-可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
-▸ archetypes/▸ content/▸ layouts/▸ static/config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
-hugo new post/first.md 生成路径自动为：/content/post/about.md
-安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
-$ cd themes$ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
-hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
-如果已经在config.toml中配置了theme，则运行语句可以缩减为：
-hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
-http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：
-hugo --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）
-（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）" />
+<meta property="og:description" content="开始Hugo&#43;Github Pages参考：https://www.gohugo.org/#/ 准备工作准备安装Hugo，git过程略 配置Hug" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-15T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-05-15T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="开始Hugo&#43;Github Pages">
-<meta itemprop="description" content="开始Hugo&#43;Github Pages 参考：https://www.gohugo.org/#/
-准备工作准备 安装Hugo，git过程略
-配置Hugo路径到环境变量Path 过程略
-生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
-可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
-▸ archetypes/▸ content/▸ layouts/▸ static/config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
-hugo new post/first.md 生成路径自动为：/content/post/about.md
-安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
-$ cd themes$ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
-hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
-如果已经在config.toml中配置了theme，则运行语句可以缩减为：
-hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
-http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：
-hugo --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）
-（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）"><meta itemprop="datePublished" content="2022-05-15T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-05-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="78">
-<meta itemprop="keywords" content="其他," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="开始Hugo&#43;Github Pages"/>
-<meta name="twitter:description" content="开始Hugo&#43;Github Pages 参考：https://www.gohugo.org/#/
-准备工作准备 安装Hugo，git过程略
-配置Hugo路径到环境变量Path 过程略
-生成站点 hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
-可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
-▸ archetypes/▸ content/▸ layouts/▸ static/config.toml 创建文章 hugo new about.md 生成路径自动为：/content/about.md
-hugo new post/first.md 生成路径自动为：/content/post/about.md
-安装皮肤模板 从 https://www.gohugo.org/theme/#/ 或者 https://themes.gohugo.io/#/挑选合适的模板，下载
-$ cd themes$ git clone https://github.com/spf13/hyde.git 本地调试 在本地运行并预览网站效果
-hugo server --theme=angels-ladder --buildDrafts 注意：将hyde换成自己的主题名
-如果已经在config.toml中配置了theme，则运行语句可以缩减为：
-hugo server --buildDrafts 浏览器里打开链接，可浏览本地效果:
-http://localhost:1313 部署 GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io） 生成最终页面 在根目录执行：
-hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34; 同理：在配置文件中若已经指定了主题，则可以忽略--theme参数：
-hugo --baseUrl=&#34;http://pipony.github.io/&#34; 此时会在/public目录下生成所有静态页面，再将/public/*上传到github的main分支即可（注意：不要变成master分支了）
-（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 draft=true 再重新生成。）"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E5%85%B6%E4%BB%96/" title="其他">其他</a>
+            
+          </div>
+          <h1>开始Hugo&#43;Github Pages</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Sun, May 15, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">开始Hugo&#43;Github Pages</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>May 15, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="开始hugogithub-pages">开始Hugo+Github Pages</h1>
-<p>参考：https://www.gohugo.org/#/</p>
-<h2 id="准备工作准备">准备工作准备</h2>
-<p>安装Hugo，git过程略</p>
-<h2 id="配置hugo路径到环境变量path">配置Hugo路径到环境变量Path</h2>
-<p>过程略</p>
-<h2 id="生成站点">生成站点</h2>
-<pre tabindex="0"><code>hugo new site /D:/hugo/huangxdBlog
-</code></pre><p>生成站点到本地路径：/D:/hugo/huangxdBlog</p>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="开始hugogithub-pages">开始Hugo+Github Pages<a class="anchorjs-link" href="#%e5%bc%80%e5%a7%8bhugogithub-pages"></a></h1><p>参考：https://www.gohugo.org/#/</p>
+<h2 id="准备工作准备">准备工作准备<a class="anchorjs-link" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c%e5%87%86%e5%a4%87"></a></h2><p>安装Hugo，git过程略</p>
+<h2 id="配置hugo路径到环境变量path">配置Hugo路径到环境变量Path<a class="anchorjs-link" href="#%e9%85%8d%e7%bd%aehugo%e8%b7%af%e5%be%84%e5%88%b0%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8fpath"></a></h2><p>过程略</p>
+<h2 id="生成站点">生成站点<a class="anchorjs-link" href="#%e7%94%9f%e6%88%90%e7%ab%99%e7%82%b9"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo new site /D:/hugo/huangxdBlog
+</span></span></code></pre></div><p>生成站点到本地路径：/D:/hugo/huangxdBlog</p>
 <p>可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：</p>
-<pre tabindex="0"><code>  ▸ archetypes/
-  ▸ content/
-  ▸ layouts/
-  ▸ static/
-    config.toml
-</code></pre><h2 id="创建文章">创建文章</h2>
-<pre tabindex="0"><code>hugo new about.md
-</code></pre><p>生成路径自动为：/content/about.md</p>
-<pre tabindex="0"><code>hugo new post/first.md
-</code></pre><p>生成路径自动为：/content/post/about.md</p>
-<h2 id="安装皮肤模板">安装皮肤模板</h2>
-<p>从 <a href="https://www.gohugo.org/theme/#/">https://www.gohugo.org/theme/#/</a> 或者 <a href="https://themes.gohugo.io/#/">https://themes.gohugo.io/#/</a>挑选合适的模板，下载</p>
-<pre tabindex="0"><code>$ cd themes
-$ git clone https://github.com/spf13/hyde.git
-</code></pre><h2 id="本地调试">本地调试</h2>
-<p>在本地运行并预览网站效果</p>
-<pre tabindex="0"><code>hugo server --theme=angels-ladder --buildDrafts
-</code></pre><p>注意：将hyde换成自己的主题名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  ▸ archetypes/
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>  ▸ content/
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>  ▸ layouts/
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  ▸ static/
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    config.toml
+</span></span></code></pre></div><h2 id="创建文章">创建文章<a class="anchorjs-link" href="#%e5%88%9b%e5%bb%ba%e6%96%87%e7%ab%a0"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo new about.md
+</span></span></code></pre></div><p>生成路径自动为：/content/about.md</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo new post/first.md
+</span></span></code></pre></div><p>生成路径自动为：/content/post/about.md</p>
+<h2 id="安装皮肤模板">安装皮肤模板<a class="anchorjs-link" href="#%e5%ae%89%e8%a3%85%e7%9a%ae%e8%82%a4%e6%a8%a1%e6%9d%bf"></a></h2><p>从 <a href="https://www.gohugo.org/theme/#/" target="_blank">https://www.gohugo.org/theme/#/</a> 或者 <a href="https://themes.gohugo.io/#/" target="_blank">https://themes.gohugo.io/#/</a>挑选合适的模板，下载</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>$ cd themes
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>$ git clone https://github.com/spf13/hyde.git
+</span></span></code></pre></div><h2 id="本地调试">本地调试<a class="anchorjs-link" href="#%e6%9c%ac%e5%9c%b0%e8%b0%83%e8%af%95"></a></h2><p>在本地运行并预览网站效果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo server --theme=angels-ladder --buildDrafts
+</span></span></code></pre></div><p>注意：将hyde换成自己的主题名</p>
 <p>如果已经在config.toml中配置了theme，则运行语句可以缩减为：</p>
-<pre tabindex="0"><code>hugo server --buildDrafts
-</code></pre><p>浏览器里打开链接，可浏览本地效果:</p>
-<pre tabindex="0"><code> http://localhost:1313
-</code></pre><h2 id="部署">部署</h2>
-<h3 id="github上先新建一个仓库命名pipony换成自己的github用户名githubio">GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io）</h3>
-<h3 id="生成最终页面">生成最终页面</h3>
-<p>在根目录执行：</p>
-<pre tabindex="0"><code>hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34;
-</code></pre><p>同理：在配置文件中若已经指定了主题，则可以忽略<code>--theme</code>参数：</p>
-<pre tabindex="0"><code>hugo --baseUrl=&#34;http://pipony.github.io/&#34;
-</code></pre><p>此时会在/public目录下生成所有静态页面，再将/public/*上传到github的<strong>main</strong>分支即可（注意：不要变成master分支了）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo server --buildDrafts
+</span></span></code></pre></div><p>浏览器里打开链接，可浏览本地效果:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span> http://localhost:1313
+</span></span></code></pre></div><h2 id="部署">部署<a class="anchorjs-link" href="#%e9%83%a8%e7%bd%b2"></a></h2><h3 id="github上先新建一个仓库命名pipony换成自己的github用户名githubio">GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io）<a class="anchorjs-link" href="#github%e4%b8%8a%e5%85%88%e6%96%b0%e5%bb%ba%e4%b8%80%e4%b8%aa%e4%bb%93%e5%ba%93%e5%91%bd%e5%90%8dpipony%e6%8d%a2%e6%88%90%e8%87%aa%e5%b7%b1%e7%9a%84github%e7%94%a8%e6%88%b7%e5%90%8dgithubio"></a></h3><h3 id="生成最终页面">生成最终页面<a class="anchorjs-link" href="#%e7%94%9f%e6%88%90%e6%9c%80%e7%bb%88%e9%a1%b5%e9%9d%a2"></a></h3><p>在根目录执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo --theme=hyde --baseUrl=&#34;http://pipony.github.io/&#34;
+</span></span></code></pre></div><p>同理：在配置文件中若已经指定了主题，则可以忽略<code>--theme</code>参数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>hugo --baseUrl=&#34;http://pipony.github.io/&#34;
+</span></span></code></pre></div><p>此时会在/public目录下生成所有静态页面，再将/public/*上传到github的<strong>main</strong>分支即可（注意：不要变成master分支了）</p>
 <p><strong>（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 <code>draft=true</code> 再重新生成。）</strong></p>
-<h3 id="配置">配置</h3>
-<p>根目录config.toml中，修改baseURL = &lsquo;<a href="https://pipony.github.io/'">https://pipony.github.io/'</a> （自己的github地址）</p>
-<h2 id="查看效果">查看效果</h2>
-<pre tabindex="0"><code>http://pipony.github.io/
-</code></pre></section>
+<h3 id="配置">配置<a class="anchorjs-link" href="#%e9%85%8d%e7%bd%ae"></a></h3><p>根目录config.toml中，修改baseURL = &lsquo;<a href="https://pipony.github.io/%27" target="_blank">https://pipony.github.io/'</a> （自己的github地址）</p>
+<h2 id="查看效果">查看效果<a class="anchorjs-link" href="#%e6%9f%a5%e7%9c%8b%e6%95%88%e6%9e%9c"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>http://pipony.github.io/
+</span></span></code></pre></div>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E5%85%B6%E4%BB%96"
-      >其他</a
-    >
-    
-  </footer>
-  
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/" data-toggle="tooltip" data-placement="top" title="数据库无效对象">
+              Previous<br>
+              <span>数据库无效对象</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/" data-toggle="tooltip" data-placement="top" title="异常的处理">
+              Next<br>
+              <span>异常的处理</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
 
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/"
-      ><span class="mr-1.5">←</span><span>异常的处理</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/"
-      ><span>数据库无效对象</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
 
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
   </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
   
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
+</section>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

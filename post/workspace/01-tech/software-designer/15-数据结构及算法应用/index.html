@@ -1,438 +1,439 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>软考-中级软件设计师-15 数据结构及算法应用 - </title>
+    
+  <title>软考-中级软件设计师-15 数据结构及算法应用 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="15 数据结构及算法应用数据结构基础那章是上午题，此章为下午题 不容易拿高分，但要把容易的都填出来 分治法 递归概念：运行的过程中调用自己 二分查找 回溯">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题
-不容易拿高分，但要把容易的都填出来
-分治法 递归 概念：运行的过程中调用自己
-二分查找 回溯法 贪心法 性价比方法：耗费时间少，找到【可以】的解
-图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品
-动态规划法 拆分为子问题，但是子问题一般有关联，所以需要一个表来协助
-例题 例题1 答案：
-【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）
-【问题1】：
-例题2 题目略" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-15 数据结构及算法应用"/>
+<meta name="twitter:description" content="15 数据结构及算法应用数据结构基础那章是上午题，此章为下午题 不容易拿高分，但要把容易的都填出来 分治法 递归概念：运行的过程中调用自己 二分查找 回溯"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="软考-中级软件设计师-15 数据结构及算法应用" />
-<meta property="og:description" content="15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题
-不容易拿高分，但要把容易的都填出来
-分治法 递归 概念：运行的过程中调用自己
-二分查找 回溯法 贪心法 性价比方法：耗费时间少，找到【可以】的解
-图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品
-动态规划法 拆分为子问题，但是子问题一般有关联，所以需要一个表来协助
-例题 例题1 答案：
-【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）
-【问题1】：
-例题2 题目略" />
+<meta property="og:description" content="15 数据结构及算法应用数据结构基础那章是上午题，此章为下午题 不容易拿高分，但要把容易的都填出来 分治法 递归概念：运行的过程中调用自己 二分查找 回溯" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="软考-中级软件设计师-15 数据结构及算法应用">
-<meta itemprop="description" content="15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题
-不容易拿高分，但要把容易的都填出来
-分治法 递归 概念：运行的过程中调用自己
-二分查找 回溯法 贪心法 性价比方法：耗费时间少，找到【可以】的解
-图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品
-动态规划法 拆分为子问题，但是子问题一般有关联，所以需要一个表来协助
-例题 例题1 答案：
-【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）
-【问题1】：
-例题2 题目略"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="21">
-<meta itemprop="keywords" content="软考-中级软件设计师," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-15 数据结构及算法应用"/>
-<meta name="twitter:description" content="15 数据结构及算法应用 数据结构基础那章是上午题，此章为下午题
-不容易拿高分，但要把容易的都填出来
-分治法 递归 概念：运行的过程中调用自己
-二分查找 回溯法 贪心法 性价比方法：耗费时间少，找到【可以】的解
-图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品
-动态规划法 拆分为子问题，但是子问题一般有关联，所以需要一个表来协助
-例题 例题1 答案：
-【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）
-【问题1】：
-例题2 题目略"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/" title="软考-中级软件设计师">软考-中级软件设计师</a>
+            
+          </div>
+          <h1>软考-中级软件设计师-15 数据结构及算法应用</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Sat, May 14, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">软考-中级软件设计师-15 数据结构及算法应用</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>May 14, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="15-数据结构及算法应用">15 数据结构及算法应用</h1>
-<p>数据结构基础那章是上午题，此章为下午题</p>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="15-数据结构及算法应用">15 数据结构及算法应用<a class="anchorjs-link" href="#15-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e5%8f%8a%e7%ae%97%e6%b3%95%e5%ba%94%e7%94%a8"></a></h1><p>数据结构基础那章是上午题，此章为下午题</p>
 <p>不容易拿高分，但要把容易的都填出来</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174026816.png" alt="image-20220504174026816"></p>
-<h2 id="分治法">分治法</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174106607.png" alt="image-20220504174106607"></p>
-<h3 id="递归">递归</h3>
-<p>概念：运行的过程中调用自己</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174303023.png" alt="image-20220504174303023"></p>
-<h3 id="二分查找">二分查找</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174643763.png" alt="image-20220504174643763"></p>
-<h2 id="回溯法">回溯法</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174707904.png" alt="image-20220504174707904"></p>
-<h2 id="贪心法">贪心法</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504174906440.png" alt="image-20220504174906440"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174026816.png" data-action="zoom" alt="image-20220504174026816"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="分治法">分治法<a class="anchorjs-link" href="#%e5%88%86%e6%b2%bb%e6%b3%95"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174106607.png" data-action="zoom" alt="image-20220504174106607"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="递归">递归<a class="anchorjs-link" href="#%e9%80%92%e5%bd%92"></a></h3><p>概念：运行的过程中调用自己</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174303023.png" data-action="zoom" alt="image-20220504174303023"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="二分查找">二分查找<a class="anchorjs-link" href="#%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174643763.png" data-action="zoom" alt="image-20220504174643763"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="回溯法">回溯法<a class="anchorjs-link" href="#%e5%9b%9e%e6%ba%af%e6%b3%95"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174707904.png" data-action="zoom" alt="image-20220504174707904"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="贪心法">贪心法<a class="anchorjs-link" href="#%e8%b4%aa%e5%bf%83%e6%b3%95"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504174906440.png" data-action="zoom" alt="image-20220504174906440"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>性价比方法：耗费时间少，找到【可以】的解</p>
 <p>图示背包问题贪心法（图b左边）：优先考虑单位价值最多的物品</p>
-<h2 id="动态规划法">动态规划法</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504175217570.png" alt="image-20220504175217570"></p>
+<h2 id="动态规划法">动态规划法<a class="anchorjs-link" href="#%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92%e6%b3%95"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504175217570.png" data-action="zoom" alt="image-20220504175217570"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>拆分为子问题，但是子问题一般有关联，所以需要一个表来协助</p>
-<h2 id="例题">例题</h2>
-<h3 id="例题1">例题1</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504175344050.png" alt="image-20220504175344050"></p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504175507842.png" alt="image-20220504175507842"></p>
+<h2 id="例题">例题<a class="anchorjs-link" href="#%e4%be%8b%e9%a2%98"></a></h2><h3 id="例题1">例题1<a class="anchorjs-link" href="#%e4%be%8b%e9%a2%981"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504175344050.png" data-action="zoom" alt="image-20220504175344050"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504175507842.png" data-action="zoom" alt="image-20220504175507842"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>答案：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504175902559.png" alt="image-20220504175902559"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504175902559.png" data-action="zoom" alt="image-20220504175902559"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>【问题2】：贪心法；贪心法；时间复杂度分析具体代码（O(N^2),O(N^2)）</p>
 <p>【问题1】：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504180636228.png" alt="image-20220504180636228"></p>
-<h3 id="例题2">例题2</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220504213701980.png" alt="image-20220504213701980"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504180636228.png" data-action="zoom" alt="image-20220504180636228"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="例题2">例题2<a class="anchorjs-link" href="#%e4%be%8b%e9%a2%982"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220504213701980.png" data-action="zoom" alt="image-20220504213701980"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>题目略</p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-16 面向对象程序设计">
+              Previous<br>
+              <span>软考-中级软件设计师-16 面向对象程序设计</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-14 UML建模">
+              Next<br>
+              <span>软考-中级软件设计师-14 UML建模</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88"
-      >软考-中级软件设计师</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/"
-      ><span class="mr-1.5">←</span><span>软考-中级软件设计师-14 UML建模</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"
-      ><span>软考-中级软件设计师-16 面向对象程序设计</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

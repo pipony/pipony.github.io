@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on </title>
+    <title>Java on 2MUCH</title>
     <link>http://pipony.github.io/categories/java/</link>
-    <description>Recent content in Java on </description>
+    <description>Recent content in Java on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java基础之IO流</title>
@@ -13,13 +13,7 @@
       <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
-      <description>Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
-概念 IO流（stream）
-流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
-流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
-http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 按用法分类：
-(1) 按数据来源（去向）使用是文件： FileInputStream, FileOutputStream, FileReader, FileWriter是byte[]：ByteArrayInputStream, ByteArrayOutputStream是Char[]: CharArrayReader, CharArrayWriter是String: StringBufferInputStream, StringReader, StringWriter网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。(4) 按数据格式使用二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter对象输入输出：ObjectInputStream, ObjectOutputStream进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader(7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?</description>
+      <description>Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念</description>
     </item>
     
     <item>
@@ -28,12 +22,7 @@ http://www.51gjie.com/java/686.html
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</guid>
-      <description>编译期常量 先说结论，编译期常量=final+常量
-java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文件加载到内存 并 生成.class类 运行期：通过.class类去创建对象、执行代码 参考：https://www.modb.pro/db/211851
-除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。
-编译期常量定义方式 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
-public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
-public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后... public final int a; descriptor: I flags: (0x0011) ACC_PUBLIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 public static final int b; descriptor: I flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量 此外 被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。</description>
+      <description>编译期常量先说结论，编译期常量=final+常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文</description>
     </item>
     
     <item>
@@ -42,15 +31,7 @@ public class Class { public final int a = 10000; public static final int b = 100
       <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</guid>
-      <description>Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
-定义方法 Calendar类是一个抽象类，不可以被实例化。
-因此，需要使用静态方法getInstance()来得到一个Calendar对象
-Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方法1 可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如Calendar.YEAR用于表示年份。
-Calendar calendar = Calendar.getInstance(); int year = calendar.get(Calendar.YEAR); int month = calendar.get(Calendar.MONTH); int day = calendar.get(Calendar.DATE); // DATE表示日 int hour = calendar.get(Calendar.HOUR); int minute = calendar.get(Calendar.MINUTE); int second = calendar.get(Calendar.SECOND); System.out.println(year+&amp;#34;年&amp;#34;+(month+1)+&amp;#34;月&amp;#34;+day+&amp;#34;日&amp;#34;+hour+&amp;#34;时&amp;#34;+minute+&amp;#34;分&amp;#34;+second+&amp;#34;秒&amp;#34;); /****执行结果******/ 2022年10月25日7时4分37秒 需要特别注意：
-在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。
-方法2 使用Calendar的getTime()方法，getTime()方法会返回一个表示Calendar时间值的Date对象
-Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime()); /******执行结果*******/ Tue Oct 25 07:10:22 CST 2022 设置方法 使用set字段进行设置，有以下三种格式：
-方法声明 功能描述 void set(int field,int value) 为指定日历字段设置指定值 void set(int year,int month,int date) 设置Calendar对象的年、月、日三个字段的值 void set(int year.</description>
+      <description>Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月</description>
     </item>
     
     <item>
@@ -59,15 +40,7 @@ Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime(
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
-      <description>Maven之三：坐标、依赖范围、依赖冲突 学习网站：http://mvnbook.com/index.html
-Maven构件 构件：在Maven中，任何项目输出都可成为构件。
-构件标识（唯一标识，也称为唯一坐标） 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
-坐标组成：
-groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&amp;hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
-&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&amp;gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk13&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; 以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。
-区分项目的不同组成部分，例如，源代码、javadoc、类文件等 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15-javadoc&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; 以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。
-注意&amp;lt;classifier&amp;gt;的位置：
-&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;jdk15-javadoc&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;2.</description>
+      <description>Maven之三：坐标、依赖范围、依赖冲突学习网站：http://mvnbook.com/index.html Maven构件构件：在Maven</description>
     </item>
     
     <item>
@@ -76,20 +49,7 @@ groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通�
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
-      <description>Maven之一：基础 学习网站：http://mvnbook.com/index.html
-简介 Maven英文：专家、内行
-Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
-项目构建：即软件项目生产的整个过程 文档和代码的生成 代码编译、测试、打包 打包好的代码进行分发和部署 依赖管理 我们需要做的就是在 POM 文件里指定依赖 Jar 包的名称、版本号，Maven 会自动下载，并递归地去下载依赖的进一步依赖 快照依赖：使用快照依赖可以确保本地仓库中的每一个 Build 版本都是最新的 组成：
-项目对象模型 POM(project object model) 项目生命周期 project lifecycle 依赖管理系统 dependency management system 各种插件 官网地址是：https://maven.apache.org/index.html
-下载和安装 官网下载地址是：https://maven.apache.org/download.cgi
-Mac安装maven步骤：
-参考链接：https://blog.csdn.net/m0_67400973/article/details/123656632
-1、下载Binary zip archive（如目前的最新版 apache-maven-3.8.6-bin.zip），解压并重命名文件夹为maven（或者外面再套一层maven文件夹，不需要修改原有的文件夹名称）
-2、配置环境变量
-编辑文件 .bash_profile：
-vim ~/.bash_profile # 添加以下内容 export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径 export PATH=$PATH:$M2_HOME/bin 编辑文件 .zshrc
-vim ~/.zshrc # 添加以下内容 export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径 export PATH=$PATH:$M2_HOME/bin 3、使修改立即生效
-source ~/.bash_profile source ~/.</description>
+      <description>Maven之一：基础学习网站：http://mvnbook.com/index.html 简介Maven英文：专家、内行 Maven：项目管理工</description>
     </item>
     
     <item>
@@ -98,14 +58,7 @@ source ~/.bash_profile source ~/.</description>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
-      <description>Maven之二：创建Maven项目 学习网站：http://mvnbook.com/index.html
-Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.xml 和所有子目录 ${basedir}/src/main/java 项目的 java 源代码所在的目录 ${basedir}/src/main/resources 项目的资源文件所在的目录，例如：propert文件 ${basedir}/src/test/java 测试代码所在的目录，例如：JUnit 代码 ${basedir}/src/test/resources 测试相关的资源文件所在的目录 ${basedir}/src/main/webapp/WEB-INF web 应用文件目录，web 项目的信息，比如存放 web.xml、本地图片、jsp 视图页面 ${basedir}/target 打包输出目录 ${basedir}/target/classes 编译输出目录 ${basedir}/target/test-classes 测试编译输出目录 IDEA创建Maven项目 可参考：https://blog.csdn.net/hgnuxc_1993/article/details/125427590
-注意点：
-需要进入设置，编辑maven配置为自己下载的maven路径 修改自己的/conf/setting.xml文件，将maven源改为阿里云，不然后面下载依赖会慢
-可参考 https://zhuanlan.zhihu.com/p/434179938 解决下一次打开IDEA，之前设置的maven路径参数被复原的问题（即，要设置preferences for new projects）
-可参考 https://blog.csdn.net/m0_49286452/article/details/124729379 创建maven项目
-点击创建后，需要一定时间的构建。构建结束（BUILD SUCCESS），查看目录是否正常
-相比标准目录结构，自动创建后缺少的/main/resources和/test/resources就自己手动创建吧。</description>
+      <description>Maven之二：创建Maven项目学习网站：http://mvnbook.com/index.html Maven项目创建约定标准目录结构 目录</description>
     </item>
     
     <item>
@@ -114,18 +67,7 @@ Maven项目创建 约定标准目录结构 目录 作用 ${basedir} 存放 pom.x
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
-      <description>认识Jar包 概念 Jar：Java Archive File
-基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是在生成 JAR 文件的时候自动创建的。
-特点：
-平台无关 加快下载速度 安全：可对jar文件数字签名 分类：
-可执行jar包（MANIFEST.MF文件里有主类入口配置：Main-Class: com.example.MyClass） 不可执行jar包 生成Jar包 利用IDE打包 这部分后面再说
-命令行手动打包 1、打包单个java文件
-# 编译生成 Hello.class 文件 javac Hello.java # 打包 jar -cvf hello.jar Hello.class /* 参数解释： -c 创建一个新的jar包 -v 创建的过程中在控制台输出创建过程的一些信息 -f 生成的jar包命名 */ /*打包完成的jar包里包含： */ 2、打包目录内的多个java文件
-需要需要注意的是，以上命令行步骤打的jar包还不是可执行jar包。直接java -jar Hello.jar会报错。需要添加Main-Class属性：
-TODO
-执行 执行目标应是可执行jar包。除了直接双击执行，还可以采用命令行执行：
-java -jar xxx.jar 参考链接 https://blog.csdn.net/shiboyuan0410/article/details/85043741
-https://blog.csdn.net/weixin_33835459/article/details/114070826</description>
+      <description>认识Jar包概念Jar：Java Archive File 基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是</description>
     </item>
     
     <item>
@@ -134,23 +76,7 @@ https://blog.csdn.net/weixin_33835459/article/details/114070826</description>
       <pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</guid>
-      <description>文档注释 本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
-定义 Java普通注释格式
-// 或 /* */ Java文档注释格式
-/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
-文档注释目标 https://blog.csdn.net/weixin_39190897/article/details/81880411#/
-（1）类注释。类注释用于说明整个类的功能、特性等，它应该放在所有的“import”语句之后，在class定义之前。这个规则也适用于接口（interface）注释。 （2）方法注释。方法注释用来说明方法的定义，比如，方法的参数、返回值及说明方法的作用等。方法注释应该放在它所描述的方法定义前面。 （3）属性注释。默认情况下，javadoc只对公有（public）属性和受保护属性（protected）产生文档——通常是静态常量。 （4）包注释。类、方法、属性的注释都直接放到Java的源文件中，而对于包的注释，无法放到Java文件中去，只能通过在包对应的目录中添加一个package.html的文件来达到这个目的。当生成HTML文件时，package.html文件的和部分的内容将会被提取出来当做包的说明。关于包注释，后面还会有更进一步的解释。 （5）概要注释。除了包注释外，还有一种类型的文档无法从Java源文件中提取，就是对所有类文件提供概要说明的文件。同样的，也可以为这类注释单独新建一个HTML文件，这个文件的名字为“overview.html”，它的和标记之间的内容都会被提取。 文档注释格式 概要描述：一段话简要描述基本内容 详细描述：几大段描述 功能 和 相关情况 文档标注：参数、作者、返回值等 注释标签释义 可参考 https://www.runoob.com/java/java-documentation.html#/ 等
-常见的例如：
-@author 作者 @param 输入参数 @return 返回参数 @exception 异常 @throws 同exception @deprecated 指明一个过期的类或成员（不推荐使用的方法） @version 版本 javadoc 工具 参考 https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/
-命令行
-在要生成javadoc的.java的文件夹中，cmd输入命令javadoc -encoding UTF-8 -charset UTF-8 *.java
-其中-encoding和-charset分别是编码格式和字符集格式。javadoc命令参数解释，可参考见 https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/
-IDE中生成
-生成的 index.html 文件，就是我们想要的
-多说两句 一般IDE都有提供可以自定义文档注释模板的地方，可以定义适合自己的格式，一劳永逸
-有需要的话，可以自己定义文档注释标签
-注释侧重WHY，而不是HOW
-注释要优雅 https://zhuanlan.zhihu.com/p/41127713#/ ，例如下面的文档注释：</description>
+      <description>文档注释 本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。 定义Java普通注释格</description>
     </item>
     
     <item>
@@ -159,15 +85,7 @@ IDE中生成
       <pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</guid>
-      <description>异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。 错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。 异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
-常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
-或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：
-异常类	说明 ClassCastException	类型转换异常 ArrayIndexOutOfBoundsException	数组越界异常 NegativeArraySizeException	指定数组维数为负值异常 ArithmeticException	算数异常 InternalException	Java系统内部异常 NullPointerException	空指针异常 IllegalAccessException	类定义不明确所产生的异常 IOException	一般情况下不能完成I/O操作产生的异常 EOFException	打开文件没有数据可以读取的异常 FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常 ClassNotFoundException	找不到类或接口所产生的异常 CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常
-异常处理 方法1：捕获处理 try+catch(+finally)
-try { xxx; //程序 } catch (ExceptionName e) { xxx; //捕获异常时的处理 } finally { xxx; //最终执行的代码块 } 若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用Exception e。
-finally不是必须的，包含无论是否发生异常都会被执行到的代码块（一般包含清理类型等收尾善后性质的语句）。
-有4种特殊情况，finally块不会被执行：
-finally语句块中发生了异常 前面的代码中执行了System.exit()退出程序 程序中所在的线程死亡 关闭CPU 需要注意的是，就算try块中有return，也会先执行完finally再return。</description>
+      <description>异常的处理分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引</description>
     </item>
     
   </channel>

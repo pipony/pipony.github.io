@@ -1,422 +1,1034 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>Posts - </title>
+    
+  <title>Posts | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="To be the person you want to be.">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="" />
-  <meta name="author" content="Cindy.H" />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content="To be the person you want to be."/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-  <link
-    rel="alternate"
-    type="application/rss&#43;xml"
-    href="http://pipony.github.io/post/index.xml"
-    title=""
-  />
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="Posts" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="To be the person you want to be." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://pipony.github.io/post/" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="Posts">
-<meta itemprop="description" content="">
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content=""/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
 
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
+
+  <link rel="alternate" type="application/rss+xml" href="/post/index.xml" title="2MUCH" />
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
+
+
+<header class="intro-header style-text">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
-      ></a>
-      
-    </nav>
-    
+        <div class="site-heading">
+        
+          <h1>Posts</h1>
+          
+          
+          <span class="subheading"></span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
+  
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">Java基础之IO流</h2>
-  <time class="text-sm opacity-60"
-    >Jan 11, 2023</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">认识编码</h2>
-  <time class="text-sm opacity-60"
-    >Dec 19, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">Linux-文本处理三剑客</h2>
-  <time class="text-sm opacity-60"
-    >Dec 7, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">Mysql修改root密码</h2>
-  <time class="text-sm opacity-60"
-    >Dec 4, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">oracle-&gt;mysql数据迁移数据事项</h2>
-  <time class="text-sm opacity-60"
-    >Dec 4, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">Mysql导入导出</h2>
-  <time class="text-sm opacity-60"
-    >Nov 27, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">Linux-磁盘管理</h2>
-  <time class="text-sm opacity-60"
-    >Nov 22, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">编译期常量</h2>
-  <time class="text-sm opacity-60"
-    >Nov 22, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">数据库分页查询</h2>
-  <time class="text-sm opacity-60"
-    >Nov 21, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/"></a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  <h2 class="!my-0 pb-1 !leading-none">数据库日志基础</h2>
-  <time class="text-sm opacity-60"
-    >Nov 21, 2022</time
-  >
-  <a class="absolute inset-0" href="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/"></a>
-</section>
-
-
-
-
-<nav class="mt-24 flex">
-  
-  
-  <a class="btn ml-auto" href="/post/page/2/"
-    >Next Page →</a
-  >
-  
-</nav>
-
-
-
-    </main>
-
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+      <div class="mini-post-list">
+        
+
+        <section class="">
+          <span class="fa listing-seperator">
+            <span class="tag-text">2023</span></span>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/">
+      <h2 class="post-title">Java基础之IO流</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+        </section>
+        
+
+        <section class="">
+          <span class="fa listing-seperator">
+            <span class="tag-text">2022</span></span>
+            
+            <div class="post-preview item" data-tags="%E5%85%B6%E4%BB%96">
+  <a href="/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/">
+      <h2 class="post-title">认识编码</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/">
+      <h2 class="post-title">Linux-文本处理三剑客</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+      <h2 class="post-title">oracle-&gt;mysql数据迁移数据事项</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+      <h2 class="post-title">Mysql修改root密码</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+      <h2 class="post-title">Mysql导入导出</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/">
+      <h2 class="post-title">编译期常量</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+      <h2 class="post-title">Linux-磁盘管理</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">数据库日志基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">
+      <h2 class="post-title">数据库分页查询</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/">
+      <h2 class="post-title">分区表</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/">
+      <h2 class="post-title">Linux-磁盘扩容</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95">
+  <a href="/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+      <h2 class="post-title">BenchmarkSQL性能测试</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/">
+      <h2 class="post-title">Java基础之Calendar日历类</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="miniapp">
+  <a href="/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/">
+      <h2 class="post-title">小程序之二：HelloWorld</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="miniapp">
+  <a href="/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/">
+      <h2 class="post-title">小程序之三：官方开发文档学习（指南篇）</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="maven">
+  <a href="/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/">
+      <h2 class="post-title">Maven之三：坐标、依赖范围、依赖冲突</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/">
+      <h2 class="post-title">Linux-防火墙firewall</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/">
+      <h2 class="post-title">Linux-系统信息查看命令</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="maven">
+  <a href="/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/">
+      <h2 class="post-title">Maven之二：创建Maven项目</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="maven">
+  <a href="/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">Maven之一：基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="miniapp">
+  <a href="/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/">
+      <h2 class="post-title">小程序之一：开始</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">
+      <h2 class="post-title">数据库测试扫盲篇</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E5%85%B6%E4%BB%96">
+  <a href="/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+      <h2 class="post-title">win10常用快捷键</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/">
+      <h2 class="post-title">认识Jar包</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">
+      <h2 class="post-title">Oracle-实现事务提交和回滚</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/">
+      <h2 class="post-title">Linux-安装Oracle</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+      <h2 class="post-title">Redis-Redis6新数据类型</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-jedis/">
+      <h2 class="post-title">Redis-Jedis</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/">
+      <h2 class="post-title">Linux-管道篇</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+      <h2 class="post-title">Redis-配置文件</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+      <h2 class="post-title">Redis-常用数据类型</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/">
+      <h2 class="post-title">Redis-发布和订阅</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">Redis-Redis基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/">
+      <h2 class="post-title">Redis开始</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="redis">
+  <a href="/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+      <h2 class="post-title">Redis-NoSQL数据库</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+      <h2 class="post-title">ORACLE-存储过程</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/">
+      <h2 class="post-title">文档注释</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="linux">
+  <a href="/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/">
+      <h2 class="post-title">Linux-top命令</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">
+      <h2 class="post-title">SQL函数篇</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/">
+      <h2 class="post-title">ORACLE-序列</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="java">
+  <a href="/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">
+      <h2 class="post-title">异常的处理</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E5%85%B6%E4%BB%96">
+  <a href="/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/">
+      <h2 class="post-title">开始Hugo&#43;Github Pages</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">
+      <h2 class="post-title">部分sql的user_io_wait_time值较大</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/%E5%BC%80%E5%A7%8B/">
+      <h2 class="post-title">软考-中级软件设计师-开始</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/16-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/">
+      <h2 class="post-title">软考-中级软件设计师-16 面向对象程序设计</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">
+      <h2 class="post-title">软考-中级软件设计师-15 数据结构及算法应用</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/">
+      <h2 class="post-title">软考-中级软件设计师-14 UML建模</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">
+      <h2 class="post-title">软考-中级软件设计师-13 数据库设计</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/">
+      <h2 class="post-title">软考-中级软件设计师-12 数据流图（DFD）</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/">
+      <h2 class="post-title">软考-中级软件设计师-11 面向对象设计</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">
+      <h2 class="post-title">软考-中级软件设计师-10 软件工程</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">软考-中级软件设计师-09 多媒体基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/">
+      <h2 class="post-title">软考-中级软件设计师-08 法律法规</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">软考-中级软件设计师-07 程序设计语言与语言处理程序基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">
+      <h2 class="post-title">软考-中级软件设计师-06 数据结构与算法基础</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">
+      <h2 class="post-title">软考-中级软件设计师-05 计算机安全</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+      <h2 class="post-title">软考-中级软件设计师-04 计算机网络</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">
+      <h2 class="post-title">软考-中级软件设计师-03 数据库系统</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+      <h2 class="post-title">软考-中级软件设计师-02 操作系统</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+      <h2 class="post-title">软考-中级软件设计师-01 计算机组成与体系结构</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88">
+  <a href="/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">
+      <h2 class="post-title">软考-中级软件设计师-00 无分类</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="%E6%95%B0%E6%8D%AE%E5%BA%93">
+  <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">
+      <h2 class="post-title">数据库无效对象</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="weekly-letter">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.01-hello-world/">
+      <h2 class="post-title">【XD的一周漫步】No.01 Hello World</h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+        </section>
+        
+
+        <section class="">
+          <span class="fa listing-seperator">
+            <span class="tag-text">0001</span></span>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/04-tool/04c-macosios/macos/%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/04-tool/04a-linktool-index/%E5%B7%A5%E5%85%B7%E8%AE%B0%E5%BD%95/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/04-tool/04a-linktool-index/ai/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E9%B8%A1%E8%9B%8B%E9%85%B1%E6%8B%8C%E9%9D%A2/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E9%A3%9F%E6%9D%90%E7%AE%80%E9%99%8B%E7%89%88%E7%82%9D%E8%82%89%E6%B1%A4/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E9%9F%AD%E9%BB%84%E7%82%92%E8%9B%8B/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E8%B1%86%E8%A7%92%E7%82%92%E7%89%9B%E8%82%89/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E8%B1%86%E8%85%90%E7%B4%AB%E8%8F%9C%E6%B1%A4/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E8%92%9C%E6%B2%B9%E6%8B%8C%E9%9D%A2/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E7%BE%8A%E8%82%89%E6%89%8B%E6%8A%93%E9%A5%AD/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E7%BE%8A%E6%8E%92%E8%90%9D%E5%8D%9C%E6%B1%A4/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E7%BA%A2%E6%A4%92%E7%82%92%E8%9B%8F%E5%AD%90/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E7%82%92%E7%8C%AA%E8%82%89/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E6%A4%B0%E5%AD%90%E9%B8%A1/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E6%98%A5%E5%8D%B7/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E6%89%8B%E6%8A%8A%E6%8E%92%E9%AA%A8/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E5%9C%9F%E8%B1%86%E8%82%A5%E7%89%9B%E6%B5%87%E5%A4%B4/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E5%8F%A3%E8%98%91%E7%B1%B3%E7%B2%89%E6%B1%A4/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/%E5%8D%A4%E9%B8%A1%E7%88%AA/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/cookbook-%E6%A8%A1%E6%9D%BF/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03e-cook/cook-book/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/03-fun/03d-poem/%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.xx-%E6%A8%A1%E6%9D%BF/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.09-%E5%B0%B1%E5%A5%BD%E5%A5%BD%E7%94%9F%E6%B4%BB%E5%90%A7/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.08-%E5%8A%A0%E5%BF%AB%E8%84%9A%E6%AD%A5%E5%B9%B4%E8%BD%BB%E4%BA%BA/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.07-null/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.06-%E5%A5%BD%E4%B9%85%E4%B8%8D%E8%A7%81/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.05-%E5%8E%8B%E5%80%92%E7%A8%BB%E8%8D%89%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E5%8C%B9%E9%AA%86%E9%A9%BC/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.04-%E4%B8%80%E7%9B%B4%E5%9C%A8%E8%B7%AF%E4%B8%8A/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.03-%E7%9C%BC%E7%9C%8B%E4%B8%96%E7%95%8C%E5%8F%98%E5%BE%97%E8%B6%8A%E6%9D%A5%E8%B6%8A%E7%B3%9F/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/02-life/02a-weekly-letter/xd%E7%9A%84%E4%B8%80%E5%91%A8%E6%BC%AB%E6%AD%A5no.02-%E4%B8%80%E7%99%BE%E4%B8%AA%E7%BF%BB%E6%9D%A5%E8%A6%86%E5%8E%BB%E7%9A%84%E5%A4%9C%E6%8A%B5%E4%B8%8D%E8%BF%87%E8%87%82%E5%BC%AF%E7%9A%84%E6%B8%A9%E6%9A%96/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+            <div class="post-preview item" data-tags="">
+  <a href="/post/workspace/01-tech/software-designer/%E8%BD%AF%E8%80%83%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-%E7%AC%94%E8%AE%B0%E5%AE%8C%E6%95%B4%E7%89%88/">
+      <h2 class="post-title"></h2>
+      <h3 class="post-subtitle"></h3>
+  </a>
+<hr>
+</div>
+            
+        </section>
+        
+      </div>
+
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
+</div>
+
+
+
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
+  </div>
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

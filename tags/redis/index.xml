@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Redis on </title>
+    <title>Redis on 2MUCH</title>
     <link>http://pipony.github.io/tags/redis/</link>
-    <description>Recent content in Redis on </description>
+    <description>Recent content in Redis on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 31 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redis-Jedis</title>
@@ -13,8 +13,7 @@
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-jedis/</guid>
-      <description>Redis-Jedis 概念 通过Java来操作Redis的一个客户端。
-接下来的内容等我学完spring之类的再来吧</description>
+      <description>Redis-Jedis概念通过Java来操作Redis的一个客户端。 接下来的内容等我学完spring之类的再来吧</description>
     </item>
     
     <item>
@@ -23,8 +22,7 @@
       <pubDate>Sun, 31 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
-[commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.0.0.1:6379&amp;gt; setbit online1 0 1 (integer) 0 127.0.0.1:6379&amp;gt; setbit online1 1 1 (integer) 0 127.0.0.1:6379&amp;gt; getbit online1 0 (integer) 1 127.0.0.1:6379&amp;gt; bitcount online1 # 没有指定前后，就是求所有的1的个数 (integer) 2 127.0.0.1:6379&amp;gt; setbit online1 15 1 (integer) 0 127.0.0.1:6379&amp;gt; setbit online1 16 1 (integer) 0 127.</description>
+      <description>Redis-Redis6新数据类型Bitmaps本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称</description>
     </item>
     
     <item>
@@ -33,14 +31,7 @@
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/</guid>
-      <description>Redis-发布和订阅 概念 Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(channel)、订阅者。
-发布方往channel发布消息，若订阅方有订阅这个channel，则可以接收到这个消息。
-一个订阅方可以订阅多个channel。
-简单实践 打开redis客户端，订阅一个channel
-127.0.0.1:6379&amp;gt; subscribe channel1 Reading messages... (press Ctrl-C to quit) 1) &amp;#34;subscribe&amp;#34; 2) &amp;#34;channel1&amp;#34; 3) (integer) 1 表示正在订阅状态
-再打开一个redis客户端（在另一个会话中），发布消息：
-127.0.0.1:6379&amp;gt; publish channel1 helloworld (integer) 1 # 返回的是当前订阅者的数量 此时就能看到订阅方接收到了这条消息：
-127.0.0.1:6379&amp;gt; subscribe channel1 Reading messages... (press Ctrl-C to quit) 1) &amp;#34;subscribe&amp;#34; 2) &amp;#34;channel1&amp;#34; 3) (integer) 1 1) &amp;#34;message&amp;#34; 2) &amp;#34;channel1&amp;#34; 3) &amp;#34;helloworld&amp;#34; </description>
+      <description>Redis-发布和订阅概念Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(chan</description>
     </item>
     
     <item>
@@ -49,8 +40,7 @@
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</guid>
-      <description>Redis-常用数据类型 查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
-key类型 [commands] # 这些命令的含义很容易看出，故直接看例子吧 - keys * - set key value - exists key - type key - del key - unlink key - expire key time(second) - ttl key - dbsize [cindy@iZbp15qc4wmx335c268l5mZ ~]$ redis-cli 127.0.0.1:6379&amp;gt; keys * # 列出当前数据库的所有key (empty array) 127.0.0.1:6379&amp;gt; set k1 cindy # 设置key为&amp;#34;k1&amp;#34;的值为&amp;#34;cindy&amp;#34; OK 127.0.0.1:6379&amp;gt; set k2 coco OK 127.0.0.1:6379&amp;gt; set k3 alice OK 127.0.0.1:6379&amp;gt; keys * 1) &amp;#34;k3&amp;#34; 2) &amp;#34;k1&amp;#34; 3) &amp;#34;k2&amp;#34; 127.</description>
+      <description>Redis-常用数据类型查看redis常见数据类型操作命令： http://www.redis.cn/commands.html key类型 1[commands] # 这些命令的含义很容易看出，故直接看例子吧 2 - keys * 3 - set key value 4 - exists</description>
     </item>
     
     <item>
@@ -59,11 +49,7 @@ key类型 [commands] # 这些命令的含义很容易看出，故直接看例子
       <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
-      <description>Redis-配置文件 路径：原先位于/opt/redis-6.2.1/redis.conf，后面我们是copy一份到etc/redis.conf作为redis后台启动的配置文件。
-配置文件中每条配置都给了充足的注释或例子。
-以下按照课程介绍配置文件中一些常用的点：
-单位 配置大小单位，开头定义了一些基本的度量单位。只支持bytes，不支持bit。大小写不敏感
-# Note on units: when memory size is needed, it is possible to specify # it in the usual form of 1k 5GB 4M and so forth: # # 1k =&amp;gt; 1000 bytes # 1kb =&amp;gt; 1024 bytes # 1m =&amp;gt; 1000000 bytes # 1mb =&amp;gt; 1024*1024 bytes # 1g =&amp;gt; 1000000000 bytes # 1gb =&amp;gt; 1024*1024*1024 bytes # # units are case insensitive so 1GB 1Gb 1gB are all the same.</description>
+      <description>Redis-配置文件路径：原先位于/opt/redis-6.2.1/redis.conf，后面我们是copy一份到etc/redis.con</description>
     </item>
     
     <item>
@@ -72,18 +58,7 @@ key类型 [commands] # 这些命令的含义很容易看出，故直接看例子
       <pubDate>Mon, 04 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/</guid>
-      <description>Redis-Redis基础 Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件 master-slave(主从)同步 应用场景：
-配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
-多样的数据结构存储持久化数据
-Redis安装 最好在linux环境上用，所以我就直接安装在云服务器上
-前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
-下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）
-步骤：
-将redis安装包ftp到服务器的/opt
-tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好了
-安装 make install
-查看安装后的文件
-[root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin -rwxr-xr-x 1 root root 9450208 Jul 4 21:31 redis-server -rwxr-xr-x 1 root root 4833352 Jul 4 21:31 redis-benchmark -rwxr-xr-x 1 root root 5003368 Jul 4 21:31 redis-cli lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-rdb -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-aof -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-sentinel -&amp;gt; redis-server redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何</description>
+      <description>Redis-Redis基础Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把</description>
     </item>
     
     <item>
@@ -92,12 +67,7 @@ tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好�
       <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-      <description>Redis-NoSQL数据库 NoSQL数据库概述 NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
-特性：
-不遵循SQL标准 不支持ACID（SQL四特性） 远超SQL性能 适用场景：读写高并发、海量数据、高可扩展性
-不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
-注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
-常见NoSQL数据库 Memcache 不持久化（断电即数据消失） 存储只支持字符串类型 一般是作为缓存数据库辅助持久化的数据库 Redis 持久化，主要用作备份恢复 支持多种数据结构（如 list、set、hash、zset） 一般是作为缓存数据库辅助持久化的数据库 MongoDB 文档型数据库（json） 支持二进制数据及大型对象 独立的数据库，或者配合RDBMS Hbase（Hadoop项目中的数据库。它用于需要对大量的数据进行随机、实时的读写操作的场景中） Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的海量数据集(数据量通常达到PB级别)） 图关系型数据库 </description>
+      <description>Redis-NoSQL数据库NoSQL数据库概述NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式</description>
     </item>
     
     <item>
@@ -106,9 +76,7 @@ tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好�
       <pubDate>Sun, 03 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/redis/redis%E5%BC%80%E5%A7%8B/</guid>
-      <description>Redis开始 资源 【尚硅谷】Redis 6 入门到精通 超详细 教程
-https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/
-2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</description>
+      <description>Redis开始资源【尚硅谷】Redis 6 入门到精通 超详细 教程 https://www.bilibili.com/video/BV1Rv41177Af?spm_id_from=..search-card.all.click&amp;vd_source=388c468b983bcf7b800d0e7cfb9fc719#/ 2022-07-03 开始跟着这个课程入门，笔记也是配套这个课程的</description>
     </item>
     
   </channel>

@@ -1,427 +1,387 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>数据库分页查询 - </title>
+    
+  <title>数据库分页查询 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="数据库分页查询数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。 LIMIT基础用法SELECT * FROM table LIMIT [offset,]">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="数据库分页查询 数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
-LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
-参数1表示偏移量，参数2表示返回记录行的最大数目。
-需要注意：初始偏移量是0而不是1。
-举例：
-SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n） select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始） # 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为 select * from table limit (pageNum-1)*numPerPage ,numPerPage # 方法1 select * from table limit numPerPage offset (pageNum-1)*numPerPage # 方法2 优化分页查询方法 由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的offset较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据库分页查询"/>
+<meta name="twitter:description" content="数据库分页查询数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。 LIMIT基础用法SELECT * FROM table LIMIT [offset,]"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="数据库分页查询" />
-<meta property="og:description" content="数据库分页查询 数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
-LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
-参数1表示偏移量，参数2表示返回记录行的最大数目。
-需要注意：初始偏移量是0而不是1。
-举例：
-SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n） select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始） # 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为 select * from table limit (pageNum-1)*numPerPage ,numPerPage # 方法1 select * from table limit numPerPage offset (pageNum-1)*numPerPage # 方法2 优化分页查询方法 由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的offset较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。" />
+<meta property="og:description" content="数据库分页查询数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。 LIMIT基础用法SELECT * FROM table LIMIT [offset,]" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-11-21T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-11-21T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="数据库分页查询">
-<meta itemprop="description" content="数据库分页查询 数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
-LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
-参数1表示偏移量，参数2表示返回记录行的最大数目。
-需要注意：初始偏移量是0而不是1。
-举例：
-SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n） select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始） # 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为 select * from table limit (pageNum-1)*numPerPage ,numPerPage # 方法1 select * from table limit numPerPage offset (pageNum-1)*numPerPage # 方法2 优化分页查询方法 由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的offset较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。"><meta itemprop="datePublished" content="2022-11-21T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-11-21T00:00:00+00:00" />
-<meta itemprop="wordCount" content="177">
-<meta itemprop="keywords" content="数据库," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="数据库分页查询"/>
-<meta name="twitter:description" content="数据库分页查询 数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
-LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
-参数1表示偏移量，参数2表示返回记录行的最大数目。
-需要注意：初始偏移量是0而不是1。
-举例：
-SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n） select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始） # 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为 select * from table limit (pageNum-1)*numPerPage ,numPerPage # 方法1 select * from table limit numPerPage offset (pageNum-1)*numPerPage # 方法2 优化分页查询方法 由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的offset较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
+            
+          </div>
+          <h1>数据库分页查询</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Mon, Nov 21, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">数据库分页查询</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Nov 21, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="数据库分页查询">数据库分页查询</h1>
-<p>数据库分页语句使用<code>limit</code>语法来实现。除了基础的limit用法，还有一些优化的方法。</p>
-<h2 id="limit基础用法">LIMIT基础用法</h2>
-<p><code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</code></p>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="数据库分页查询">数据库分页查询<a class="anchorjs-link" href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2"></a></h1><p>数据库分页语句使用<code>limit</code>语法来实现。除了基础的limit用法，还有一些优化的方法。</p>
+<h2 id="limit基础用法">LIMIT基础用法<a class="anchorjs-link" href="#limit%e5%9f%ba%e7%a1%80%e7%94%a8%e6%b3%95"></a></h2><p><code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</code></p>
 <p>参数1表示偏移量，参数2表示返回记录行的最大数目。</p>
 <p>需要注意：<strong>初始偏移量是0而不是1。</strong></p>
 <p>举例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">10</span>; <span style="color:#75715e"># 检索记录行 6-15
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">95</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#75715e"># 检索记录行 96-last
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">5</span>; <span style="color:#75715e"># 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">4</span> offset <span style="color:#ae81ff">9</span>; <span style="color:#75715e"># 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始）
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">limit</span> (pageNum<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>numPerPage ,numPerPage  <span style="color:#75715e"># 方法1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">limit</span> numPerPage <span style="color:#a6e22e">offset</span> (pageNum<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>numPerPage  <span style="color:#75715e"># 方法2
-</span></span></span></code></pre></div><h2 id="优化分页查询方法">优化分页查询方法</h2>
-<p>由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的<code>offset</code>较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">5</span>,<span style="color:#bd93f9">10</span>; <span style="color:#6272a4"># 检索记录行 6-15
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">95</span>,<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>; <span style="color:#6272a4"># 检索记录行 96-last
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">5</span>; <span style="color:#6272a4"># 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n）
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">4</span> offset <span style="color:#bd93f9">9</span>; <span style="color:#6272a4"># 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始）
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4"></span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#6272a4"># 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">limit</span> (pageNum<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">*</span>numPerPage ,numPerPage  <span style="color:#6272a4"># 方法1
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> <span style="color:#ff79c6">table</span> <span style="color:#ff79c6">limit</span> numPerPage <span style="color:#50fa7b">offset</span> (pageNum<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>)<span style="color:#ff79c6">*</span>numPerPage  <span style="color:#6272a4"># 方法2
+</span></span></span></code></pre></div><h2 id="优化分页查询方法">优化分页查询方法<a class="anchorjs-link" href="#%e4%bc%98%e5%8c%96%e5%88%86%e9%a1%b5%e6%9f%a5%e8%af%a2%e6%96%b9%e6%b3%95"></a></h2><p>由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的<code>offset</code>较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。</p>
 <p>参考：</p>
-<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
-<p><a href="https://segmentfault.com/a/1190000008859706">https://segmentfault.com/a/1190000008859706</a></p>
-<h3 id="使用子查询优化">使用子查询优化</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> articles <span style="color:#66d9ef">WHERE</span>  id <span style="color:#f92672">&gt;=</span>  
-</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">SELECT</span> id <span style="color:#66d9ef">FROM</span> articles  <span style="color:#66d9ef">WHERE</span> category_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10000</span>, <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> news <span style="color:#66d9ef">WHERE</span> id <span style="color:#66d9ef">IN</span> (<span style="color:#66d9ef">SELECT</span> id <span style="color:#66d9ef">FROM</span> news <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">limit</span> (page <span style="color:#f92672">*</span> (per_page <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)), per_page);
+<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html" target="_blank">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000008859706" target="_blank">https://segmentfault.com/a/1190000008859706</a></p>
+<h3 id="使用子查询优化">使用子查询优化<a class="anchorjs-link" href="#%e4%bd%bf%e7%94%a8%e5%ad%90%e6%9f%a5%e8%af%a2%e4%bc%98%e5%8c%96"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> articles <span style="color:#ff79c6">WHERE</span>  id <span style="color:#ff79c6">&gt;=</span>  
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>(<span style="color:#ff79c6">SELECT</span> id <span style="color:#ff79c6">FROM</span> articles  <span style="color:#ff79c6">WHERE</span> category_id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">123</span> <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> id <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">10000</span>, <span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">LIMIT</span> <span style="color:#bd93f9">10</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> news <span style="color:#ff79c6">WHERE</span> id <span style="color:#ff79c6">IN</span> (<span style="color:#ff79c6">SELECT</span> id <span style="color:#ff79c6">FROM</span> news <span style="color:#ff79c6">ORDER</span> <span style="color:#ff79c6">BY</span> id <span style="color:#ff79c6">limit</span> (page <span style="color:#ff79c6">*</span> (per_page <span style="color:#ff79c6">-</span> <span style="color:#bd93f9">1</span>)), per_page);
 </span></span></code></pre></div><p>即，使用<code>id</code>来直接定位。但不知道具体id是多少，所以需要用子查询来先获取。</p>
-<h3 id="使用-id-限定优化">使用 id 限定优化</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> orders_history <span style="color:#66d9ef">where</span> type<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">and</span> id <span style="color:#66d9ef">between</span> <span style="color:#ae81ff">1000000</span> <span style="color:#66d9ef">and</span> <span style="color:#ae81ff">1000100</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> orders_history <span style="color:#66d9ef">where</span> id <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1000001</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">100</span>;
+<h3 id="使用-id-限定优化">使用 id 限定优化<a class="anchorjs-link" href="#%e4%bd%bf%e7%94%a8-id-%e9%99%90%e5%ae%9a%e4%bc%98%e5%8c%96"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> orders_history <span style="color:#ff79c6">where</span> type<span style="color:#ff79c6">=</span><span style="color:#bd93f9">2</span> <span style="color:#ff79c6">and</span> id <span style="color:#ff79c6">between</span> <span style="color:#bd93f9">1000000</span> <span style="color:#ff79c6">and</span> <span style="color:#bd93f9">1000100</span> <span style="color:#ff79c6">limit</span> <span style="color:#bd93f9">100</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> orders_history <span style="color:#ff79c6">where</span> id <span style="color:#ff79c6">&gt;=</span> <span style="color:#bd93f9">1000001</span> <span style="color:#ff79c6">limit</span> <span style="color:#bd93f9">100</span>;
 </span></span></code></pre></div><p>前提是知道具体id是多少：这种方式假设数据表的id是连续递增的，则我们<strong>根据查询的页数和查询的记录数可以算出查询的id的范围。</strong></p>
-<h3 id="优化总结">优化总结</h3>
-<p>为了保证index索引列连续，可以为每个表加一个自增字段（作为<code>id</code>），并且加上索引。</p>
+<h3 id="优化总结">优化总结<a class="anchorjs-link" href="#%e4%bc%98%e5%8c%96%e6%80%bb%e7%bb%93"></a></h3><p>为了保证index索引列连续，可以为每个表加一个自增字段（作为<code>id</code>），并且加上索引。</p>
 <p>需要提醒的是，所有的分页查询条件都必须建立索引，并且不能有 <code>TEXT</code> 字段。MySQL 的索引字段中，<code>VARCHAR(32)</code> 我都觉得很大了， <code>TEXT</code> 字段简直是不能容忍的，不怕死的可以自己试试。 （https://www.mywaiting.com/weblogs/pagination-with-mysql/）</p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.cnblogs.com/duhuo/p/4245209.html">https://www.cnblogs.com/duhuo/p/4245209.html</a></p>
-<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
-<p><a href="https://segmentfault.com/a/1190000008859706">https://segmentfault.com/a/1190000008859706</a></p>
-<p><a href="https://www.mywaiting.com/weblogs/pagination-with-mysql/">https://www.mywaiting.com/weblogs/pagination-with-mysql/</a></p>
+<h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://www.cnblogs.com/duhuo/p/4245209.html" target="_blank">https://www.cnblogs.com/duhuo/p/4245209.html</a></p>
+<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html" target="_blank">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000008859706" target="_blank">https://segmentfault.com/a/1190000008859706</a></p>
+<p><a href="https://www.mywaiting.com/weblogs/pagination-with-mysql/" target="_blank">https://www.mywaiting.com/weblogs/pagination-with-mysql/</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/" data-toggle="tooltip" data-placement="top" title="数据库日志基础">
+              Previous<br>
+              <span>数据库日志基础</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/" data-toggle="tooltip" data-placement="top" title="编译期常量">
+              Next<br>
+              <span>编译期常量</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"
-      >数据库</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/"
-      ><span class="mr-1.5">←</span><span>编译期常量</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/"
-      ><span>数据库日志基础</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

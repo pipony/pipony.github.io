@@ -1,341 +1,222 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>ORACLE-序列 - </title>
+    
+  <title>ORACLE-序列 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="ORACLE-序列 背景：了解NEXTVAL的概念 ORACLE序列概念是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="ORACLE-序列 背景：了解NEXTVAL的概念
-ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
-sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）
-创建方式 CREATE SEQUENCE sequence //创建序列名称 [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1 [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue [{MAXVALUE n | NOMAXVALUE}] //最大值 [{MINVALUE n | NOMINVALUE}] //最小值 [{CYCLE | NOCYCLE}] //循环/不循环 [{CACHE n | NOCACHE}];//分配并存入到内存中 CURRVAL CURRVAL 中存放序列的当前值
-SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual - 获取当前的sequence的值
-CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值
-NEXTVAL NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用
-select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经过查询每次也会自增
-注意：
-第一次访问序列时，需要先引用 sequence.NEXTVAL获取初始值。第一次在没有访问NEXTVAL前，是没有CURRVAL的。 后面每次引用 NEXTVAL，用已定义的 step 添加序列值并返回序列新的添加以后的值。 一个sql语句中只能生成一次nextval，就算调用多次，获取的也只有一个nextval nextval添加完的序列值不能取消，也就是说就算后面回滚当前事务，也不会还原。故：某些序列数可能被跳过 假设 sequence." />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ORACLE-序列"/>
+<meta name="twitter:description" content="ORACLE-序列 背景：了解NEXTVAL的概念 ORACLE序列概念是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="ORACLE-序列" />
-<meta property="og:description" content="ORACLE-序列 背景：了解NEXTVAL的概念
-ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
-sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）
-创建方式 CREATE SEQUENCE sequence //创建序列名称 [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1 [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue [{MAXVALUE n | NOMAXVALUE}] //最大值 [{MINVALUE n | NOMINVALUE}] //最小值 [{CYCLE | NOCYCLE}] //循环/不循环 [{CACHE n | NOCACHE}];//分配并存入到内存中 CURRVAL CURRVAL 中存放序列的当前值
-SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual - 获取当前的sequence的值
-CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值
-NEXTVAL NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用
-select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经过查询每次也会自增
-注意：
-第一次访问序列时，需要先引用 sequence.NEXTVAL获取初始值。第一次在没有访问NEXTVAL前，是没有CURRVAL的。 后面每次引用 NEXTVAL，用已定义的 step 添加序列值并返回序列新的添加以后的值。 一个sql语句中只能生成一次nextval，就算调用多次，获取的也只有一个nextval nextval添加完的序列值不能取消，也就是说就算后面回滚当前事务，也不会还原。故：某些序列数可能被跳过 假设 sequence." />
+<meta property="og:description" content="ORACLE-序列 背景：了解NEXTVAL的概念 ORACLE序列概念是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-06-13T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-06-13T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="ORACLE-序列">
-<meta itemprop="description" content="ORACLE-序列 背景：了解NEXTVAL的概念
-ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
-sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）
-创建方式 CREATE SEQUENCE sequence //创建序列名称 [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1 [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue [{MAXVALUE n | NOMAXVALUE}] //最大值 [{MINVALUE n | NOMINVALUE}] //最小值 [{CYCLE | NOCYCLE}] //循环/不循环 [{CACHE n | NOCACHE}];//分配并存入到内存中 CURRVAL CURRVAL 中存放序列的当前值
-SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual - 获取当前的sequence的值
-CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值
-NEXTVAL NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用
-select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经过查询每次也会自增
-注意：
-第一次访问序列时，需要先引用 sequence.NEXTVAL获取初始值。第一次在没有访问NEXTVAL前，是没有CURRVAL的。 后面每次引用 NEXTVAL，用已定义的 step 添加序列值并返回序列新的添加以后的值。 一个sql语句中只能生成一次nextval，就算调用多次，获取的也只有一个nextval nextval添加完的序列值不能取消，也就是说就算后面回滚当前事务，也不会还原。故：某些序列数可能被跳过 假设 sequence."><meta itemprop="datePublished" content="2022-06-13T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-06-13T00:00:00+00:00" />
-<meta itemprop="wordCount" content="95">
-<meta itemprop="keywords" content="数据库," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ORACLE-序列"/>
-<meta name="twitter:description" content="ORACLE-序列 背景：了解NEXTVAL的概念
-ORACLE序列 概念 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
-sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）
-创建方式 CREATE SEQUENCE sequence //创建序列名称 [INCREMENT BY n] //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1 [START WITH n] //开始的值,递增默认是minvalue 递减是maxvalue [{MAXVALUE n | NOMAXVALUE}] //最大值 [{MINVALUE n | NOMINVALUE}] //最小值 [{CYCLE | NOCYCLE}] //循环/不循环 [{CACHE n | NOCACHE}];//分配并存入到内存中 CURRVAL CURRVAL 中存放序列的当前值
-SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual - 获取当前的sequence的值
-CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值
-NEXTVAL NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用
-select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经过查询每次也会自增
-注意：
-第一次访问序列时，需要先引用 sequence.NEXTVAL获取初始值。第一次在没有访问NEXTVAL前，是没有CURRVAL的。 后面每次引用 NEXTVAL，用已定义的 step 添加序列值并返回序列新的添加以后的值。 一个sql语句中只能生成一次nextval，就算调用多次，获取的也只有一个nextval nextval添加完的序列值不能取消，也就是说就算后面回滚当前事务，也不会还原。故：某些序列数可能被跳过 假设 sequence."/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
+            
+          </div>
+          <h1>ORACLE-序列</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Mon, Jun 13, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">ORACLE-序列</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Jun 13, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="oracle-序列">ORACLE-序列</h1>
-<blockquote>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="oracle-序列">ORACLE-序列<a class="anchorjs-link" href="#oracle-%e5%ba%8f%e5%88%97"></a></h1><blockquote>
 <p>背景：了解NEXTVAL的概念</p>
 </blockquote>
-<h2 id="oracle序列">ORACLE序列</h2>
-<h3 id="概念">概念</h3>
-<p>是oacle提供的用于产生一系列唯一数字的数据库对象。<strong>主要用于提供主键值</strong>。</p>
+<h2 id="oracle序列">ORACLE序列<a class="anchorjs-link" href="#oracle%e5%ba%8f%e5%88%97"></a></h2><h3 id="概念">概念<a class="anchorjs-link" href="#%e6%a6%82%e5%bf%b5"></a></h3><p>是oacle提供的用于产生一系列唯一数字的数据库对象。<strong>主要用于提供主键值</strong>。</p>
 <p>sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）</p>
-<h3 id="创建方式">创建方式</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> SEQUENCE sequence  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">创建序列名称</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#66d9ef">INCREMENT</span> <span style="color:#66d9ef">BY</span> n]  <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">递增的序列值是</span>n <span style="color:#960050;background-color:#1e0010">如果</span>n是正数就递增,<span style="color:#960050;background-color:#1e0010">如果是负数就递减</span> <span style="color:#960050;background-color:#1e0010">默认是</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#66d9ef">START</span> <span style="color:#66d9ef">WITH</span> n]    <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">开始的值</span>,<span style="color:#960050;background-color:#1e0010">递增默认是</span><span style="color:#66d9ef">minvalue</span> <span style="color:#960050;background-color:#1e0010">递减是</span><span style="color:#66d9ef">maxvalue</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">MAXVALUE</span> n <span style="color:#f92672">|</span> NOMAXVALUE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">最大值</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">MINVALUE</span> n <span style="color:#f92672">|</span> NOMINVALUE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">最小值</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">CYCLE</span> <span style="color:#f92672">|</span> NOCYCLE<span style="color:#960050;background-color:#1e0010">}</span>] <span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">循环</span><span style="color:#f92672">/</span><span style="color:#960050;background-color:#1e0010">不循环</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>       [<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">CACHE</span> n <span style="color:#f92672">|</span> NOCACHE<span style="color:#960050;background-color:#1e0010">}</span>];<span style="color:#f92672">//</span><span style="color:#960050;background-color:#1e0010">分配并存入到内存中</span>
-</span></span></code></pre></div><h3 id="currval">CURRVAL</h3>
-<p>CURRVAL 中存放序列的当前值</p>
+<h3 id="创建方式">创建方式<a class="anchorjs-link" href="#%e5%88%9b%e5%bb%ba%e6%96%b9%e5%bc%8f"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">CREATE</span> SEQUENCE sequence  <span style="color:#ff79c6">//</span>创建序列名称
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>       [<span style="color:#ff79c6">INCREMENT</span> <span style="color:#ff79c6">BY</span> n]  <span style="color:#ff79c6">//</span>递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是<span style="color:#bd93f9">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>       [<span style="color:#ff79c6">START</span> <span style="color:#ff79c6">WITH</span> n]    <span style="color:#ff79c6">//</span>开始的值,递增默认是<span style="color:#ff79c6">minvalue</span> 递减是<span style="color:#ff79c6">maxvalue</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>       [{<span style="color:#ff79c6">MAXVALUE</span> n <span style="color:#ff79c6">|</span> NOMAXVALUE}] <span style="color:#ff79c6">//</span>最大值
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>       [{<span style="color:#ff79c6">MINVALUE</span> n <span style="color:#ff79c6">|</span> NOMINVALUE}] <span style="color:#ff79c6">//</span>最小值
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>       [{<span style="color:#ff79c6">CYCLE</span> <span style="color:#ff79c6">|</span> NOCYCLE}] <span style="color:#ff79c6">//</span>循环<span style="color:#ff79c6">/</span>不循环
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>       [{<span style="color:#ff79c6">CACHE</span> n <span style="color:#ff79c6">|</span> NOCACHE}];<span style="color:#ff79c6">//</span>分配并存入到内存中
+</span></span></code></pre></div><h3 id="currval">CURRVAL<a class="anchorjs-link" href="#currval"></a></h3><p>CURRVAL 中存放序列的当前值</p>
 <p><code>SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual</code> - 获取当前的sequence的值</p>
 <p>CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值</p>
-<h3 id="nextval">NEXTVAL</h3>
-<p>NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用</p>
+<h3 id="nextval">NEXTVAL<a class="anchorjs-link" href="#nextval"></a></h3><p>NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用</p>
 <p><code>select SEQ_TABLESPACETEST_con.nextval from dual</code> - 获取下一个值，<strong>序列经过查询每次也会自增</strong></p>
 <p>注意：</p>
 <ul>
@@ -346,102 +227,165 @@ select SEQ_TABLESPACETEST_con.nextval from dual - 获取下一个值，序列经
 <li>假设 sequence.CURRVAL 和 sequence.NEXTVAL 都出如今一个 SQL 语句中，则序列仅仅添加一次。在这样的情况下。每一个 sequence.CURRVAL 和 sequence.NEXTVAL 表达式都返回同样的值，无论在语句中sequence.CURRVAL 和 sequence.NEXTVAL 的顺序。</li>
 </ul>
 <p><strong>注意：要对序列使用 NEXTVAL 或 CURRVAL。必须对序列具有选择特权或对数据库具有 DBA 特权。</strong></p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://blog.csdn.net/java958199586/article/details/7360152">https://blog.csdn.net/java958199586/article/details/7360152</a></p>
-<p><a href="https://www.itxm.cn/post/35733.html#/">https://www.itxm.cn/post/35733.html#/</a></p>
+<h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://blog.csdn.net/java958199586/article/details/7360152" target="_blank">https://blog.csdn.net/java958199586/article/details/7360152</a></p>
+<p><a href="https://www.itxm.cn/post/35733.html#/" target="_blank">https://www.itxm.cn/post/35733.html#/</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/" data-toggle="tooltip" data-placement="top" title="SQL函数篇">
+              Previous<br>
+              <span>SQL函数篇</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/" data-toggle="tooltip" data-placement="top" title="Linux-top命令">
+              Next<br>
+              <span>Linux-top命令</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"
-      >数据库</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/linux/linux-top%E5%91%BD%E4%BB%A4/"
-      ><span class="mr-1.5">←</span><span>Linux-top命令</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/"
-      ><span>SQL函数篇</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

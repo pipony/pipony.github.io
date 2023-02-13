@@ -1,342 +1,227 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>Java基础之Calendar日历类 - </title>
+    
+  <title>Java基础之Calendar日历类 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
-定义方法 Calendar类是一个抽象类，不可以被实例化。
-因此，需要使用静态方法getInstance()来得到一个Calendar对象
-Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方法1 可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如Calendar.YEAR用于表示年份。
-Calendar calendar = Calendar.getInstance(); int year = calendar.get(Calendar.YEAR); int month = calendar.get(Calendar.MONTH); int day = calendar.get(Calendar.DATE); // DATE表示日 int hour = calendar.get(Calendar.HOUR); int minute = calendar.get(Calendar.MINUTE); int second = calendar.get(Calendar.SECOND); System.out.println(year&#43;&#34;年&#34;&#43;(month&#43;1)&#43;&#34;月&#34;&#43;day&#43;&#34;日&#34;&#43;hour&#43;&#34;时&#34;&#43;minute&#43;&#34;分&#34;&#43;second&#43;&#34;秒&#34;); /****执行结果******/ 2022年10月25日7时4分37秒 需要特别注意：
-在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。
-方法2 使用Calendar的getTime()方法，getTime()方法会返回一个表示Calendar时间值的Date对象
-Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime()); /******执行结果*******/ Tue Oct 25 07:10:22 CST 2022 设置方法 使用set字段进行设置，有以下三种格式：
-方法声明 功能描述 void set(int field,int value) 为指定日历字段设置指定值 void set(int year,int month,int date) 设置Calendar对象的年、月、日三个字段的值 void set(int year." />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java基础之Calendar日历类"/>
+<meta name="twitter:description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="Java基础之Calendar日历类" />
-<meta property="og:description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
-定义方法 Calendar类是一个抽象类，不可以被实例化。
-因此，需要使用静态方法getInstance()来得到一个Calendar对象
-Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方法1 可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如Calendar.YEAR用于表示年份。
-Calendar calendar = Calendar.getInstance(); int year = calendar.get(Calendar.YEAR); int month = calendar.get(Calendar.MONTH); int day = calendar.get(Calendar.DATE); // DATE表示日 int hour = calendar.get(Calendar.HOUR); int minute = calendar.get(Calendar.MINUTE); int second = calendar.get(Calendar.SECOND); System.out.println(year&#43;&#34;年&#34;&#43;(month&#43;1)&#43;&#34;月&#34;&#43;day&#43;&#34;日&#34;&#43;hour&#43;&#34;时&#34;&#43;minute&#43;&#34;分&#34;&#43;second&#43;&#34;秒&#34;); /****执行结果******/ 2022年10月25日7时4分37秒 需要特别注意：
-在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。
-方法2 使用Calendar的getTime()方法，getTime()方法会返回一个表示Calendar时间值的Date对象
-Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime()); /******执行结果*******/ Tue Oct 25 07:10:22 CST 2022 设置方法 使用set字段进行设置，有以下三种格式：
-方法声明 功能描述 void set(int field,int value) 为指定日历字段设置指定值 void set(int year,int month,int date) 设置Calendar对象的年、月、日三个字段的值 void set(int year." />
+<meta property="og:description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-10-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-10-25T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="Java基础之Calendar日历类">
-<meta itemprop="description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
-定义方法 Calendar类是一个抽象类，不可以被实例化。
-因此，需要使用静态方法getInstance()来得到一个Calendar对象
-Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方法1 可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如Calendar.YEAR用于表示年份。
-Calendar calendar = Calendar.getInstance(); int year = calendar.get(Calendar.YEAR); int month = calendar.get(Calendar.MONTH); int day = calendar.get(Calendar.DATE); // DATE表示日 int hour = calendar.get(Calendar.HOUR); int minute = calendar.get(Calendar.MINUTE); int second = calendar.get(Calendar.SECOND); System.out.println(year&#43;&#34;年&#34;&#43;(month&#43;1)&#43;&#34;月&#34;&#43;day&#43;&#34;日&#34;&#43;hour&#43;&#34;时&#34;&#43;minute&#43;&#34;分&#34;&#43;second&#43;&#34;秒&#34;); /****执行结果******/ 2022年10月25日7时4分37秒 需要特别注意：
-在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。
-方法2 使用Calendar的getTime()方法，getTime()方法会返回一个表示Calendar时间值的Date对象
-Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime()); /******执行结果*******/ Tue Oct 25 07:10:22 CST 2022 设置方法 使用set字段进行设置，有以下三种格式：
-方法声明 功能描述 void set(int field,int value) 为指定日历字段设置指定值 void set(int year,int month,int date) 设置Calendar对象的年、月、日三个字段的值 void set(int year."><meta itemprop="datePublished" content="2022-10-25T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-10-25T00:00:00+00:00" />
-<meta itemprop="wordCount" content="270">
-<meta itemprop="keywords" content="Java," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Java基础之Calendar日历类"/>
-<meta name="twitter:description" content="Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
-定义方法 Calendar类是一个抽象类，不可以被实例化。
-因此，需要使用静态方法getInstance()来得到一个Calendar对象
-Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方法1 可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如Calendar.YEAR用于表示年份。
-Calendar calendar = Calendar.getInstance(); int year = calendar.get(Calendar.YEAR); int month = calendar.get(Calendar.MONTH); int day = calendar.get(Calendar.DATE); // DATE表示日 int hour = calendar.get(Calendar.HOUR); int minute = calendar.get(Calendar.MINUTE); int second = calendar.get(Calendar.SECOND); System.out.println(year&#43;&#34;年&#34;&#43;(month&#43;1)&#43;&#34;月&#34;&#43;day&#43;&#34;日&#34;&#43;hour&#43;&#34;时&#34;&#43;minute&#43;&#34;分&#34;&#43;second&#43;&#34;秒&#34;); /****执行结果******/ 2022年10月25日7时4分37秒 需要特别注意：
-在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。
-方法2 使用Calendar的getTime()方法，getTime()方法会返回一个表示Calendar时间值的Date对象
-Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime()); /******执行结果*******/ Tue Oct 25 07:10:22 CST 2022 设置方法 使用set字段进行设置，有以下三种格式：
-方法声明 功能描述 void set(int field,int value) 为指定日历字段设置指定值 void set(int year,int month,int date) 设置Calendar对象的年、月、日三个字段的值 void set(int year."/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/java/" title="Java">Java</a>
+            
+          </div>
+          <h1>Java基础之Calendar日历类</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Tue, Oct 25, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">Java基础之Calendar日历类</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Oct 25, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="java基础之calendar日历类">Java基础之Calendar日历类</h1>
-<blockquote>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="java基础之calendar日历类">Java基础之Calendar日历类<a class="anchorjs-link" href="#java%e5%9f%ba%e7%a1%80%e4%b9%8bcalendar%e6%97%a5%e5%8e%86%e7%b1%bb"></a></h1><blockquote>
 <p>Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法<strong>设置</strong>和<strong>读取</strong>日期的特定部分，比如年、月、日、时、分和秒等。</p>
 </blockquote>
-<h2 id="定义方法">定义方法</h2>
-<p><strong>Calendar类是一个抽象类，不可以被实例化。</strong></p>
+<h2 id="定义方法">定义方法<a class="anchorjs-link" href="#%e5%ae%9a%e4%b9%89%e6%96%b9%e6%b3%95"></a></h2><p><strong>Calendar类是一个抽象类，不可以被实例化。</strong></p>
 <p>因此，需要使用静态方法<code>getInstance()</code>来得到一个Calendar对象</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span> <span style="color:#75715e">// 获取当前日期
-</span></span></span></code></pre></div><h2 id="获取方法">获取方法</h2>
-<h3 id="方法1">方法1</h3>
-<p>可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如<code>Calendar.YEAR</code>用于表示年份。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> year <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">YEAR</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> month <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">MONTH</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> day <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">DATE</span><span style="color:#f92672">);</span> <span style="color:#75715e">// DATE表示日
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> hour <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">HOUR</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> minute <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">MINUTE</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> second <span style="color:#f92672">=</span> calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">SECOND</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>year<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;年&#34;</span><span style="color:#f92672">+(</span>month<span style="color:#f92672">+</span>1<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34;月&#34;</span><span style="color:#f92672">+</span>day<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;日&#34;</span><span style="color:#f92672">+</span>hour<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;时&#34;</span><span style="color:#f92672">+</span>minute<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;分&#34;</span><span style="color:#f92672">+</span>second<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;秒&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/****执行结果******/</span>
-</span></span><span style="display:flex;"><span>2022年10月25日7时4分37秒
-</span></span></code></pre></div><p><!-- raw HTML omitted -->需要特别注意：<!-- raw HTML omitted --></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span> <span style="color:#6272a4">// 获取当前日期
+</span></span></span></code></pre></div><h2 id="获取方法">获取方法<a class="anchorjs-link" href="#%e8%8e%b7%e5%8f%96%e6%96%b9%e6%b3%95"></a></h2><h3 id="方法1">方法1<a class="anchorjs-link" href="#%e6%96%b9%e6%b3%951"></a></h3><p>可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如<code>Calendar.YEAR</code>用于表示年份。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#8be9fd">int</span> year <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">YEAR</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#8be9fd">int</span> month <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">MONTH</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#8be9fd">int</span> day <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">DATE</span><span style="color:#ff79c6">);</span> <span style="color:#6272a4">// DATE表示日
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span><span style="color:#8be9fd">int</span> hour <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">HOUR</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#8be9fd">int</span> minute <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">MINUTE</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#8be9fd">int</span> second <span style="color:#ff79c6">=</span> calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">get</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">SECOND</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>year<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;年&#34;</span><span style="color:#ff79c6">+(</span>month<span style="color:#ff79c6">+</span>1<span style="color:#ff79c6">)+</span><span style="color:#f1fa8c">&#34;月&#34;</span><span style="color:#ff79c6">+</span>day<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;日&#34;</span><span style="color:#ff79c6">+</span>hour<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;时&#34;</span><span style="color:#ff79c6">+</span>minute<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;分&#34;</span><span style="color:#ff79c6">+</span>second<span style="color:#ff79c6">+</span><span style="color:#f1fa8c">&#34;秒&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#6272a4">/****执行结果******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>2022年10月25日7时4分37秒
+</span></span></code></pre></div><p><font color='red'>需要特别注意：</font></p>
 <blockquote>
 <p>在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。</p>
 </blockquote>
-<h3 id="方法2">方法2</h3>
-<p>使用Calendar的<code>getTime()</code>方法，getTime()方法会返回一个表示Calendar时间值的Date对象</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>Tue Oct 25 07<span style="color:#f92672">:</span>10<span style="color:#f92672">:</span>22 CST 2022
-</span></span></code></pre></div><h2 id="设置方法">设置方法</h2>
-<p>使用<code>set</code>字段进行设置，有以下三种格式：</p>
+<h3 id="方法2">方法2<a class="anchorjs-link" href="#%e6%96%b9%e6%b3%952"></a></h3><p>使用Calendar的<code>getTime()</code>方法，getTime()方法会返回一个表示Calendar时间值的Date对象</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>Tue Oct 25 07<span style="color:#ff79c6">:</span>10<span style="color:#ff79c6">:</span>22 CST 2022
+</span></span></code></pre></div><h2 id="设置方法">设置方法<a class="anchorjs-link" href="#%e8%ae%be%e7%bd%ae%e6%96%b9%e6%b3%95"></a></h2><p>使用<code>set</code>字段进行设置，有以下三种格式：</p>
 <table>
 <thead>
 <tr>
@@ -360,175 +245,236 @@ Calendar calendar = Calendar.getInstance(); System.out.println(calendar.getTime(
 </tbody>
 </table>
 <p>格式1:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;当前日期：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 指定日历字段进行设置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">MONTH</span><span style="color:#f92672">,</span> 10<span style="color:#f92672">);</span> <span style="color:#75715e">// 注意：实际上设置为10+1=11月
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">DATE</span><span style="color:#f92672">,</span> 10<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;设置方式1：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>当前日期<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Tue Oct 25 07<span style="color:#f92672">:</span>19<span style="color:#f92672">:</span>46 CST 2022
-</span></span><span style="display:flex;"><span>设置方式1<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Thu Nov 10 07<span style="color:#f92672">:</span>19<span style="color:#f92672">:</span>46 CST 2022
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;当前日期：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4">// 指定日历字段进行设置
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">set</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">MONTH</span><span style="color:#ff79c6">,</span> 10<span style="color:#ff79c6">);</span> <span style="color:#6272a4">// 注意：实际上设置为10+1=11月
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#6272a4"></span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">set</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">DATE</span><span style="color:#ff79c6">,</span> 10<span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;设置方式1：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>当前日期：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>Tue Oct 25 07<span style="color:#ff79c6">:</span>19<span style="color:#ff79c6">:</span>46 CST 2022
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>设置方式1：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>Thu Nov 10 07<span style="color:#ff79c6">:</span>19<span style="color:#ff79c6">:</span>46 CST 2022
 </span></span></code></pre></div><p>格式2：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;当前日期：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 指定日历字段进行设置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>2020<span style="color:#f92672">,</span>8<span style="color:#f92672">,</span>19<span style="color:#f92672">);</span> <span style="color:#75715e">// 设置为2020年9月19日
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;设置方式2：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>当前日期<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Tue Oct 25 07<span style="color:#f92672">:</span>28<span style="color:#f92672">:</span>16 CST 2022
-</span></span><span style="display:flex;"><span>设置方式2<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Sat Sep 19 07<span style="color:#f92672">:</span>28<span style="color:#f92672">:</span>16 CST 2020
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;当前日期：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4">// 指定日历字段进行设置
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">set</span><span style="color:#ff79c6">(</span>2020<span style="color:#ff79c6">,</span>8<span style="color:#ff79c6">,</span>19<span style="color:#ff79c6">);</span> <span style="color:#6272a4">// 设置为2020年9月19日
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#6272a4"></span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;设置方式2：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>当前日期：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>Tue Oct 25 07<span style="color:#ff79c6">:</span>28<span style="color:#ff79c6">:</span>16 CST 2022
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>设置方式2：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>Sat Sep 19 07<span style="color:#ff79c6">:</span>28<span style="color:#ff79c6">:</span>16 CST 2020
 </span></span></code></pre></div><p>格式3:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;当前日期：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 指定日历字段进行设置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>2020<span style="color:#f92672">,</span>8<span style="color:#f92672">,</span>19<span style="color:#f92672">,</span>20<span style="color:#f92672">,</span>19<span style="color:#f92672">,</span>18<span style="color:#f92672">);</span> <span style="color:#75715e">// 设置年、月、日、时、分、秒
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;设置方式3：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>当前日期<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Tue Oct 25 07<span style="color:#f92672">:</span>29<span style="color:#f92672">:</span>58 CST 2022
-</span></span><span style="display:flex;"><span>设置方式3<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Sat Sep 19 20<span style="color:#f92672">:</span>19<span style="color:#f92672">:</span>18 CST 2020
-</span></span></code></pre></div><h2 id="增减日期方法">增减日期方法</h2>
-<p>使用方法<code>void add(int field,int amount)</code>，amount为正数表示增加，为负数表示减少。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;当前日期：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">DATE</span><span style="color:#f92672">,</span>1<span style="color:#f92672">);</span> <span style="color:#75715e">// 日+1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">YEAR</span><span style="color:#f92672">,-</span>2<span style="color:#f92672">);</span> <span style="color:#75715e">// 年-2
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;日期增减后：&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>当前日期<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Tue Oct 25 07<span style="color:#f92672">:</span>33<span style="color:#f92672">:</span>35 CST 2022
-</span></span><span style="display:flex;"><span>日期增减后<span style="color:#960050;background-color:#1e0010">：</span>
-</span></span><span style="display:flex;"><span>Mon Oct 26 07<span style="color:#f92672">:</span>33<span style="color:#f92672">:</span>35 CST 2020
-</span></span></code></pre></div><h2 id="格式化输出日期方法">格式化输出日期方法</h2>
-<p>采用<code>SimpleDateFormat</code>类：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>SimpleDateFormat myFmt<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy年MM月dd日 HH时mm分ss秒&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>SimpleDateFormat myFmt1<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yy/MM/dd HH:mm&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>SimpleDateFormat myFmt2<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span style="color:#f92672">);</span><span style="color:#75715e">//等价于now.toLocaleString()
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>SimpleDateFormat myFmt3<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyy年MM月dd日 HH时mm分ss秒 E &#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>SimpleDateFormat myFmt4<span style="color:#f92672">=</span><span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;一年中的第 D 天 一年中第w个星期 一月中第W个星期 在一天中k时 z时区&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>Calendar calendar <span style="color:#f92672">=</span> Calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>myFmt<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>myFmt1<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>myFmt2<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>myFmt3<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>myFmt4<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span>calendar<span style="color:#f92672">.</span><span style="color:#a6e22e">getTime</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/******执行结果*******/</span>
-</span></span><span style="display:flex;"><span>2022年10月25日 07时42分34秒
-</span></span><span style="display:flex;"><span>22<span style="color:#f92672">/</span>10<span style="color:#f92672">/</span>25 07<span style="color:#f92672">:</span>42
-</span></span><span style="display:flex;"><span>2022<span style="color:#f92672">-</span>10<span style="color:#f92672">-</span>25 07<span style="color:#f92672">:</span>42<span style="color:#f92672">:</span>34
-</span></span><span style="display:flex;"><span>2022年10月25日 07时42分34秒 周二 
-</span></span><span style="display:flex;"><span>一年中的第 298 天 一年中第44个星期 一月中第5个星期 在一天中7时 CST时区
-</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
-<p><a href="https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025">https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025</a></p>
-<p><a href="https://blog.csdn.net/weixin_45732073/article/details/111501550">https://blog.csdn.net/weixin_45732073/article/details/111501550</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;当前日期：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4">// 指定日历字段进行设置
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">set</span><span style="color:#ff79c6">(</span>2020<span style="color:#ff79c6">,</span>8<span style="color:#ff79c6">,</span>19<span style="color:#ff79c6">,</span>20<span style="color:#ff79c6">,</span>19<span style="color:#ff79c6">,</span>18<span style="color:#ff79c6">);</span> <span style="color:#6272a4">// 设置年、月、日、时、分、秒
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#6272a4"></span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;设置方式3：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>当前日期：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>Tue Oct 25 07<span style="color:#ff79c6">:</span>29<span style="color:#ff79c6">:</span>58 CST 2022
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>设置方式3：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>Sat Sep 19 20<span style="color:#ff79c6">:</span>19<span style="color:#ff79c6">:</span>18 CST 2020
+</span></span></code></pre></div><h2 id="增减日期方法">增减日期方法<a class="anchorjs-link" href="#%e5%a2%9e%e5%87%8f%e6%97%a5%e6%9c%9f%e6%96%b9%e6%b3%95"></a></h2><p>使用方法<code>void add(int field,int amount)</code>，amount为正数表示增加，为负数表示减少。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;当前日期：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">add</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">DATE</span><span style="color:#ff79c6">,</span>1<span style="color:#ff79c6">);</span> <span style="color:#6272a4">// 日+1
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">add</span><span style="color:#ff79c6">(</span>Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">YEAR</span><span style="color:#ff79c6">,-</span>2<span style="color:#ff79c6">);</span> <span style="color:#6272a4">// 年-2
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#6272a4"></span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;日期增减后：&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">());</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>当前日期：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>Tue Oct 25 07<span style="color:#ff79c6">:</span>33<span style="color:#ff79c6">:</span>35 CST 2022
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>日期增减后：
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>Mon Oct 26 07<span style="color:#ff79c6">:</span>33<span style="color:#ff79c6">:</span>35 CST 2020
+</span></span></code></pre></div><h2 id="格式化输出日期方法">格式化输出日期方法<a class="anchorjs-link" href="#%e6%a0%bc%e5%bc%8f%e5%8c%96%e8%be%93%e5%87%ba%e6%97%a5%e6%9c%9f%e6%96%b9%e6%b3%95"></a></h2><p>采用<code>SimpleDateFormat</code>类：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>SimpleDateFormat myFmt<span style="color:#ff79c6">=</span><span style="color:#ff79c6">new</span> SimpleDateFormat<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;yyyy年MM月dd日 HH时mm分ss秒&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>SimpleDateFormat myFmt1<span style="color:#ff79c6">=</span><span style="color:#ff79c6">new</span> SimpleDateFormat<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;yy/MM/dd HH:mm&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>SimpleDateFormat myFmt2<span style="color:#ff79c6">=</span><span style="color:#ff79c6">new</span> SimpleDateFormat<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span style="color:#ff79c6">);</span><span style="color:#6272a4">//等价于now.toLocaleString()
+</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4"></span>SimpleDateFormat myFmt3<span style="color:#ff79c6">=</span><span style="color:#ff79c6">new</span> SimpleDateFormat<span style="color:#ff79c6">(</span><span style="color:#f1fa8c">&#34;yyyy年MM月dd日 HH时mm分ss秒 E &#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>SimpleDateFormat myFmt4<span style="color:#ff79c6">=</span><span style="color:#ff79c6">new</span> SimpleDateFormat<span style="color:#ff79c6">(</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  <span style="color:#f1fa8c">&#34;一年中的第 D 天 一年中第w个星期 一月中第W个星期 在一天中k时 z时区&#34;</span><span style="color:#ff79c6">);</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>Calendar calendar <span style="color:#ff79c6">=</span> Calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getInstance</span><span style="color:#ff79c6">();</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>myFmt<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">()));</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>myFmt1<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">()));</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>myFmt2<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">()));</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>myFmt3<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">()));</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>System<span style="color:#ff79c6">.</span><span style="color:#50fa7b">out</span><span style="color:#ff79c6">.</span><span style="color:#50fa7b">println</span><span style="color:#ff79c6">(</span>myFmt4<span style="color:#ff79c6">.</span><span style="color:#50fa7b">format</span><span style="color:#ff79c6">(</span>calendar<span style="color:#ff79c6">.</span><span style="color:#50fa7b">getTime</span><span style="color:#ff79c6">()));</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span><span style="color:#6272a4">/******执行结果*******/</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>2022年10月25日 07时42分34秒
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>22<span style="color:#ff79c6">/</span>10<span style="color:#ff79c6">/</span>25 07<span style="color:#ff79c6">:</span>42
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>2022<span style="color:#ff79c6">-</span>10<span style="color:#ff79c6">-</span>25 07<span style="color:#ff79c6">:</span>42<span style="color:#ff79c6">:</span>34
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>2022年10月25日 07时42分34秒 周二 
+</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>一年中的第 298 天 一年中第44个星期 一月中第5个星期 在一天中7时 CST时区
+</span></span></code></pre></div><h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025" target="_blank">https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025</a></p>
+<p><a href="https://blog.csdn.net/weixin_45732073/article/details/111501550" target="_blank">https://blog.csdn.net/weixin_45732073/article/details/111501550</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/" data-toggle="tooltip" data-placement="top" title="Linux-系统信息查看命令">
+              Previous<br>
+              <span>Linux-系统信息查看命令</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/" data-toggle="tooltip" data-placement="top" title="Linux-磁盘扩容">
+              Next<br>
+              <span>Linux-磁盘扩容</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/java"
-      >Java</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/"
-      ><span class="mr-1.5">←</span><span>Linux-磁盘扩容</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/linux/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/"
-      ><span>Linux-系统信息查看命令</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

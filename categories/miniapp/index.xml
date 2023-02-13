@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MiniApp on </title>
+    <title>MiniApp on 2MUCH</title>
     <link>http://pipony.github.io/categories/miniapp/</link>
-    <description>Recent content in MiniApp on </description>
+    <description>Recent content in MiniApp on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 18 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/miniapp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>小程序之三：官方开发文档学习（指南篇）</title>
@@ -13,8 +13,7 @@
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0/</guid>
-      <description>小程序之三：官方开发文档学习（指南篇） 学习教程：https://developers.weixin.qq.com/miniprogram/dev/framework/
-知道了小程序大概是咋回事之后，是时候学习下小程序的基础语法规则了。微信官方有提供教程，故本文通过第一部分指南篇进行学习。</description>
+      <description>小程序之三：官方开发文档学习（指南篇）学习教程：https://developers.weixin.qq.com/miniprogram/d</description>
     </item>
     
     <item>
@@ -23,21 +22,7 @@
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/</guid>
-      <description>小程序之二：HelloWorld 学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
-跟着阮一峰老师的教程写个最简单的hello world：
-1、新建项目目录wechat-miniprogram-demo，进入项目目录
-2、在项目目录中，新建脚本app.js。这个脚本用于对整个小程序进行初始化。
-App({}); 上面代码中，App()由小程序原生提供，它是一个函数，表示新建一个小程序实例。它的参数是一个配置对象，用于设置小程序实例的行为属性。这个例子不需要任何配置，所以使用空对象即可。
-3、在项目目录中，新建配置文件app.json，记录项目的一些静态配置，采用 JSON 格式。至少必须有一个pages属性，指明小程序包含哪些页面。
-{ &amp;#34;pages&amp;#34;: [ &amp;#34;pages/home/home&amp;#34; ] } 小程序会加载页面目录pages/home里面的home.js文件，.js后缀名可以省略，所以完整的加载路径为pages/home/home。home.js这个脚本的文件名也可以随便起，但是习惯上跟页面目录同名。
-除了pages属性，还可以加上window属性，定义最上方的导航栏的属性，如：
-{ &amp;#34;pages&amp;#34;: [ &amp;#34;pages/home/home&amp;#34; ], &amp;#34;window&amp;#34;: { &amp;#34;navigationBarBackgroundColor&amp;#34;: &amp;#34;#ff0000&amp;#34;, &amp;#34;navigationBarTextStyle&amp;#34;: &amp;#34;white&amp;#34;, &amp;#34;navigationBarTitleText&amp;#34;: &amp;#34;小程序 Demo&amp;#34; } } 比如还有tabBar属性，定制底部选项卡的属性。
-4、新建脚本pages/home/home.js，内容如下：
-Page({}); 上面代码中，Page()由小程序原生提供，它是一个函数，用于初始化一个页面实例。它的参数是一个配置对象，用于设置当前页面的行为属性。这里是一个空对象，表示不设置任何属性。
-5、新建脚本pages/home/home.wxml，用于描述小程序的页面。
-hello world 6、一个最简单的项目就完成啦。现在导入小程序开发工具看看。
-也可以点击“预览”或“真机调试”，扫描二维码在手机上查看效果
-小程序项目基础结构 |- app.json |- app.js |- pages |- home |- home.wxml |- home.js 这个结构分成两层：描述整体程序的顶层 app 脚本，以及描述各个页面的 page 脚本。</description>
+      <description>小程序之二：HelloWorld学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-mi</description>
     </item>
     
     <item>
@@ -46,23 +31,7 @@ hello world 6、一个最简单的项目就完成啦。现在导入小程序开�
       <pubDate>Sun, 04 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>http://pipony.github.io/post/workspace/01-tech/miniapp/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%80%E5%BC%80%E5%A7%8B/</guid>
-      <description>小程序之一：开始 开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！
-推荐新手先阅读阮一峰老师的微信小程序入门教程：
-https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
-https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-two.html
-https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-three.html
-http://www.ruanyifeng.com/blog/2020/11/wechat-miniprogram-tutorial-part-four.html
-申请 https://developers.weixin.qq.com/community/business/doc/000200772f81508894e94ec965180d
-申请了个人主体的认证（个人会有些限制，比如无法使用某些接口），将自己设为管理员，填写小程序名字和头像，设置域名，获取开发者ID和密钥（后面会用到）&amp;hellip;
-下载开发工具 下载官方提供的小程序开发工具（https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html）。
-这个工具是必需的，因为只有它才能运行和调试小程序源码。
-很可爱的图标👆
-软件有两种开发模式：
-云开发：会提供完整的项目脚手架 导入项目：从零开始导入自己写的项目（推荐这个） 知识储备 首先，WHAT IS 小程序？
-小程序可以视为只能用微信打开和浏览的网站。 小程序和网页的技术模型是一样的，用到的 JavaScript 语言和 CSS 样式也是一样的，只是网页的 HTML 标签被稍微修改成了 WXML 标签。所以，小程序页面本质上就是网页。
-小程序的特殊之处在于，虽然是网页，但是它不支持浏览器，所有浏览器的 API 都不能使用，只能用微信提供的 API。这也是为什么小程序只能用微信打开的原因，因为底层全变了。
-—— https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
-所以，目前看来，基础的知识储备就是JS和CSS，再加上微信提供的语法规则，就可以开发一个简易版的小程序了。</description>
+      <description>小程序之一：开始 开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！ 推荐新手先阅读阮一峰老师的微信小程序入门</description>
     </item>
     
   </channel>

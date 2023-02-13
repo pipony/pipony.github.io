@@ -1,331 +1,281 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>oracle-&gt;mysql数据迁移数据事项 - </title>
+    
+  <title>oracle-&gt;mysql数据迁移数据事项 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="oracle-&gt;mysql数据迁移数据事项概述从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="oracle-&gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
-ORACLE&amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
-字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
-https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
-字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="oracle-&gt;mysql数据迁移数据事项"/>
+<meta name="twitter:description" content="oracle-&gt;mysql数据迁移数据事项概述从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="oracle-&gt;mysql数据迁移数据事项" />
-<meta property="og:description" content="oracle-&gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
-ORACLE&amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
-字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
-https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
-字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。" />
+<meta property="og:description" content="oracle-&gt;mysql数据迁移数据事项概述从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-04T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-12-04T00:00:00+00:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="oracle-&gt;mysql数据迁移数据事项">
-<meta itemprop="description" content="oracle-&gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
-ORACLE&amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
-字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
-https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
-字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。"><meta itemprop="datePublished" content="2022-12-04T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-12-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="125">
-<meta itemprop="keywords" content="数据库," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="oracle-&gt;mysql数据迁移数据事项"/>
-<meta name="twitter:description" content="oracle-&gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
-ORACLE&amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
-字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
-https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
-字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
-字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
+            
+          </div>
+          <h1>oracle-&gt;mysql数据迁移数据事项</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Sun, Dec 4, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">oracle-&gt;mysql数据迁移数据事项</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>Dec 4, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="oracle-mysql数据迁移数据事项">oracle-&gt;mysql数据迁移数据事项</h1>
-<h2 id="概述">概述</h2>
-<p>从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。</p>
-<h2 id="oraclemysql主要差异">ORACLE&amp;MYSQL主要差异</h2>
-<p>图片来源： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
-<p><img src="https://static001.geekbang.org/infoq/de/de7533f37e58ae8758f0c7371a2a3c94.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/31/3182494a12a4ffc10c333d3df882adb3.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/e7/e74b6405244a74d3cad677574dc24376.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/73/7370fba14f9eb3aab0cc0a3a81e2b235.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/b8/b826db1d87750d72b02e1bc26c1c0139.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/fd/fd56cf61c0d95e44110c08c4e4b0820c.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/77/77ba5aab1805f09626e84398f3b95a12.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/cf/cf18e3da28c33054dfc8b2b56b8f6cf8.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/54/54994c5023f3b166416499d01b41b8ca.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/84/84c143bce3271abff28c9c36e4f697ef.png" alt="img"></p>
-<p><img src="https://static001.geekbang.org/infoq/99/99ed2a74b59eb477924fca534cb2c323.png" alt="img"></p>
-<p><img src="https://static001.infoq.cn/resource/image/22/cd/22ca871d8be85482b510a6ed7d62b9cd.jpg" alt="img"></p>
-<h3 id="mysql-不支持的功能项">MySQL 不支持的功能项</h3>
-<ul>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="oracle-mysql数据迁移数据事项">oracle-&gt;mysql数据迁移数据事项<a class="anchorjs-link" href="#oracle-mysql%e6%95%b0%e6%8d%ae%e8%bf%81%e7%a7%bb%e6%95%b0%e6%8d%ae%e4%ba%8b%e9%a1%b9"></a></h1><h2 id="概述">概述<a class="anchorjs-link" href="#%e6%a6%82%e8%bf%b0"></a></h2><p>从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。</p>
+<h2 id="oraclemysql主要差异">ORACLE&amp;MYSQL主要差异<a class="anchorjs-link" href="#oraclemysql%e4%b8%bb%e8%a6%81%e5%b7%ae%e5%bc%82"></a></h2><p>图片来源： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a" target="_blank">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/de/de7533f37e58ae8758f0c7371a2a3c94.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/31/3182494a12a4ffc10c333d3df882adb3.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/e7/e74b6405244a74d3cad677574dc24376.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/73/7370fba14f9eb3aab0cc0a3a81e2b235.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/b8/b826db1d87750d72b02e1bc26c1c0139.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/fd/fd56cf61c0d95e44110c08c4e4b0820c.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/77/77ba5aab1805f09626e84398f3b95a12.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/cf/cf18e3da28c33054dfc8b2b56b8f6cf8.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/54/54994c5023f3b166416499d01b41b8ca.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/84/84c143bce3271abff28c9c36e4f697ef.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.geekbang.org/infoq/99/99ed2a74b59eb477924fca534cb2c323.png" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.infoq.cn/resource/image/22/cd/22ca871d8be85482b510a6ed7d62b9cd.jpg" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="mysql-不支持的功能项">MySQL 不支持的功能项<a class="anchorjs-link" href="#mysql-%e4%b8%8d%e6%94%af%e6%8c%81%e7%9a%84%e5%8a%9f%e8%83%bd%e9%a1%b9"></a></h3><ul>
 <li>MySQL 没有并行的概念，不支持并行；</li>
 <li>MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL；</li>
 <li>MySQL 对于子查询优化不是很好；</li>
 <li>MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。</li>
 </ul>
-<h2 id="迁移原则">迁移原则</h2>
-<p>参考： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<h2 id="迁移原则">迁移原则<a class="anchorjs-link" href="#%e8%bf%81%e7%a7%bb%e5%8e%9f%e5%88%99"></a></h2><p>参考： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a" target="_blank">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
 <p>迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：</p>
 <ul>
 <li><strong>字符集</strong>：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容；</li>
@@ -334,16 +284,17 @@ https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
 <li>Oracle 序列：<strong>MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值</strong>。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列；</li>
 <li>网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。</li>
 </ul>
-<h2 id="迁移难点">迁移难点</h2>
-<p>参考：</p>
-<p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
-<h3 id="字符集">字符集</h3>
-<blockquote>
+<h2 id="迁移难点">迁移难点<a class="anchorjs-link" href="#%e8%bf%81%e7%a7%bb%e9%9a%be%e7%82%b9"></a></h2><p>参考：</p>
+<p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a" target="_blank">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<h3 id="字符集">字符集<a class="anchorjs-link" href="#%e5%ad%97%e7%ac%a6%e9%9b%86"></a></h3><blockquote>
 <p>对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。</p>
 </blockquote>
-<h3 id="字段长度匹配空间估算">字段长度匹配，空间估算</h3>
-<h3 id="null和空串处理">NULL和空串处理</h3>
-<p><img src="https://static001.infoq.cn/resource/image/77/69/774126387f30b97e45d5fe24cc7ff269.jpg" alt="img"></p>
+<h3 id="字段长度匹配空间估算">字段长度匹配，空间估算<a class="anchorjs-link" href="#%e5%ad%97%e6%ae%b5%e9%95%bf%e5%ba%a6%e5%8c%b9%e9%85%8d%e7%a9%ba%e9%97%b4%e4%bc%b0%e7%ae%97"></a></h3><h3 id="null和空串处理">NULL和空串处理<a class="anchorjs-link" href="#null%e5%92%8c%e7%a9%ba%e4%b8%b2%e5%a4%84%e7%90%86"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="https://static001.infoq.cn/resource/image/77/69/774126387f30b97e45d5fe24cc7ff269.jpg" data-action="zoom" alt="img"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。</p>
 <ul>
 <li>数据库字段如果是字符串类型，插入空时，load data 默认导入 空字符串</li>
@@ -352,115 +303,174 @@ https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
 </ul>
 <p>Oracle 导出到文本文件，null 会变为空字符串，插入到 MySQL 后会被认为是空字符串插入，破坏了数据一致性，以下提供了三种方式进行规避：</p>
 <p>1、可以在 Oracle 迁移之前将所有业务表的 null 值变更为无意义的值，等到迁移到 MySQL 后统一数据修复调整回来，例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">UPDATE</span> SUPPLIERS_TBL <span style="color:#66d9ef">SET</span> SUPPLIER_ID<span style="color:#f92672">=</span>NVL(<span style="color:#66d9ef">null</span>,<span style="color:#960050;background-color:#1e0010">‘</span>N<span style="color:#f92672">/</span>A<span style="color:#960050;background-color:#1e0010">’</span>) <span style="color:#66d9ef">where</span> SUPPLIER_ID <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">UPDATE</span> SUPPLIERS_TBL <span style="color:#ff79c6">SET</span> SUPPLIER_ID<span style="color:#ff79c6">=</span>NVL(<span style="color:#ff79c6">null</span>,‘N<span style="color:#ff79c6">/</span>A’) <span style="color:#ff79c6">where</span> SUPPLIER_ID <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">null</span>;
 </span></span></code></pre></div><p>2、使用 spool 导出的时候对 null 值进行转换，需要针对表和列进行修改</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>SelectNVL(TO_CHAR(id),<span style="color:#e6db74">&#39;N/A&#39;</span>)<span style="color:#f92672">||</span><span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">||</span>NVL(name,<span style="color:#e6db74">&#39;N/A&#39;</span>)<span style="color:#f92672">||</span><span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">||</span>NVL(SEX,<span style="color:#e6db74">&#39;N/A&#39;</span>)<span style="color:#f92672">||</span><span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">||</span>NVL(ADDRESS,<span style="color:#e6db74">&#39;N/A&#39;</span>)<span style="color:#f92672">||</span><span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">||</span>NVL(TO_CHAR(BIRTHDAY),<span style="color:#e6db74">&#39;N/A&#39;</span>) <span style="color:#66d9ef">from</span> user1;
-</span></span></code></pre></div><h3 id="日期格式处理">日期格式处理</h3>
-<h3 id="lob-字段迁移">LOB 字段迁移</h3>
-<h3 id="大小写敏感差异">大小写敏感差异</h3>
-<h3 id="数据类型转换">数据类型转换</h3>
-<p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
-<h2 id="参考链接">参考链接</h2>
-<p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/94254106">https://zhuanlan.zhihu.com/p/94254106</a></p>
-<p><a href="https://blog.csdn.net/weixin_39713763/article/details/114906285">https://blog.csdn.net/weixin_39713763/article/details/114906285</a></p>
-<p><a href="https://juejin.cn/post/6943857884006449183">https://juejin.cn/post/6943857884006449183</a></p>
-<p><a href="https://developer.aliyun.com/article/184151">https://developer.aliyun.com/article/184151</a></p>
-<p><a href="https://blog.csdn.net/xiazaixm/article/details/78081611">https://blog.csdn.net/xiazaixm/article/details/78081611</a></p>
-<p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>SelectNVL(TO_CHAR(id),<span style="color:#f1fa8c">&#39;N/A&#39;</span>)<span style="color:#ff79c6">||</span><span style="color:#f1fa8c">&#39;,&#39;</span><span style="color:#ff79c6">||</span>NVL(name,<span style="color:#f1fa8c">&#39;N/A&#39;</span>)<span style="color:#ff79c6">||</span><span style="color:#f1fa8c">&#39;,&#39;</span><span style="color:#ff79c6">||</span>NVL(SEX,<span style="color:#f1fa8c">&#39;N/A&#39;</span>)<span style="color:#ff79c6">||</span><span style="color:#f1fa8c">&#39;,&#39;</span><span style="color:#ff79c6">||</span>NVL(ADDRESS,<span style="color:#f1fa8c">&#39;N/A&#39;</span>)<span style="color:#ff79c6">||</span><span style="color:#f1fa8c">&#39;,&#39;</span><span style="color:#ff79c6">||</span>NVL(TO_CHAR(BIRTHDAY),<span style="color:#f1fa8c">&#39;N/A&#39;</span>) <span style="color:#ff79c6">from</span> user1;
+</span></span></code></pre></div><h3 id="日期格式处理">日期格式处理<a class="anchorjs-link" href="#%e6%97%a5%e6%9c%9f%e6%a0%bc%e5%bc%8f%e5%a4%84%e7%90%86"></a></h3><h3 id="lob-字段迁移">LOB 字段迁移<a class="anchorjs-link" href="#lob-%e5%ad%97%e6%ae%b5%e8%bf%81%e7%a7%bb"></a></h3><h3 id="大小写敏感差异">大小写敏感差异<a class="anchorjs-link" href="#%e5%a4%a7%e5%b0%8f%e5%86%99%e6%95%8f%e6%84%9f%e5%b7%ae%e5%bc%82"></a></h3><h3 id="数据类型转换">数据类型转换<a class="anchorjs-link" href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2"></a></h3><p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html" target="_blank">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+<h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a" target="_blank">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/94254106" target="_blank">https://zhuanlan.zhihu.com/p/94254106</a></p>
+<p><a href="https://blog.csdn.net/weixin_39713763/article/details/114906285" target="_blank">https://blog.csdn.net/weixin_39713763/article/details/114906285</a></p>
+<p><a href="https://juejin.cn/post/6943857884006449183" target="_blank">https://juejin.cn/post/6943857884006449183</a></p>
+<p><a href="https://developer.aliyun.com/article/184151" target="_blank">https://developer.aliyun.com/article/184151</a></p>
+<p><a href="https://blog.csdn.net/xiazaixm/article/details/78081611" target="_blank">https://blog.csdn.net/xiazaixm/article/details/78081611</a></p>
+<p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html" target="_blank">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" data-toggle="tooltip" data-placement="top" title="Mysql导入导出">
+              Previous<br>
+              <span>Mysql导入导出</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="Mysql修改root密码">
+              Next<br>
+              <span>Mysql修改root密码</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"
-      >数据库</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/"
-      ><span class="mr-1.5">←</span><span>Mysql修改root密码</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/"
-      ><span>Mysql导入导出</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>

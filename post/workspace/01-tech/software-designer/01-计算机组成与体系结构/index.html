@@ -1,497 +1,353 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html
-  class="not-ready text-sm lg:text-base"
-  style="--bg: #faf6f1"
-  lang="en-us"
->
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   
-  <title>软考-中级软件设计师-01 计算机组成与体系结构 - </title>
+    
+  <title>软考-中级软件设计师-01 计算机组成与体系结构 | 2MUCH</title>
+  <meta name="author" content="cindy.H">
+  <meta name="description" content="01 计算机组成与体系结构数据的表示进制转换R进制-&gt;十进制：底数，指数 十进制-&gt;R进制：短除法 二进制-&gt;八进制，十六进制 编码">
+  <meta name="keywords" content="blog,tech,personal">
 
-  
-  <meta name="theme-color" />
-  
-  <meta name="description" content="01 计算机组成与体系结构 数据的表示 进制转换 R进制-&gt;十进制：底数，指数
-十进制-&gt;R进制：短除法
-二进制-&gt;八进制，十六进制
-编码 原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负） 反码：正数=原码；负数：符号位不动，其他位原码取反 补码：正数=原码；负数：反码&#43;1 移码：一般用来做浮点运算的阶码；符号位为补码的反，其他位一样。这样在数轴上，正数在负数的右边，看起来正常些 ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
-移码 https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
-表示范围 为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示
-浮点数运算 M*R^e
-M：尾数；R：基数：e：指数
-对阶（小向大的指数对） - 尾数计算 - 结果格式化（尾数小数点左边是1）
-计算机结构 主机=CPU（运算器&#43;控制器）&#43;主存储器
-Flynn分类法 单I/多M&#43;指令I/数据D
-SISD 现在的机器几乎没有，可能在单片机用到
-SIMD 阵列处理机：适合处理数组运算
-MISD 只在理论中
-MIMD 全面并行
-CISC和RICS CISC 比较早期，通常是定制。指令数量多；可变长格式
-RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）
-流水线 主要考察计算
-周期 概念：执行时间最长的一个步骤时间
-n条指令全部执行时间：
-理论公式：1条指令执行时间&#43;（指令条数-1）*流水线周期 实践公式：（k&#43;n-1）*周期；k为子指令个数 考试时优先用理论公式算，没有这个选项，再用实践公式
-吞吐率 概念：单位时间内处理指令条数
-公式：TP=指令条数/流水线时间
-最大吞吐率：
-理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期
-加速比 概念及公式：同一个任务不使用流水线时间/使用流水线时间
-效率 概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。
-公式：
-每个子任务时间一样 -&gt; 效率最高
-存储 层次化存储结构 cache 特点：
-CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公式" />
-  <meta
-    name="author"
-    content="Cindy.H"
-  />
-  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="软考-中级软件设计师-01 计算机组成与体系结构"/>
+<meta name="twitter:description" content="01 计算机组成与体系结构数据的表示进制转换R进制-&gt;十进制：底数，指数 十进制-&gt;R进制：短除法 二进制-&gt;八进制，十六进制 编码"/>
 
-  
-  
-  
-  
-  
-  
-  <link rel="preload stylesheet" as="style" href="http://pipony.github.io/main.min.css" />
-
-  
-
-  
-     
-  <link rel="preload" as="image" href="http://pipony.github.io/theme.png" />
-
-  
-  
-  
-  
-
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/github.svg" />
-  
-  <link rel="preload" as="image" href="http://pipony.github.io/rss.svg" />
-  
-
-  
-  <link rel="icon" href="http://pipony.github.io/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://pipony.github.io/apple-touch-icon.png" />
-
-  
-  <meta name="generator" content="Hugo 0.101.0" />
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <meta property="og:title" content="软考-中级软件设计师-01 计算机组成与体系结构" />
-<meta property="og:description" content="01 计算机组成与体系结构 数据的表示 进制转换 R进制-&gt;十进制：底数，指数
-十进制-&gt;R进制：短除法
-二进制-&gt;八进制，十六进制
-编码 原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负） 反码：正数=原码；负数：符号位不动，其他位原码取反 补码：正数=原码；负数：反码&#43;1 移码：一般用来做浮点运算的阶码；符号位为补码的反，其他位一样。这样在数轴上，正数在负数的右边，看起来正常些 ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
-移码 https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
-表示范围 为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示
-浮点数运算 M*R^e
-M：尾数；R：基数：e：指数
-对阶（小向大的指数对） - 尾数计算 - 结果格式化（尾数小数点左边是1）
-计算机结构 主机=CPU（运算器&#43;控制器）&#43;主存储器
-Flynn分类法 单I/多M&#43;指令I/数据D
-SISD 现在的机器几乎没有，可能在单片机用到
-SIMD 阵列处理机：适合处理数组运算
-MISD 只在理论中
-MIMD 全面并行
-CISC和RICS CISC 比较早期，通常是定制。指令数量多；可变长格式
-RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）
-流水线 主要考察计算
-周期 概念：执行时间最长的一个步骤时间
-n条指令全部执行时间：
-理论公式：1条指令执行时间&#43;（指令条数-1）*流水线周期 实践公式：（k&#43;n-1）*周期；k为子指令个数 考试时优先用理论公式算，没有这个选项，再用实践公式
-吞吐率 概念：单位时间内处理指令条数
-公式：TP=指令条数/流水线时间
-最大吞吐率：
-理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期
-加速比 概念及公式：同一个任务不使用流水线时间/使用流水线时间
-效率 概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。
-公式：
-每个子任务时间一样 -&gt; 效率最高
-存储 层次化存储结构 cache 特点：
-CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公式" />
+<meta property="og:description" content="01 计算机组成与体系结构数据的表示进制转换R进制-&gt;十进制：底数，指数 十进制-&gt;R进制：短除法 二进制-&gt;八进制，十六进制 编码" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://pipony.github.io/post/workspace/01-tech/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
 <meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
 
 
+  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
   
-  <meta itemprop="name" content="软考-中级软件设计师-01 计算机组成与体系结构">
-<meta itemprop="description" content="01 计算机组成与体系结构 数据的表示 进制转换 R进制-&gt;十进制：底数，指数
-十进制-&gt;R进制：短除法
-二进制-&gt;八进制，十六进制
-编码 原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负） 反码：正数=原码；负数：符号位不动，其他位原码取反 补码：正数=原码；负数：反码&#43;1 移码：一般用来做浮点运算的阶码；符号位为补码的反，其他位一样。这样在数轴上，正数在负数的右边，看起来正常些 ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
-移码 https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
-表示范围 为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示
-浮点数运算 M*R^e
-M：尾数；R：基数：e：指数
-对阶（小向大的指数对） - 尾数计算 - 结果格式化（尾数小数点左边是1）
-计算机结构 主机=CPU（运算器&#43;控制器）&#43;主存储器
-Flynn分类法 单I/多M&#43;指令I/数据D
-SISD 现在的机器几乎没有，可能在单片机用到
-SIMD 阵列处理机：适合处理数组运算
-MISD 只在理论中
-MIMD 全面并行
-CISC和RICS CISC 比较早期，通常是定制。指令数量多；可变长格式
-RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）
-流水线 主要考察计算
-周期 概念：执行时间最长的一个步骤时间
-n条指令全部执行时间：
-理论公式：1条指令执行时间&#43;（指令条数-1）*流水线周期 实践公式：（k&#43;n-1）*周期；k为子指令个数 考试时优先用理论公式算，没有这个选项，再用实践公式
-吞吐率 概念：单位时间内处理指令条数
-公式：TP=指令条数/流水线时间
-最大吞吐率：
-理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期
-加速比 概念及公式：同一个任务不使用流水线时间/使用流水线时间
-效率 概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。
-公式：
-每个子任务时间一样 -&gt; 效率最高
-存储 层次化存储结构 cache 特点：
-CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公式"><meta itemprop="datePublished" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="dateModified" content="2022-05-14T22:51:46+08:00" />
-<meta itemprop="wordCount" content="126">
-<meta itemprop="keywords" content="软考-中级软件设计师," />
-  
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-01 计算机组成与体系结构"/>
-<meta name="twitter:description" content="01 计算机组成与体系结构 数据的表示 进制转换 R进制-&gt;十进制：底数，指数
-十进制-&gt;R进制：短除法
-二进制-&gt;八进制，十六进制
-编码 原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负） 反码：正数=原码；负数：符号位不动，其他位原码取反 补码：正数=原码；负数：反码&#43;1 移码：一般用来做浮点运算的阶码；符号位为补码的反，其他位一样。这样在数轴上，正数在负数的右边，看起来正常些 ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
-移码 https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
-表示范围 为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示
-浮点数运算 M*R^e
-M：尾数；R：基数：e：指数
-对阶（小向大的指数对） - 尾数计算 - 结果格式化（尾数小数点左边是1）
-计算机结构 主机=CPU（运算器&#43;控制器）&#43;主存储器
-Flynn分类法 单I/多M&#43;指令I/数据D
-SISD 现在的机器几乎没有，可能在单片机用到
-SIMD 阵列处理机：适合处理数组运算
-MISD 只在理论中
-MIMD 全面并行
-CISC和RICS CISC 比较早期，通常是定制。指令数量多；可变长格式
-RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）
-流水线 主要考察计算
-周期 概念：执行时间最长的一个步骤时间
-n条指令全部执行时间：
-理论公式：1条指令执行时间&#43;（指令条数-1）*流水线周期 实践公式：（k&#43;n-1）*周期；k为子指令个数 考试时优先用理论公式算，没有这个选项，再用实践公式
-吞吐率 概念：单位时间内处理指令条数
-公式：TP=指令条数/流水线时间
-最大吞吐率：
-理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期
-加速比 概念及公式：同一个任务不使用流水线时间/使用流水线时间
-效率 概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。
-公式：
-每个子任务时间一样 -&gt; 效率最高
-存储 层次化存储结构 cache 特点：
-CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公式"/>
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" href="/sass/main.css">
+
+  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
+
+  <script src=/js/lazysizes.min.js></script>
 
   
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   
+
 </head>
 
-  <body class="text-black duration-200 ease-out dark:text-white">
-    <header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
-  <div class="relative z-50 mr-auto flex items-center">
-    <a
-      class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
-      href="http://pipony.github.io/"
-      ></a
-    >
-    <a
-      class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.svg)_left_center/cover_no-repeat] dark:invert dark:[background-position:right]"
-    ></a>
-  </div>
 
-  <a
-    class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
-  ></a>
+
+<body ontouchstart="">
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+  <div class="container-fluid">
+    
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://pipony.github.io/">2MUCH</a>
+    </div>
+    
+    <div id="huxblog_navbar">
+      <div class="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="/" title="Home">Home</a></li>
+          
+          <li><a href="/post" title="Archive">Archive</a></li>
+          
+          <li><a href="/categories" title="Categories">Categories</a></li>
+          
+          <li><a href="/about/" title="About">About</a></li>
+          
+
+          <li class="search-icon">
+            <a href="javascript:void(0)">
+              <i class="fa fa-search"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</nav>
+<script>
+  
+  
+  
+  var $body = document.body;
+  var $toggle = document.querySelector(".navbar-toggle");
+  var $navbar = document.querySelector("#huxblog_navbar");
+  var $collapse = document.querySelector(".navbar-collapse");
+
+  var __HuxNav__ = {
+    close: function () {
+      $navbar.className = " ";
+      
+      setTimeout(function () {
+        
+        if ($navbar.className.indexOf("in") < 0) {
+          $collapse.style.height = "0px";
+        }
+      }, 400);
+    },
+    open: function () {
+      $collapse.style.height = "auto";
+      $navbar.className += " in";
+    },
+  };
 
   
-  <script>
-    
-    const htmlClass = document.documentElement.classList;
-    setTimeout(() => {
-      htmlClass.remove('not-ready');
-    }, 10);
-
-    
-    const btnMenu = document.querySelector('.btn-menu');
-    btnMenu.addEventListener('click', () => {
-      htmlClass.toggle('open');
-    });
-
-    
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    const lightBg = `"#faf6f1"`.replace(/"/g, '');
-    const setDark = (isDark) => {
-      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
-      htmlClass[isDark ? 'add' : 'remove']('dark');
-      localStorage.setItem('dark', isDark);
-    };
-
-    
-    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    if (htmlClass.contains('dark')) {
-      setDark(true);
+  $toggle.addEventListener("click", function (e) {
+    if ($navbar.className.indexOf("in") > 0) {
+      __HuxNav__.close();
     } else {
-      const darkVal = localStorage.getItem('dark');
-      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+      __HuxNav__.open();
     }
+  });
 
-    
-    darkScheme.addEventListener('change', (event) => {
-      setDark(event.matches);
-    });
+  
 
-    
-    const btnDark = document.querySelector('.btn-dark');
-    btnDark.addEventListener('click', () => {
-      setDark(localStorage.getItem('dark') !== 'true');
-    });
-  </script>
+  document.addEventListener("click", function (e) {
+    if (e.target == $toggle) return;
+    if (e.target.className == "icon-bar") return;
+    __HuxNav__.close();
+  });
+</script>
+  
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
-  >
-    
-    
-    <nav class="lg:ml-12 lg:flex lg:flex-row lg:items-center lg:space-x-6">
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/"
-        >Home</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post"
-        >Archives</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href=""
-        >Tags</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/categories"
-        >Categories</a
-      >
-      
-      <a
-        class="block text-center text-2xl leading-[5rem] lg:text-base lg:font-normal"
-        href="/post/about"
-        >About</a
-      >
-      
-    </nav>
-    
+  
+  
 
-    
-    <nav
-      class="mt-12 flex justify-center space-x-10 dark:invert lg:mt-0 lg:ml-12 lg:items-center lg:space-x-6"
-    >
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./github.svg)"
-        href="https://github.com/https://github.com/pipony"
-        target="_blank"
-        rel="me"
-      ></a>
-      
-      <a
-        class="h-8 w-8 [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
-        style="--url: url(./rss.svg)"
-        href="http://pipony.github.io/index.xml"
-        target="_blank"
-        
-      ></a>
-      
-    </nav>
-    
+
+<style type="text/css">
+  header.intro-header {
+    position: relative;
+    background-image: url('');
+  }
+</style>
+
+<header class="intro-header style-text">
+
+  <div class="header-mask"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <div class="tags">
+            
+            <a class="tag" href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/" title="软考-中级软件设计师">软考-中级软件设计师</a>
+            
+          </div>
+          <h1>软考-中级软件设计师-01 计算机组成与体系结构</h1>
+          <h2 class="subheading"></h2>
+          <span class="meta">
+            Posted by  cindy.H 
+            on Sat, May 14, 2022
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 
-    <main
-      class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pt-20 pb-32 dark:prose-invert"
-    >
-      
+  
+
 
 <article>
-  <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">软考-中级软件设计师-01 计算机组成与体系结构</h1>
+  <div class="container">
+    <div class="row">
 
-    
-    <div class="text-sm opacity-60">
       
-      <time>May 14, 2022</time>
-      
-      
-      <span class="mx-1">&middot;</span>
-      <span>Cindy.H</span>
-      
-    </div>
-    
-  </header>
-
-  <section><h1 id="01-计算机组成与体系结构">01 计算机组成与体系结构</h1>
-<h2 id="数据的表示">数据的表示</h2>
-<h3 id="进制转换">进制转换</h3>
-<p>R进制-&gt;十进制：底数，指数</p>
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              post-container">
+        <h1 id="01-计算机组成与体系结构">01 计算机组成与体系结构<a class="anchorjs-link" href="#01-%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bb%84%e6%88%90%e4%b8%8e%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84"></a></h1><h2 id="数据的表示">数据的表示<a class="anchorjs-link" href="#%e6%95%b0%e6%8d%ae%e7%9a%84%e8%a1%a8%e7%a4%ba"></a></h2><h3 id="进制转换">进制转换<a class="anchorjs-link" href="#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2"></a></h3><p>R进制-&gt;十进制：底数，指数</p>
 <p>十进制-&gt;R进制：短除法</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328201500845.png" alt="image-20220328201500845"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328201500845.png" data-action="zoom" alt="image-20220328201500845"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>二进制-&gt;八进制，十六进制</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328201707416.png" alt="image-20220328201707416"></p>
-<h3 id="编码">编码</h3>
-<ul>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328201707416.png" data-action="zoom" alt="image-20220328201707416"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="编码">编码<a class="anchorjs-link" href="#%e7%bc%96%e7%a0%81"></a></h3><ul>
 <li>原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负）</li>
 <li>反码：正数=原码；负数：符号位不动，其他位原码取反</li>
 <li>补码：正数=原码；负数：反码+1</li>
 <li>移码：一般用来做浮点运算的阶码；<strong>符号位为补码的反，其他位一样</strong>。这样在数轴上，正数在负数的右边，看起来正常些</li>
 </ul>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328202526249.png" alt="image-20220328202526249"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328202526249.png" data-action="zoom" alt="image-20220328202526249"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减</p>
-<h4 id="移码">移码</h4>
-<p><a href="https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/">https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/</a></p>
-<h4 id="表示范围">表示范围</h4>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328202915692.png" alt="image-20220328202915692"></p>
+<h4 id="移码">移码<a class="anchorjs-link" href="#%e7%a7%bb%e7%a0%81"></a></h4><p><a href="https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/" target="_blank">https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/</a></p>
+<h4 id="表示范围">表示范围<a class="anchorjs-link" href="#%e8%a1%a8%e7%a4%ba%e8%8c%83%e5%9b%b4"></a></h4><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328202915692.png" data-action="zoom" alt="image-20220328202915692"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示</p>
-<h3 id="浮点数运算">浮点数运算</h3>
-<p>M*R^e</p>
+<h3 id="浮点数运算">浮点数运算<a class="anchorjs-link" href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e8%bf%90%e7%ae%97"></a></h3><p>M*R^e</p>
 <p>M：尾数；R：基数：e：指数</p>
 <p>对阶（<strong>小向大的指数对</strong>） - 尾数计算 - 结果格式化（<strong>尾数小数点左边是1</strong>）</p>
-<h2 id="计算机结构">计算机结构</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328203437719.png" alt="image-20220328203437719"></p>
+<h2 id="计算机结构">计算机结构<a class="anchorjs-link" href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bb%93%e6%9e%84"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328203437719.png" data-action="zoom" alt="image-20220328203437719"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>主机=CPU（运算器+控制器）+主存储器</p>
-<h2 id="flynn分类法">Flynn分类法</h2>
-<p>单I/多M+指令I/数据D</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328204105460.png" alt="image-20220328204105460"></p>
+<h2 id="flynn分类法">Flynn分类法<a class="anchorjs-link" href="#flynn%e5%88%86%e7%b1%bb%e6%b3%95"></a></h2><p>单I/多M+指令I/数据D</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328204105460.png" data-action="zoom" alt="image-20220328204105460"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>SISD 现在的机器几乎没有，可能在单片机用到</p>
 <p>SIMD 阵列处理机：适合处理数组运算</p>
 <p>MISD 只在理论中</p>
 <p>MIMD 全面并行</p>
-<h2 id="cisc和rics">CISC和RICS</h2>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328204144102.png" alt="image-20220328204144102"></p>
+<h2 id="cisc和rics">CISC和RICS<a class="anchorjs-link" href="#cisc%e5%92%8crics"></a></h2><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328204144102.png" data-action="zoom" alt="image-20220328204144102"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>CISC 比较早期，通常是定制。指令数量多；可变长格式</p>
 <p>RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）</p>
-<h2 id="流水线">流水线</h2>
-<p>主要考察计算</p>
-<h3 id="周期">周期</h3>
-<p>概念：执行时间最长的一个步骤时间</p>
+<h2 id="流水线">流水线<a class="anchorjs-link" href="#%e6%b5%81%e6%b0%b4%e7%ba%bf"></a></h2><p>主要考察计算</p>
+<h3 id="周期">周期<a class="anchorjs-link" href="#%e5%91%a8%e6%9c%9f"></a></h3><p>概念：执行时间最长的一个步骤时间</p>
 <p>n条指令全部执行时间：</p>
 <ul>
 <li>理论公式：1条指令执行时间+（指令条数-1）*流水线周期</li>
 <li>实践公式：（k+n-1）*周期；k为子指令个数</li>
 </ul>
 <p>考试时优先用理论公式算，没有这个选项，再用实践公式</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328205445725.png" alt="image-20220328205445725"></p>
-<h3 id="吞吐率">吞吐率</h3>
-<p>概念：单位时间内处理指令条数</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328205445725.png" data-action="zoom" alt="image-20220328205445725"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="吞吐率">吞吐率<a class="anchorjs-link" href="#%e5%90%9e%e5%90%90%e7%8e%87"></a></h3><p>概念：单位时间内处理指令条数</p>
 <p>公式：TP=指令条数/流水线时间</p>
 <p>最大吞吐率：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328205659851.png" alt="image-20220328205659851"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328205659851.png" data-action="zoom" alt="image-20220328205659851"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期</p>
-<h3 id="加速比">加速比</h3>
-<p>概念及公式：同一个任务不使用流水线时间/使用流水线时间</p>
-<h3 id="效率">效率</h3>
-<p>概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。</p>
+<h3 id="加速比">加速比<a class="anchorjs-link" href="#%e5%8a%a0%e9%80%9f%e6%af%94"></a></h3><p>概念及公式：同一个任务不使用流水线时间/使用流水线时间</p>
+<h3 id="效率">效率<a class="anchorjs-link" href="#%e6%95%88%e7%8e%87"></a></h3><p>概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。</p>
 <p>公式：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328210302495.png" alt="image-20220328210302495"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328210302495.png" data-action="zoom" alt="image-20220328210302495"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>每个子任务时间一样 -&gt; 效率最高</p>
-<h2 id="存储">存储</h2>
-<h3 id="层次化存储结构">层次化存储结构</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328210428582.png" alt="image-20220328210428582"></p>
-<h3 id="cache">cache</h3>
-<p>特点：</p>
+<h2 id="存储">存储<a class="anchorjs-link" href="#%e5%ad%98%e5%82%a8"></a></h2><h3 id="层次化存储结构">层次化存储结构<a class="anchorjs-link" href="#%e5%b1%82%e6%ac%a1%e5%8c%96%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328210428582.png" data-action="zoom" alt="image-20220328210428582"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h3 id="cache">cache<a class="anchorjs-link" href="#cache"></a></h3><p>特点：</p>
 <ul>
 <li>CPU和内存之间</li>
 <li>为何能改善系统性能：局部性原理</li>
 </ul>
 <p>平均周期公式</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328211058542.png" alt="image-20220328211058542"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328211058542.png" data-action="zoom" alt="image-20220328211058542"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p><strong>局部性原理</strong></p>
 <p>时间/空间局部性</p>
 <p>工作集理论：工作集是进程运行时被频繁访问的页面集合；把工作集打包到cache，短时间内不被替换，可提高效率</p>
-<h3 id="主存">主存</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328211454312.png" alt="image-20220328211454312"></p>
+<h3 id="主存">主存<a class="anchorjs-link" href="#%e4%b8%bb%e5%ad%98"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328211454312.png" data-action="zoom" alt="image-20220328211454312"  class="lazyload">
+  </a>
+  
+</figure></p>
 <ul>
 <li>随机存取存储器 RAM</li>
 <li>只读存储器 ROM</li>
 </ul>
-<h4 id="编址">编址</h4>
-<p>8*4位的存储器：8个地址空间，每个地址空间含4位</p>
+<h4 id="编址">编址<a class="anchorjs-link" href="#%e7%bc%96%e5%9d%80"></a></h4><p>8*4位的存储器：8个地址空间，每个地址空间含4位</p>
 <p>两种组合方法：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220328211732881.png" alt="image-20220328211732881"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220328211732881.png" data-action="zoom" alt="image-20220328211732881"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>（1）=C7FFFH-AC000H+1=C7FFFH+1-AC000H=112</p>
 <p>（2）112k x 16 = 28 x 16k x 未知数 结果为4</p>
-<h3 id="磁盘">磁盘</h3>
-<p>主要掌握：读取一次数据过程中1、哪些动作；2、多少时间</p>
+<h3 id="磁盘">磁盘<a class="anchorjs-link" href="#%e7%a3%81%e7%9b%98"></a></h3><p>主要掌握：读取一次数据过程中1、哪些动作；2、多少时间</p>
 <p>存取时间=存道时间+等待时间（平均定位时间+旋转延迟时间）</p>
 <ul>
 <li>存道时间：磁头移动到磁道</li>
 <li>等待时间：等待扇区转到磁头</li>
 </ul>
-<p><img src="http://cdn.huangxindi.com/img/image-20220412080207199.png" alt="image-20220412080207199"></p>
-<h2 id="总线">总线</h2>
-<p>分类</p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220412080207199.png" data-action="zoom" alt="image-20220412080207199"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="总线">总线<a class="anchorjs-link" href="#%e6%80%bb%e7%ba%bf"></a></h2><p>分类</p>
 <ul>
 <li>内部总线</li>
 <li>系统总线
@@ -503,27 +359,30 @@ CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公
 </li>
 <li>外部总线</li>
 </ul>
-<h2 id="系统可靠性分析与设计">系统可靠性分析与设计</h2>
-<h3 id="串联系统与并联系统">串联系统与并联系统</h3>
-<p>可靠度：</p>
+<h2 id="系统可靠性分析与设计">系统可靠性分析与设计<a class="anchorjs-link" href="#%e7%b3%bb%e7%bb%9f%e5%8f%af%e9%9d%a0%e6%80%a7%e5%88%86%e6%9e%90%e4%b8%8e%e8%ae%be%e8%ae%a1"></a></h2><h3 id="串联系统与并联系统">串联系统与并联系统<a class="anchorjs-link" href="#%e4%b8%b2%e8%81%94%e7%b3%bb%e7%bb%9f%e4%b8%8e%e5%b9%b6%e8%81%94%e7%b3%bb%e7%bb%9f"></a></h3><p>可靠度：</p>
 <ul>
 <li>串联：可靠性为各节点可靠性相乘</li>
 <li>并联：R=1-(1-R1)x(1-R2)x&hellip;x(1-Rn)</li>
 </ul>
 <p>失效率=1-可靠度</p>
-<h3 id="模冗余系统与混合系统">模冗余系统与混合系统</h3>
-<p><img src="http://cdn.huangxindi.com/img/image-20220412081248508.png" alt="image-20220412081248508"></p>
-<h2 id="校验码">校验码</h2>
-<h3 id="码距">码距</h3>
-<p>概念：编码系统中任意（所有）两个码字的最小距离，即A-&gt;B需要改变最少几位；如采用3位长度作为二进制编码，可选用111和000作为合法编码，这时码距就是3（000需要改变3位才变为111）</p>
-<h3 id="循环校验码crc检错不纠错">循环校验码CRC（检错不纠错）</h3>
-<p>采用模2除法，接收到除多项式若余数为0，则表明传输正确</p>
+<h3 id="模冗余系统与混合系统">模冗余系统与混合系统<a class="anchorjs-link" href="#%e6%a8%a1%e5%86%97%e4%bd%99%e7%b3%bb%e7%bb%9f%e4%b8%8e%e6%b7%b7%e5%90%88%e7%b3%bb%e7%bb%9f"></a></h3><p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220412081248508.png" data-action="zoom" alt="image-20220412081248508"  class="lazyload">
+  </a>
+  
+</figure></p>
+<h2 id="校验码">校验码<a class="anchorjs-link" href="#%e6%a0%a1%e9%aa%8c%e7%a0%81"></a></h2><h3 id="码距">码距<a class="anchorjs-link" href="#%e7%a0%81%e8%b7%9d"></a></h3><p>概念：编码系统中任意（所有）两个码字的最小距离，即A-&gt;B需要改变最少几位；如采用3位长度作为二进制编码，可选用111和000作为合法编码，这时码距就是3（000需要改变3位才变为111）</p>
+<h3 id="循环校验码crc检错不纠错">循环校验码CRC（检错不纠错）<a class="anchorjs-link" href="#%e5%be%aa%e7%8e%af%e6%a0%a1%e9%aa%8c%e7%a0%81crc%e6%a3%80%e9%94%99%e4%b8%8d%e7%ba%a0%e9%94%99"></a></h3><p>采用模2除法，接收到除多项式若余数为0，则表明传输正确</p>
 <p>CRC编码：</p>
-<p><img src="http://cdn.huangxindi.com/img/image-20220412083256693.png" alt="image-20220412083256693"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220412083256693.png" data-action="zoom" alt="image-20220412083256693"  class="lazyload">
+  </a>
+  
+</figure></p>
 <p>编码后：原报文+余数吗，作为最终报文传输</p>
 <p>接收端接收到报文后，将报文同样除以二项式，若余数为0，则表示传输正确</p>
-<h3 id="海明码检错加纠错">海明码（检错加纠错）</h3>
-<p>校验位：</p>
+<h3 id="海明码检错加纠错">海明码（检错加纠错）<a class="anchorjs-link" href="#%e6%b5%b7%e6%98%8e%e7%a0%81%e6%a3%80%e9%94%99%e5%8a%a0%e7%ba%a0%e9%94%99"></a></h3><p>校验位：</p>
 <ul>
 <li>位置：2^n
 <ul>
@@ -532,100 +391,169 @@ CPU和内存之间 为何能改善系统性能：局部性原理 平均周期公
 </li>
 <li>需要校验位数r：2^r-1&gt;=x+r</li>
 </ul>
-<p><img src="http://cdn.huangxindi.com/img/image-20220412220103111.png" alt="image-20220412220103111"></p>
+<p><figure>
+  <a class="paragraph-image">
+    <img data-src="http://cdn.huangxindi.com/img/image-20220412220103111.png" data-action="zoom" alt="image-20220412220103111"  class="lazyload">
+  </a>
+  
+</figure></p>
+
+
+        <hr style="visibility: hidden;" />
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-02 操作系统">
+              Previous<br>
+              <span>软考-中级软件设计师-02 操作系统</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-00 无分类">
+              Next<br>
+              <span>软考-中级软件设计师-00 无分类</span>
+            </a>
+          </li>
+          
+        </ul>
+        <hr style="visibility: hidden;" />
+
+        
+        
+
+
+
+<div class="giscus" id="comments"></div>
+<script src="https://giscus.app/client.js" 
+  data-repo="roninro/hugo-theme-puppet" 
+  data-repo-id="R_kgDOHuvyhw"
+  data-category="General"
+  data-category-id="DIC_kwDOHuvyh84CQjDo"
+  data-mapping="pathname"
+  data-strict="0" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top"
+  data-theme="light_tritanopia"
+  data-lang="en"
+  crossorigin="anonymous"
+  async>
+  </script>
+
+
+
+
+      </div>
+
+      
+      
+      
+      
+      <div class="
+              col-lg-8 col-lg-offset-2
+              col-md-10 col-md-offset-1
+              sidebar-container">
+
+        
+        
+        <section>
+  
+  
+  <hr class="hidden-sm hidden-xs">
+  
+  <h5>FEATURED TAGS</h5>
+  <div class="tags">
+    
+    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
+    
+    <a href="/tags/java/">Java</a>
+    
+    <a href="/tags/linux/">Linux</a>
+    
+    <a href="/tags/maven/">Maven</a>
+    
+    <a href="/tags/miniapp/">MiniApp</a>
+    
+    <a href="/tags/redis/">Redis</a>
+    
+    <a href="/tags/weekly-letter/">weekly-letter</a>
+    
+    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+    
+    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    
+    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+    
+  </div>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
-      href="http://pipony.github.io/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88"
-      >软考-中级软件设计师</a
-    >
-    
-  </footer>
-  
-
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/"
-      ><span class="mr-1.5">←</span><span>软考-中级软件设计师-00 无分类</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 no-underline hover:bg-black/[2%]"
-      href="http://pipony.github.io/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
-      ><span>软考-中级软件设计师-02 操作系统</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
-
-  
-  
-
-  
-  
-  <div class="mt-24" id="graphcomment"></div>
-  <script type="text/javascript">
-    var __semio__params = {
-      graphcommentId: 'YOUR_GRAPH_COMMENT_ID',
-      behaviour: {
         
-      },
-      
-    };
+        
 
-    function __semio__onload() {
-      __semio__gc_graphlogin(__semio__params);
-    }
-
-    (function () {
-      var gc = document.createElement('script');
-      gc.type = 'text/javascript';
-      gc.async = true;
-      gc.onload = __semio__onload;
-      gc.defer = true;
-      gc.src =
-        'https://integration.graphcomment.com/gc_graphlogin.js?' + Date.now();
-      (
-        document.getElementsByTagName('head')[0] ||
-        document.getElementsByTagName('body')[0]
-      ).appendChild(gc);
-    })();
-  </script>
-  
+      </div>
+    </div>
+  </div>
 </article>
 
 
-    </main>
 
-    <footer
-  class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
->
-  <div class="mr-auto">
-    &copy; 2023
-    <a class="link" href="http://pipony.github.io/"></a>
+  
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <ul class="list-inline text-center">
+
+
+<li>
+  <a href="/index.xml" target="_blank">
+    <span class="fa-stack fa-lg">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+    </span>
+  </a>
+</li></ul>
+
+        <p class="copyright text-muted">
+          Copyright &copy; 2MUCH 2023  
+          <br>
+          Powered by <a href="https://gohugo.io">Hugo</a>
+        </p>
+      </div>
+    </div>
   </div>
-  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
-    >Powered by Hugo️️</a
-  >️
-  <a
-    class="link"
-    href="https://github.com/nanxiaobei/hugo-paper"
-    rel="noopener"
-    target="_blank"
-    >▷ Paper 6</a
-  >
 </footer>
 
-  </body>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+
+
+
+<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+
+
+<script src=/js/simple-jekyll-search.min.js></script>
+
+
+<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/zoomjs/zoom.min.js"></script>
+
+</body>
+
 </html>
