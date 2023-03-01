@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>charging on 2MUCH</title>
+    <link>https://huangxindi.com/categories/charging/</link>
+    <description>Recent content in charging on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/charging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>阅读清单</title>
+      <link>https://huangxindi.com/post/workspace/05-charging/05a-readup/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/05-charging/05a-readup/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/</guid>
+      <description>现在日常的阅读几乎就是rss+newsletter，但有些网站不提供这类资源，或网站本身维护得很棒，于是记录如下。 合集 newsletter推</description>
+    </item>
+    
+  </channel>
+</rss>

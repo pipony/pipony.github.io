@@ -2,89 +2,89 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on 2MUCH</title>
-    <link>http://pipony.github.io/categories/java/</link>
+    <link>https://huangxindi.com/categories/java/</link>
     <description>Recent content in Java on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://pipony.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java基础之IO流</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</link>
       <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/</guid>
       <description>Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html 概念</description>
     </item>
     
     <item>
       <title>编译期常量</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</link>
       <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/</guid>
       <description>编译期常量先说结论，编译期常量=final+常量 java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加载期：将.class文</description>
     </item>
     
     <item>
       <title>Java基础之Calendar日历类</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</link>
       <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/</guid>
       <description>Java基础之Calendar日历类 Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月</description>
     </item>
     
     <item>
       <title>Maven之三：坐标、依赖范围、依赖冲突</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</link>
       <pubDate>Sun, 18 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%89%E5%9D%90%E6%A0%87%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/</guid>
       <description>Maven之三：坐标、依赖范围、依赖冲突学习网站：http://mvnbook.com/index.html Maven构件构件：在Maven</description>
     </item>
     
     <item>
       <title>Maven之一：基础</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/</guid>
       <description>Maven之一：基础学习网站：http://mvnbook.com/index.html 简介Maven英文：专家、内行 Maven：项目管理工</description>
     </item>
     
     <item>
       <title>Maven之二：创建Maven项目</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</link>
       <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/</guid>
       <description>Maven之二：创建Maven项目学习网站：http://mvnbook.com/index.html Maven项目创建约定标准目录结构 目录</description>
     </item>
     
     <item>
       <title>认识Jar包</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</link>
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E8%AE%A4%E8%AF%86jar%E5%8C%85/</guid>
       <description>认识Jar包概念Jar：Java Archive File 基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是</description>
     </item>
     
     <item>
       <title>文档注释</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</link>
       <pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/</guid>
       <description>文档注释 本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。 定义Java普通注释格</description>
     </item>
     
     <item>
       <title>异常的处理</title>
-      <link>http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</link>
+      <link>https://huangxindi.com/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</link>
       <pubDate>Sat, 04 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://pipony.github.io/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</guid>
+      <guid>https://huangxindi.com/post/workspace/01-tech/java/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/</guid>
       <description>异常的处理分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引</description>
     </item>
     

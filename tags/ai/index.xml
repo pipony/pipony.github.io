@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on 2MUCH</title>
+    <link>https://huangxindi.com/tags/ai/</link>
+    <description>Recent content in AI on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/ai%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/ai%E8%B5%84%E6%BA%90/</guid>
+      <description>AI资源汇总网站 FUTUREPEDIA https://www.futurepedia.io/ FutureTools https://www.futuretools.io/ 文本生成或简化 总结提炼（输入文章、pdf、视频等） https://labs.kagi.com/ai/sum 周报生成器 https://weeklyreport.avemaria.fun/zh 聊天简化器（输入群聊聊天记录，输出概括后的大纲或段落</description>
+    </item>
+    
+  </channel>
+</rss>

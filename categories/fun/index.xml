@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fun on 2MUCH</title>
+    <link>https://huangxindi.com/categories/fun/</link>
+    <description>Recent content in fun on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/fun/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>all about music</title>
+      <link>https://huangxindi.com/post/workspace/03-fun/03c-music/all-about-music/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/03-fun/03c-music/all-about-music/</guid>
+      <description>雀乐（原落网，等待回归） https://www.indie.cn/</description>
+    </item>
+    
+  </channel>
+</rss>

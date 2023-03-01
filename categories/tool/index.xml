@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tool on 2MUCH</title>
+    <link>https://huangxindi.com/categories/tool/</link>
+    <description>Recent content in tool on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/ai%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/ai%E8%B5%84%E6%BA%90/</guid>
+      <description>AI资源汇总网站 FUTUREPEDIA https://www.futurepedia.io/ FutureTools https://www.futuretools.io/ 文本生成或简化 总结提炼（输入文章、pdf、视频等） https://labs.kagi.com/ai/sum 周报生成器 https://weeklyreport.avemaria.fun/zh 聊天简化器（输入群聊聊天记录，输出概括后的大纲或段落</description>
+    </item>
+    
+    <item>
+      <title>书影音图像资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E4%B9%A6%E5%BD%B1%E9%9F%B3%E5%9B%BE%E5%83%8F%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E4%B9%A6%E5%BD%B1%E9%9F%B3%E5%9B%BE%E5%83%8F%E8%B5%84%E6%BA%90/</guid>
+      <description>除了正文列举的资源网站，也可以通过以下途径找资源： 微信网页搜索 带资源等关键字 贴吧 闲鱼 书 Z-Library Pro助手（实时更新可用地址） https://zlib.pro/ 鸠摩搜书 https://www.jiumodiary.com/ 电子书资源</description>
+    </item>
+    
+    <item>
+      <title>工具资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90/</guid>
+      <description>各种资源汇总网站 阿虚同学（书影音资源、软件、实用网站等资源，很好很强大） https://axutongxue.com/ 快吧软件 （各种资源） http://www.fast8.cc/ 奔跑中的奶酪 https://www.runningcheese.com imyshare（各种资源和在</description>
+    </item>
+    
+    <item>
+      <title>Windows命令行手册</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04d-windows/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04d-windows/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</guid>
+      <description>此笔记为《少数派-生产力超频：Windows 命令行实用手册》l栏目的个人学习笔记，供个人回溯 一些概念Command Line Interface (CLI) 命令行界面 Console App &amp;amp; Terminal App</description>
+    </item>
+    
+  </channel>
+</rss>
