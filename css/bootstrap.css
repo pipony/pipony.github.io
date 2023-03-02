@@ -48,6 +48,7 @@ a {
 a:active,
 a:hover {
   outline: 0;
+  color: #337ab7;
 }
 abbr[title] {
   border-bottom: none;
@@ -1102,7 +1103,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #23527c;
+  color: #7E292C;
   text-decoration: underline;
 }
 a:focus {
@@ -1341,7 +1342,7 @@ mark,
 }
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #286090;
+  color: #337ab7;
 }
 .text-success {
   color: #3c763d;

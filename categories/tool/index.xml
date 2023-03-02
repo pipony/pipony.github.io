@@ -6,7 +6,25 @@
     <description>Recent content in tool on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/tool/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>学习资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</guid>
+      <description>专业学习计算机学习 CS自学指南 https://csdiy.wiki/ 计算机科学速成课（视频） https://github.com/1c7/crash-course-computer-science-chinese 网道（一些语言的文档） https://wangdoc.com/ JAVA HOW2J（java学习网站） https://how2j.cn/ javaGuide（gi</description>
+    </item>
+    
+    <item>
+      <title>软件资源</title>
+      <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E8%BD%AF%E4%BB%B6%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/%E8%BD%AF%E4%BB%B6%E8%B5%84%E6%BA%90/</guid>
+      <description>阿里云盘TV https://aliyunpantv.gitlab.io/download.html 插件 CSDNGreener https://github.com/adlered/CSDNGreener</description>
+    </item>
+    
     <item>
       <title>AI资源</title>
       <link>https://huangxindi.com/post/workspace/04-tool/04a-linktool-index/ai%E8%B5%84%E6%BA%90/</link>
