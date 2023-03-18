@@ -1,221 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH  | 软考-中级软件设计师-06 数据结构与算法基础</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title>软考-中级软件设计师-06 数据结构与算法基础 | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="06 数据结构与算法基础 数组考点：存储地址计算 稀疏矩阵 矩阵坐标转换到数组坐标的解题技巧：带入特殊值 数据结构的定义概念：计算机存储和组织数据的方式">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="软考-中级软件设计师-06 数据结构与算法基础"/>
-<meta name="twitter:description" content="06 数据结构与算法基础 数组考点：存储地址计算 稀疏矩阵 矩阵坐标转换到数组坐标的解题技巧：带入特殊值 数据结构的定义概念：计算机存储和组织数据的方式"/>
+	
 
-  <meta property="og:title" content="软考-中级软件设计师-06 数据结构与算法基础" />
-<meta property="og:description" content="06 数据结构与算法基础 数组考点：存储地址计算 稀疏矩阵 矩阵坐标转换到数组坐标的解题技巧：带入特殊值 数据结构的定义概念：计算机存储和组织数据的方式" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/software-designer/06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-05-14T22:51:46+08:00" />
-<meta property="article:modified_time" content="2022-05-14T22:51:46+08:00" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+	
 
-  <link rel="stylesheet" href="/sass/main.css">
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
+
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
+
+
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2">软考-中级软件设计师-06 数据结构与算法基础</h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88'>软考-中级软件设计师</a>
+	
+	
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
+	&nbsp;&nbsp;
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88'>软考-中级软件设计师</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-05-14T22:51:46&#43;08:00">2022-5-14</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-            <a class="tag" href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/" title="软考-中级软件设计师">软考-中级软件设计师</a>
-            
-          </div>
-          <h1>软考-中级软件设计师-06 数据结构与算法基础</h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Sat, May 14, 2022
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="06-数据结构与算法基础">06 数据结构与算法基础<a class="anchorjs-link" href="#06-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e4%b8%8e%e7%ae%97%e6%b3%95%e5%9f%ba%e7%a1%80"></a></h1><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503153056928.png" data-action="zoom" alt="image-20220503153056928"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h2 id="数组">数组<a class="anchorjs-link" href="#%e6%95%b0%e7%bb%84"></a></h2><p>考点：存储地址计算</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503153232866.png" data-action="zoom" alt="image-20220503153232866"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h2 id="稀疏矩阵">稀疏矩阵<a class="anchorjs-link" href="#%e7%a8%80%e7%96%8f%e7%9f%a9%e9%98%b5"></a></h2><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503153602838.png" data-action="zoom" alt="image-20220503153602838"  class="lazyload">
-  </a>
-  
-</figure></p>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="06-数据结构与算法基础">06 数据结构与算法基础</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503153056928.png" alt="image-20220503153056928"></p>
+<h2 id="数组">数组</h2>
+<p>考点：存储地址计算</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503153232866.png" alt="image-20220503153232866"></p>
+<h2 id="稀疏矩阵">稀疏矩阵</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503153602838.png" alt="image-20220503153602838"></p>
 <p>矩阵坐标转换到数组坐标的解题技巧：带入特殊值</p>
-<h2 id="数据结构的定义">数据结构的定义<a class="anchorjs-link" href="#%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%e7%9a%84%e5%ae%9a%e4%b9%89"></a></h2><p>概念：计算机存储和组织数据的方式</p>
+<h2 id="数据结构的定义">数据结构的定义</h2>
+<p>概念：计算机存储和组织数据的方式</p>
 <p>逻辑结构划分</p>
 <ul>
 <li>线性结构</li>
@@ -226,7 +216,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="线性表">线性表<a class="anchorjs-link" href="#%e7%ba%bf%e6%80%a7%e8%a1%a8"></a></h2><p>分类</p>
+<h2 id="线性表">线性表</h2>
+<p>分类</p>
 <ul>
 <li>
 <p>顺序表（一维数组形式）</p>
@@ -244,12 +235,7 @@
 <ul>
 <li>
 <p>循环队列</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503155120397.png" data-action="zoom" alt="image-20220503155120397"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503155120397.png" alt="image-20220503155120397"></p>
 </li>
 </ul>
 </li>
@@ -259,42 +245,26 @@
 </ul>
 <p>链表的基本操作（删除和插入节点）</p>
 <p>顺序存储和链式存储对比：</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503154523426.png" data-action="zoom" alt="image-20220503154523426"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h2 id="广义表">广义表<a class="anchorjs-link" href="#%e5%b9%bf%e4%b9%89%e8%a1%a8"></a></h2><p>概念：线性表的推广，以递归的方式进行定义</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503154523426.png" alt="image-20220503154523426"></p>
+<h2 id="广义表">广义表</h2>
+<p>概念：线性表的推广，以递归的方式进行定义</p>
 <p>广度（最外层括号包含的元素个数）、深度（包含括号的重数）</p>
 <p>表头head（最外括号的第一个元素）、表尾tail（除去表头的其他所有部分）</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503160909846.png" data-action="zoom" alt="image-20220503160909846"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h2 id="树与二叉树">树与二叉树<a class="anchorjs-link" href="#%e6%a0%91%e4%b8%8e%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h2><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503160933287.png" data-action="zoom" alt="image-20220503160933287"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503160909846.png" alt="image-20220503160909846"></p>
+<h2 id="树与二叉树">树与二叉树</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503160933287.png" alt="image-20220503160933287"></p>
 <p>结点的度：孩子数</p>
 <p>数的度：所有结点度数最高的度</p>
 <p>内部节点：非头节点和叶子节点</p>
 <p>深度：最大的层数</p>
-<h3 id="特殊二叉树">特殊二叉树<a class="anchorjs-link" href="#%e7%89%b9%e6%ae%8a%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h3><ul>
+<h3 id="特殊二叉树">特殊二叉树</h3>
+<ul>
 <li>满二叉树</li>
 <li>完全二叉树（除最后一层，上面层都满；且最后一层从左到右没有<strong>中间缺失</strong>的情况）</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503161436409.png" data-action="zoom" alt="image-20220503161436409"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="二叉树遍历">二叉树遍历<a class="anchorjs-link" href="#%e4%ba%8c%e5%8f%89%e6%a0%91%e9%81%8d%e5%8e%86"></a></h3><ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503161436409.png" alt="image-20220503161436409"></p>
+<h3 id="二叉树遍历">二叉树遍历</h3>
+<ul>
 <li>
 <p>前、中、后序遍历：差别在根节点前、中、后时候被访问</p>
 </li>
@@ -302,39 +272,28 @@
 <p>层次遍历</p>
 </li>
 </ul>
-<h3 id="反向构造二叉树">反向构造二叉树<a class="anchorjs-link" href="#%e5%8f%8d%e5%90%91%e6%9e%84%e9%80%a0%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h3><p>例题：</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503162440549.png" data-action="zoom" alt="image-20220503162440549"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="树转二叉树">树转二叉树<a class="anchorjs-link" href="#%e6%a0%91%e8%bd%ac%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h3><p>原则：</p>
+<h3 id="反向构造二叉树">反向构造二叉树</h3>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503162440549.png" alt="image-20220503162440549"></p>
+<h3 id="树转二叉树">树转二叉树</h3>
+<p>原则：</p>
 <ul>
 <li>孩子结点 -&gt; 左子树结点</li>
 <li>兄弟结点 -&gt; 右孩子结点</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503162707664.png" data-action="zoom" alt="image-20220503162707664"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503162707664.png" alt="image-20220503162707664"></p>
 <p>除了挨个用【原则】分析，还可以用连线法：如上图的虚线图所示。将兄弟结点连起来，并将第一个孩子以外的孩子结点的连线去掉，然后旋转，得到最终的二叉树</p>
-<h3 id="查找二叉树二叉排序树">查找二叉树（二叉排序树）<a class="anchorjs-link" href="#%e6%9f%a5%e6%89%be%e4%ba%8c%e5%8f%89%e6%a0%91%e4%ba%8c%e5%8f%89%e6%8e%92%e5%ba%8f%e6%a0%91"></a></h3><p>特点：</p>
+<h3 id="查找二叉树二叉排序树">查找二叉树（二叉排序树）</h3>
+<p>特点：</p>
 <ul>
 <li>左孩子小于根</li>
 <li>右孩子大于根</li>
 <li>极大提高查找速度</li>
 </ul>
 <p>操作：插入和删除结点</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503163239625.png" data-action="zoom" alt="image-20220503163239625"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="最优二叉树哈夫曼树">最优二叉树（哈夫曼树）<a class="anchorjs-link" href="#%e6%9c%80%e4%bc%98%e4%ba%8c%e5%8f%89%e6%a0%91%e5%93%88%e5%a4%ab%e6%9b%bc%e6%a0%91"></a></h3><p>哈夫曼树：用于无损压缩</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503163239625.png" alt="image-20220503163239625"></p>
+<h3 id="最优二叉树哈夫曼树">最优二叉树（哈夫曼树）</h3>
+<p>哈夫曼树：用于无损压缩</p>
 <p>基本概念：</p>
 <ul>
 <li>树的路径长度</li>
@@ -344,393 +303,335 @@
 </ul>
 <p>构造哈夫曼树：<strong>即构造带权路径长度最小的树</strong></p>
 <p>例题：</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503163738267.png" data-action="zoom" alt="image-20220503163738267"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503163738267.png" alt="image-20220503163738267"></p>
 <p>求解树的带权路径长度：<strong>将所有叶子结点的带权路径长度相加</strong></p>
-<h2 id="线索二叉树">线索二叉树<a class="anchorjs-link" href="#%e7%ba%bf%e7%b4%a2%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h2><p>why：很多结点的左右指针是空的，可以利用这些空闲指针，来方便遍历</p>
+<h2 id="线索二叉树">线索二叉树</h2>
+<p>why：很多结点的左右指针是空的，可以利用这些空闲指针，来方便遍历</p>
 <ul>
 <li>前序线索二叉树</li>
 <li>中序线索二叉树</li>
 <li>后序线索二叉树</li>
 </ul>
 <p>构造线索二叉树：左右线索指针指向的是x序排列的前/后面的结点</p>
-<h2 id="平衡二叉树">平衡二叉树<a class="anchorjs-link" href="#%e5%b9%b3%e8%a1%a1%e4%ba%8c%e5%8f%89%e6%a0%91"></a></h2><p>定义：</p>
+<h2 id="平衡二叉树">平衡二叉树</h2>
+<p>定义：</p>
 <ul>
 <li>左右子树深度相差不超过1</li>
 <li>每个结点的平衡度（左子树深度-右子树深度）只能为-1，0，1</li>
 </ul>
 <p>非平衡二叉树 -&gt; 平衡二叉树</p>
-<h2 id="图">图<a class="anchorjs-link" href="#%e5%9b%be"></a></h2><p>图与树最大的区别：<strong>树没有环路</strong></p>
+<h2 id="图">图</h2>
+<p>图与树最大的区别：<strong>树没有环路</strong></p>
 <p>分类：</p>
 <ul>
 <li>有向图</li>
 <li>无向图</li>
 <li>完全图（可连的边都连了）</li>
 </ul>
-<h3 id="存储">存储<a class="anchorjs-link" href="#%e5%ad%98%e5%82%a8"></a></h3><ul>
+<h3 id="存储">存储</h3>
+<ul>
 <li>邻接矩阵</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503165639983.png" data-action="zoom" alt="image-20220503165639983"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503165639983.png" alt="image-20220503165639983"></p>
 <ul>
 <li>邻接表</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503165817778.png" data-action="zoom" alt="image-20220503165817778"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="图的遍历">图的遍历<a class="anchorjs-link" href="#%e5%9b%be%e7%9a%84%e9%81%8d%e5%8e%86"></a></h3><ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503165817778.png" alt="image-20220503165817778"></p>
+<h3 id="图的遍历">图的遍历</h3>
+<ul>
 <li>深度遍历</li>
 <li>广度遍历</li>
 </ul>
 <p>根据邻接表进行遍历：广度是一个结点所连的线走到底，深度是连续试探第一个</p>
-<h3 id="拓扑排序">拓扑排序<a class="anchorjs-link" href="#%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f"></a></h3><p>表示活动之间开始的<strong>先后关系</strong></p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503170224108.png" data-action="zoom" alt="image-20220503170224108"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h3 id="拓扑排序">拓扑排序</h3>
+<p>表示活动之间开始的<strong>先后关系</strong></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503170224108.png" alt="image-20220503170224108"></p>
 <p>执行完把连线去掉，继续分析</p>
-<h3 id="图的最小生成树">图的最小生成树<a class="anchorjs-link" href="#%e5%9b%be%e7%9a%84%e6%9c%80%e5%b0%8f%e7%94%9f%e6%88%90%e6%a0%91"></a></h3><p>使得留下来的边（n-1条，n为节点数）构成树（注意不能有环），权值总和最小</p>
-<h4 id="普利姆算法">普利姆算法<a class="anchorjs-link" href="#%e6%99%ae%e5%88%a9%e5%a7%86%e7%ae%97%e6%b3%95"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503170607893.png" data-action="zoom" alt="image-20220503170607893"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h3 id="图的最小生成树">图的最小生成树</h3>
+<p>使得留下来的边（n-1条，n为节点数）构成树（注意不能有环），权值总和最小</p>
+<h4 id="普利姆算法">普利姆算法</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503170607893.png" alt="image-20220503170607893"></p>
 <p>分析：画图时实时将结点分成两个阵营，寻找到另一个阵营的最短边</p>
-<h4 id="克鲁斯卡尔算法">克鲁斯卡尔算法<a class="anchorjs-link" href="#%e5%85%8b%e9%b2%81%e6%96%af%e5%8d%a1%e5%b0%94%e7%ae%97%e6%b3%95"></a></h4><p>依次选择权最小的边，注意不要构成环。连接所有结点后，即生成结束</p>
-<h2 id="算法基础">算法基础<a class="anchorjs-link" href="#%e7%ae%97%e6%b3%95%e5%9f%ba%e7%a1%80"></a></h2><h3 id="算法的特性">算法的特性<a class="anchorjs-link" href="#%e7%ae%97%e6%b3%95%e7%9a%84%e7%89%b9%e6%80%a7"></a></h3><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503170847056.png" data-action="zoom" alt="image-20220503170847056"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="算法的复杂度">算法的复杂度<a class="anchorjs-link" href="#%e7%ae%97%e6%b3%95%e7%9a%84%e5%a4%8d%e6%9d%82%e5%ba%a6"></a></h3><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503171033563.png" data-action="zoom" alt="image-20220503171033563"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="顺序查找和二分查找">顺序查找和二分查找<a class="anchorjs-link" href="#%e9%a1%ba%e5%ba%8f%e6%9f%a5%e6%89%be%e5%92%8c%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be"></a></h3><h4 id="顺序查找">顺序查找<a class="anchorjs-link" href="#%e9%a1%ba%e5%ba%8f%e6%9f%a5%e6%89%be"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503171742095.png" data-action="zoom" alt="image-20220503171742095"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h4 id="二分查找">二分查找<a class="anchorjs-link" href="#%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503171839069.png" data-action="zoom" alt="image-20220503171839069"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h4 id="克鲁斯卡尔算法">克鲁斯卡尔算法</h4>
+<p>依次选择权最小的边，注意不要构成环。连接所有结点后，即生成结束</p>
+<h2 id="算法基础">算法基础</h2>
+<h3 id="算法的特性">算法的特性</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503170847056.png" alt="image-20220503170847056"></p>
+<h3 id="算法的复杂度">算法的复杂度</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503171033563.png" alt="image-20220503171033563"></p>
+<h3 id="顺序查找和二分查找">顺序查找和二分查找</h3>
+<h4 id="顺序查找">顺序查找</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503171742095.png" alt="image-20220503171742095"></p>
+<h4 id="二分查找">二分查找</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503171839069.png" alt="image-20220503171839069"></p>
 <p>前提：查找内容本身是有序排序的</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503172118001.png" data-action="zoom" alt="image-20220503172118001"  class="lazyload">
-  </a>
-  
-</figure></p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503172151529.png" data-action="zoom" alt="image-20220503172151529"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="散列表">散列表<a class="anchorjs-link" href="#%e6%95%a3%e5%88%97%e8%a1%a8"></a></h3><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503172237781.png" data-action="zoom" alt="image-20220503172237781"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503172118001.png" alt="image-20220503172118001"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503172151529.png" alt="image-20220503172151529"></p>
+<h3 id="散列表">散列表</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503172237781.png" alt="image-20220503172237781"></p>
 <p>冲突解决：</p>
 <ul>
 <li>线性探测法（往后顺序查找第一个空的）</li>
 <li>伪随机数法</li>
 <li>再散列法</li>
 </ul>
-<h3 id="排序重要">排序（重要）<a class="anchorjs-link" href="#%e6%8e%92%e5%ba%8f%e9%87%8d%e8%a6%81"></a></h3><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503172611622.png" data-action="zoom" alt="image-20220503172611622"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h3 id="排序重要">排序（重要）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503172611622.png" alt="image-20220503172611622"></p>
 <p>稳定性：<strong>值相同的数</strong>，排序后，顺序是否不变</p>
 <p>内/外排序：前者只在内存中，后者用到外存</p>
-<h4 id="直接插入排序">直接插入排序<a class="anchorjs-link" href="#%e7%9b%b4%e6%8e%a5%e6%8f%92%e5%85%a5%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503173036376.png" data-action="zoom" alt="image-20220503173036376"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h4 id="希尔排序">希尔排序<a class="anchorjs-link" href="#%e5%b8%8c%e5%b0%94%e6%8e%92%e5%ba%8f"></a></h4><p>是直接插入排序的一种，但更复杂。</p>
+<h4 id="直接插入排序">直接插入排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503173036376.png" alt="image-20220503173036376"></p>
+<h4 id="希尔排序">希尔排序</h4>
+<p>是直接插入排序的一种，但更复杂。</p>
 <p>好处是：经过前几轮的组内直接插入排序，序列已基本有序。到最后一轮的全组直接插入排序时，调整顺序的次数会更少。</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503173355864.png" data-action="zoom" alt="image-20220503173355864"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h4 id="直接选择排序">直接选择排序<a class="anchorjs-link" href="#%e7%9b%b4%e6%8e%a5%e9%80%89%e6%8b%a9%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503173454649.png" data-action="zoom" alt="image-20220503173454649"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h4 id="堆排序">堆排序<a class="anchorjs-link" href="#%e5%a0%86%e6%8e%92%e5%ba%8f"></a></h4><p>堆的概念</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503173755500.png" data-action="zoom" alt="image-20220503173755500"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503173355864.png" alt="image-20220503173355864"></p>
+<h4 id="直接选择排序">直接选择排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503173454649.png" alt="image-20220503173454649"></p>
+<h4 id="堆排序">堆排序</h4>
+<p>堆的概念</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503173755500.png" alt="image-20220503173755500"></p>
 <p>堆排列概念和步骤：</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503173843849.png" data-action="zoom" alt="image-20220503173843849"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503173843849.png" alt="image-20220503173843849"></p>
 <p><strong>初建堆过程：</strong></p>
 <ul>
 <li>顺次将结点数组构成完全二叉树</li>
 <li>调整为堆（从最后一个非叶子结点开始，而后分析最后第二个）</li>
 <li>注意，有的结点调整需要向下继续调整</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503174316966.png" data-action="zoom" alt="image-20220503174316966"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503174316966.png" alt="image-20220503174316966"></p>
 <p><strong>重新建堆过程：</strong></p>
 <ul>
 <li>把根结点取走</li>
 <li>把堆的最后一个结点放到根结点</li>
 <li>从根节点开始与子节点对比，一直往下</li>
 </ul>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503174646194.png" data-action="zoom" alt="image-20220503174646194"  class="lazyload">
-  </a>
-  
-</figure></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503174646194.png" alt="image-20220503174646194"></p>
 <p>所以，诸如从大量数据中求前10小的元素，比较有优势</p>
-<h4 id="冒泡排序">冒泡排序<a class="anchorjs-link" href="#%e5%86%92%e6%b3%a1%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503175039139.png" data-action="zoom" alt="image-20220503175039139"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h4 id="快速排序">快速排序<a class="anchorjs-link" href="#%e5%bf%ab%e9%80%9f%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503175310879.png" data-action="zoom" alt="image-20220503175310879"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h4 id="冒泡排序">冒泡排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503175039139.png" alt="image-20220503175039139"></p>
+<h4 id="快速排序">快速排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503175310879.png" alt="image-20220503175310879"></p>
 <p>分析：</p>
 <ul>
 <li>分治法</li>
 <li>与基准比较</li>
 </ul>
-<h4 id="归并排序">归并排序<a class="anchorjs-link" href="#%e5%bd%92%e5%b9%b6%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503175501777.png" data-action="zoom" alt="image-20220503175501777"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h4 id="归并排序">归并排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503175501777.png" alt="image-20220503175501777"></p>
 <p>一般是两两合并</p>
-<h4 id="基数排序">基数排序<a class="anchorjs-link" href="#%e5%9f%ba%e6%95%b0%e6%8e%92%e5%ba%8f"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503175728873.png" data-action="zoom" alt="image-20220503175728873"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h4 id="基数排序">基数排序</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503175728873.png" alt="image-20220503175728873"></p>
 <p>基数和关键字的分解有关</p>
-<h4 id="排序算法分析常考">排序算法分析（常考）<a class="anchorjs-link" href="#%e6%8e%92%e5%ba%8f%e7%ae%97%e6%b3%95%e5%88%86%e6%9e%90%e5%b8%b8%e8%80%83"></a></h4><p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/image-20220503175936970.png" data-action="zoom" alt="image-20220503175936970"  class="lazyload">
-  </a>
-  
-</figure></p>
+<h4 id="排序算法分析常考">排序算法分析（常考）</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503175936970.png" alt="image-20220503175936970"></p>
+</div>
+	</section>
 
 
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-07 程序设计语言与语言处理程序基础">
-              Previous<br>
-              <span>软考-中级软件设计师-07 程序设计语言与语言处理程序基础</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/" data-toggle="tooltip" data-placement="top" title="软考-中级软件设计师-05 计算机安全">
-              Next<br>
-              <span>软考-中级软件设计师-05 计算机安全</span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
-
-
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1479 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        软考-中级软件设计师-07 程序设计语言与语言处理程序基础
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">
+        软考-中级软件设计师-05 计算机安全
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <ul class="list-inline text-center">
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/post/workspace/01-tech/software-designer/00-%E6%97%A0%E5%88%86%E7%B1%BB/">软考-中级软件设计师-00 无分类</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">软考-中级软件设计师-01 计算机组成与体系结构</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-02 操作系统</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-03 数据库系统</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">软考-中级软件设计师-04 计算机网络</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">软考-中级软件设计师-05 计算机安全</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/07-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-07 程序设计语言与语言处理程序基础</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/">软考-中级软件设计师-08 法律法规</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/09-%E5%A4%9A%E5%AA%92%E4%BD%93%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-09 多媒体基础</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软考-中级软件设计师-10 软件工程</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/11-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/">软考-中级软件设计师-11 面向对象设计</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/">软考-中级软件设计师-12 数据流图（DFD）</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/13-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">软考-中级软件设计师-13 数据库设计</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/14-uml%E5%BB%BA%E6%A8%A1/">软考-中级软件设计师-14 UML建模</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/software-designer/15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/">软考-中级软件设计师-15 数据结构及算法应用</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
-
-
-
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
-
-
-<script src=/js/simple-jekyll-search.min.js></script>
-
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>

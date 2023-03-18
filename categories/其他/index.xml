@@ -5,15 +5,197 @@
     <link>https://huangxindi.com/categories/%E5%85%B6%E4%BB%96/</link>
     <description>Recent content in 其他 on 2MUCH</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <language>cn</language>
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://huangxindi.com/categories/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>认识编码</title>
       <link>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
       <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/other/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
-      <description>认识编码概念字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字</description>
+      <description>&lt;h1 id=&#34;认识编码&#34;&gt;认识编码&lt;/h1&gt;
+&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+&lt;p&gt;字符集 vs. 编码方式：编码方式就是将字符集里的字符&lt;strong&gt;映射&lt;/strong&gt;成可以被计算机识别的若干位二进制来表示。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。
+其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/faetbwac/p/16355273.html&#34;&gt;https://www.cnblogs.com/faetbwac/p/16355273.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;字符(Character)&lt;/strong&gt; 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;字符集(Character set)&lt;/strong&gt; 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;字符编码(Character encoding)&lt;/strong&gt; 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/chiguozi/p/5860364.html&#34;&gt;https://www.cnblogs.com/chiguozi/p/5860364.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;字符集对比&#34;&gt;字符集对比&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;字符集名称&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;字符集范围&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;编码格式&lt;/th&gt;
+&lt;th&gt;备注&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ASCII&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;英文或其他西欧语言&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;单字节&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;GB2312&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;汉字&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;双字节&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;GBK&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;更多汉字（21886个汉字和图形符号）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;双字节&lt;/td&gt;
+&lt;td&gt;完全向下兼容GB2312&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;GB18030&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可变多字节（1、2、4字节）&lt;/td&gt;
+&lt;td&gt;完全兼容GB2312，基本兼容GBK&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;ascii&#34;&gt;ASCII&lt;/h2&gt;
+&lt;p&gt;American Standard Code for Information Interchange，美国标准信息交换代码&lt;/p&gt;
+&lt;p&gt;主要用来表示英文或其他西欧语言（在扩展版中）&lt;/p&gt;
+&lt;h3 id=&#34;编码格式&#34;&gt;编码格式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;使用&lt;strong&gt;7位&lt;/strong&gt;（1字节，高位是0）表示128种字符：标准（基础）ASCII 码&lt;/li&gt;
+&lt;li&gt;使用8位表示256种字符：&lt;strong&gt;扩展&lt;/strong&gt;ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;gb2312&#34;&gt;GB2312&lt;/h2&gt;
+&lt;p&gt;GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是&lt;strong&gt;对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分区表示&lt;/strong&gt;：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;01–09区为特殊符号。&lt;/li&gt;
+&lt;li&gt;16–55区为一级汉字，按拼音排序。&lt;/li&gt;
+&lt;li&gt;56–87区为二级汉字，按部首／笔画排序。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。
+10–15区及88–94区则未有编码。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/chiguozi/p/5860364.html&#34;&gt;https://www.cnblogs.com/chiguozi/p/5860364.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;编码格式-1&#34;&gt;编码格式&lt;/h3&gt;
+&lt;p&gt;每个汉字及符号以&lt;strong&gt;两个字节&lt;/strong&gt;来表示。第一个字节称为“&lt;strong&gt;高位字节&lt;/strong&gt;”，第二个字节称为“&lt;strong&gt;低位字节&lt;/strong&gt;”。
+“高位字节”使用了&lt;code&gt;0xA1–0xF7&lt;/code&gt;（把01–87区的区号加上0xA0），“低位字节”使用了&lt;code&gt;0xA1–0xFE&lt;/code&gt;（把01–94加上0xA0）。 由于一级汉字从16区起始，汉字区的“高位字节”的范围是0xB0–0xF7，“低位字节”的范围是0xA1–0xFE。&lt;/p&gt;
+&lt;h2 id=&#34;gbk&#34;&gt;GBK&lt;/h2&gt;
+&lt;p&gt;GBK（Chinese Internal Code Extension Specification），&lt;strong&gt;汉字内码扩展规范&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;K：Kuo Zhan（扩展）的K&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;GB 2312-80只收录6763个汉字&lt;/strong&gt;，有不少汉字，如部分在GB 2312-80推出以后才简化的汉字（如“啰”），部分人名用字（如中国前总理朱镕的“镕”字），台湾及香港使用的繁体字，日语及朝鲜语汉字等，并未有收录在内。GBK对GB 2312-80进行扩展, 总计拥有 23940 个码位，&lt;strong&gt;共收录21886个汉字和图形符号&lt;/strong&gt;，其中汉字（包括部首和构件）21003 个，图形符号883 个。&lt;/p&gt;
+&lt;h3 id=&#34;编码格式-2&#34;&gt;编码格式&lt;/h3&gt;
+&lt;p&gt;GBK 亦采用&lt;strong&gt;双字节&lt;/strong&gt;表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间。&lt;strong&gt;GBK向下完全兼容GB2312-80编码&lt;/strong&gt;。支持GB2312-80编码不支持的部分中文姓，中文繁体，日文假名，还包括希腊字母以及俄语字母等字母。不过这种编码&lt;strong&gt;支持韩国字&lt;/strong&gt;，也是其在实际使用中与unicode编码相比欠缺的部分。&lt;/p&gt;
+&lt;h2 id=&#34;gb18030&#34;&gt;GB18030&lt;/h2&gt;
+&lt;p&gt;全称《信息技术 中文编码字符集》，是&lt;a href=&#34;https://baike.baidu.com/item/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD?fromModule=lemma_inlink&#34;&gt;中华人民共和国&lt;/a&gt;&lt;a href=&#34;https://baike.baidu.com/item/%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86?fromModule=lemma_inlink&#34;&gt;国家标准&lt;/a&gt;所规定的&lt;strong&gt;变长多字节&lt;/strong&gt;字符集。&lt;strong&gt;其对GB 2312-1980完全&lt;a href=&#34;https://baike.baidu.com/item/%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9?fromModule=lemma_inlink&#34;&gt;向后兼容&lt;/a&gt;，与&lt;a href=&#34;https://baike.baidu.com/item/GBK?fromModule=lemma_inlink&#34;&gt;GBK&lt;/a&gt;基本&lt;a href=&#34;https://baike.baidu.com/item/%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9?fromModule=lemma_inlink&#34;&gt;向后兼容&lt;/a&gt;，并支持&lt;a href=&#34;https://baike.baidu.com/item/Unicode?fromModule=lemma_inlink&#34;&gt;Unicode&lt;/a&gt;（GB 13000）的所有码位&lt;/strong&gt;。GB 18030-2005共收录汉字70,244个。&lt;/p&gt;
+&lt;p&gt;特点：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/chiguozi/p/5860364.html&#34;&gt;https://www.cnblogs.com/chiguozi/p/5860364.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;GB 18030主要有以下特点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;和UTF-8一样都采用多字节编码，&lt;strong&gt;每个字可以由1个、2个或4个字节组成&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;编码空间庞大&lt;/strong&gt;，最多可定义161万个字元。&lt;/li&gt;
+&lt;li&gt;支持中国国内少数民族的文字，不需要动用造字区。&lt;/li&gt;
+&lt;li&gt;汉字收录范围包含繁体汉字以及日韩汉字。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;编码格式-3&#34;&gt;编码格式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;单字节，其值从0x00到0x7F。&lt;/li&gt;
+&lt;li&gt;双字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x40到0xFE（不包括0x7F）。&lt;/li&gt;
+&lt;li&gt;四字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x30到0x39，第三个字节从0x81到0xFE，第四个字节从0x30到0x39。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;unicode&#34;&gt;Unicode&lt;/h2&gt;
+&lt;p&gt;称为&lt;strong&gt;万国码&lt;/strong&gt;、&lt;strong&gt;国际码&lt;/strong&gt;、&lt;strong&gt;统一码&lt;/strong&gt;、&lt;strong&gt;单一码&lt;/strong&gt;。为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。&lt;/p&gt;
+&lt;h3 id=&#34;编码格式-4&#34;&gt;编码格式&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/UCS-2&#34;&gt;UCS-2&lt;/a&gt;版本：&lt;strong&gt;双字节编码&lt;/strong&gt;；UCS-4版本：4字节编码&lt;/p&gt;
+&lt;p&gt;但是，有个问题：如果都是按照统一长度的编码，那么英文本身只需用1字节表示，却要统一用2/4字节表示，很浪费传输和存储空间。于是，一些&lt;strong&gt;基于Unicode&lt;/strong&gt;的编码方式就应运而生。&lt;code&gt;Unicode&lt;/code&gt;是一个字符集，给所有的字符分配一个码值。这里面只是分配码值，而不是最后的编码实现，编码的实现有很多不同的方式如&lt;code&gt;utf-8&lt;/code&gt;、&lt;code&gt;utf-16&lt;/code&gt;、&lt;code&gt;utf-32&lt;/code&gt;。简单来说，&lt;code&gt;Unicode&lt;/code&gt;只是业界标准，但是具体一个字符占多少字节，要取决于如UTF-8等的编码方式。&lt;/p&gt;
+&lt;p&gt;关于&lt;code&gt;utf-8&lt;/code&gt;、&lt;code&gt;utf-16&lt;/code&gt;、&lt;code&gt;utf-32&lt;/code&gt;三者的优劣势，也参考文章：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/wpcockroach/p/3907324.html&#34;&gt;https://www.cnblogs.com/wpcockroach/p/3907324.html&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;UTF-8最适合用来作为字符串网络传输的编码格式。UTF-16最适合当作本地字符串编码格式。如果定义好了网络传输协议，那么UTF-16也非常合适当作网络字符串传输的编码格式，特别是中文等远东地区字符集。比起UTF-8来说，节省一点点流量。UTF-32没什么特殊癖好或者需求的话，暂时还用不上。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;utf-8&#34;&gt;UTF-8&lt;/h2&gt;
+&lt;p&gt;UTF，&lt;strong&gt;U&lt;/strong&gt;nicode &lt;strong&gt;T&lt;/strong&gt;ransformation &lt;strong&gt;F&lt;/strong&gt;ormat。在表示纯英文时，Unicode比ASCII码多了一倍，很不划算。于是有了变长表示的UTF-8。背景介绍可参考： &lt;a href=&#34;http://utf8everywhere.org/zh-cn#&#34;&gt;http://utf8everywhere.org/zh-cn#&lt;/a&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;UTF-8编码将Unicode字符按数字大小编码为1-6个字节，英文字母被编码成一个字节，常用汉字被编码成三个字节，如果你编译的文本是纯英文的，那么用UTF-8就会非常节省空间。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20221220090626617.png&#34; alt=&#34;image-20221220090626617&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/1204286-20191129154342354-1216550362.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;utf-16&#34;&gt;UTF-16&lt;/h2&gt;
+&lt;p&gt;也是变长编码，每个字符编码为2或4字节。&lt;/p&gt;
+&lt;h2 id=&#34;utf-32&#34;&gt;UTF-32&lt;/h2&gt;
+&lt;p&gt;固定长度的编码，始终占用 4 个字节。&lt;/p&gt;
+&lt;p&gt;因此，&lt;strong&gt;只有 UTF-8 兼容 ASCII，UTF-32 和 UTF-16 都不兼容 ASCII，因为它们没有单字节编码。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;宽字符和窄字符多字节字符&#34;&gt;宽字符和窄字符（多字节字符）&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有的编码方式采用 1~n 个字节存储，是变长的，例如 UTF-8、GB2312、GBK 等；如果一个字符使用了这种编码方式，我们就将它称为多字节字符，或者窄字符。&lt;/p&gt;
+&lt;p&gt;有的编码方式是固定长度的，不管字符编号大小，始终采用 n 个字节存储，例如 UTF-32、UTF-16 等；如果一个字符使用了这种编码方式，我们就将它称为宽字符。&lt;/p&gt;
+&lt;p&gt;Unicode 字符集可以使用窄字符的方式存储，也可以使用宽字符的方式存储；GB2312、GBK、Shift-JIS 等国家编码一般都使用窄字符的方式存储；ASCII 只有一个字节，无所谓窄字符和宽字符。&lt;/p&gt;
+&lt;p&gt;原文链接：https://blog.csdn.net/guxiaonuan/article/details/78678043&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;数据库中的编码知识&#34;&gt;数据库中的编码知识&lt;/h2&gt;
+&lt;p&gt;以ORACLE和MYSQL为例&lt;/p&gt;
+&lt;h3 id=&#34;查看数据库设置的编码方式&#34;&gt;查看数据库设置的编码方式&lt;/h3&gt;
+&lt;h3 id=&#34;字符串类型的编码&#34;&gt;字符串类型的编码&lt;/h3&gt;
+&lt;h4 id=&#34;oracle&#34;&gt;ORACLE&lt;/h4&gt;
+&lt;p&gt;参考： &lt;a href=&#34;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&#34;&gt;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;mysql&#34;&gt;MYSQL&lt;/h4&gt;
+&lt;p&gt;可参考：https://www.bilibili.com/read/cv12600183/&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;varchar 类型最大可以存放多少个字符？&lt;/p&gt;
+&lt;p&gt;MySQL 规定的 VARCHAR 的单位是字符，所以需要将字节数转成字符数，另外默认需留出1-3个字节用于存放字符数。我们知道表有很多的编码方式如：utf8、gbk等，其中 utf8 是可变长的采用 1 到 6 个字节存放一个字符，我们的汉字是一个汉字对应 3 个字节，如果不懂编码可看我之前写的文章搞懂编码问题：https://www.zwjjiaozhu.top/2021/01/the-relation-between-ascii-unicode-and-utf8.html。&lt;/p&gt;
+&lt;p&gt;假设表的编码方式是utf8 ，MySQL按照一个字符对应最大三个字节来算，减去存放字符数的最大值（三个字节），最终的字符数等于num = (65535-3)/3=21844。所以你在设置 VARCHAR(num) 的时候，num 最大是21844。如果是gbk方式，则是按最大两个字节对应一个字符的规则，得出num = (65535-3)/2=32766。&lt;/p&gt;
+&lt;p&gt;数据类型，varchar的范围是0-65535个字节，对应0~21844个字符&lt;/p&gt;
+&lt;p&gt;表的字符集是 utf8 编码&lt;/p&gt;
+&lt;p&gt;CREATE TABLE t2 (&lt;code&gt;name&lt;/code&gt; VARCHAR(21844)) CHARACTER SET utf8; # ✅
+CREATE TABLE t2 (&lt;code&gt;name&lt;/code&gt; VARCHAR(21845)) CHARACTER SET utf8;  # ❌&lt;/p&gt;
+&lt;p&gt;表的字符集是 gbk 编码&lt;/p&gt;
+&lt;p&gt;CREATE TABLE t3 (&lt;code&gt;name&lt;/code&gt; VARCHAR(32766)) CHARACTER SET gbk; # ✅
+CREATE TABLE t3 (&lt;code&gt;name&lt;/code&gt; VARCHAR(32767)) CHARACTER SET gbk; # ❌&lt;/p&gt;
+&lt;p&gt;作者：西园公子冲冲冲 &lt;a href=&#34;https://www.bilibili.com/read/cv12600183/&#34;&gt;https://www.bilibili.com/read/cv12600183/&lt;/a&gt; 出处：bilibili&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;参考： &lt;a href=&#34;https://blog.csdn.net/sshduanzhijun/article/details/121357488&#34;&gt;https://blog.csdn.net/sshduanzhijun/article/details/121357488&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 mysql 4.1 及之前早期版本中，如果是字符集为UTF-8 ， varchar 以字节为单位存储，一个汉字占 3 个字节，则 varchar(100) 类型字段只能存放约 33 个汉字。&lt;/p&gt;
+&lt;p&gt;而在往后的版本中，如 5.x ，一个汉字占多少长度与编码有关 。
+在 UTF-8 字符集下，varchar 以字符为单位存储。所以 varchar(100) 类型字段可存放约 100 个汉字。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;举个例子：&lt;/p&gt;
+&lt;p&gt;我的mysql版本是5.6.5&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#111&#34;&gt;mysql&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;version&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;version&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;()&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;log&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;------------+
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;row&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#00a8c8&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;01&lt;/span&gt; &lt;span style=&#34;color:#111&#34;&gt;sec&lt;/span&gt;&lt;span style=&#34;color:#111&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/klb561/p/12064095.html#/&#34;&gt;https://www.cnblogs.com/klb561/p/12064095.html#/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/klb561/p/12064095.html#/&#34;&gt;https://www.cnblogs.com/klb561/p/12064095.html#/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/chiguozi/p/5860364.html&#34;&gt;https://www.cnblogs.com/chiguozi/p/5860364.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://baike.baidu.com/item/gb18030/3204518?fr=aladdin&#34;&gt;https://baike.baidu.com/item/gb18030/3204518?fr=aladdin&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/strive-sun/p/15211950.html&#34;&gt;https://www.cnblogs.com/strive-sun/p/15211950.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/yougoo/p/11958649.html&#34;&gt;https://www.cnblogs.com/yougoo/p/11958649.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/guxiaonuan/article/details/78678043&#34;&gt;https://blog.csdn.net/guxiaonuan/article/details/78678043&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -22,7 +204,63 @@
       <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/other/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
-      <description>win10常用快捷键 【个人向】由于工作机是win10，故整理一些个人比较常用快捷键。还有很多好用的快捷键等待学习～～ Win+* Win+L 快速锁屏 Win+D 显示桌面 Win+I</description>
+      <description>&lt;h1 id=&#34;win10常用快捷键&#34;&gt;win10常用快捷键&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;【个人向】由于工作机是win10，故整理一些个人比较&lt;strong&gt;常用&lt;/strong&gt;快捷键。还有很多好用的快捷键等待学习～～&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;win&#34;&gt;Win+*&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Win+L 快速锁屏&lt;/li&gt;
+&lt;li&gt;Win+D 显示桌面&lt;/li&gt;
+&lt;li&gt;Win+I 打开设置界面&lt;/li&gt;
+&lt;li&gt;Win+E 打开我的电脑&lt;/li&gt;
+&lt;li&gt;Win+M 最小化所有窗口&lt;/li&gt;
+&lt;li&gt;Win+Shift+M 还原所有窗口&lt;/li&gt;
+&lt;li&gt;Win+R 打开运行窗口&lt;/li&gt;
+&lt;li&gt;Win+Tab 多任务视图&lt;/li&gt;
+&lt;li&gt;Win+上/下 缩放界面&lt;/li&gt;
+&lt;li&gt;Win+左/右 界面左/右停靠（分屏）&lt;/li&gt;
+&lt;li&gt;Win+1/2/3/&amp;hellip; 打开任务栏的第1/2/3/&amp;hellip;个软件界面&lt;/li&gt;
+&lt;li&gt;Win+V 显示&lt;strong&gt;历史复制内容&lt;/strong&gt;并选择粘贴&lt;/li&gt;
+&lt;li&gt;Win+W 调出工作区，包括白板等功能&lt;/li&gt;
+&lt;li&gt;Win+Tab 创建虚拟桌面&lt;/li&gt;
+&lt;li&gt;Win+Ctrl+←\→，快速切换虚拟桌面\&lt;/li&gt;
+&lt;li&gt;Win+“+/-” 放大/缩小屏幕&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ctrl&#34;&gt;Ctrl+*&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ctrl+Shift+Esc 打开任务管理器&lt;/li&gt;
+&lt;li&gt;Ctrl+Shift+N 新建文件夹并命名&lt;/li&gt;
+&lt;li&gt;Ctrl+W 关闭当前界面&lt;/li&gt;
+&lt;li&gt;Ctrl+Y 恢复上一次的撤销（Ctrl+Z）&lt;/li&gt;
+&lt;li&gt;Ctrl+Shift+T 恢复被关闭的网页&lt;/li&gt;
+&lt;li&gt;Ctrl+Shift+F 输入法切换为繁体&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;alt&#34;&gt;Alt+*&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Alt+Tab 多窗口快速切换&lt;/li&gt;
+&lt;li&gt;Alt+Enter(或鼠标双击) 快速查看文件属性&lt;/li&gt;
+&lt;li&gt;Alt+Space+C 关闭窗口&lt;/li&gt;
+&lt;li&gt;Alt+Space+N 最小化窗口&lt;/li&gt;
+&lt;li&gt;Alt+Space+X 最大化窗口&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;shift&#34;&gt;Shift+*&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Shift+Delete 永久删除文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;其他&#34;&gt;其他&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Backspace 资源管理器中是返回上一个打开的目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;快捷键设置技巧&#34;&gt;快捷键设置技巧&lt;/h2&gt;
+&lt;h3 id=&#34;一键打开某软件&#34;&gt;一键打开某软件&lt;/h3&gt;
+&lt;p&gt;右键软件（需要先创建为快捷方式） - 属性 - 快捷方式 - 修改快捷键值即可 （默认是&lt;strong&gt;Ctrl+Alt+自定义格式&lt;/strong&gt;）&lt;/p&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zhihu.com/question/37579205/answer/2297881350&#34;&gt;https://www.zhihu.com/question/37579205/answer/2297881350&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.zhihu.com/question/37579205/answer/2297881350&#34;&gt;https://www.zhihu.com/question/37579205/answer/2297881350&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/195110943&#34;&gt;https://zhuanlan.zhihu.com/p/195110943&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;官网快捷键介绍： &lt;a href=&#34;https://support.microsoft.com/zh-cn/windows/windows-%E7%9A%84%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F-dcc61a57-8ff0-cffe-9796-cb9706c75eec#WindowsVersion=Windows_10&#34;&gt;https://support.microsoft.com/zh-cn/windows/windows-%E7%9A%84%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F-dcc61a57-8ff0-cffe-9796-cb9706c75eec#WindowsVersion=Windows_10&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -31,7 +269,52 @@
       <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://huangxindi.com/post/workspace/01-tech/other/%E5%BC%80%E5%A7%8Bhugo&#43;github-pages/</guid>
-      <description>开始Hugo+Github Pages参考：https://www.gohugo.org/#/ 准备工作准备安装Hugo，git过程略 配置Hug</description>
+      <description>&lt;h1 id=&#34;开始hugogithub-pages&#34;&gt;开始Hugo+Github Pages&lt;/h1&gt;
+&lt;p&gt;参考：https://www.gohugo.org/#/&lt;/p&gt;
+&lt;h2 id=&#34;准备工作准备&#34;&gt;准备工作准备&lt;/h2&gt;
+&lt;p&gt;安装Hugo，git过程略&lt;/p&gt;
+&lt;h2 id=&#34;配置hugo路径到环境变量path&#34;&gt;配置Hugo路径到环境变量Path&lt;/h2&gt;
+&lt;p&gt;过程略&lt;/p&gt;
+&lt;h2 id=&#34;生成站点&#34;&gt;生成站点&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new site /D:/hugo/huangxdBlog
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;生成站点到本地路径：/D:/hugo/huangxdBlog&lt;/p&gt;
+&lt;p&gt;可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  ▸ archetypes/
+  ▸ content/
+  ▸ layouts/
+  ▸ static/
+    config.toml
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;创建文章&#34;&gt;创建文章&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new about.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;生成路径自动为：/content/about.md&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo new post/first.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;生成路径自动为：/content/post/about.md&lt;/p&gt;
+&lt;h2 id=&#34;安装皮肤模板&#34;&gt;安装皮肤模板&lt;/h2&gt;
+&lt;p&gt;从 &lt;a href=&#34;https://www.gohugo.org/theme/#/&#34;&gt;https://www.gohugo.org/theme/#/&lt;/a&gt; 或者 &lt;a href=&#34;https://themes.gohugo.io/#/&#34;&gt;https://themes.gohugo.io/#/&lt;/a&gt;挑选合适的模板，下载&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ cd themes
+$ git clone https://github.com/spf13/hyde.git
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;本地调试&#34;&gt;本地调试&lt;/h2&gt;
+&lt;p&gt;在本地运行并预览网站效果&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo server --theme=angels-ladder --buildDrafts
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：将hyde换成自己的主题名&lt;/p&gt;
+&lt;p&gt;如果已经在config.toml中配置了theme，则运行语句可以缩减为：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo server --buildDrafts
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;浏览器里打开链接，可浏览本地效果:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; http://localhost:1313
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;部署&#34;&gt;部署&lt;/h2&gt;
+&lt;h3 id=&#34;github上先新建一个仓库命名pipony换成自己的github用户名githubio&#34;&gt;GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io）&lt;/h3&gt;
+&lt;h3 id=&#34;生成最终页面&#34;&gt;生成最终页面&lt;/h3&gt;
+&lt;p&gt;在根目录执行：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo --theme=hyde --baseUrl=&amp;#34;http://pipony.github.io/&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;同理：在配置文件中若已经指定了主题，则可以忽略&lt;code&gt;--theme&lt;/code&gt;参数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo --baseUrl=&amp;#34;http://pipony.github.io/&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此时会在/public目录下生成所有静态页面，再将/public/*上传到github的&lt;strong&gt;main&lt;/strong&gt;分支即可（注意：不要变成master分支了）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 &lt;code&gt;draft=true&lt;/code&gt; 再重新生成。）&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;配置&#34;&gt;配置&lt;/h3&gt;
+&lt;p&gt;根目录config.toml中，修改baseURL = &amp;lsquo;&lt;a href=&#34;https://pipony.github.io/&#39;&#34;&gt;https://pipony.github.io/&#39;&lt;/a&gt; （自己的github地址）&lt;/p&gt;
+&lt;h2 id=&#34;查看效果&#34;&gt;查看效果&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;http://pipony.github.io/
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

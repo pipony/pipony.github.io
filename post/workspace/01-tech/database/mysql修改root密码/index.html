@@ -1,201 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH  | Mysql修改root密码</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title>Mysql修改root密码 | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="Mysql修改root密码 背景：linux系统，忘记mysql的root密码，该怎么修改root密码？ 复制阿里云的在线服务中提出的解决方案👇">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Mysql修改root密码"/>
-<meta name="twitter:description" content="Mysql修改root密码 背景：linux系统，忘记mysql的root密码，该怎么修改root密码？ 复制阿里云的在线服务中提出的解决方案👇"/>
+	
 
-  <meta property="og:title" content="Mysql修改root密码" />
-<meta property="og:description" content="Mysql修改root密码 背景：linux系统，忘记mysql的root密码，该怎么修改root密码？ 复制阿里云的在线服务中提出的解决方案👇" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/database/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-12-04T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-04T00:00:00+00:00" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+	
 
-  <link rel="stylesheet" href="/sass/main.css">
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
+
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
+
+
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2">Mysql修改root密码</h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
+	&nbsp;&nbsp;
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-12-04T00:00:00Z">2022-12-4</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
-            
-          </div>
-          <h1>Mysql修改root密码</h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Sun, Dec 4, 2022
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="mysql修改root密码">Mysql修改root密码<a class="anchorjs-link" href="#mysql%e4%bf%ae%e6%94%b9root%e5%af%86%e7%a0%81"></a></h1><blockquote>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="mysql修改root密码">Mysql修改root密码</h1>
+<blockquote>
 <p>背景：linux系统，忘记mysql的root密码，该怎么修改root密码？</p>
 </blockquote>
 <p>复制阿里云的在线服务中提出的解决方案👇。亲测ok</p>
@@ -203,236 +205,268 @@
 <ol>
 <li>
 <p>执行如下命令，编辑MySQL数据库的my.cnf配置文件。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>vim /etc/my.cnf
-</span></span></code></pre></div><blockquote>
+<pre tabindex="0"><code>vim /etc/my.cnf
+</code></pre><blockquote>
 <p><strong>说明</strong>：my.cnf配置文件的路径以实际环境为准。</p>
 </blockquote>
 </li>
 <li>
 <p>在[mysqld]字段下新增如下内容，然后保存退出。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>skip-grant-tables
-</span></span></code></pre></div></li>
+<pre tabindex="0"><code>skip-grant-tables
+</code></pre></li>
 <li>
 <p>执行如下命令，重启MySQL服务。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>/etc/init.d/mysqld restart
-</span></span></code></pre></div><blockquote>
+<pre tabindex="0"><code>/etc/init.d/mysqld restart
+</code></pre><blockquote>
 <p><strong>说明</strong>：MySQL启动脚本路径以实际环境为准。</p>
 </blockquote>
 </li>
 <li>
 <p>执行如下命令，登录数据库。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>/usr/bin/mysql
-</span></span></code></pre></div><blockquote>
+<pre tabindex="0"><code>/usr/bin/mysql
+</code></pre><blockquote>
 <p><strong>说明</strong>：MySQL命令路径以实际环境为准。</p>
 </blockquote>
 </li>
 <li>
 <p>依次执行如下SQL语句，更新密码。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>USE mysql;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>UPDATE user SET authentication_string = password (&#39;[$Password]&#39;) WHERE User = &#39;root&#39;;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>flush privileges;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>quit
-</span></span></code></pre></div><blockquote>
+<pre tabindex="0"><code>USE mysql;
+UPDATE user SET authentication_string = password (&#39;[$Password]&#39;) WHERE User = &#39;root&#39;;
+flush privileges;
+quit
+</code></pre><blockquote>
 <p><strong>说明</strong>：[$Password]为新密码，不建议新密码为“123456”，此密码太简单，密码需要满足密码复杂性要求，需要大小写字母和数字组合，最小长度为8位，根据此密码策略，设置密码。</p>
 </blockquote>
 </li>
 <li>
 <p>再次编辑<code>/etc/my.cnf</code>配置文件，删除或者注释第2步添加的skip-grant-tables。
-<figure>
-  <a class="paragraph-image">
-    <img data-src="https://onekb.oss-cn-zhangjiakou.aliyuncs.com/1264793/b56cd6f5-c681-415a-8d58-df9a3e78ed10.png" data-action="zoom" alt="img"  class="lazyload">
-  </a>
-  
-</figure></p>
+<img src="https://onekb.oss-cn-zhangjiakou.aliyuncs.com/1264793/b56cd6f5-c681-415a-8d58-df9a3e78ed10.png" alt="img"></p>
 </li>
 <li>
 <p>执行如下命令，重启MySQL服务。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>/etc/init.d/mysqld restart
-</span></span></code></pre></div></li>
+<pre tabindex="0"><code>/etc/init.d/mysqld restart
+</code></pre></li>
 <li>
 <p>使用新密码登录数据库，确认能正常登录。</p>
 </li>
 </ol>
 <p>这里有个<strong>注意点</strong>：</p>
 <p>user表中，可能有两个字段表示用户密码的（Password和authentication_string）。根据mysql的版本不同，可能用前者或是后者来存储登陆密码。比如我的mysql版本是：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">select</span> <span style="color:#ff79c6">version</span>();
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> <span style="color:#ff79c6">version</span>()  <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> <span style="color:#bd93f9">5</span>.<span style="color:#bd93f9">6</span>.<span style="color:#bd93f9">50</span><span style="color:#ff79c6">-</span>log <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#6272a4"></span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">select</span> <span style="color:#00a8c8">version</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#00a8c8">version</span><span style="color:#111">()</span>  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">5</span><span style="color:#111">.</span><span style="color:#ae81ff">6</span><span style="color:#111">.</span><span style="color:#ae81ff">50</span><span style="color:#f92672">-</span><span style="color:#111">log</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#00a8c8">row</span> <span style="color:#00a8c8">in</span> <span style="color:#00a8c8">set</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">00</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
 </span></span></code></pre></div><p>最开始我是用上述解决方案中的语句设置<code>authentication_string</code>字段：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">UPDATE</span> <span style="color:#ff79c6">user</span> <span style="color:#ff79c6">SET</span> authentication_string <span style="color:#ff79c6">=</span> password (<span style="color:#f1fa8c">&#39;[$Password]&#39;</span>) <span style="color:#ff79c6">WHERE</span> <span style="color:#ff79c6">User</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;root&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">UPDATE</span> <span style="color:#00a8c8">user</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">authentication_string</span> <span style="color:#f92672">=</span> <span style="color:#111">password</span> <span style="color:#111">(</span><span style="color:#d88200">&#39;[$Password]&#39;</span><span style="color:#111">)</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#00a8c8">User</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;root&#39;</span><span style="color:#111">;</span>
 </span></span></code></pre></div><p>发现设置完还是登陆不了。<strong>后面就试着把<code>Password</code>字段也设置下</strong>，才可以使用新密码登陆：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">UPDATE</span> <span style="color:#ff79c6">user</span> <span style="color:#ff79c6">SET</span> Password <span style="color:#ff79c6">=</span> password (<span style="color:#f1fa8c">&#39;[$Password]&#39;</span>) <span style="color:#ff79c6">WHERE</span> <span style="color:#ff79c6">User</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;root&#39;</span>;
-</span></span></code></pre></div>
-
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/" data-toggle="tooltip" data-placement="top" title="oracle-&gt;mysql数据迁移数据事项">
-              Previous<br>
-              <span>oracle-&gt;mysql数据迁移数据事项</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/" data-toggle="tooltip" data-placement="top" title="Linux-文本处理三剑客">
-              Next<br>
-              <span>Linux-文本处理三剑客</span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">UPDATE</span> <span style="color:#00a8c8">user</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">Password</span> <span style="color:#f92672">=</span> <span style="color:#111">password</span> <span style="color:#111">(</span><span style="color:#d88200">&#39;[$Password]&#39;</span><span style="color:#111">)</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#00a8c8">User</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;root&#39;</span><span style="color:#111">;</span>
+</span></span></code></pre></div></div>
+	</section>
 
 
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 745 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        oracle-&gt;mysql数据迁移数据事项
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/linux/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/">
+        Linux-文本处理三剑客
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <ul class="list-inline text-center">
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">oracle-&gt;mysql数据迁移数据事项</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">Mysql导入导出</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">数据库分页查询</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">数据库日志基础</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/">分区表</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">数据库测试扫盲篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/">Linux-安装Oracle</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">Oracle-实现事务提交和回滚</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/">ORACLE-序列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">SQL函数篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
-
-
-
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
-
-
-<script src=/js/simple-jekyll-search.min.js></script>
-
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>

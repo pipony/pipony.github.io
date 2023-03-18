@@ -1,206 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH  | ORACLE-存储过程</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title>ORACLE-存储过程 | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="ORACLE-存储过程概念存储过程(Stored Procedure)： 一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ORACLE-存储过程"/>
-<meta name="twitter:description" content="ORACLE-存储过程概念存储过程(Stored Procedure)： 一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据"/>
+	
 
-  <meta property="og:title" content="ORACLE-存储过程" />
-<meta property="og:description" content="ORACLE-存储过程概念存储过程(Stored Procedure)： 一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-07-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-03T00:00:00+00:00" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+	
 
-  <link rel="stylesheet" href="/sass/main.css">
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
+
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
+
+
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2">ORACLE-存储过程</h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
+	&nbsp;&nbsp;
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-07-03T00:00:00Z">2022-7-3</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
-            
-          </div>
-          <h1>ORACLE-存储过程</h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Sun, Jul 3, 2022
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="oracle-存储过程">ORACLE-存储过程<a class="anchorjs-link" href="#oracle-%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b"></a></h1><h2 id="概念">概念<a class="anchorjs-link" href="#%e6%a6%82%e5%bf%b5"></a></h2><p>存储过程(Stored Procedure)：</p>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="oracle-存储过程">ORACLE-存储过程</h1>
+<h2 id="概念">概念</h2>
+<p>存储过程(Stored Procedure)：</p>
 <p>一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。</p>
 <blockquote>
 <p>当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。</p>
 </blockquote>
-<h2 id="函数和存储过程的区别">函数和存储过程的区别<a class="anchorjs-link" href="#%e5%87%bd%e6%95%b0%e5%92%8c%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b%e7%9a%84%e5%8c%ba%e5%88%ab"></a></h2><p><a href="https://www.php.cn/oracle/489142.html#/" target="_blank">https://www.php.cn/oracle/489142.html#/</a></p>
+<h2 id="函数和存储过程的区别">函数和存储过程的区别</h2>
+<p><a href="https://www.php.cn/oracle/489142.html#/">https://www.php.cn/oracle/489142.html#/</a></p>
 <table>
 <thead>
 <tr>
@@ -239,24 +243,26 @@
 </tr>
 </tbody>
 </table>
-<h2 id="优点">优点<a class="anchorjs-link" href="#%e4%bc%98%e7%82%b9"></a></h2><ul>
+<h2 id="优点">优点</h2>
+<ul>
 <li>更快（无需再次编译）</li>
 <li>模块性</li>
 <li>可维护性高</li>
 <li>节省网络传输（存储在数据库中）</li>
 <li>更安全（存储过程控制执行权限）</li>
 </ul>
-<h2 id="存储过程创建语法">存储过程创建语法<a class="anchorjs-link" href="#%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b%e5%88%9b%e5%bb%ba%e8%af%ad%e6%b3%95"></a></h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">CREATE</span> [<span style="color:#ff79c6">OR</span> <span style="color:#ff79c6">REPLACE</span>] <span style="color:#ff79c6">PROCEDURE</span> pro_name
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>[(p1 <span style="color:#ff79c6">in</span><span style="color:#ff79c6">|</span><span style="color:#ff79c6">out</span> 数据格式,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span> p2 <span style="color:#ff79c6">in</span><span style="color:#ff79c6">|</span><span style="color:#ff79c6">out</span> 数据格式,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span> ...)]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#ff79c6">is</span><span style="color:#ff79c6">|</span><span style="color:#ff79c6">as</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>	声明部分
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>	plsql代码块
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>	<span style="color:#ff79c6">exception</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>		异常处理部分
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#ff79c6">end</span>;
+<h2 id="存储过程创建语法">存储过程创建语法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">CREATE</span> <span style="color:#111">[</span><span style="color:#00a8c8">OR</span> <span style="color:#00a8c8">REPLACE</span><span style="color:#111">]</span> <span style="color:#00a8c8">PROCEDURE</span> <span style="color:#111">pro_name</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">[(</span><span style="color:#111">p1</span> <span style="color:#00a8c8">in</span><span style="color:#f92672">|</span><span style="color:#00a8c8">out</span> <span style="color:#960050;background-color:#1e0010">数据格式</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span> <span style="color:#111">p2</span> <span style="color:#00a8c8">in</span><span style="color:#f92672">|</span><span style="color:#00a8c8">out</span> <span style="color:#960050;background-color:#1e0010">数据格式</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span> <span style="color:#111">...)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">is</span><span style="color:#f92672">|</span><span style="color:#00a8c8">as</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#960050;background-color:#1e0010">声明部分</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">plsql代码块</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#00a8c8">exception</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#960050;background-color:#1e0010">异常处理部分</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
 </span></span></code></pre></div><p>注意：</p>
 <ol>
 <li>
@@ -273,7 +279,7 @@ OUT模式定义的参数只能在过程体内部赋值，表示该参数可以�
 </blockquote>
 </li>
 <li>
-<p>声明部分：用于存储过程使用到的变量声明 <a href="https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/" target="_blank">https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/</a></p>
+<p>声明部分：用于存储过程使用到的变量声明 <a href="https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/">https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/</a></p>
 <p><strong>声明的三种方法</strong></p>
 <ul>
 <li>直接声明数据类型，如<code>p1 varchar2(60)</code>或<code>p2 number(2)</code></li>
@@ -291,20 +297,20 @@ OUT模式定义的参数只能在过程体内部赋值，表示该参数可以�
 <li>
 <p><code>select 字段名 into 变量 from 表名</code></p>
 <p>1、查询某字段：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SELECT</span> ORGSEQ <span style="color:#ff79c6">INTO</span> V_ORGSEQ <span style="color:#ff79c6">FROM</span> BASE_ORG_INFO
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span> <span style="color:#ff79c6">WHERE</span> ORGID <span style="color:#ff79c6">=</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>       (<span style="color:#ff79c6">SELECT</span> PARENTORGID <span style="color:#ff79c6">FROM</span> BASE_ORG_INFO <span style="color:#ff79c6">WHERE</span> ORGID <span style="color:#ff79c6">=</span> V_ORGID);
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">SELECT</span> <span style="color:#111">ORGSEQ</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">V_ORGSEQ</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">BASE_ORG_INFO</span>
+</span></span><span style="display:flex;"><span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">ORGID</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#111">(</span><span style="color:#00a8c8">SELECT</span> <span style="color:#111">PARENTORGID</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">BASE_ORG_INFO</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">ORGID</span> <span style="color:#f92672">=</span> <span style="color:#111">V_ORGID</span><span style="color:#111">);</span>
 </span></span></code></pre></div><p>2、查询表所有字段：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">INTO</span> V_ROW_VIRTUAL_CARD <span style="color:#ff79c6">FROM</span> VIRTUAL_CARD T <span style="color:#ff79c6">where</span> t.id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">5120</span>;
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">V_ROW_VIRTUAL_CARD</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">VIRTUAL_CARD</span> <span style="color:#111">T</span> <span style="color:#00a8c8">where</span> <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5120</span><span style="color:#111">;</span>
 </span></span></code></pre></div><p>注意：*<em>查询结果只能返回一条记录</em></p>
 </li>
 <li>
 <p><code>execute immediate sql into 变量</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>v_sql :<span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;SELECT ORGSEQ FROM BASE_ORG_INFO where orgcode=to_char(410621101233)&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">execute</span> <span style="color:#ff79c6">immediate</span> v_sql <span style="color:#ff79c6">INTO</span> V_ORGSEQ;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>DBMS_OUTPUT.put_line(V_ORGSEQ);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">END</span>;
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">v_sql</span> <span style="color:#111">:</span><span style="color:#f92672">=</span> <span style="color:#d88200">&#39;SELECT ORGSEQ FROM BASE_ORG_INFO where orgcode=to_char(410621101233)&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">execute</span> <span style="color:#00a8c8">immediate</span> <span style="color:#111">v_sql</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">V_ORGSEQ</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">DBMS_OUTPUT</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#111">V_ORGSEQ</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">END</span><span style="color:#111">;</span>
 </span></span></code></pre></div></li>
 </ul>
 </li>
@@ -312,37 +318,45 @@ OUT模式定义的参数只能在过程体内部赋值，表示该参数可以�
 <p>异常处理：Oralce有3种异常处理方式（<em><strong>待学 TODO</strong></em>）</p>
 </li>
 </ol>
-<h3 id="存储过程创建举例httpswwwcnblogscomdiandixingyunp12986482html">存储过程创建举例（https://www.cnblogs.com/diandixingyun/p/12986482.html#/）：<a class="anchorjs-link" href="#%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b%e5%88%9b%e5%bb%ba%e4%b8%be%e4%be%8bhttpswwwcnblogscomdiandixingyunp12986482html"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">create</span> <span style="color:#ff79c6">or</span> <span style="color:#ff79c6">replace</span>  <span style="color:#ff79c6">procedure</span> sp_score_pm(
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>p_in_stuid <span style="color:#ff79c6">in</span> varchar2,   <span style="color:#6272a4">--学号    
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#6272a4"></span>p_in_courseid <span style="color:#ff79c6">in</span>  varchar2, <span style="color:#6272a4">--课程ID
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#6272a4"></span>p_out_pm <span style="color:#ff79c6">out</span> <span style="color:#8be9fd;font-style:italic">number</span>      <span style="color:#6272a4">--排名
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#ff79c6">is</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>ls_score <span style="color:#8be9fd;font-style:italic">number</span>:<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>ls_pm <span style="color:#8be9fd;font-style:italic">number</span>:<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  <span style="color:#6272a4">--获取该学生的成绩
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">select</span> t.score <span style="color:#ff79c6">into</span> ls_score <span style="color:#ff79c6">from</span> score t
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>   <span style="color:#ff79c6">where</span> t.stuid <span style="color:#ff79c6">=</span> p_in_stuid
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    <span style="color:#ff79c6">and</span> t.courseid <span style="color:#ff79c6">=</span> p_in_courseid;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>  <span style="color:#6272a4">--获取成绩比该学生高的人数
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span><span style="color:#6272a4"></span>  <span style="color:#ff79c6">select</span> <span style="color:#ff79c6">count</span>(<span style="color:#bd93f9">1</span>) <span style="color:#ff79c6">into</span> ls_pm <span style="color:#ff79c6">from</span> score t
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>   <span style="color:#ff79c6">where</span> t.courseid <span style="color:#ff79c6">=</span> p_in_courseid
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>   <span style="color:#ff79c6">and</span>  t.score<span style="color:#ff79c6">&gt;</span>ls_score;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>   <span style="color:#6272a4">--得到该学生的成绩排名
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span><span style="color:#6272a4"></span>   p_out_pm:<span style="color:#ff79c6">=</span>ls_pm<span style="color:#ff79c6">+</span><span style="color:#bd93f9">1</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span><span style="color:#ff79c6">exception</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>  <span style="color:#ff79c6">when</span> no_data_found  <span style="color:#ff79c6">then</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>     dbms_output.put_line(<span style="color:#f1fa8c">&#39;该学生的课程：&#39;</span><span style="color:#ff79c6">||</span>p_in_courseid<span style="color:#ff79c6">||</span> <span style="color:#f1fa8c">&#39;的成绩在成绩表中找不到&#39;</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span><span style="color:#ff79c6">end</span>;
-</span></span></code></pre></div><h2 id="调用存储过程">调用存储过程<a class="anchorjs-link" href="#%e8%b0%83%e7%94%a8%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b"></a></h2><h3 id="exec">exec<a class="anchorjs-link" href="#exec"></a></h3><p>仅支持在sqlplus中使用</p>
-<h3 id="call">call<a class="anchorjs-link" href="#call"></a></h3><p>在所有工具中都可以使用</p>
-<h3 id="在函数中直接调用">在函数中直接调用<a class="anchorjs-link" href="#%e5%9c%a8%e5%87%bd%e6%95%b0%e4%b8%ad%e7%9b%b4%e6%8e%a5%e8%b0%83%e7%94%a8"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>	fun(); <span style="color:#6272a4">-- 调用存储过程
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">end</span>;
-</span></span></code></pre></div><h2 id="游标的使用">游标的使用<a class="anchorjs-link" href="#%e6%b8%b8%e6%a0%87%e7%9a%84%e4%bd%bf%e7%94%a8"></a></h2><p>TODO</p>
-<h2 id="存储过程的事务处理">存储过程的事务处理<a class="anchorjs-link" href="#%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b%e7%9a%84%e4%ba%8b%e5%8a%a1%e5%a4%84%e7%90%86"></a></h2><p>参考 <a href="https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/" target="_blank">https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/</a></p>
-<h3 id="概念-1">概念<a class="anchorjs-link" href="#%e6%a6%82%e5%bf%b5-1"></a></h3><p>事务：确保数据的<strong>一致性</strong>，由一些DML语句组成，要么都执行，要么都不执行</p>
+<h3 id="存储过程创建举例httpswwwcnblogscomdiandixingyunp12986482html">存储过程创建举例（https://www.cnblogs.com/diandixingyun/p/12986482.html#/）：</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">create</span> <span style="color:#00a8c8">or</span> <span style="color:#00a8c8">replace</span>  <span style="color:#00a8c8">procedure</span> <span style="color:#111">sp_score_pm</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">p_in_stuid</span> <span style="color:#00a8c8">in</span> <span style="color:#111">varchar2</span><span style="color:#111">,</span>   <span style="color:#75715e">--学号    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">p_in_courseid</span> <span style="color:#00a8c8">in</span>  <span style="color:#111">varchar2</span><span style="color:#111">,</span> <span style="color:#75715e">--课程ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">p_out_pm</span> <span style="color:#00a8c8">out</span> <span style="color:#111">number</span>      <span style="color:#75715e">--排名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">is</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ls_score</span> <span style="color:#111">number</span><span style="color:#111">:</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ls_pm</span> <span style="color:#111">number</span><span style="color:#111">:</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">--获取该学生的成绩
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">select</span> <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">score</span> <span style="color:#00a8c8">into</span> <span style="color:#111">ls_score</span> <span style="color:#00a8c8">from</span> <span style="color:#111">score</span> <span style="color:#111">t</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#00a8c8">where</span> <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">stuid</span> <span style="color:#f92672">=</span> <span style="color:#111">p_in_stuid</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">and</span> <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">courseid</span> <span style="color:#f92672">=</span> <span style="color:#111">p_in_courseid</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">--获取成绩比该学生高的人数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">select</span> <span style="color:#00a8c8">count</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#00a8c8">into</span> <span style="color:#111">ls_pm</span> <span style="color:#00a8c8">from</span> <span style="color:#111">score</span> <span style="color:#111">t</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#00a8c8">where</span> <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">courseid</span> <span style="color:#f92672">=</span> <span style="color:#111">p_in_courseid</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#00a8c8">and</span>  <span style="color:#111">t</span><span style="color:#111">.</span><span style="color:#111">score</span><span style="color:#f92672">&gt;</span><span style="color:#111">ls_score</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">--得到该学生的成绩排名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#111">p_out_pm</span><span style="color:#111">:</span><span style="color:#f92672">=</span><span style="color:#111">ls_pm</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">exception</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">when</span> <span style="color:#111">no_data_found</span>  <span style="color:#00a8c8">then</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#111">dbms_output</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#d88200">&#39;该学生的课程：&#39;</span><span style="color:#f92672">||</span><span style="color:#111">p_in_courseid</span><span style="color:#f92672">||</span> <span style="color:#d88200">&#39;的成绩在成绩表中找不到&#39;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
+</span></span></code></pre></div><h2 id="调用存储过程">调用存储过程</h2>
+<h3 id="exec">exec</h3>
+<p>仅支持在sqlplus中使用</p>
+<h3 id="call">call</h3>
+<p>在所有工具中都可以使用</p>
+<h3 id="在函数中直接调用">在函数中直接调用</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">fun</span><span style="color:#111">();</span> <span style="color:#75715e">-- 调用存储过程
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
+</span></span></code></pre></div><h2 id="游标的使用">游标的使用</h2>
+<p>TODO</p>
+<h2 id="存储过程的事务处理">存储过程的事务处理</h2>
+<p>参考 <a href="https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/">https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/</a></p>
+<h3 id="概念-1">概念</h3>
+<p>事务：确保数据的<strong>一致性</strong>，由一些DML语句组成，要么都执行，要么都不执行</p>
 <p>命令：</p>
 <ul>
 <li>COMMIT</li>
@@ -350,240 +364,261 @@ OUT模式定义的参数只能在过程体内部赋值，表示该参数可以�
 <li>ROLLBACK</li>
 <li>ROLLBACK TO SAVEPOINT</li>
 </ul>
-<h3 id="例子">例子<a class="anchorjs-link" href="#%e4%be%8b%e5%ad%90"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">create</span> <span style="color:#ff79c6">or</span> <span style="color:#ff79c6">replace</span> <span style="color:#ff79c6">procedure</span> stu_proc
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>(
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  v_id <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">number</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  v_name <span style="color:#ff79c6">in</span> varchar2,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>  v_age <span style="color:#ff79c6">in</span> <span style="color:#8be9fd;font-style:italic">number</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  v_msg <span style="color:#ff79c6">out</span> varchar2
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>) <span style="color:#ff79c6">as</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  <span style="color:#ff79c6">insert</span> <span style="color:#ff79c6">into</span> student(id, sname, age) <span style="color:#ff79c6">values</span> (v_id, v_name, v_age);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  <span style="color:#ff79c6">commit</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>  v_msg:<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;添加成功&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#ff79c6">exception</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>  <span style="color:#ff79c6">when</span> others <span style="color:#ff79c6">then</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>    <span style="color:#ff79c6">rollback</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>    v_msg:<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;失败成功&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>    RAISE_APPLICATION_ERROR(<span style="color:#ff79c6">-</span><span style="color:#bd93f9">20010</span>, <span style="color:#f1fa8c">&#39;ERROR：违反唯一索引约束！&#39;</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span><span style="color:#ff79c6">end</span>;
-</span></span></code></pre></div><p>非存储过程的事务处理例子 <a href="https://www.cnblogs.com/zengyu1234/p/15391621.html#/" target="_blank">https://www.cnblogs.com/zengyu1234/p/15391621.html#/</a>  ：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#6272a4">--使用事务控制银行转账业务
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">declare</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>mc string(<span style="color:#bd93f9">64</span>):<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;转账成功&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>mf string(<span style="color:#bd93f9">64</span>):<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;转账失败&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>err_exception <span style="color:#ff79c6">exception</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>pragma exception_init(err_exception,<span style="color:#ff79c6">-</span><span style="color:#bd93f9">2290</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>   <span style="color:#6272a4">--向转入账户的交易记录表中插入一条交易记录
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">INSERT</span> <span style="color:#ff79c6">INTO</span> business <span style="color:#ff79c6">VALUES</span>(seq_emp.nextval,<span style="color:#bd93f9">10000</span>,<span style="color:#bd93f9">1</span>,systimestamp,<span style="color:#bd93f9">288</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>   <span style="color:#6272a4">--向转出账户的交易记录表中插入一条交易记录
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">INSERT</span> <span style="color:#ff79c6">INTO</span> business <span style="color:#ff79c6">VALUES</span>(seq_emp.nextval,<span style="color:#bd93f9">10000</span>,<span style="color:#bd93f9">0</span>,systimestamp,<span style="color:#bd93f9">287</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>   <span style="color:#6272a4">--更新转入方账户余额（+20000）
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">update</span> account <span style="color:#ff79c6">set</span> balance <span style="color:#ff79c6">=</span> balance<span style="color:#ff79c6">+</span><span style="color:#bd93f9">10000</span> <span style="color:#ff79c6">where</span> id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">288</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>   <span style="color:#6272a4">--更新转出方账户余额（-20000）
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">update</span> account <span style="color:#ff79c6">set</span> balance <span style="color:#ff79c6">=</span> balance<span style="color:#ff79c6">-</span><span style="color:#bd93f9">10000</span> <span style="color:#ff79c6">where</span> id <span style="color:#ff79c6">=</span> <span style="color:#bd93f9">287</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>   
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>    <span style="color:#ff79c6">commit</span>;<span style="color:#6272a4">-- 提交事务
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span><span style="color:#6272a4"></span>    dbms_output.put_line(mc);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>    <span style="color:#ff79c6">exception</span> <span style="color:#ff79c6">when</span> err_exception <span style="color:#ff79c6">then</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>    <span style="color:#ff79c6">rollback</span>; <span style="color:#6272a4">--撤销所有事务操作
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span><span style="color:#6272a4"></span>    dbms_output.put_line(mf);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span><span style="color:#ff79c6">end</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span><span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> aaa;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span><span style="color:#6272a4">--事务执行中部分撤销
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">declare</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span> me string(<span style="color:#bd93f9">64</span>):<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;0不能做除数&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span> zer_err <span style="color:#ff79c6">exception</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33</span><span> pragma exception_init(zer_err,<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1476</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34</span><span><span style="color:#ff79c6">begin</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35</span><span>  <span style="color:#ff79c6">INSERT</span> <span style="color:#ff79c6">INTO</span> aaa <span style="color:#ff79c6">VALUES</span>(<span style="color:#f1fa8c">&#39;呼伦贝尔&#39;</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36</span><span>  SAVEPOINT insert_point;<span style="color:#6272a4">--设置一个保存点
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37</span><span><span style="color:#6272a4"></span>  dbms_output.put_line(<span style="color:#bd93f9">56</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">0</span>);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38</span><span>  <span style="color:#ff79c6">commit</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39</span><span>  <span style="color:#ff79c6">exception</span> <span style="color:#ff79c6">when</span> zer_err <span style="color:#ff79c6">then</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40</span><span>  <span style="color:#ff79c6">rollback</span> <span style="color:#ff79c6">to</span> insert_point;<span style="color:#6272a4">--撤销到保存点
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41</span><span><span style="color:#6272a4"></span>  dbms_output.put_line(me);
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42</span><span><span style="color:#ff79c6">end</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44</span><span><span style="color:#ff79c6">select</span> <span style="color:#bd93f9">56</span><span style="color:#ff79c6">/</span><span style="color:#bd93f9">0</span> <span style="color:#ff79c6">from</span> dual;<span style="color:#6272a4">--查看错误代码
-</span></span></span></code></pre></div><h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://blog.csdn.net/weixin_41968788/article/details/83659164#/" target="_blank">https://blog.csdn.net/weixin_41968788/article/details/83659164#/</a></p>
-<p><a href="https://www.cnblogs.com/inmeditation/p/12090574.html#/" target="_blank">https://www.cnblogs.com/inmeditation/p/12090574.html#/</a></p>
-<p><a href="https://www.cnblogs.com/diandixingyun/p/12986482.html#/" target="_blank">https://www.cnblogs.com/diandixingyun/p/12986482.html#/</a></p>
-<p><a href="https://www.cnblogs.com/taiguyiba/p/7809310.html#/" target="_blank">https://www.cnblogs.com/taiguyiba/p/7809310.html#/</a></p>
-<p><a href="https://www.cnblogs.com/dersome/p/14304205.html#/" target="_blank">https://www.cnblogs.com/dersome/p/14304205.html#/</a></p>
+<h3 id="例子">例子</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">create</span> <span style="color:#00a8c8">or</span> <span style="color:#00a8c8">replace</span> <span style="color:#00a8c8">procedure</span> <span style="color:#111">stu_proc</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">v_id</span> <span style="color:#00a8c8">in</span> <span style="color:#111">number</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">v_name</span> <span style="color:#00a8c8">in</span> <span style="color:#111">varchar2</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">v_age</span> <span style="color:#00a8c8">in</span> <span style="color:#111">number</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">v_msg</span> <span style="color:#00a8c8">out</span> <span style="color:#111">varchar2</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span> <span style="color:#00a8c8">as</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">insert</span> <span style="color:#00a8c8">into</span> <span style="color:#111">student</span><span style="color:#111">(</span><span style="color:#111">id</span><span style="color:#111">,</span> <span style="color:#111">sname</span><span style="color:#111">,</span> <span style="color:#111">age</span><span style="color:#111">)</span> <span style="color:#00a8c8">values</span> <span style="color:#111">(</span><span style="color:#111">v_id</span><span style="color:#111">,</span> <span style="color:#111">v_name</span><span style="color:#111">,</span> <span style="color:#111">v_age</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">commit</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">v_msg</span><span style="color:#111">:</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;添加成功&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">exception</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">when</span> <span style="color:#111">others</span> <span style="color:#00a8c8">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">rollback</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">v_msg</span><span style="color:#111">:</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;失败成功&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">RAISE_APPLICATION_ERROR</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20010</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;ERROR：违反唯一索引约束！&#39;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
+</span></span></code></pre></div><p>非存储过程的事务处理例子 <a href="https://www.cnblogs.com/zengyu1234/p/15391621.html#/">https://www.cnblogs.com/zengyu1234/p/15391621.html#/</a>  ：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">--使用事务控制银行转账业务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">declare</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">mc</span> <span style="color:#111">string</span><span style="color:#111">(</span><span style="color:#ae81ff">64</span><span style="color:#111">):</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;转账成功&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">mf</span> <span style="color:#111">string</span><span style="color:#111">(</span><span style="color:#ae81ff">64</span><span style="color:#111">):</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;转账失败&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">err_exception</span> <span style="color:#00a8c8">exception</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">pragma</span> <span style="color:#111">exception_init</span><span style="color:#111">(</span><span style="color:#111">err_exception</span><span style="color:#111">,</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2290</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">--向转入账户的交易记录表中插入一条交易记录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#00a8c8">INSERT</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">business</span> <span style="color:#00a8c8">VALUES</span><span style="color:#111">(</span><span style="color:#111">seq_emp</span><span style="color:#111">.</span><span style="color:#111">nextval</span><span style="color:#111">,</span><span style="color:#ae81ff">10000</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#111">systimestamp</span><span style="color:#111">,</span><span style="color:#ae81ff">288</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">--向转出账户的交易记录表中插入一条交易记录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#00a8c8">INSERT</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">business</span> <span style="color:#00a8c8">VALUES</span><span style="color:#111">(</span><span style="color:#111">seq_emp</span><span style="color:#111">.</span><span style="color:#111">nextval</span><span style="color:#111">,</span><span style="color:#ae81ff">10000</span><span style="color:#111">,</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span><span style="color:#111">systimestamp</span><span style="color:#111">,</span><span style="color:#ae81ff">287</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">--更新转入方账户余额（+20000）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#00a8c8">update</span> <span style="color:#111">account</span> <span style="color:#00a8c8">set</span> <span style="color:#111">balance</span> <span style="color:#f92672">=</span> <span style="color:#111">balance</span><span style="color:#f92672">+</span><span style="color:#ae81ff">10000</span> <span style="color:#00a8c8">where</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">288</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">--更新转出方账户余额（-20000）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>   <span style="color:#00a8c8">update</span> <span style="color:#111">account</span> <span style="color:#00a8c8">set</span> <span style="color:#111">balance</span> <span style="color:#f92672">=</span> <span style="color:#111">balance</span><span style="color:#f92672">-</span><span style="color:#ae81ff">10000</span> <span style="color:#00a8c8">where</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">287</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">commit</span><span style="color:#111">;</span><span style="color:#75715e">-- 提交事务
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#111">dbms_output</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#111">mc</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">exception</span> <span style="color:#00a8c8">when</span> <span style="color:#111">err_exception</span> <span style="color:#00a8c8">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">rollback</span><span style="color:#111">;</span> <span style="color:#75715e">--撤销所有事务操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#111">dbms_output</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#111">mf</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">select</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">from</span> <span style="color:#111">aaa</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--事务执行中部分撤销
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">declare</span>
+</span></span><span style="display:flex;"><span> <span style="color:#111">me</span> <span style="color:#111">string</span><span style="color:#111">(</span><span style="color:#ae81ff">64</span><span style="color:#111">):</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;0不能做除数&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#111">zer_err</span> <span style="color:#00a8c8">exception</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#111">pragma</span> <span style="color:#111">exception_init</span><span style="color:#111">(</span><span style="color:#111">zer_err</span><span style="color:#111">,</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1476</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">begin</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">INSERT</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">aaa</span> <span style="color:#00a8c8">VALUES</span><span style="color:#111">(</span><span style="color:#d88200">&#39;呼伦贝尔&#39;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">SAVEPOINT</span> <span style="color:#111">insert_point</span><span style="color:#111">;</span><span style="color:#75715e">--设置一个保存点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">dbms_output</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#ae81ff">56</span><span style="color:#f92672">/</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">commit</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">exception</span> <span style="color:#00a8c8">when</span> <span style="color:#111">zer_err</span> <span style="color:#00a8c8">then</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">rollback</span> <span style="color:#00a8c8">to</span> <span style="color:#111">insert_point</span><span style="color:#111">;</span><span style="color:#75715e">--撤销到保存点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">dbms_output</span><span style="color:#111">.</span><span style="color:#111">put_line</span><span style="color:#111">(</span><span style="color:#111">me</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">end</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">select</span> <span style="color:#ae81ff">56</span><span style="color:#f92672">/</span><span style="color:#ae81ff">0</span> <span style="color:#00a8c8">from</span> <span style="color:#111">dual</span><span style="color:#111">;</span><span style="color:#75715e">--查看错误代码
+</span></span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/weixin_41968788/article/details/83659164#/">https://blog.csdn.net/weixin_41968788/article/details/83659164#/</a></p>
+<p><a href="https://www.cnblogs.com/inmeditation/p/12090574.html#/">https://www.cnblogs.com/inmeditation/p/12090574.html#/</a></p>
+<p><a href="https://www.cnblogs.com/diandixingyun/p/12986482.html#/">https://www.cnblogs.com/diandixingyun/p/12986482.html#/</a></p>
+<p><a href="https://www.cnblogs.com/taiguyiba/p/7809310.html#/">https://www.cnblogs.com/taiguyiba/p/7809310.html#/</a></p>
+<p><a href="https://www.cnblogs.com/dersome/p/14304205.html#/">https://www.cnblogs.com/dersome/p/14304205.html#/</a></p>
+</div>
+	</section>
 
 
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/" data-toggle="tooltip" data-placement="top" title="Redis-NoSQL数据库">
-              Previous<br>
-              <span>Redis-NoSQL数据库</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/" data-toggle="tooltip" data-placement="top" title="Redis-Redis基础">
-              Next<br>
-              <span>Redis-Redis基础</span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
-
-
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 1980 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/redis/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        Redis-NoSQL数据库
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/redis/redis-redis%E5%9F%BA%E7%A1%80/">
+        Redis-Redis基础
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <ul class="list-inline text-center">
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/">ORACLE-序列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">SQL函数篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
-
-
-
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
-
-
-<script src=/js/simple-jekyll-search.min.js></script>
-
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>

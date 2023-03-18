@@ -1,201 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH  | Mysql导入导出</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title>Mysql导入导出 | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="Mysql导入导出导出 mysqldump (1) 导出完整数据： mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql (2) 只导出表结构（使用 -d 选项）： mysqldump -u用户">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Mysql导入导出"/>
-<meta name="twitter:description" content="Mysql导入导出导出 mysqldump (1) 导出完整数据： mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql (2) 只导出表结构（使用 -d 选项）： mysqldump -u用户"/>
+	
 
-  <meta property="og:title" content="Mysql导入导出" />
-<meta property="og:description" content="Mysql导入导出导出 mysqldump (1) 导出完整数据： mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql 例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql (2) 只导出表结构（使用 -d 选项）： mysqldump -u用户" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/database/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-11-27T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-11-27T00:00:00+00:00" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+	
 
-  <link rel="stylesheet" href="/sass/main.css">
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
+
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
+
+
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2">Mysql导入导出</h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
+	&nbsp;&nbsp;
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-11-27T00:00:00Z">2022-11-27</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
-            
-          </div>
-          <h1>Mysql导入导出</h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Sun, Nov 27, 2022
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="mysql导入导出">Mysql导入导出<a class="anchorjs-link" href="#mysql%e5%af%bc%e5%85%a5%e5%af%bc%e5%87%ba"></a></h1><h2 id="导出">导出<a class="anchorjs-link" href="#%e5%af%bc%e5%87%ba"></a></h2><ol>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="mysql导入导出">Mysql导入导出</h1>
+<h2 id="导出">导出</h2>
+<ol>
 <li>mysqldump</li>
 </ol>
 <p>(1) 导出完整数据：</p>
@@ -206,14 +209,15 @@
 <ol start="2">
 <li>INTO OUTFILE</li>
 </ol>
-<p><a href="https://www.modb.pro/db/98539" target="_blank">https://www.modb.pro/db/98539</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">SELECT</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">FROM</span> data_tbl <span style="color:#ff79c6">--</span>查找数据源，如果是全表所有字段也可以用 <span style="color:#ff79c6">TABLE</span> <span style="color:#ff79c6">&lt;</span>talbe<span style="color:#ff79c6">&gt;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">OUTFILE</span> <span style="color:#f1fa8c">&#34;/tmp/data.txt&#34;</span> <span style="color:#ff79c6">--</span>数据输出文件
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>FIELDS <span style="color:#ff79c6">TERMINATED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;,&#39;</span>  <span style="color:#ff79c6">--</span>字段分隔符
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">OPTIONALLY</span> <span style="color:#ff79c6">ENCLOSED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;&#34;&#39;</span> <span style="color:#ff79c6">--</span>字段引用符
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">LINES</span> <span style="color:#ff79c6">TERMINATED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;\n&#39;</span> <span style="color:#ff79c6">--</span>整条记录分割符
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>;
-</span></span></code></pre></div><h2 id="导入">导入<a class="anchorjs-link" href="#%e5%af%bc%e5%85%a5"></a></h2><ol>
+<p><a href="https://www.modb.pro/db/98539">https://www.modb.pro/db/98539</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">data_tbl</span> <span style="color:#f92672">--</span><span style="color:#960050;background-color:#1e0010">查找数据源，如果是全表所有字段也可以用</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#f92672">&lt;</span><span style="color:#111">talbe</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">OUTFILE</span> <span style="color:#d88200">&#34;/tmp/data.txt&#34;</span> <span style="color:#f92672">--</span><span style="color:#960050;background-color:#1e0010">数据输出文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">FIELDS</span> <span style="color:#00a8c8">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;,&#39;</span>  <span style="color:#f92672">--</span><span style="color:#960050;background-color:#1e0010">字段分隔符</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">OPTIONALLY</span> <span style="color:#00a8c8">ENCLOSED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;&#34;&#39;</span> <span style="color:#f92672">--</span><span style="color:#960050;background-color:#1e0010">字段引用符</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">LINES</span> <span style="color:#00a8c8">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;\n&#39;</span> <span style="color:#f92672">--</span><span style="color:#960050;background-color:#1e0010">整条记录分割符</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">;</span>
+</span></span></code></pre></div><h2 id="导入">导入</h2>
+<ol>
 <li>&lt;.sql</li>
 </ol>
 <p><code>mysql -u用户名 -p 数据库名 &lt; 数据库名.sql</code></p>
@@ -229,146 +233,156 @@
 <li>load data</li>
 </ol>
 <p>使用场景和语法参见：https://blog.csdn.net/u012815136/article/details/88953289</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">load</span> data local <span style="color:#ff79c6">infile</span> <span style="color:#f1fa8c">&#39;D:/my_user_info.txt&#39;</span> <span style="color:#ff79c6">into</span> <span style="color:#ff79c6">table</span> user_info
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">CHARACTER</span> <span style="color:#8be9fd">SET</span> utf8 <span style="color:#6272a4">-- 可选，指定导入文件的编码，避免中文乱码问题。假如这里文件 my_user_info.txt 的编码为 gbk，那么这里编码就应该设为 gbk 了
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4"></span>FIELDS <span style="color:#ff79c6">TERMINATED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;||&#39;</span> <span style="color:#6272a4">-- 字段分隔符，每个字段(列)以什么字符分隔，默认是 \t
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">OPTIONALLY</span> <span style="color:#ff79c6">ENCLOSED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;&#39;</span> <span style="color:#6272a4">-- 文本限定符，每个字段被什么字符包围，默认是空字符
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">ESCAPED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;\\&#39;</span> <span style="color:#6272a4">-- 转义符，默认是 \
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">LINES</span> <span style="color:#ff79c6">TERMINATED</span> <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;\n&#39;</span> <span style="color:#6272a4">-- 记录分隔符，如字段本身也含\n，那么应先去除，否则load data 会误将其视作另一行记录进行导入
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#6272a4"></span>(id, name, age, address, create_date) <span style="color:#6272a4">-- 每一行文本按顺序对应的表字段，建议不要省略
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">load</span> <span style="color:#111">data</span> <span style="color:#111">local</span> <span style="color:#00a8c8">infile</span> <span style="color:#d88200">&#39;D:/my_user_info.txt&#39;</span> <span style="color:#00a8c8">into</span> <span style="color:#00a8c8">table</span> <span style="color:#111">user_info</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">CHARACTER</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">utf8</span> <span style="color:#75715e">-- 可选，指定导入文件的编码，避免中文乱码问题。假如这里文件 my_user_info.txt 的编码为 gbk，那么这里编码就应该设为 gbk 了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">FIELDS</span> <span style="color:#00a8c8">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;||&#39;</span> <span style="color:#75715e">-- 字段分隔符，每个字段(列)以什么字符分隔，默认是 \t
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">OPTIONALLY</span> <span style="color:#00a8c8">ENCLOSED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;&#39;</span> <span style="color:#75715e">-- 文本限定符，每个字段被什么字符包围，默认是空字符
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#00a8c8">ESCAPED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;\\&#39;</span> <span style="color:#75715e">-- 转义符，默认是 \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">LINES</span> <span style="color:#00a8c8">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;\n&#39;</span> <span style="color:#75715e">-- 记录分隔符，如字段本身也含\n，那么应先去除，否则load data 会误将其视作另一行记录进行导入
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">(</span><span style="color:#111">id</span><span style="color:#111">,</span> <span style="color:#111">name</span><span style="color:#111">,</span> <span style="color:#111">age</span><span style="color:#111">,</span> <span style="color:#111">address</span><span style="color:#111">,</span> <span style="color:#111">create_date</span><span style="color:#111">)</span> <span style="color:#75715e">-- 每一行文本按顺序对应的表字段，建议不要省略
 </span></span></span></code></pre></div><p>注意事项：</p>
 <p><code>LOAD DATA INFILE</code>和 <code>SELECT INTO OUTFILE</code>是相互依赖的，即：如果你导出方式使用了 <code>SELECT INTO OUTFILE</code>，那么导入的时候就需要使用 <code>LOAD DATA INFILE</code>进行导入。<strong>需要格外注意，该方式会锁全表</strong>。</p>
 <p><strong>LOAD DATA格式</strong></p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html" target="_blank">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>    [LOW_PRIORITY <span style="color:#ff79c6">|</span> CONCURRENT] [<span style="color:#ff79c6">LOCAL</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>    INFILE <span style="color:#f1fa8c">&#39;file_name&#39;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    [<span style="color:#ff79c6">REPLACE</span> <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">IGNORE</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>    <span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> tbl_name
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>    [PARTITION (partition_name [, partition_name] ...)]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>    [<span style="color:#8be9fd;font-style:italic">CHARACTER</span> <span style="color:#ff79c6">SET</span> charset_name]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>    [{FIELDS <span style="color:#ff79c6">|</span> COLUMNS}
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>        [TERMINATED <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;string&#39;</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>        [[OPTIONALLY] ENCLOSED <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;char&#39;</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>        [ESCAPED <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;char&#39;</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>    ]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>    [LINES
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>        [STARTING <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;string&#39;</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>        [TERMINATED <span style="color:#ff79c6">BY</span> <span style="color:#f1fa8c">&#39;string&#39;</span>]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>    ]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>    [<span style="color:#ff79c6">IGNORE</span> <span style="color:#8be9fd;font-style:italic">number</span> {LINES <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">ROWS</span>}]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>    [(col_name_or_user_var
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>        [, col_name_or_user_var] ...)]
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>    [<span style="color:#ff79c6">SET</span> col_name<span style="color:#ff79c6">=</span>{expr <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">DEFAULT</span>}
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>        [, col_name<span style="color:#ff79c6">=</span>{expr <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">DEFAULT</span>}] ...]
-</span></span></code></pre></div><h2 id="shell脚本实现导入导出">shell脚本实现导入导出<a class="anchorjs-link" href="#shell%e8%84%9a%e6%9c%ac%e5%ae%9e%e7%8e%b0%e5%af%bc%e5%85%a5%e5%af%bc%e5%87%ba"></a></h2><ol>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#111">LOW_PRIORITY</span> <span style="color:#f92672">|</span> <span style="color:#111">CONCURRENT</span><span style="color:#111">]</span> <span style="color:#111">[</span><span style="color:#00a8c8">LOCAL</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">INFILE</span> <span style="color:#d88200">&#39;file_name&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#00a8c8">REPLACE</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">IGNORE</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">tbl_name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#111">PARTITION</span> <span style="color:#111">(</span><span style="color:#111">partition_name</span> <span style="color:#111">[,</span> <span style="color:#111">partition_name</span><span style="color:#111">]</span> <span style="color:#111">...)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#111">CHARACTER</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">charset_name</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#960050;background-color:#1e0010">{</span><span style="color:#111">FIELDS</span> <span style="color:#f92672">|</span> <span style="color:#111">COLUMNS</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[</span><span style="color:#111">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;string&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[[</span><span style="color:#111">OPTIONALLY</span><span style="color:#111">]</span> <span style="color:#111">ENCLOSED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;char&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[</span><span style="color:#111">ESCAPED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;char&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#111">LINES</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[</span><span style="color:#111">STARTING</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;string&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[</span><span style="color:#111">TERMINATED</span> <span style="color:#00a8c8">BY</span> <span style="color:#d88200">&#39;string&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#00a8c8">IGNORE</span> <span style="color:#111">number</span> <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#111">LINES</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">ROWS</span><span style="color:#960050;background-color:#1e0010">}</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[(</span><span style="color:#111">col_name_or_user_var</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[,</span> <span style="color:#111">col_name_or_user_var</span><span style="color:#111">]</span> <span style="color:#111">...)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">[</span><span style="color:#00a8c8">SET</span> <span style="color:#111">col_name</span><span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">{</span><span style="color:#111">expr</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">DEFAULT</span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[,</span> <span style="color:#111">col_name</span><span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">{</span><span style="color:#111">expr</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">DEFAULT</span><span style="color:#960050;background-color:#1e0010">}</span><span style="color:#111">]</span> <span style="color:#111">...]</span>
+</span></span></code></pre></div><h2 id="shell脚本实现导入导出">shell脚本实现导入导出</h2>
+<ol>
 <li><code>select into outfile</code> &amp; <code>load data infile</code></li>
 </ol>
-<p><a href="https://blog.csdn.net/u013946356/article/details/84960273" target="_blank">https://blog.csdn.net/u013946356/article/details/84960273</a></p>
-<h2 id="如何使用导入定长文件fixed-width-records-">如何使用导入定长文件（fixed-width records ）<a class="anchorjs-link" href="#%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8%e5%af%bc%e5%85%a5%e5%ae%9a%e9%95%bf%e6%96%87%e4%bb%b6fixed-width-records-"></a></h2><p>定长文件：不同于用分隔符（如逗号或空格）来分割每行记录的各字段，定长数据文件是根据约定好的各字段长度来组织数据文件的。如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span> slideNum, startTime, endTime
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>   <span style="color:#bd93f9">1</span>     <span style="color:#bd93f9">75175</span>.<span style="color:#bd93f9">18</span>     <span style="color:#bd93f9">95128</span>.<span style="color:#bd93f9">46</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>   <span style="color:#bd93f9">1</span>    <span style="color:#bd93f9">790890</span>.<span style="color:#bd93f9">89</span>    <span style="color:#bd93f9">795829</span>.<span style="color:#bd93f9">16</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>   <span style="color:#bd93f9">1</span>    <span style="color:#bd93f9">875975</span>.<span style="color:#bd93f9">98</span>    <span style="color:#bd93f9">880914</span>.<span style="color:#bd93f9">25</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>   <span style="color:#bd93f9">8</span>   <span style="color:#bd93f9">2137704</span>.<span style="color:#bd93f9">37</span>   <span style="color:#bd93f9">2162195</span>.<span style="color:#bd93f9">53</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>   <span style="color:#bd93f9">8</span>   <span style="color:#bd93f9">2167267</span>.<span style="color:#bd93f9">27</span>   <span style="color:#bd93f9">2375275</span>.<span style="color:#bd93f9">28</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>  <span style="color:#bd93f9">10</span>   <span style="color:#bd93f9">2375408</span>.<span style="color:#bd93f9">74</span>   <span style="color:#bd93f9">2763997</span>.<span style="color:#bd93f9">33</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>  <span style="color:#bd93f9">14</span>   <span style="color:#bd93f9">2764264</span>.<span style="color:#bd93f9">26</span>   <span style="color:#bd93f9">2804437</span>.<span style="color:#bd93f9">77</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  <span style="color:#bd93f9">15</span>   <span style="color:#bd93f9">2804504</span>.<span style="color:#bd93f9">50</span>   <span style="color:#bd93f9">2881981</span>.<span style="color:#bd93f9">98</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  <span style="color:#bd93f9">16</span>   <span style="color:#bd93f9">2882048</span>.<span style="color:#bd93f9">72</span>   <span style="color:#bd93f9">2887921</span>.<span style="color:#bd93f9">25</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>  <span style="color:#bd93f9">16</span>   <span style="color:#bd93f9">2993093</span>.<span style="color:#bd93f9">09</span>   <span style="color:#bd93f9">2998031</span>.<span style="color:#bd93f9">36</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>  <span style="color:#bd93f9">19</span>   <span style="color:#bd93f9">3004104</span>.<span style="color:#bd93f9">10</span>   <span style="color:#bd93f9">3008041</span>.<span style="color:#bd93f9">37</span>
+<p><a href="https://blog.csdn.net/u013946356/article/details/84960273">https://blog.csdn.net/u013946356/article/details/84960273</a></p>
+<h2 id="如何使用导入定长文件fixed-width-records-">如何使用导入定长文件（fixed-width records ）</h2>
+<p>定长文件：不同于用分隔符（如逗号或空格）来分割每行记录的各字段，定长数据文件是根据约定好的各字段长度来组织数据文件的。如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span> <span style="color:#111">slideNum</span><span style="color:#111">,</span> <span style="color:#111">startTime</span><span style="color:#111">,</span> <span style="color:#111">endTime</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>     <span style="color:#ae81ff">75175</span><span style="color:#111">.</span><span style="color:#ae81ff">18</span>     <span style="color:#ae81ff">95128</span><span style="color:#111">.</span><span style="color:#ae81ff">46</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">790890</span><span style="color:#111">.</span><span style="color:#ae81ff">89</span>    <span style="color:#ae81ff">795829</span><span style="color:#111">.</span><span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span>    <span style="color:#ae81ff">875975</span><span style="color:#111">.</span><span style="color:#ae81ff">98</span>    <span style="color:#ae81ff">880914</span><span style="color:#111">.</span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span>   <span style="color:#ae81ff">2137704</span><span style="color:#111">.</span><span style="color:#ae81ff">37</span>   <span style="color:#ae81ff">2162195</span><span style="color:#111">.</span><span style="color:#ae81ff">53</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">8</span>   <span style="color:#ae81ff">2167267</span><span style="color:#111">.</span><span style="color:#ae81ff">27</span>   <span style="color:#ae81ff">2375275</span><span style="color:#111">.</span><span style="color:#ae81ff">28</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">2375408</span><span style="color:#111">.</span><span style="color:#ae81ff">74</span>   <span style="color:#ae81ff">2763997</span><span style="color:#111">.</span><span style="color:#ae81ff">33</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">14</span>   <span style="color:#ae81ff">2764264</span><span style="color:#111">.</span><span style="color:#ae81ff">26</span>   <span style="color:#ae81ff">2804437</span><span style="color:#111">.</span><span style="color:#ae81ff">77</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">15</span>   <span style="color:#ae81ff">2804504</span><span style="color:#111">.</span><span style="color:#ae81ff">50</span>   <span style="color:#ae81ff">2881981</span><span style="color:#111">.</span><span style="color:#ae81ff">98</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">16</span>   <span style="color:#ae81ff">2882048</span><span style="color:#111">.</span><span style="color:#ae81ff">72</span>   <span style="color:#ae81ff">2887921</span><span style="color:#111">.</span><span style="color:#ae81ff">25</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">16</span>   <span style="color:#ae81ff">2993093</span><span style="color:#111">.</span><span style="color:#ae81ff">09</span>   <span style="color:#ae81ff">2998031</span><span style="color:#111">.</span><span style="color:#ae81ff">36</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">19</span>   <span style="color:#ae81ff">3004104</span><span style="color:#111">.</span><span style="color:#ae81ff">10</span>   <span style="color:#ae81ff">3008041</span><span style="color:#111">.</span><span style="color:#ae81ff">37</span>
 </span></span></code></pre></div><p><code>LOAD DATA</code>虽然很好地支持了分隔符格式的数据文件导入，但是这类型的数据文件，需要进行特殊的处理。</p>
 <p>可参考：https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</p>
 <p>针对上面的例子，解决方案可以是（with user variables (<code>@row</code>)）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> <span style="color:#ff79c6">LOCAL</span> INFILE 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#f1fa8c">&#39;/some/Path/segmentation.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> clip
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">SET</span> slideNum <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">4</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    startTime <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">5</span>,<span style="color:#bd93f9">13</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>    endTime <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">18</span>,<span style="color:#bd93f9">13</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>;
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#00a8c8">LOCAL</span> <span style="color:#111">INFILE</span> 
+</span></span><span style="display:flex;"><span><span style="color:#d88200">&#39;/some/Path/segmentation.txt&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">clip</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">SET</span> <span style="color:#111">slideNum</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">4</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">startTime</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">5</span><span style="color:#111">,</span><span style="color:#ae81ff">13</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">endTime</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">18</span><span style="color:#111">,</span><span style="color:#ae81ff">13</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">;</span>
 </span></span></code></pre></div><p>使用<code>LOAD DATA</code>来处理定长文件的注意事项：</p>
 <ul>
 <li>Fixed-size format does not work if you are using a <strong>multibyte character set</strong>.</li>
 <li>With fixed-row format (which is used when FIELDS TERMINATED BY and FIELDS ENCLOSED BY are both empty), NULL is written as an empty string. <strong>This causes both NULL values and empty strings in the table to be indistinguishable</strong> when written to the file because both are written as empty strings. If you need to be able to tell the two apart when reading the file back in, you should not use fixed-row format.</li>
 </ul>
 <p>此类场景的解决方案，参考链接：</p>
-<p><a href="https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql" target="_blank">https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</a></p>
-<p><a href="https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html" target="_blank">https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html</a></p>
-<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html" target="_blank">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
-<h3 id="导入实践">导入实践<a class="anchorjs-link" href="#%e5%af%bc%e5%85%a5%e5%ae%9e%e8%b7%b5"></a></h3><h4 id="建表">建表<a class="anchorjs-link" href="#%e5%bb%ba%e8%a1%a8"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">create</span> <span style="color:#ff79c6">table</span> t1 (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>	id <span style="color:#8be9fd;font-style:italic">int</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>	name <span style="color:#8be9fd;font-style:italic">VARCHAR</span>(<span style="color:#bd93f9">25</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>)
-</span></span></code></pre></div><h4 id="准备infile文件数据">准备infile文件数据<a class="anchorjs-link" href="#%e5%87%86%e5%a4%87infile%e6%96%87%e4%bb%b6%e6%95%b0%e6%8d%ae"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>[root@iZbp15qc4wmx335c268l5mZ cindy]# cat data.txt
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>3 Alice  
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>4 bob    
-</span></span></code></pre></div><h4 id="尝试导入">尝试导入<a class="anchorjs-link" href="#%e5%b0%9d%e8%af%95%e5%af%bc%e5%85%a5"></a></h4><p>脚本内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">-&gt;</span> (<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    <span style="color:#ff79c6">-&gt;</span>     name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#ff79c6">-&gt;</span> ;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>ERROR <span style="color:#bd93f9">1045</span> (<span style="color:#bd93f9">28000</span>): <span style="color:#ff79c6">Access</span> denied <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">user</span> <span style="color:#f1fa8c">&#39;cindy&#39;</span><span style="color:#ff79c6">@</span><span style="color:#f1fa8c">&#39;%&#39;</span> (<span style="color:#ff79c6">using</span> password: YES)
-</span></span></code></pre></div><h4 id="授予file权限">授予FILE权限<a class="anchorjs-link" href="#%e6%8e%88%e4%ba%88file%e6%9d%83%e9%99%90"></a></h4><p>搜索了下，使用 load data语句导入数据需要有处理文件的权限。</p>
+<p><a href="https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql">https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</a></p>
+<p><a href="https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html">https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<h3 id="导入实践">导入实践</h3>
+<h4 id="建表">建表</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">create</span> <span style="color:#00a8c8">table</span> <span style="color:#111">t1</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">id</span> <span style="color:#111">int</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#111">name</span> <span style="color:#111">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">25</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span></code></pre></div><h4 id="准备infile文件数据">准备infile文件数据</h4>
+<pre tabindex="0"><code class="language-she" data-lang="she">[root@iZbp15qc4wmx335c268l5mZ cindy]# cat data.txt
+3 Alice  
+4 bob    
+</code></pre><h4 id="尝试导入">尝试导入</h4>
+<p>脚本内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span>     <span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ERROR</span> <span style="color:#ae81ff">1045</span> <span style="color:#111">(</span><span style="color:#ae81ff">28000</span><span style="color:#111">):</span> <span style="color:#00a8c8">Access</span> <span style="color:#111">denied</span> <span style="color:#00a8c8">for</span> <span style="color:#00a8c8">user</span> <span style="color:#d88200">&#39;cindy&#39;</span><span style="color:#f92672">@</span><span style="color:#d88200">&#39;%&#39;</span> <span style="color:#111">(</span><span style="color:#00a8c8">using</span> <span style="color:#111">password</span><span style="color:#111">:</span> <span style="color:#111">YES</span><span style="color:#111">)</span>
+</span></span></code></pre></div><h4 id="授予file权限">授予FILE权限</h4>
+<p>搜索了下，使用 load data语句导入数据需要有处理文件的权限。</p>
 <p>参考：</p>
-<p><a href="https://blog.csdn.net/qq_37189082/article/details/121249966" target="_blank">https://blog.csdn.net/qq_37189082/article/details/121249966</a></p>
-<p><a href="https://www.cnblogs.com/darange/p/10508714.html" target="_blank">https://www.cnblogs.com/darange/p/10508714.html</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">grant</span> file <span style="color:#ff79c6">on</span> <span style="color:#ff79c6">*</span>.<span style="color:#ff79c6">*</span> <span style="color:#ff79c6">to</span> <span style="color:#f1fa8c">&#39;cindy&#39;</span><span style="color:#ff79c6">@</span><span style="color:#f1fa8c">&#39;%&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>ERROR <span style="color:#bd93f9">1045</span> (<span style="color:#bd93f9">28000</span>): <span style="color:#ff79c6">Access</span> denied <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">user</span> <span style="color:#f1fa8c">&#39;cindy&#39;</span><span style="color:#ff79c6">@</span><span style="color:#f1fa8c">&#39;%&#39;</span> (<span style="color:#ff79c6">using</span> password: YES)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">-- 用cindy用户执行报错，原来需要用root用户授权
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">grant</span> file <span style="color:#ff79c6">on</span> <span style="color:#ff79c6">*</span>.<span style="color:#ff79c6">*</span> <span style="color:#ff79c6">to</span> <span style="color:#f1fa8c">&#39;cindy&#39;</span><span style="color:#ff79c6">@</span><span style="color:#f1fa8c">&#39;%&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>Query OK, <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">rows</span> affected (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">01</span> sec)
-</span></span></code></pre></div><h4 id="再次尝试导入">再次尝试导入<a class="anchorjs-link" href="#%e5%86%8d%e6%ac%a1%e5%b0%9d%e8%af%95%e5%af%bc%e5%85%a5"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">-&gt;</span> (<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    <span style="color:#ff79c6">-&gt;</span> name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#ff79c6">-&gt;</span> ;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>ERROR <span style="color:#bd93f9">1290</span> (HY000): The MySQL server <span style="color:#ff79c6">is</span> running <span style="color:#ff79c6">with</span> the <span style="color:#6272a4">--secure-file-priv option so it cannot execute this statement
-</span></span></span></code></pre></div><h4 id="secure_file_priv参数修改">secure_file_priv参数修改<a class="anchorjs-link" href="#secure_file_priv%e5%8f%82%e6%95%b0%e4%bf%ae%e6%94%b9"></a></h4><p>上述报错的解决方案参考：https://blog.csdn.net/lz6363/article/details/115805495</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">show</span> <span style="color:#ff79c6">global</span> variables <span style="color:#ff79c6">like</span> <span style="color:#f1fa8c">&#39;%secure_file_priv%&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> Variable_name    <span style="color:#ff79c6">|</span> Value <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> secure_file_priv <span style="color:#ff79c6">|</span> <span style="color:#ff79c6">NULL</span>  <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#6272a4"></span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">12</span> sec)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#6272a4">-- 查看官方文档，secure_file_priv参数用于限制LOAD DATA, SELECT …OUTFILE, LOAD_FILE()传到哪个指定目录。
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#6272a4">-- secure_file_priv 为 NULL 时，表示限制mysqld不允许导入或导出。
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span><span style="color:#6272a4">-- secure_file_priv 为 /tmp 时，表示限制mysqld只能在/tmp目录中执行导入导出，其他目录不能执行。
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#6272a4">-- secure_file_priv 没有值时，表示不限制mysqld在任意目录的导入导出。
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span><span style="color:#6272a4">-- 解决方案：1、将允许的文档路径secure-file-priv改为所需的路径；2、干脆设置secure_file_priv=&#39;&#39;，表示任意目录。我采取后者.
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>vim /etc/my.cnf
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"># 加上以下这行：</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#8be9fd;font-style:italic">secure_file_priv</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;&#39;</span> <span style="color:#6272a4"># 允许导入导出任何路径的文件</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"># 重启数据库</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>/etc/init.d/mysqld restart
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">-- 再次查询，修改成功
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">show</span> <span style="color:#ff79c6">global</span> variables <span style="color:#ff79c6">like</span> <span style="color:#f1fa8c">&#39;%secure_file_priv%&#39;</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> Variable_name    <span style="color:#ff79c6">|</span> Value <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> secure_file_priv <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------------------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span><span style="color:#6272a4"></span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
-</span></span></code></pre></div><h4 id="再次尝试导入-1">再次尝试导入<a class="anchorjs-link" href="#%e5%86%8d%e6%ac%a1%e5%b0%9d%e8%af%95%e5%af%bc%e5%85%a5-1"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">-&gt;</span> (<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    <span style="color:#ff79c6">-&gt;</span> name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#ff79c6">-&gt;</span> ;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>ERROR <span style="color:#bd93f9">13</span> (HY000): Can<span style="color:#f1fa8c">&#39;t get stat of &#39;</span><span style="color:#ff79c6">/</span>home<span style="color:#ff79c6">/</span>cindy<span style="color:#ff79c6">/</span><span style="color:#ff79c6">data</span>.txt<span style="color:#f1fa8c">&#39; (Errcode: 13 - Permission denied)
-</span></span></span></code></pre></div><p>解决方法参考： <a href="https://blog.csdn.net/weixin_39722921/article/details/113156666" target="_blank">https://blog.csdn.net/weixin_39722921/article/details/113156666</a></p>
+<p><a href="https://blog.csdn.net/qq_37189082/article/details/121249966">https://blog.csdn.net/qq_37189082/article/details/121249966</a></p>
+<p><a href="https://www.cnblogs.com/darange/p/10508714.html">https://www.cnblogs.com/darange/p/10508714.html</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">grant</span> <span style="color:#111">file</span> <span style="color:#00a8c8">on</span> <span style="color:#f92672">*</span><span style="color:#111">.</span><span style="color:#f92672">*</span> <span style="color:#00a8c8">to</span> <span style="color:#d88200">&#39;cindy&#39;</span><span style="color:#f92672">@</span><span style="color:#d88200">&#39;%&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ERROR</span> <span style="color:#ae81ff">1045</span> <span style="color:#111">(</span><span style="color:#ae81ff">28000</span><span style="color:#111">):</span> <span style="color:#00a8c8">Access</span> <span style="color:#111">denied</span> <span style="color:#00a8c8">for</span> <span style="color:#00a8c8">user</span> <span style="color:#d88200">&#39;cindy&#39;</span><span style="color:#f92672">@</span><span style="color:#d88200">&#39;%&#39;</span> <span style="color:#111">(</span><span style="color:#00a8c8">using</span> <span style="color:#111">password</span><span style="color:#111">:</span> <span style="color:#111">YES</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 用cindy用户执行报错，原来需要用root用户授权
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">grant</span> <span style="color:#111">file</span> <span style="color:#00a8c8">on</span> <span style="color:#f92672">*</span><span style="color:#111">.</span><span style="color:#f92672">*</span> <span style="color:#00a8c8">to</span> <span style="color:#d88200">&#39;cindy&#39;</span><span style="color:#f92672">@</span><span style="color:#d88200">&#39;%&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">Query</span> <span style="color:#111">OK</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span> <span style="color:#00a8c8">rows</span> <span style="color:#111">affected</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">01</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span></code></pre></div><h4 id="再次尝试导入">再次尝试导入</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ERROR</span> <span style="color:#ae81ff">1290</span> <span style="color:#111">(</span><span style="color:#111">HY000</span><span style="color:#111">):</span> <span style="color:#111">The</span> <span style="color:#111">MySQL</span> <span style="color:#111">server</span> <span style="color:#00a8c8">is</span> <span style="color:#111">running</span> <span style="color:#00a8c8">with</span> <span style="color:#111">the</span> <span style="color:#75715e">--secure-file-priv option so it cannot execute this statement
+</span></span></span></code></pre></div><h4 id="secure_file_priv参数修改">secure_file_priv参数修改</h4>
+<p>上述报错的解决方案参考：https://blog.csdn.net/lz6363/article/details/115805495</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">show</span> <span style="color:#00a8c8">global</span> <span style="color:#111">variables</span> <span style="color:#00a8c8">like</span> <span style="color:#d88200">&#39;%secure_file_priv%&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">Variable_name</span>    <span style="color:#f92672">|</span> <span style="color:#111">Value</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">secure_file_priv</span> <span style="color:#f92672">|</span> <span style="color:#00a8c8">NULL</span>  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#00a8c8">row</span> <span style="color:#00a8c8">in</span> <span style="color:#00a8c8">set</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">12</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 查看官方文档，secure_file_priv参数用于限制LOAD DATA, SELECT …OUTFILE, LOAD_FILE()传到哪个指定目录。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- secure_file_priv 为 NULL 时，表示限制mysqld不允许导入或导出。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- secure_file_priv 为 /tmp 时，表示限制mysqld只能在/tmp目录中执行导入导出，其他目录不能执行。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- secure_file_priv 没有值时，表示不限制mysqld在任意目录的导入导出。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- 解决方案：1、将允许的文档路径secure-file-priv改为所需的路径；2、干脆设置secure_file_priv=&#39;&#39;，表示任意目录。我采取后者.
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /etc/my.cnf
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加上以下这行：</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">secure_file_priv</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;&#39;</span> <span style="color:#75715e"># 允许导入导出任何路径的文件</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 重启数据库</span>
+</span></span><span style="display:flex;"><span>/etc/init.d/mysqld restart
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- 再次查询，修改成功
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">show</span> <span style="color:#00a8c8">global</span> <span style="color:#111">variables</span> <span style="color:#00a8c8">like</span> <span style="color:#d88200">&#39;%secure_file_priv%&#39;</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">Variable_name</span>    <span style="color:#f92672">|</span> <span style="color:#111">Value</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">secure_file_priv</span> <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------------------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#00a8c8">row</span> <span style="color:#00a8c8">in</span> <span style="color:#00a8c8">set</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">00</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span></code></pre></div><h4 id="再次尝试导入-1">再次尝试导入</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">ERROR</span> <span style="color:#ae81ff">13</span> <span style="color:#111">(</span><span style="color:#111">HY000</span><span style="color:#111">):</span> <span style="color:#111">Can</span><span style="color:#d88200">&#39;t get stat of &#39;</span><span style="color:#f92672">/</span><span style="color:#111">home</span><span style="color:#f92672">/</span><span style="color:#111">cindy</span><span style="color:#f92672">/</span><span style="color:#00a8c8">data</span><span style="color:#111">.</span><span style="color:#111">txt</span><span style="color:#d88200">&#39; (Errcode: 13 - Permission denied)
+</span></span></span></code></pre></div><p>解决方法参考： <a href="https://blog.csdn.net/weixin_39722921/article/details/113156666">https://blog.csdn.net/weixin_39722921/article/details/113156666</a></p>
 <blockquote>
 <p>将LOAD DATA INFILE</p>
 <p>换成</p>
@@ -379,224 +393,260 @@
 <p>如果指定了LOCAL，则文件会被客户主机上的客户端读取，并被发送到服务器。文件会被给予一个完整的路径名称，以指定确切的位置。</p>
 </blockquote>
 <p>因此把脚本内容改为：(即，加上<code>LOCAL</code>)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> <span style="color:#ff79c6">LOCAL</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>;
-</span></span></code></pre></div><h4 id="再次尝试导入-2">再次尝试导入<a class="anchorjs-link" href="#%e5%86%8d%e6%ac%a1%e5%b0%9d%e8%af%95%e5%af%bc%e5%85%a5-2"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">LOAD</span> <span style="color:#ff79c6">DATA</span> <span style="color:#ff79c6">LOCAL</span> INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">INTO</span> <span style="color:#ff79c6">TABLE</span> t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    <span style="color:#ff79c6">-&gt;</span> (<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    <span style="color:#ff79c6">-&gt;</span> <span style="color:#ff79c6">SET</span> id <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>)),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>    <span style="color:#ff79c6">-&gt;</span> name <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">TRIM</span>(SUBSTR(<span style="color:#ff79c6">@</span><span style="color:#ff79c6">row</span>,<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">7</span>))
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>    <span style="color:#ff79c6">-&gt;</span> ;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>Query OK, <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">rows</span> affected, <span style="color:#bd93f9">1</span> warning (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">02</span> sec)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>Records: <span style="color:#bd93f9">3</span>  Deleted: <span style="color:#bd93f9">0</span>  Skipped: <span style="color:#bd93f9">0</span>  Warnings: <span style="color:#bd93f9">1</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#00a8c8">LOCAL</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">;</span>
+</span></span></code></pre></div><h4 id="再次尝试导入-2">再次尝试导入</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">LOAD</span> <span style="color:#00a8c8">DATA</span> <span style="color:#00a8c8">LOCAL</span> <span style="color:#111">INFILE</span>  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">INTO</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">t1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">id</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">)),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">name</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">TRIM</span><span style="color:#111">(</span><span style="color:#111">SUBSTR</span><span style="color:#111">(</span><span style="color:#f92672">@</span><span style="color:#00a8c8">row</span><span style="color:#111">,</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">7</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">-&gt;</span> <span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">Query</span> <span style="color:#111">OK</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span> <span style="color:#00a8c8">rows</span> <span style="color:#111">affected</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span> <span style="color:#111">warning</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">02</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">Records</span><span style="color:#111">:</span> <span style="color:#ae81ff">3</span>  <span style="color:#111">Deleted</span><span style="color:#111">:</span> <span style="color:#ae81ff">0</span>  <span style="color:#111">Skipped</span><span style="color:#111">:</span> <span style="color:#ae81ff">0</span>  <span style="color:#111">Warnings</span><span style="color:#111">:</span> <span style="color:#ae81ff">1</span>
 </span></span></code></pre></div><p>看起来有戏，看看现在的表结果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">select</span> <span style="color:#ff79c6">*</span> <span style="color:#ff79c6">from</span> t1;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> id   <span style="color:#ff79c6">|</span> name  <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">|</span> cindy <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span><span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">2</span> <span style="color:#ff79c6">|</span> kexin <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">|</span> Alice <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span><span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">4</span> <span style="color:#ff79c6">|</span> bob   <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#ff79c6">|</span>    <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">|</span>       <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">------+-------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span><span style="color:#6272a4"></span><span style="color:#bd93f9">5</span> <span style="color:#ff79c6">rows</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">00</span> sec)
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">select</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">from</span> <span style="color:#111">t1</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">id</span>   <span style="color:#f92672">|</span> <span style="color:#111">name</span>  <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span>    <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> <span style="color:#111">cindy</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>    <span style="color:#ae81ff">2</span> <span style="color:#f92672">|</span> <span style="color:#111">kexin</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>    <span style="color:#ae81ff">3</span> <span style="color:#f92672">|</span> <span style="color:#111">Alice</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>    <span style="color:#ae81ff">4</span> <span style="color:#f92672">|</span> <span style="color:#111">bob</span>   <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span>    <span style="color:#ae81ff">0</span> <span style="color:#f92672">|</span>       <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">------+-------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">5</span> <span style="color:#00a8c8">rows</span> <span style="color:#00a8c8">in</span> <span style="color:#00a8c8">set</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">00</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
 </span></span></code></pre></div><p><strong>成功了！！</strong></p>
 <p>id为3,4,0的记录是刚insert的，其中0的那一条应该是从空白行得来的。。（这样不合适的数据，当然也是有waring的⬇️）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">show</span> warnings;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">---------+------+------------------------------------------------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> <span style="color:#ff79c6">Level</span>   <span style="color:#ff79c6">|</span> Code <span style="color:#ff79c6">|</span> Message                                              <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">---------+------+------------------------------------------------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">|</span> Warning <span style="color:#ff79c6">|</span> <span style="color:#bd93f9">1366</span> <span style="color:#ff79c6">|</span> Incorrect <span style="color:#8be9fd;font-style:italic">integer</span> value: <span style="color:#f1fa8c">&#39;&#39;</span> <span style="color:#ff79c6">for</span> <span style="color:#ff79c6">column</span> <span style="color:#f1fa8c">&#39;id&#39;</span> <span style="color:#ff79c6">at</span> <span style="color:#ff79c6">row</span> <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">|</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#ff79c6">+</span><span style="color:#6272a4">---------+------+------------------------------------------------------+
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#6272a4"></span><span style="color:#bd93f9">1</span> <span style="color:#ff79c6">row</span> <span style="color:#ff79c6">in</span> <span style="color:#ff79c6">set</span> (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">07</span> sec)
-</span></span></code></pre></div><h4 id="将insert脚本作为sql脚本执行">将insert脚本作为sql脚本执行<a class="anchorjs-link" href="#%e5%b0%86insert%e8%84%9a%e6%9c%ac%e4%bd%9c%e4%b8%basql%e8%84%9a%e6%9c%ac%e6%89%a7%e8%a1%8c"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span style="color:#ff79c6">]</span><span style="color:#6272a4"># cat insert.sql</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>use test_db;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>LOAD DATA LOCAL INFILE  <span style="color:#f1fa8c">&#39;/home/cindy/data.txt&#39;</span> 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>INTO TABLE t1
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#ff79c6">(</span>@row<span style="color:#ff79c6">)</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>SET <span style="color:#8be9fd;font-style:italic">id</span> <span style="color:#ff79c6">=</span> TRIM<span style="color:#ff79c6">(</span>SUBSTR<span style="color:#ff79c6">(</span>@row,1,2<span style="color:#ff79c6">))</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span><span style="color:#8be9fd;font-style:italic">name</span> <span style="color:#ff79c6">=</span> TRIM<span style="color:#ff79c6">(</span>SUBSTR<span style="color:#ff79c6">(</span>@row,3,7<span style="color:#ff79c6">))</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>;
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>mysql<span style="color:#ff79c6">&gt;</span> <span style="color:#ff79c6">source</span> <span style="color:#ff79c6">/</span>home<span style="color:#ff79c6">/</span>cindy<span style="color:#ff79c6">/</span><span style="color:#ff79c6">insert</span>.<span style="color:#ff79c6">sql</span>;
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#ff79c6">Database</span> changed
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>Query OK, <span style="color:#bd93f9">3</span> <span style="color:#ff79c6">rows</span> affected, <span style="color:#bd93f9">1</span> warning (<span style="color:#bd93f9">0</span>.<span style="color:#bd93f9">09</span> sec)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>Records: <span style="color:#bd93f9">3</span>  Deleted: <span style="color:#bd93f9">0</span>  Skipped: <span style="color:#bd93f9">0</span>  Warnings: <span style="color:#bd93f9">1</span>
-</span></span></code></pre></div><h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html" target="_blank">https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html</a></p>
-<p><a href="https://juejin.cn/post/6992489420188286983" target="_blank">https://juejin.cn/post/6992489420188286983</a></p>
-<p><a href="https://juejin.cn/post/7039542872051302436" target="_blank">https://juejin.cn/post/7039542872051302436</a></p>
-<p><a href="https://www.modb.pro/db/98539" target="_blank">https://www.modb.pro/db/98539</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">show</span> <span style="color:#111">warnings</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------+------+------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#00a8c8">Level</span>   <span style="color:#f92672">|</span> <span style="color:#111">Code</span> <span style="color:#f92672">|</span> <span style="color:#111">Message</span>                                              <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------+------+------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#111">Warning</span> <span style="color:#f92672">|</span> <span style="color:#ae81ff">1366</span> <span style="color:#f92672">|</span> <span style="color:#111">Incorrect</span> <span style="color:#111">integer</span> <span style="color:#111">value</span><span style="color:#111">:</span> <span style="color:#d88200">&#39;&#39;</span> <span style="color:#00a8c8">for</span> <span style="color:#00a8c8">column</span> <span style="color:#d88200">&#39;id&#39;</span> <span style="color:#00a8c8">at</span> <span style="color:#00a8c8">row</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span><span style="color:#75715e">---------+------+------------------------------------------------------+
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#ae81ff">1</span> <span style="color:#00a8c8">row</span> <span style="color:#00a8c8">in</span> <span style="color:#00a8c8">set</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">07</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span></code></pre></div><h4 id="将insert脚本作为sql脚本执行">将insert脚本作为sql脚本执行</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span style="color:#f92672">]</span><span style="color:#75715e"># cat insert.sql</span>
+</span></span><span style="display:flex;"><span>use test_db<span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>LOAD DATA LOCAL INFILE  <span style="color:#d88200">&#39;/home/cindy/data.txt&#39;</span> 
+</span></span><span style="display:flex;"><span>INTO TABLE t1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span>@row<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SET <span style="color:#111">id</span> <span style="color:#f92672">=</span> TRIM<span style="color:#f92672">(</span>SUBSTR<span style="color:#f92672">(</span>@row,1,2<span style="color:#f92672">))</span>,
+</span></span><span style="display:flex;"><span><span style="color:#111">name</span> <span style="color:#f92672">=</span> TRIM<span style="color:#f92672">(</span>SUBSTR<span style="color:#f92672">(</span>@row,3,7<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#111">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#00a8c8">source</span> <span style="color:#f92672">/</span><span style="color:#111">home</span><span style="color:#f92672">/</span><span style="color:#111">cindy</span><span style="color:#f92672">/</span><span style="color:#00a8c8">insert</span><span style="color:#111">.</span><span style="color:#00a8c8">sql</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">Database</span> <span style="color:#111">changed</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">Query</span> <span style="color:#111">OK</span><span style="color:#111">,</span> <span style="color:#ae81ff">3</span> <span style="color:#00a8c8">rows</span> <span style="color:#111">affected</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span> <span style="color:#111">warning</span> <span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">.</span><span style="color:#ae81ff">09</span> <span style="color:#111">sec</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">Records</span><span style="color:#111">:</span> <span style="color:#ae81ff">3</span>  <span style="color:#111">Deleted</span><span style="color:#111">:</span> <span style="color:#ae81ff">0</span>  <span style="color:#111">Skipped</span><span style="color:#111">:</span> <span style="color:#ae81ff">0</span>  <span style="color:#111">Warnings</span><span style="color:#111">:</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html">https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html</a></p>
+<p><a href="https://juejin.cn/post/6992489420188286983">https://juejin.cn/post/6992489420188286983</a></p>
+<p><a href="https://juejin.cn/post/7039542872051302436">https://juejin.cn/post/7039542872051302436</a></p>
+<p><a href="https://www.modb.pro/db/98539">https://www.modb.pro/db/98539</a></p>
+</div>
+	</section>
 
 
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" data-toggle="tooltip" data-placement="top" title="Linux-磁盘管理">
-              Previous<br>
-              <span>Linux-磁盘管理</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/" data-toggle="tooltip" data-placement="top" title="oracle-&gt;mysql数据迁移数据事项">
-              Next<br>
-              <span>oracle-&gt;mysql数据迁移数据事项</span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
-
-
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2401 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/linux/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        Linux-磁盘管理
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/database/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+        oracle-&gt;mysql数据迁移数据事项
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <ul class="list-inline text-center">
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">数据库分页查询</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">数据库日志基础</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/">分区表</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">数据库测试扫盲篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/">Linux-安装Oracle</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">Oracle-实现事务提交和回滚</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/">ORACLE-序列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">SQL函数篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
-
-
-
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
-
-
-<script src=/js/simple-jekyll-search.min.js></script>
-
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>

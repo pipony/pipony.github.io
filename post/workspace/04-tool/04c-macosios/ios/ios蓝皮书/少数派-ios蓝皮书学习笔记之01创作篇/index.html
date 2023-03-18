@@ -1,199 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH </title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title> | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="「少数派-IOS蓝皮书」学习笔记之01创作篇 教程来自少数派：https://sspai.com/series/277/list 本学习笔记仅用">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="「少数派-IOS蓝皮书」学习笔记之01创作篇 教程来自少数派：https://sspai.com/series/277/list 本学习笔记仅用"/>
+	
 
-  <meta property="og:title" content="" />
-<meta property="og:description" content="「少数派-IOS蓝皮书」学习笔记之01创作篇 教程来自少数派：https://sspai.com/series/277/list 本学习笔记仅用" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/04-tool/04c-macosios/ios/ios%E8%93%9D%E7%9A%AE%E4%B9%A6/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B01%E5%88%9B%E4%BD%9C%E7%AF%87/" /><meta property="article:section" content="post" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
+	
+
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <link rel="stylesheet" href="/sass/main.css">
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
 
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2"></h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="0001-01-01T00:00:00Z">0001-1-1</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-          </div>
-          <h1></h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Mon, Jan 1, 0001
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="少数派-ios蓝皮书学习笔记之01创作篇">「少数派-IOS蓝皮书」学习笔记之01创作篇<a class="anchorjs-link" href="#%e5%b0%91%e6%95%b0%e6%b4%be-ios%e8%93%9d%e7%9a%ae%e4%b9%a6%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0%e4%b9%8b01%e5%88%9b%e4%bd%9c%e7%af%87"></a></h1><blockquote>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="少数派-ios蓝皮书学习笔记之01创作篇">「少数派-IOS蓝皮书」学习笔记之01创作篇</h1>
+<blockquote>
 <p>教程来自少数派：https://sspai.com/series/277/list</p>
 <p>本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。</p>
 </blockquote>
@@ -208,7 +194,8 @@
 <li>iMovie 快速完成剪辑</li>
 </ul>
 <hr>
-<h1 id="人像模式">人像模式<a class="anchorjs-link" href="#%e4%ba%ba%e5%83%8f%e6%a8%a1%e5%bc%8f"></a></h1><p>打开“人像”，点击右上角的f，可调整“光圈大小”（景深）</p>
+<h1 id="人像模式">人像模式</h1>
+<p>打开“人像”，点击右上角的f，可调整“光圈大小”（景深）</p>
 <p><strong>光圈（光圈大小影响进光量）的影响：</strong></p>
 <ul>
 <li>曝光度</li>
@@ -231,13 +218,15 @@
 <li>证件照临时救急：人像，开”舞台光“效果，再利用一键更新背景颜色的app替换即可得到一张80分的证件照</li>
 <li>”摄影室灯光“效果，相当于一次智能补光</li>
 </ul>
-<h1 id="风光--街拍">风光 &amp; 街拍<a class="anchorjs-link" href="#%e9%a3%8e%e5%85%89--%e8%a1%97%e6%8b%8d"></a></h1><p>夜间模式：</p>
+<h1 id="风光--街拍">风光 &amp; 街拍</h1>
+<p>夜间模式：</p>
 <p>本质上就是增加曝光时间。在相机左上角月亮标志可以开启/关闭。如果手机型号不支持，可利用第三方app增加曝光时间。</p>
 <p>网格线：</p>
 <p>便于横竖对齐，或是辅助构图拍摄。</p>
 <p>超广角：</p>
 <p>开启方式是相机下方的&quot;0.5X&quot;，可以容纳更多东西，拍风景或租房照片时好用。</p>
-<h1 id="人像--静物">人像 &amp; 静物<a class="anchorjs-link" href="#%e4%ba%ba%e5%83%8f--%e9%9d%99%e7%89%a9"></a></h1><p>滤镜：</p>
+<h1 id="人像--静物">人像 &amp; 静物</h1>
+<p>滤镜：</p>
 <p>apple提供的9种原装滤镜，是支持拍摄中/完（在照片中）添加或去掉的。</p>
 <p>教程中提供了经典使用场景：</p>
 <blockquote>
@@ -261,7 +250,8 @@
 <p>「利用对焦和曝光，拍出艺术感」：</p>
 <p>点击画面，获得对焦点。上下可调节曝光度。</p>
 <p>逆光拍摄人像剪影技巧：逆光+焦点对准人+降低曝光</p>
-<h1 id="后期技巧美食--人物--环境">后期技巧：美食 &amp; 人物 &amp; 环境<a class="anchorjs-link" href="#%e5%90%8e%e6%9c%9f%e6%8a%80%e5%b7%a7%e7%be%8e%e9%a3%9f--%e4%ba%ba%e7%89%a9--%e7%8e%af%e5%a2%83"></a></h1><ul>
+<h1 id="后期技巧美食--人物--环境">后期技巧：美食 &amp; 人物 &amp; 环境</h1>
+<ul>
 <li>魔棒：傻瓜式一键修图</li>
 <li>饱和度：增加饱和度一般可以让东西看起来更好吃！值得注意的是，编辑中包括「饱和度」和「自然饱和度」两种方式，后者更加自然，推荐！</li>
 <li>色温：营造事物氛围。暖色调适合夜宵火锅等，冷色调适合冰凉、高级感等。</li>
@@ -276,19 +266,23 @@
 <p>矫正工具（如照片歪了一点）+裁切工具（有时候裁成正方形更有感觉）</p>
 <p>挽救噪点图：</p>
 <p>1、照片编辑中的消除噪点；2、对于消除噪点还是效果不佳的情况，可以尝试转为黑白滤镜</p>
-<h1 id="视频拍摄">视频拍摄<a class="anchorjs-link" href="#%e8%a7%86%e9%a2%91%e6%8b%8d%e6%91%84"></a></h1><h3 id="电影效果">📽️电影效果<a class="anchorjs-link" href="#%e7%94%b5%e5%bd%b1%e6%95%88%e6%9e%9c"></a></h3><blockquote>
+<h1 id="视频拍摄">视频拍摄</h1>
+<h3 id="电影效果">📽️电影效果</h3>
+<blockquote>
 <p>可以在保持视频主体清晰的同时，营造美观的模糊前景和背景。</p>
 </blockquote>
 <p><strong>更妙的是</strong>，可以在拍摄完在视频成品上调整对焦对象。</p>
 <blockquote>
 <p>我们还可以在多人场景使用电影效果拍摄，例如喧闹的餐厅、拥挤的旅游景区，甚至只是家楼下的超市，在这些场景拍摄时，我们都可以使用电影效果，<strong>将焦点对准我们需要拍摄的人物主体，通过背景虚化来烘托出我们的主角。</strong></p>
 </blockquote>
-<h3 id="运动模式">🏃‍♀️运动模式<a class="anchorjs-link" href="#%e8%bf%90%e5%8a%a8%e6%a8%a1%e5%bc%8f"></a></h3><p>开启方式：视频上方的有个奔跑小人的图标</p>
+<h3 id="运动模式">🏃‍♀️运动模式</h3>
+<p>开启方式：视频上方的有个奔跑小人的图标</p>
 <p>可以获得更加平稳的视频</p>
 <blockquote>
 <p>启用运动模式以后 iPhone 录制视频的分辨率会从最高的 4K 变为 2.8K，1080P 则不受影响；还有一点同样值得注意，为了获得更好的录制效果录制时的环境光最好不要太暗，必要的时候可以额外采购一盏棒灯再使用运动模式可能是一个更好的选择。</p>
 </blockquote>
-<h3 id="慢动作">🦥慢动作<a class="anchorjs-link" href="#%e6%85%a2%e5%8a%a8%e4%bd%9c"></a></h3><p>使用场景就不赘诉了。注意点如下：</p>
+<h3 id="慢动作">🦥慢动作</h3>
+<p>使用场景就不赘诉了。注意点如下：</p>
 <blockquote>
 <p>使用 iPhone 录制慢动作视频只会录制画面，声音并不会一同录制，毕竟慢速处理过的声音会失真，往往也不太可用。</p>
 <p>而使用 iPhone 默认设置拍摄的慢动作视频，一般是头和尾是常速，中间一段是慢动作。</p>
@@ -296,188 +290,196 @@
 </blockquote>
 <p>室内慢动作拍摄的画面闪烁：</p>
 <p>可尝试把视频格式调整为1080p HD/120 fps</p>
-<h3 id="延时摄影">⏳延时摄影<a class="anchorjs-link" href="#%e5%bb%b6%e6%97%b6%e6%91%84%e5%bd%b1"></a></h3><blockquote>
+<h3 id="延时摄影">⏳延时摄影</h3>
+<blockquote>
 <p>延时摄影是通过间歇拍摄照片/视频，通过后期串联把一段较长的一段时间压缩在很短的视频里，让我们通过短短几十秒的视频就能看到几十分钟甚至数日的时光。</p>
 </blockquote>
-<h3 id="快录视频">⏩快录视频<a class="anchorjs-link" href="#%e5%bf%ab%e5%bd%95%e8%a7%86%e9%a2%91"></a></h3><p>如果突然有个精彩瞬间，照相模式如何更快速切换到视频模式？</p>
+<h3 id="快录视频">⏩快录视频</h3>
+<p>如果突然有个精彩瞬间，照相模式如何更快速切换到视频模式？</p>
 <p>在照相界面，长按快门按钮即可。如果此时需要直接切换到视频模式，可以往右划，就不用一直长按。</p>
-<h3 id="视频录制的两个重要参数">🔢视频录制的两个重要参数<a class="anchorjs-link" href="#%e8%a7%86%e9%a2%91%e5%bd%95%e5%88%b6%e7%9a%84%e4%b8%a4%e4%b8%aa%e9%87%8d%e8%a6%81%e5%8f%82%e6%95%b0"></a></h3><ul>
+<h3 id="视频录制的两个重要参数">🔢视频录制的两个重要参数</h3>
+<ul>
 <li>分辨率</li>
 <li>帧速率（FPS）：每秒钟刷新的图片的帧数</li>
 </ul>
 <p>可以在【设置】中进行更改。更妙的是，在最近的机型中，可以在视频界面直接点击右上角的参数值来切换这两个参数。</p>
-<h1 id="imovie-快速完成剪辑">iMovie 快速完成剪辑<a class="anchorjs-link" href="#imovie-%e5%bf%ab%e9%80%9f%e5%ae%8c%e6%88%90%e5%89%aa%e8%be%91"></a></h1><p>「照片」中原生的视频剪辑可完成初修，但还不够。如果有更复杂的视频剪辑需求，可以使用apple的原生app：iMovie。</p>
+<h1 id="imovie-快速完成剪辑">iMovie 快速完成剪辑</h1>
+<p>「照片」中原生的视频剪辑可完成初修，但还不够。如果有更复杂的视频剪辑需求，可以使用apple的原生app：iMovie。</p>
 <p>“魔幻影片“功能：</p>
 <p>懒人出片神器。导入若干素材，可以自动完成影片的拼接，转场，bgm等。可以在此基础上进行视频的进一步编辑（如字幕、裁剪等）。</p>
 <p>“故事板”功能：</p>
 <p>相当于一位编导，我们只要指定主题，它就会提供各个阶段我们所需导入的影片类型。我们只要选取合适的影片，按照它指示的位置导入，再自己进行细调，出来的就是“大片”。</p>
+</div>
+	</section>
 
 
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/04-tool/04c-macosios/ios/ios%E8%93%9D%E7%9A%AE%E4%B9%A6/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B02%E6%95%88%E7%8E%87%E7%AF%87/" data-toggle="tooltip" data-placement="top" title="">
-              Previous<br>
-              <span></span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/04-tool/04c-macosios/ios/ios%E8%93%9D%E7%9A%AE%E4%B9%A6/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B00%E7%9B%AE%E5%BD%95/" data-toggle="tooltip" data-placement="top" title="">
-              Next<br>
-              <span></span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
-
-
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
 
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2743 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/04-tool/04c-macosios/ios/ios%E8%93%9D%E7%9A%AE%E4%B9%A6/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B02%E6%95%88%E7%8E%87%E7%AF%87/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
         
-        <ul class="list-inline text-center">
-
-
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
-
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/04-tool/04c-macosios/ios/ios%E8%93%9D%E7%9A%AE%E4%B9%A6/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B00%E7%9B%AE%E5%BD%95/">
+        
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
 
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<script src=/js/simple-jekyll-search.min.js></script>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>

@@ -1,204 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>2MUCH  | 分区表</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.101.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
 
-  
-    
-  <title>分区表 | 2MUCH</title>
-  <meta name="author" content="cindy.H">
-  <meta name="description" content="分区表基本概念分区、分表、分库、分片 参考链接： https://blog.csdn.net/wqaiwsj/article/details/124684356 https://www.cnblogs.com/qianmojie/p/16326975.html 分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中减少数据">
-  <meta name="keywords" content="blog,tech,personal">
+	
+	
+	<link href="/dist/app.css" rel="stylesheet">
+	
 
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="分区表"/>
-<meta name="twitter:description" content="分区表基本概念分区、分表、分库、分片 参考链接： https://blog.csdn.net/wqaiwsj/article/details/124684356 https://www.cnblogs.com/qianmojie/p/16326975.html 分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中减少数据"/>
+	
 
-  <meta property="og:title" content="分区表" />
-<meta property="og:description" content="分区表基本概念分区、分表、分库、分片 参考链接： https://blog.csdn.net/wqaiwsj/article/details/124684356 https://www.cnblogs.com/qianmojie/p/16326975.html 分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中减少数据" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://huangxindi.com/post/workspace/01-tech/database/%E5%88%86%E5%8C%BA%E8%A1%A8/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-11-16T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-11-16T00:00:00+00:00" />
+	
+	
+<link rel="shortcut icon" href="https://huangxindi.com/img/favicon-32x32.png" type="image/png" />
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css"  crossorigin="anonymous">
-  
-  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css" rel="stylesheet" type="text/css">
+	
 
-  <link rel="stylesheet" href="/sass/main.css">
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+	
+	
+	
 
-  <link rel="stylesheet" href="/zoomjs/zoom.min.css">
 
-  <script src=/js/lazysizes.min.js></script>
 
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
+<link rel="stylesheet" href='https://huangxindi.com/lib/katex.min.css' crossorigin="anonymous">
 
+
+<script defer src='https://huangxindi.com/lib/katex.min.js' crossorigin="anonymous"></script>
+
+
+<script defer src='https://huangxindi.com/lib/contrib/auto-render.min.js'
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+	
+	<script>
+		(function (u, c) {
+			var d = document,
+				t = 'script',
+				o = d.createElement(t),
+				s = d.getElementsByTagName(t)[0];
+			o.src = u;
+			if (c) {
+				o.addEventListener('load', function (e) {
+					c(e);
+				});
+			}
+			s.parentNode.insertBefore(o, s);
+		})('https:\/\/huangxindi.com\/lib\/pangu.min.js', function () {
+			pangu.spacingPage();
+		});
+	</script>
+	
+	
+	
+	<style type="text/css" media="screen, print">
+		@font-face {
+			font-family: "FancyTitleFont";
+			font-style: normal;
+			font-display: swap;
+			src: url('https://huangxindi.com/fonts/exampleFont.woff2') format('woff2'),
+				url('https://huangxindi.com/fonts/exampleFont.woff') format('woff');
+		}
+		 
+		  
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Light'), local('NotoSerifCJK-Light'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-300.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: local('Noto Serif CJK SC'), local('NotoSerifCJK-Regular'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-regular.woff') format('woff');
+			 
+		}
+
+		 
+		@font-face {
+			font-family: 'Noto Serif CJK SC';
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+			src: local('Noto Serif CJK SC Medium'), local('NotoSerifCJK-Medium'),
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff2') format('woff2'),
+				 
+				url('https://huangxindi.com/fonts/noto-serif-sc-v7-latin_chinese-simplified-500.woff') format('woff');
+			 
+		}
+	</style>
+	
 </head>
 
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://huangxindi.com/" title="2MUCH" class="heading font-cursive icon">2MUCH</a>
+	</h2>
+</div>
+<h1 class="pt-2">分区表</h1>
 
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+	
+	
+	
+	<a class="post-taxonomy-category text-medium-red-violet-600 hover:text-medium-red-violet-400"
+		href='/categories/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
 
-<body ontouchstart="">
-  <nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
-  <div class="container-fluid">
-    
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://huangxindi.com/">2MUCH</a>
-    </div>
-    
-    <div id="huxblog_navbar">
-      <div class="navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a href="/" title="Home">Home</a></li>
-          
-          <li><a href="/post" title="Archive">Archive</a></li>
-          
-          <li><a href="/categories" title="Categories">Categories</a></li>
-          
-          <li><a href="/about/" title="About">About</a></li>
-          
+	
+	&nbsp;&nbsp;
+	
 
-          <li class="search-icon">
-            <a href="javascript:void(0)">
-              <i class="fa fa-search"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-  </div>
-  
-</nav>
-<script>
-  
-  
-  
-  var $body = document.body;
-  var $toggle = document.querySelector(".navbar-toggle");
-  var $navbar = document.querySelector("#huxblog_navbar");
-  var $collapse = document.querySelector(".navbar-collapse");
-
-  var __HuxNav__ = {
-    close: function () {
-      $navbar.className = " ";
-      
-      setTimeout(function () {
-        
-        if ($navbar.className.indexOf("in") < 0) {
-          $collapse.style.height = "0px";
-        }
-      }, 400);
-    },
-    open: function () {
-      $collapse.style.height = "auto";
-      $navbar.className += " in";
-    },
-  };
-
-  
-  $toggle.addEventListener("click", function (e) {
-    if ($navbar.className.indexOf("in") > 0) {
-      __HuxNav__.close();
-    } else {
-      __HuxNav__.open();
-    }
-  });
-
-  
-
-  document.addEventListener("click", function (e) {
-    if (e.target == $toggle) return;
-    if (e.target.className == "icon-bar") return;
-    __HuxNav__.close();
-  });
-</script>
-  
-<div class="search-page">
-  <div class="search-icon-close-container">
-    <span class="search-icon-close">
-      <i class="fa fa-chevron-down"></i>
-    </span>
-  </div>
-  <div class="search-main container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <form></form>
-        <input type="text" id="search-input" placeholder="$ grep...">
-        </form>
-        <div id="search-results" class="mini-post-list"></div>
-      </div>
-    </div>
-  </div>
+	
+	
+	
+	
+	<a class="post-taxonomy-tag text-eucalyptus-500"
+		href='/tags/%E6%95%B0%E6%8D%AE%E5%BA%93'>数据库</a>
+	
+	
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2022-11-16T00:00:00Z">2022-11-16</time>
 </div>
 
-  
-  
+<hr />
 
 
-<style type="text/css">
-  header.intro-header {
-    position: relative;
-    background-image: url('');
-  }
-</style>
-
-<header class="intro-header style-text">
-
-  <div class="header-mask"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <div class="tags">
-            
-            <a class="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库">数据库</a>
-            
-          </div>
-          <h1>分区表</h1>
-          <h2 class="subheading"></h2>
-          <span class="meta">
-            Posted by  cindy.H 
-            on Wed, Nov 16, 2022
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-  
-
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
 
 <article>
-  <div class="container">
-    <div class="row">
-
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              post-container">
-        <h1 id="分区表">分区表<a class="anchorjs-link" href="#%e5%88%86%e5%8c%ba%e8%a1%a8"></a></h1><h2 id="基本概念">基本概念<a class="anchorjs-link" href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5"></a></h2><p>分区、分表、分库、分片</p>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h1 id="分区表">分区表</h1>
+<h2 id="基本概念">基本概念</h2>
+<p>分区、分表、分库、分片</p>
 <p>参考链接：</p>
-<p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356" target="_blank">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
-<p><a href="https://www.cnblogs.com/qianmojie/p/16326975.html" target="_blank">https://www.cnblogs.com/qianmojie/p/16326975.html</a></p>
+<p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
+<p><a href="https://www.cnblogs.com/qianmojie/p/16326975.html">https://www.cnblogs.com/qianmojie/p/16326975.html</a></p>
 <ul>
 <li>
 <p>分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中<strong>减少数据读写的总量</strong>以缩减响应时间，提升查询效率。</p>
@@ -213,7 +216,8 @@
 <p>分片：在分布式存储系统中，数据需要分散存储在多台设备上，数据分片（Sharding）就是用来确定数据在多台存储设备上分布的技术</p>
 </li>
 </ul>
-<h2 id="常见分区类型">常见分区类型<a class="anchorjs-link" href="#%e5%b8%b8%e8%a7%81%e5%88%86%e5%8c%ba%e7%b1%bb%e5%9e%8b"></a></h2><p>以mysql为例</p>
+<h2 id="常见分区类型">常见分区类型</h2>
+<p>以mysql为例</p>
 <ul>
 <li>range分区：给定连续区间</li>
 <li>list分区：匹配一个离散值集合</li>
@@ -221,25 +225,27 @@
 <li>key分区：根据MySQL数据库提供的哈希函数来进行分区。</li>
 </ul>
 <p>另外，还需要关注<strong>自动分区表</strong>（mysql不能自然支持，其他数据库可能支持，如gaussdb）</p>
-<h2 id="分区表定义">分区表定义<a class="anchorjs-link" href="#%e5%88%86%e5%8c%ba%e8%a1%a8%e5%ae%9a%e4%b9%89"></a></h2><p>参考：https://www.cnblogs.com/dream98/p/10620877.html</p>
-<h3 id="range分区">RANGE分区<a class="anchorjs-link" href="#range%e5%88%86%e5%8c%ba"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">employees</span> (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>fname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>lname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>hired <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;1970-01-01&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>separated <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;9999-12-31&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>job_code <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>store_id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>partition <span style="color:#ff79c6">BY</span> <span style="color:#50fa7b">RANGE</span> (store_id) (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>partition p0 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">6</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>partition p1 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">11</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>partition p2 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">16</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>partition p3 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">21</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>);
+<h2 id="分区表定义">分区表定义</h2>
+<p>参考：https://www.cnblogs.com/dream98/p/10620877.html</p>
+<h3 id="range分区">RANGE分区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">CREATE</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#75af00">employees</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">id</span> <span style="color:#00a8c8">INT</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">lname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">hired</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;1970-01-01&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">separated</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;9999-12-31&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">job_code</span> <span style="color:#00a8c8">INT</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">store_id</span> <span style="color:#00a8c8">INT</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">partition</span> <span style="color:#00a8c8">BY</span> <span style="color:#75af00">RANGE</span> <span style="color:#111">(</span><span style="color:#111">store_id</span><span style="color:#111">)</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">partition</span> <span style="color:#111">p0</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">6</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">partition</span> <span style="color:#111">p1</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">11</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">partition</span> <span style="color:#111">p2</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">16</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">partition</span> <span style="color:#111">p3</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">21</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">);</span>
 </span></span></code></pre></div><p>如果增加了一个编号为第21的商店，将会发生什么呢？在这种方案下，由于没有规则把store_id大于20的商店包含在内，服务器将不知道把该行保存在何处，将会导致错误。 要避免这种错误，可以将最后一行规则换成：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>PARTITION p3 <span style="color:#ff79c6">VALUES</span> LESS THAN MAXVALUE
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#111">p3</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#111">THAN</span> <span style="color:#111">MAXVALUE</span>
 </span></span></code></pre></div><p>特点：</p>
 <ul>
 <li>
@@ -261,92 +267,99 @@
 <p>这种分区有利于查询条件是分区条件的列，因为可以直接到匹配分区中查询。</p>
 </li>
 </ul>
-<h3 id="list分区">LIST分区<a class="anchorjs-link" href="#list%e5%88%86%e5%8c%ba"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">employees</span> (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>fname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>lname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>hired <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;1970-01-01&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>separated <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;9999-12-31&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>job_code <span style="color:#8be9fd">INT</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>store_id <span style="color:#8be9fd">INT</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>PARTITION <span style="color:#ff79c6">BY</span> <span style="color:#50fa7b">LIST</span>(store_id)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>PARTITION pNorth <span style="color:#ff79c6">VALUES</span> <span style="color:#ff79c6">IN</span> (<span style="color:#bd93f9">3</span>,<span style="color:#bd93f9">5</span>,<span style="color:#bd93f9">6</span>,<span style="color:#bd93f9">9</span>,<span style="color:#bd93f9">17</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>PARTITION pEast <span style="color:#ff79c6">VALUES</span> <span style="color:#ff79c6">IN</span> (<span style="color:#bd93f9">1</span>,<span style="color:#bd93f9">2</span>,<span style="color:#bd93f9">10</span>,<span style="color:#bd93f9">11</span>,<span style="color:#bd93f9">19</span>,<span style="color:#bd93f9">20</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>PARTITION pWest <span style="color:#ff79c6">VALUES</span> <span style="color:#ff79c6">IN</span> (<span style="color:#bd93f9">4</span>,<span style="color:#bd93f9">12</span>,<span style="color:#bd93f9">13</span>,<span style="color:#bd93f9">14</span>,<span style="color:#bd93f9">18</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>PARTITION pCentral <span style="color:#ff79c6">VALUES</span> <span style="color:#ff79c6">IN</span> (<span style="color:#bd93f9">7</span>,<span style="color:#bd93f9">8</span>,<span style="color:#bd93f9">15</span>,<span style="color:#bd93f9">16</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>);
+<h3 id="list分区">LIST分区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">CREATE</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#75af00">employees</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">id</span> <span style="color:#00a8c8">INT</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">lname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">hired</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;1970-01-01&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">separated</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;9999-12-31&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">job_code</span> <span style="color:#00a8c8">INT</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">store_id</span> <span style="color:#00a8c8">INT</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#00a8c8">BY</span> <span style="color:#75af00">LIST</span><span style="color:#111">(</span><span style="color:#111">store_id</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#111">pNorth</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#00a8c8">IN</span> <span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span><span style="color:#ae81ff">5</span><span style="color:#111">,</span><span style="color:#ae81ff">6</span><span style="color:#111">,</span><span style="color:#ae81ff">9</span><span style="color:#111">,</span><span style="color:#ae81ff">17</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#111">pEast</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#00a8c8">IN</span> <span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span><span style="color:#ae81ff">2</span><span style="color:#111">,</span><span style="color:#ae81ff">10</span><span style="color:#111">,</span><span style="color:#ae81ff">11</span><span style="color:#111">,</span><span style="color:#ae81ff">19</span><span style="color:#111">,</span><span style="color:#ae81ff">20</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#111">pWest</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#00a8c8">IN</span> <span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">,</span><span style="color:#ae81ff">12</span><span style="color:#111">,</span><span style="color:#ae81ff">13</span><span style="color:#111">,</span><span style="color:#ae81ff">14</span><span style="color:#111">,</span><span style="color:#ae81ff">18</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#111">pCentral</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#00a8c8">IN</span> <span style="color:#111">(</span><span style="color:#ae81ff">7</span><span style="color:#111">,</span><span style="color:#ae81ff">8</span><span style="color:#111">,</span><span style="color:#ae81ff">15</span><span style="color:#111">,</span><span style="color:#ae81ff">16</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">);</span>
 </span></span></code></pre></div><p>要重点注意的是，LIST分区没有类似如“VALUES LESS THAN MAXVALUE”这样的包含其他值在内的定义。将要匹配的任何值都<strong>必须</strong>在值列表中找到。</p>
 <p><code>VALUES IN (value_list)</code>中的<code>value_list</code>可能只支持整数列表（根据数据库具体特性而定）。</p>
-<h3 id="hash分区">HASH分区<a class="anchorjs-link" href="#hash%e5%88%86%e5%8c%ba"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span><span style="color:#ff79c6">CREATE</span> <span style="color:#ff79c6">TABLE</span> <span style="color:#50fa7b">employees</span> (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>id <span style="color:#8be9fd">INT</span> <span style="color:#ff79c6">NOT</span> NULL,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>fname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>lname <span style="color:#8be9fd">VARCHAR</span>(<span style="color:#bd93f9">30</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>hired <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;1970-01-01&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>separated <span style="color:#8be9fd">DATE</span> <span style="color:#ff79c6">NOT</span> NULL <span style="color:#ff79c6">DEFAULT</span> <span style="color:#f1fa8c">&#39;9999-12-31&#39;</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>job_code <span style="color:#8be9fd">INT</span>,
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>store_id <span style="color:#8be9fd">INT</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>PARTITION <span style="color:#ff79c6">BY</span> <span style="color:#50fa7b">HASH</span>(store_id)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>PARTITIONS <span style="color:#bd93f9">4</span>;
+<h3 id="hash分区">HASH分区</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">CREATE</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#75af00">employees</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">id</span> <span style="color:#00a8c8">INT</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">lname</span> <span style="color:#00a8c8">VARCHAR</span><span style="color:#111">(</span><span style="color:#ae81ff">30</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">hired</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;1970-01-01&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">separated</span> <span style="color:#00a8c8">DATE</span> <span style="color:#00a8c8">NOT</span> <span style="color:#00a8c8">NULL</span> <span style="color:#00a8c8">DEFAULT</span> <span style="color:#d88200">&#39;9999-12-31&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">job_code</span> <span style="color:#00a8c8">INT</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">store_id</span> <span style="color:#00a8c8">INT</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITION</span> <span style="color:#00a8c8">BY</span> <span style="color:#75af00">HASH</span><span style="color:#111">(</span><span style="color:#111">store_id</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">PARTITIONS</span> <span style="color:#ae81ff">4</span><span style="color:#111">;</span>
 </span></span></code></pre></div><p>要在CREATE TABLE 语句上添加一个“PARTITION BY HASH (expr)”子句，其中“expr”是一个返回一个整数的表达式。它可以仅仅是字段类型为MySQL整型的一列的名字。此外，你很可能需要在后面再添加一个“PARTITIONS num”子句，其中num是一个非负的整数，它表示表将要被分割成分区的数量。</p>
-<h2 id="自动分区">自动分区<a class="anchorjs-link" href="#%e8%87%aa%e5%8a%a8%e5%88%86%e5%8c%ba"></a></h2><p>参考： <a href="https://www.lpsrmyy.com/tech/36159.html" target="_blank">https://www.lpsrmyy.com/tech/36159.html</a></p>
+<h2 id="自动分区">自动分区</h2>
+<p>参考： <a href="https://www.lpsrmyy.com/tech/36159.html">https://www.lpsrmyy.com/tech/36159.html</a></p>
 <p>mysql无法支持自动分区（需要通过脚本来实现自动分区）。故本小节以gaussdb的自动分区功能为例。</p>
 <blockquote>
 <p>对于<strong>分区列为时间</strong>的分区表，分区自动管理功能可以自动创建新分区和删除过期分区，降低分区表的维护成本，改善查询性能。</p>
 </blockquote>
 <p>使用<code>period</code>和<code>ttl</code>实现分区自动管理。period既表示新分区的时间范围，也表示自动创建新分区和自动删除过期分区的周期；ttl表示分区过期时间。period和ttl的值均为Interval类型，例如’1 hour’、‘1 day’、‘1 week’、‘1 month’、‘1 year’、 &lsquo;1 month 2 days 3 hours’等。</p>
-<h3 id="实现原理">实现原理<a class="anchorjs-link" href="#%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86"></a></h3><blockquote>
+<h3 id="实现原理">实现原理</h3>
+<blockquote>
 <p>分区管理的实现依托了pg_task自动调度任务，即设置period/ttl时，向scheduler.pg_task表中插入了自增/自减分区管理任务，其中自增分区任务的任务内容为proc_add_partition(relname, period)函数，自减分区任务为proc_drop_partition(relname, ttl)函数，两种任务的调用周期均为period，第一次执行时间为任务插入时间后30秒。</p>
 </blockquote>
-<h3 id="自动创建分区">自动创建分区<a class="anchorjs-link" href="#%e8%87%aa%e5%8a%a8%e5%88%9b%e5%bb%ba%e5%88%86%e5%8c%ba"></a></h3><p>每隔<code>period</code>就会创建1或多个时间范围为<code>period的</code>新分区，保证其大于<code>nowTime+30*period</code>。</p>
-<p><figure>
-  <a class="paragraph-image">
-    <img data-src="http://cdn.huangxindi.com/img/7b961145280b58443aa028e9580c1ee6.jpg" data-action="zoom" alt="自动创建分区"  class="lazyload">
-  </a>
-  
-</figure></p>
-<h3 id="自动删除过期分区">自动删除过期分区<a class="anchorjs-link" href="#%e8%87%aa%e5%8a%a8%e5%88%a0%e9%99%a4%e8%bf%87%e6%9c%9f%e5%88%86%e5%8c%ba"></a></h3><p>每隔<code>period</code>就会遍历检测所有分区，并删除过期分区（边界时间早于<code>nowTime-ttl</code>的分区）。如果所有的分区都是过期分区，则保留一个分区，并truncate该表。</p>
-<h3 id="注意事项">注意事项<a class="anchorjs-link" href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9"></a></h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>在使用分区管理功能时，需要满足如下约束：
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>1）不支持在小型机、加速集群、单机集群上使用。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>2）不支持在8.1.3版本以下的版本中使用。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>3）仅支持行存范围分区表、列存范围分区表、时序表以及冷热表。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>4）分区键唯一并且类型仅支持timestamp、timestamptz、date类型。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>5）不支持存在maxvalue分区。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>6）(nowTime - boundaryTime) / period需要小于分区个数上限，其中nowTime为当前时间，boundaryTime为现有分区中最早的分区边界时间。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>7）period、ttl取值范围为1 hour ~ 100 years。另外，在兼容Teradata或MySQL的数据库中，分区键类型为date时，period不能小于1 day。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>8）表级参数ttl不支持单独存在，必须要提前或同时设置period，并且要大于或等于period。
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>9）集群在线扩容期间，自动增加分区会失败，但是由于每次增分区时，都预留了足够的分区，所以不影响使用。
-</span></span></code></pre></div><h3 id="自动分区管理功能相关操作">自动分区管理功能相关操作<a class="anchorjs-link" href="#%e8%87%aa%e5%8a%a8%e5%88%86%e5%8c%ba%e7%ae%a1%e7%90%86%e5%8a%9f%e8%83%bd%e7%9b%b8%e5%85%b3%e6%93%8d%e4%bd%9c"></a></h3><h4 id="开启">开启<a class="anchorjs-link" href="#%e5%bc%80%e5%90%af"></a></h4><blockquote>
+<h3 id="自动创建分区">自动创建分区</h3>
+<p>每隔<code>period</code>就会创建1或多个时间范围为<code>period的</code>新分区，保证其大于<code>nowTime+30*period</code>。</p>
+<p><img src="http://cdn.huangxindi.com/img/7b961145280b58443aa028e9580c1ee6.jpg" alt="自动创建分区"></p>
+<h3 id="自动删除过期分区">自动删除过期分区</h3>
+<p>每隔<code>period</code>就会遍历检测所有分区，并删除过期分区（边界时间早于<code>nowTime-ttl</code>的分区）。如果所有的分区都是过期分区，则保留一个分区，并truncate该表。</p>
+<h3 id="注意事项">注意事项</h3>
+<pre tabindex="0"><code>在使用分区管理功能时，需要满足如下约束：
+1）不支持在小型机、加速集群、单机集群上使用。
+2）不支持在8.1.3版本以下的版本中使用。
+3）仅支持行存范围分区表、列存范围分区表、时序表以及冷热表。
+4）分区键唯一并且类型仅支持timestamp、timestamptz、date类型。
+5）不支持存在maxvalue分区。
+6）(nowTime - boundaryTime) / period需要小于分区个数上限，其中nowTime为当前时间，boundaryTime为现有分区中最早的分区边界时间。
+7）period、ttl取值范围为1 hour ~ 100 years。另外，在兼容Teradata或MySQL的数据库中，分区键类型为date时，period不能小于1 day。
+8）表级参数ttl不支持单独存在，必须要提前或同时设置period，并且要大于或等于period。
+9）集群在线扩容期间，自动增加分区会失败，但是由于每次增分区时，都预留了足够的分区，所以不影响使用。
+</code></pre><h3 id="自动分区管理功能相关操作">自动分区管理功能相关操作</h3>
+<h4 id="开启">开启</h4>
+<blockquote>
 <p>分区管理功能是和表级参数period、ttl绑定的，只要成功设置了表级参数period，即开启了自动创建新分区功能；成功设置了表级参数ttl，即开启了自动删除过期分区功能。两者是可以分开设定的。</p>
 </blockquote>
 <ol>
 <li>建表时指定period、ttl</li>
 </ol>
 <p>关键语句：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">with</span> (TTL<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;7 days&#39;</span>,PERIOD<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;1 day&#39;</span>) <span style="color:#ff79c6">partition</span> <span style="color:#ff79c6">by</span> <span style="color:#ff79c6">range</span>(<span style="color:#8be9fd;font-style:italic">time</span>)
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span><span style="color:#00a8c8">with</span> <span style="color:#111">(</span><span style="color:#111">TTL</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;7 days&#39;</span><span style="color:#111">,</span><span style="color:#111">PERIOD</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;1 day&#39;</span><span style="color:#111">)</span> <span style="color:#00a8c8">partition</span> <span style="color:#00a8c8">by</span> <span style="color:#00a8c8">range</span><span style="color:#111">(</span><span style="color:#111">time</span><span style="color:#111">)</span>
 </span></span></code></pre></div><ol start="2">
 <li>使用alter table set的方式设置period、ttl</li>
 </ol>
 <p>关键语句：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">-- 同时开启自动创建和自动删除分区功能 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu3 <span style="color:#ff79c6">SET</span> (PERIOD<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;1 day&#39;</span>,TTL<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;7 days&#39;</span>); 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">-- 只开启自动创建分区功能 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu3 <span style="color:#ff79c6">SET</span> (PERIOD<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;1 day&#39;</span>); 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4">-- 只开启自动删除分区功能，如果没有提前开启自动创建分区功能，则开启失败 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu3 <span style="color:#ff79c6">SET</span> (TTL<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;7 days&#39;</span>);
-</span></span></code></pre></div><h4 id="修改">修改<a class="anchorjs-link" href="#%e4%bf%ae%e6%94%b9"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu4 <span style="color:#ff79c6">SET</span> (TTL<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;10 days&#39;</span>,PERIOD<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;2 days&#39;</span>);
-</span></span></code></pre></div><h4 id="关闭">关闭<a class="anchorjs-link" href="#%e5%85%b3%e9%97%ad"></a></h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">-- 同时关闭自动创建和自动删除分区功能 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu5 <span style="color:#ff79c6">RESET</span> (PERIOD,TTL); 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span><span style="color:#6272a4">-- 只关闭自动删除分区功能 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu5 <span style="color:#ff79c6">RESET</span> (TTL); 
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span><span style="color:#6272a4">-- 只关闭自动创建分区功能,如果该表有ttl参数，则关闭失败 
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> cpu5 <span style="color:#ff79c6">RESET</span> (PERIOD);
-</span></span></code></pre></div><h2 id="分区表基本操作">分区表基本操作<a class="anchorjs-link" href="#%e5%88%86%e5%8c%ba%e8%a1%a8%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c"></a></h2><p>以mysql为例</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span><span style="color:#75715e">-- 同时开启自动创建和自动删除分区功能 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu3</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">(</span><span style="color:#111">PERIOD</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;1 day&#39;</span><span style="color:#111">,</span><span style="color:#111">TTL</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;7 days&#39;</span><span style="color:#111">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 只开启自动创建分区功能 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu3</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">(</span><span style="color:#111">PERIOD</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;1 day&#39;</span><span style="color:#111">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 只开启自动删除分区功能，如果没有提前开启自动创建分区功能，则开启失败 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu3</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">(</span><span style="color:#111">TTL</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;7 days&#39;</span><span style="color:#111">);</span>
+</span></span></code></pre></div><h4 id="修改">修改</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu4</span> <span style="color:#00a8c8">SET</span> <span style="color:#111">(</span><span style="color:#111">TTL</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;10 days&#39;</span><span style="color:#111">,</span><span style="color:#111">PERIOD</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;2 days&#39;</span><span style="color:#111">);</span>
+</span></span></code></pre></div><h4 id="关闭">关闭</h4>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-postgresql" data-lang="postgresql"><span style="display:flex;"><span><span style="color:#75715e">-- 同时关闭自动创建和自动删除分区功能 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu5</span> <span style="color:#00a8c8">RESET</span> <span style="color:#111">(</span><span style="color:#111">PERIOD</span><span style="color:#111">,</span><span style="color:#111">TTL</span><span style="color:#111">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 只关闭自动删除分区功能 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu5</span> <span style="color:#00a8c8">RESET</span> <span style="color:#111">(</span><span style="color:#111">TTL</span><span style="color:#111">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- 只关闭自动创建分区功能,如果该表有ttl参数，则关闭失败 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">cpu5</span> <span style="color:#00a8c8">RESET</span> <span style="color:#111">(</span><span style="color:#111">PERIOD</span><span style="color:#111">);</span>
+</span></span></code></pre></div><h2 id="分区表基本操作">分区表基本操作</h2>
+<p>以mysql为例</p>
 <p>参考：</p>
-<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html" target="_blank">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
-<p><a href="https://news.sangniao.com/p/14930731" target="_blank">https://news.sangniao.com/p/14930731</a></p>
+<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
+<p><a href="https://news.sangniao.com/p/14930731">https://news.sangniao.com/p/14930731</a></p>
 <ol>
 <li>
 <p>新增分区</p>
@@ -362,198 +375,226 @@
 </li>
 <li>
 <p>合并分区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">-- 合并分区  将s0和s1合并为p0
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> members REORGANIZE PARTITION s0,s1 <span style="color:#ff79c6">INTO</span> (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    PARTITION p0 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">5</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>)；
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#75715e">-- 合并分区  将s0和s1合并为p0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">members</span> <span style="color:#111">REORGANIZE</span> <span style="color:#111">PARTITION</span> <span style="color:#111">s0</span><span style="color:#111">,</span><span style="color:#111">s1</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">PARTITION</span> <span style="color:#111">p0</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">；</span>
 </span></span></code></pre></div></li>
 <li>
 <p>拆分分区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#6272a4">-- 分解分区  将p0拆分为s0和s1
-</span></span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span><span style="color:#6272a4"></span><span style="color:#ff79c6">ALTER</span> <span style="color:#ff79c6">TABLE</span> members REORGANIZE PARTITION p0 <span style="color:#ff79c6">INTO</span> (
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>    PARTITION s0 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">3</span>),
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>    PARTITION s1 <span style="color:#ff79c6">VALUES</span> LESS <span style="color:#50fa7b">THAN</span> (<span style="color:#bd93f9">5</span>)
-</span></span><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>)；
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#75715e">-- 分解分区  将p0拆分为s0和s1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">ALTER</span> <span style="color:#00a8c8">TABLE</span> <span style="color:#111">members</span> <span style="color:#111">REORGANIZE</span> <span style="color:#111">PARTITION</span> <span style="color:#111">p0</span> <span style="color:#00a8c8">INTO</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">PARTITION</span> <span style="color:#111">s0</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">3</span><span style="color:#111">),</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">PARTITION</span> <span style="color:#111">s1</span> <span style="color:#00a8c8">VALUES</span> <span style="color:#111">LESS</span> <span style="color:#75af00">THAN</span> <span style="color:#111">(</span><span style="color:#ae81ff">5</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">)</span><span style="color:#960050;background-color:#1e0010">；</span>
 </span></span></code></pre></div></li>
 <li>
 <p>查看所有分区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span><span style="color:#ff79c6">select</span> partition_name part, partition_expression expr, partition_description descr, table_rows <span style="color:#ff79c6">from</span>  INFORMATION_SCHEMA.partitions  <span style="color:#ff79c6">where</span> TABLE_SCHEMA<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;库名&#34;</span> <span style="color:#ff79c6">AND</span> TABLE_NAME<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;表名&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#00a8c8">select</span> <span style="color:#111">partition_name</span> <span style="color:#111">part</span><span style="color:#111">,</span> <span style="color:#111">partition_expression</span> <span style="color:#111">expr</span><span style="color:#111">,</span> <span style="color:#111">partition_description</span> <span style="color:#111">descr</span><span style="color:#111">,</span> <span style="color:#111">table_rows</span> <span style="color:#00a8c8">from</span>  <span style="color:#111">INFORMATION_SCHEMA</span><span style="color:#111">.</span><span style="color:#111">partitions</span>  <span style="color:#00a8c8">where</span> <span style="color:#111">TABLE_SCHEMA</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;库名&#34;</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">TABLE_NAME</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;表名&#34;</span><span style="color:#111">;</span>
 </span></span></code></pre></div></li>
 </ol>
 <p>其他操作不列举了，参考上面的链接</p>
-<h2 id="参考链接">参考链接<a class="anchorjs-link" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5"></a></h2><p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356" target="_blank">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
-<p><a href="https://m.wang1314.com/doc/webapp/topic/21352856.html" target="_blank">https://m.wang1314.com/doc/webapp/topic/21352856.html</a></p>
-<p><a href="https://www.cnblogs.com/dream98/p/10620877.html" target="_blank">https://www.cnblogs.com/dream98/p/10620877.html</a></p>
-<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html" target="_blank">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
-<p><a href="https://news.sangniao.com/p/14930731" target="_blank">https://news.sangniao.com/p/14930731</a></p>
-<p><a href="https://www.lpsrmyy.com/tech/36159.html" target="_blank">https://www.lpsrmyy.com/tech/36159.html</a></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
+<p><a href="https://m.wang1314.com/doc/webapp/topic/21352856.html">https://m.wang1314.com/doc/webapp/topic/21352856.html</a></p>
+<p><a href="https://www.cnblogs.com/dream98/p/10620877.html">https://www.cnblogs.com/dream98/p/10620877.html</a></p>
+<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
+<p><a href="https://news.sangniao.com/p/14930731">https://news.sangniao.com/p/14930731</a></p>
+<p><a href="https://www.lpsrmyy.com/tech/36159.html">https://www.lpsrmyy.com/tech/36159.html</a></p>
+</div>
+	</section>
 
 
-        <hr style="visibility: hidden;" />
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" data-toggle="tooltip" data-placement="top" title="BenchmarkSQL性能测试">
-              Previous<br>
-              <span>BenchmarkSQL性能测试</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/" data-toggle="tooltip" data-placement="top" title="数据库日志基础">
-              Next<br>
-              <span>数据库日志基础</span>
-            </a>
-          </li>
-          
-        </ul>
-        <hr style="visibility: hidden;" />
-
-        
-        
-
-
-
-<div class="giscus" id="comments"></div>
-<script src="https://giscus.app/client.js" 
-  data-repo="roninro/hugo-theme-puppet" 
-  data-repo-id="R_kgDOHuvyhw"
-  data-category="General"
-  data-category-id="DIC_kwDOHuvyh84CQjDo"
-  data-mapping="pathname"
-  data-strict="0" 
-  data-reactions-enabled="1" 
-  data-emit-metadata="0" 
-  data-input-position="top"
-  data-theme="light_tritanopia"
-  data-lang="en"
-  crossorigin="anonymous"
-  async>
-  </script>
-
-
-
-
-      </div>
-
-      
-      
-      
-      
-      <div class="
-              col-lg-8 col-lg-offset-2
-              col-md-10 col-md-offset-1
-              sidebar-container">
-
-        
-        
-        <section>
-  
-  
-  <hr class="hidden-sm hidden-xs">
-  
-  <h5>FEATURED TAGS</h5>
-  <div class="tags">
-    
-    <a href="/tags/ai/">AI</a>
-    
-    <a href="/tags/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a>
-    
-    <a href="/tags/java/">Java</a>
-    
-    <a href="/tags/linux/">Linux</a>
-    
-    <a href="/tags/maven/">Maven</a>
-    
-    <a href="/tags/miniapp/">MiniApp</a>
-    
-    <a href="/tags/music/">music</a>
-    
-    <a href="/tags/redis/">Redis</a>
-    
-    <a href="/tags/weekly-letter/">weekly-letter</a>
-    
-    <a href="/tags/windows/">Windows</a>
-    
-    <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
-    
-    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-    
-    <a href="/tags/%E8%B5%84%E6%BA%90/">资源</a>
-    
-    <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
-    
-    <a href="/tags/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">阅读清单</a>
-    
-  </div>
-</section>
-
-        
-        
-
-      </div>
-    </div>
-  </div>
 </article>
 
+		</main>
+		<div class="w-full h-0 flex-none order-3"></div>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+	
+	<div id="fastSearch" class="m-0">
+		<input id="searchInput" type="text" size=10 
+			class="bg-gray-100 focus:outline-none border-b border-gray-100 focus:border-eucalyptus-300 md:text-right
+			placeholder-java-500 min-w-0 max-w-xxxs"
+			placeholder="search" />
+		<ul id="searchResults" class="bg-gray-200 px-2 divide-y divide-gray-400">
+		</ul>
+	</div>
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start   max-h-16">
+	
+	<a href='https://space.bilibili.com/21140593' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='https://github.com/pipony' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:cindy.hxd@foxmail.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2821 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/database/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z" /></svg>
+        BenchmarkSQL性能测试
+    </a>
+    
+    
+    <a class="flex-grow-0" href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">
+        数据库日志基础
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
 
 
-  
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <ul class="list-inline text-center">
+
+<div class="font-serif pb-2 flex align-start leading-loose">
+	<span class="heading pr-6 leading-loose">Related</span>
+	<span >
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">数据库测试扫盲篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/linux-%E5%AE%89%E8%A3%85oracle/">Linux-安装Oracle</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">Oracle-实现事务提交和回滚</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/oracle-%E5%BA%8F%E5%88%97/">ORACLE-序列</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/sql%E5%87%BD%E6%95%B0%E7%AF%87/">SQL函数篇</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a>&nbsp;&nbsp;&#47;&nbsp;
+		
+			<a href="/post/workspace/01-tech/database/%E9%83%A8%E5%88%86sql%E7%9A%84user_io_wait_time%E5%80%BC%E8%BE%83%E5%A4%A7/">部分sql的user_io_wait_time值较大</a>
+		
+</span>
+</div>
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/dist/app.js"></script>
 
 
-<li>
-  <a href="/index.xml" target="_blank">
-    <span class="fa-stack fa-lg">
-      <i class="fa fa-circle fa-stack-2x"></i>
-      <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-    </span>
-  </a>
-</li></ul>
+<script src="/lib/fuse.min.js"></script> 
+<script src="/lib/fastsearch.js"></script>
 
-        <p class="copyright text-muted">
-          Copyright &copy; 2MUCH 2023  
-          <br>
-          Powered by <a href="https://gohugo.io">Hugo</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script src=/js/jquery.min.js></script>
-<script src=/js/bootstrap.min.js crossorigin="anonymous"></script>
-
-
-
-<script src="/js/hux-blog.min.c4ea77041cd3edbfc8b2622cd887a9a5d8760a4162d14489e36d2a3fa4c90172.js"></script>
-
-
-<script src=/js/simple-jekyll-search.min.js></script>
-
-
-<script src="/js/search.min.53bce5da475b4d362500e5ce5dddfa22e20e1b9018777411d2020b4b839c9310.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/zoomjs/zoom.min.js"></script>
-
+	</div>
 </body>
 
 </html>
