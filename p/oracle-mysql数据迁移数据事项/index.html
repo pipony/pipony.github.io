@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='oracle-&amp;gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
+ORACLE&amp;amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
+字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
+https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
+字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。'>
+<title>oracle-&gt;mysql数据迁移数据事项</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='oracle-&gt;mysql数据迁移数据事项'>
+<meta property='og:description' content='oracle-&amp;gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
+ORACLE&amp;amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
+字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
+https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
+字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。'>
+<meta property='og:url' content='https://huangxindi.com/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据库' /><meta property='article:published_time' content='2022-12-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="oracle-&gt;mysql数据迁移数据事项">
+<meta name="twitter:description" content="oracle-&amp;gt;mysql数据迁移数据事项 概述 从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
+ORACLE&amp;amp;MYSQL主要差异 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+MySQL 不支持的功能项 MySQL 没有并行的概念，不支持并行； MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL； MySQL 对于子查询优化不是很好； MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。 迁移原则 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：
+字符集：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容； 外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件； 索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引； Oracle 序列：MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列； 网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。 迁移难点 参考：
+https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+字符集 对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。
+字段长度匹配，空间估算 NULL和空串处理 使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#oraclemysql主要差异">ORACLE&amp;MYSQL主要差异</a>
+      <ol>
+        <li><a href="#mysql-不支持的功能项">MySQL 不支持的功能项</a></li>
+      </ol>
+    </li>
+    <li><a href="#迁移原则">迁移原则</a></li>
+    <li><a href="#迁移难点">迁移难点</a>
+      <ol>
+        <li><a href="#字符集">字符集</a></li>
+        <li><a href="#字段长度匹配空间估算">字段长度匹配，空间估算</a></li>
+        <li><a href="#null和空串处理">NULL和空串处理</a></li>
+        <li><a href="#日期格式处理">日期格式处理</a></li>
+        <li><a href="#lob-字段迁移">LOB 字段迁移</a></li>
+        <li><a href="#大小写敏感差异">大小写敏感差异</a></li>
+        <li><a href="#数据类型转换">数据类型转换</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" >
+                数据库
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">oracle-&gt;mysql数据迁移数据事项</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 04, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="oracle-mysql数据迁移数据事项">oracle-&gt;mysql数据迁移数据事项</h1>
+<h2 id="概述">概述</h2>
+<p>从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。</p>
+<h2 id="oraclemysql主要差异">ORACLE&amp;MYSQL主要差异</h2>
+<p>图片来源： <a class="link" href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a"  target="_blank" rel="noopener"
+    >https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><img src="https://static001.geekbang.org/infoq/de/de7533f37e58ae8758f0c7371a2a3c94.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/31/3182494a12a4ffc10c333d3df882adb3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/e7/e74b6405244a74d3cad677574dc24376.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/73/7370fba14f9eb3aab0cc0a3a81e2b235.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/b8/b826db1d87750d72b02e1bc26c1c0139.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/fd/fd56cf61c0d95e44110c08c4e4b0820c.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/77/77ba5aab1805f09626e84398f3b95a12.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/cf/cf18e3da28c33054dfc8b2b56b8f6cf8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/54/54994c5023f3b166416499d01b41b8ca.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/84/84c143bce3271abff28c9c36e4f697ef.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.geekbang.org/infoq/99/99ed2a74b59eb477924fca534cb2c323.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p><img src="https://static001.infoq.cn/resource/image/22/cd/22ca871d8be85482b510a6ed7d62b9cd.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h3 id="mysql-不支持的功能项">MySQL 不支持的功能项</h3>
+<ul>
+<li>MySQL 没有并行的概念，不支持并行；</li>
+<li>MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL；</li>
+<li>MySQL 对于子查询优化不是很好；</li>
+<li>MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。</li>
+</ul>
+<h2 id="迁移原则">迁移原则</h2>
+<p>参考： <a class="link" href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a"  target="_blank" rel="noopener"
+    >https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p>迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：</p>
+<ul>
+<li><strong>字符集</strong>：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容；</li>
+<li>外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件；</li>
+<li>索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引；</li>
+<li>Oracle 序列：<strong>MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值</strong>。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列；</li>
+<li>网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。</li>
+</ul>
+<h2 id="迁移难点">迁移难点</h2>
+<p>参考：</p>
+<p><a class="link" href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a"  target="_blank" rel="noopener"
+    >https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<h3 id="字符集">字符集</h3>
+<blockquote>
+<p>对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。</p>
+</blockquote>
+<h3 id="字段长度匹配空间估算">字段长度匹配，空间估算</h3>
+<h3 id="null和空串处理">NULL和空串处理</h3>
+<p><img src="https://static001.infoq.cn/resource/image/77/69/774126387f30b97e45d5fe24cc7ff269.jpg"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<p>使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。</p>
+<ul>
+<li>数据库字段如果是字符串类型，插入空时，load data 默认导入 空字符串</li>
+<li>数据库字段如果是数字类型，插入空时，load data 默认导入 0.00000000</li>
+<li>数据库字段如果是日期和时间类型，插入空时，load data 默认导入 0000-00-00 00:00:00</li>
+</ul>
+<p>Oracle 导出到文本文件，null 会变为空字符串，插入到 MySQL 后会被认为是空字符串插入，破坏了数据一致性，以下提供了三种方式进行规避：</p>
+<p>1、可以在 Oracle 迁移之前将所有业务表的 null 值变更为无意义的值，等到迁移到 MySQL 后统一数据修复调整回来，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">UPDATE</span><span class="w"> </span><span class="n">SUPPLIERS_TBL</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">SUPPLIER_ID</span><span class="o">=</span><span class="n">NVL</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="err">‘</span><span class="n">N</span><span class="o">/</span><span class="n">A</span><span class="err">’</span><span class="p">)</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">SUPPLIER_ID</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、使用 spool 导出的时候对 null 值进行转换，需要针对表和列进行修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">SelectNVL</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">NVL</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">NVL</span><span class="p">(</span><span class="n">SEX</span><span class="p">,</span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">NVL</span><span class="p">(</span><span class="n">ADDRESS</span><span class="p">,</span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="o">||</span><span class="s1">&#39;,&#39;</span><span class="o">||</span><span class="n">NVL</span><span class="p">(</span><span class="n">TO_CHAR</span><span class="p">(</span><span class="n">BIRTHDAY</span><span class="p">),</span><span class="s1">&#39;N/A&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">user1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="日期格式处理">日期格式处理</h3>
+<h3 id="lob-字段迁移">LOB 字段迁移</h3>
+<h3 id="大小写敏感差异">大小写敏感差异</h3>
+<h3 id="数据类型转换">数据类型转换</h3>
+<p><a class="link" href="https://www.cnblogs.com/priestess-zhao/p/14308959.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a class="link" href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a"  target="_blank" rel="noopener"
+    >https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><a class="link" href="https://zhuanlan.zhihu.com/p/94254106"  target="_blank" rel="noopener"
+    >https://zhuanlan.zhihu.com/p/94254106</a></p>
+<p><a class="link" href="https://blog.csdn.net/weixin_39713763/article/details/114906285"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/weixin_39713763/article/details/114906285</a></p>
+<p><a class="link" href="https://juejin.cn/post/6943857884006449183"  target="_blank" rel="noopener"
+    >https://juejin.cn/post/6943857884006449183</a></p>
+<p><a class="link" href="https://developer.aliyun.com/article/184151"  target="_blank" rel="noopener"
+    >https://developer.aliyun.com/article/184151</a></p>
+<p><a class="link" href="https://blog.csdn.net/xiazaixm/article/details/78081611"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/xiazaixm/article/details/78081611</a></p>
+<p><a class="link" href="https://www.cnblogs.com/priestess-zhao/p/14308959.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql修改root密码</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql导入导出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库分页查询</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库日志基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%88%86%E5%8C%BA%E8%A1%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">分区表</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

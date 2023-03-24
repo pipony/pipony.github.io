@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+1 2 3 4 5 6 7 8 [root@iZbp15qc4wmx335c268l5mZ home]# df Filesystem 1K-blocks Used Available Use% Mounted on devtmpfs 471568 0 471568 0% /dev tmpfs 482068 8 482060 1% /dev/shm tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup /dev/vda1 41152812 21695184 17553920 56% / # 默认情况下，磁盘空间将以1KB为单位进行显示 后接支持的参数，可通过df --help获取
+常见用法： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 # 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。 [root@iZbp15qc4wmx335c268l5mZ home]# df -a Filesystem 1K-blocks Used Available Use% Mounted on sysfs 0 0 0 - /sys proc 0 0 0 - /proc devtmpfs 471568 0 471568 0% /dev securityfs 0 0 0 - /sys/kernel/security tmpfs 482068 8 482060 1% /dev/shm devpts 0 0 0 - /dev/pts tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup cgroup 0 0 0 - /sys/fs/cgroup/systemd pstore 0 0 0 - /sys/fs/pstore cgroup 0 0 0 - /sys/fs/cgroup/devices cgroup 0 0 0 - /sys/fs/cgroup/cpu,cpuacct cgroup 0 0 0 - /sys/fs/cgroup/net_cls,net_prio cgroup 0 0 0 - /sys/fs/cgroup/memory cgroup 0 0 0 - /sys/fs/cgroup/cpuset cgroup 0 0 0 - /sys/fs/cgroup/blkio cgroup 0 0 0 - /sys/fs/cgroup/pids cgroup 0 0 0 - /sys/fs/cgroup/perf_event cgroup 0 0 0 - /sys/fs/cgroup/freezer cgroup 0 0 0 - /sys/fs/cgroup/hugetlb configfs 0 0 0 - /sys/kernel/config /dev/vda1 41152812 21695332 17553772 56% / systemd-1 - - - - /proc/sys/fs/binfmt_misc mqueue 0 0 0 - /dev/mqueue hugetlbfs 0 0 0 - /dev/hugepages debugfs 0 0 0 - /sys/kernel/debug binfmt_misc 0 0 0 - /proc/sys/fs/binfmt_misc tmpfs 96416 0 96416 0% /run/user/0 1 2 3 4 5 6 7 8 9 # 可读形式展现 [root@iZbp15qc4wmx335c268l5mZ home]# df -h Filesystem Size Used Avail Use% Mounted on devtmpfs 461M 0 461M 0% /dev tmpfs 471M 8.'>
+<title>Linux-磁盘管理</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Linux-磁盘管理'>
+<meta property='og:description' content='Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+1 2 3 4 5 6 7 8 [root@iZbp15qc4wmx335c268l5mZ home]# df Filesystem 1K-blocks Used Available Use% Mounted on devtmpfs 471568 0 471568 0% /dev tmpfs 482068 8 482060 1% /dev/shm tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup /dev/vda1 41152812 21695184 17553920 56% / # 默认情况下，磁盘空间将以1KB为单位进行显示 后接支持的参数，可通过df --help获取
+常见用法： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 # 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。 [root@iZbp15qc4wmx335c268l5mZ home]# df -a Filesystem 1K-blocks Used Available Use% Mounted on sysfs 0 0 0 - /sys proc 0 0 0 - /proc devtmpfs 471568 0 471568 0% /dev securityfs 0 0 0 - /sys/kernel/security tmpfs 482068 8 482060 1% /dev/shm devpts 0 0 0 - /dev/pts tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup cgroup 0 0 0 - /sys/fs/cgroup/systemd pstore 0 0 0 - /sys/fs/pstore cgroup 0 0 0 - /sys/fs/cgroup/devices cgroup 0 0 0 - /sys/fs/cgroup/cpu,cpuacct cgroup 0 0 0 - /sys/fs/cgroup/net_cls,net_prio cgroup 0 0 0 - /sys/fs/cgroup/memory cgroup 0 0 0 - /sys/fs/cgroup/cpuset cgroup 0 0 0 - /sys/fs/cgroup/blkio cgroup 0 0 0 - /sys/fs/cgroup/pids cgroup 0 0 0 - /sys/fs/cgroup/perf_event cgroup 0 0 0 - /sys/fs/cgroup/freezer cgroup 0 0 0 - /sys/fs/cgroup/hugetlb configfs 0 0 0 - /sys/kernel/config /dev/vda1 41152812 21695332 17553772 56% / systemd-1 - - - - /proc/sys/fs/binfmt_misc mqueue 0 0 0 - /dev/mqueue hugetlbfs 0 0 0 - /dev/hugepages debugfs 0 0 0 - /sys/kernel/debug binfmt_misc 0 0 0 - /proc/sys/fs/binfmt_misc tmpfs 96416 0 96416 0% /run/user/0 1 2 3 4 5 6 7 8 9 # 可读形式展现 [root@iZbp15qc4wmx335c268l5mZ home]# df -h Filesystem Size Used Avail Use% Mounted on devtmpfs 461M 0 461M 0% /dev tmpfs 471M 8.'>
+<meta property='og:url' content='https://huangxindi.com/p/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:published_time' content='2022-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-11-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Linux-磁盘管理">
+<meta name="twitter:description" content="Linux-磁盘管理 参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+查看使用量：df, du 查看磁盘分区：fdisk, lsblk 磁盘格式化，挂载/卸载 df df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+1 2 3 4 5 6 7 8 [root@iZbp15qc4wmx335c268l5mZ home]# df Filesystem 1K-blocks Used Available Use% Mounted on devtmpfs 471568 0 471568 0% /dev tmpfs 482068 8 482060 1% /dev/shm tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup /dev/vda1 41152812 21695184 17553920 56% / # 默认情况下，磁盘空间将以1KB为单位进行显示 后接支持的参数，可通过df --help获取
+常见用法： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 # 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。 [root@iZbp15qc4wmx335c268l5mZ home]# df -a Filesystem 1K-blocks Used Available Use% Mounted on sysfs 0 0 0 - /sys proc 0 0 0 - /proc devtmpfs 471568 0 471568 0% /dev securityfs 0 0 0 - /sys/kernel/security tmpfs 482068 8 482060 1% /dev/shm devpts 0 0 0 - /dev/pts tmpfs 482068 516 481552 1% /run tmpfs 482068 0 482068 0% /sys/fs/cgroup cgroup 0 0 0 - /sys/fs/cgroup/systemd pstore 0 0 0 - /sys/fs/pstore cgroup 0 0 0 - /sys/fs/cgroup/devices cgroup 0 0 0 - /sys/fs/cgroup/cpu,cpuacct cgroup 0 0 0 - /sys/fs/cgroup/net_cls,net_prio cgroup 0 0 0 - /sys/fs/cgroup/memory cgroup 0 0 0 - /sys/fs/cgroup/cpuset cgroup 0 0 0 - /sys/fs/cgroup/blkio cgroup 0 0 0 - /sys/fs/cgroup/pids cgroup 0 0 0 - /sys/fs/cgroup/perf_event cgroup 0 0 0 - /sys/fs/cgroup/freezer cgroup 0 0 0 - /sys/fs/cgroup/hugetlb configfs 0 0 0 - /sys/kernel/config /dev/vda1 41152812 21695332 17553772 56% / systemd-1 - - - - /proc/sys/fs/binfmt_misc mqueue 0 0 0 - /dev/mqueue hugetlbfs 0 0 0 - /dev/hugepages debugfs 0 0 0 - /sys/kernel/debug binfmt_misc 0 0 0 - /proc/sys/fs/binfmt_misc tmpfs 96416 0 96416 0% /run/user/0 1 2 3 4 5 6 7 8 9 # 可读形式展现 [root@iZbp15qc4wmx335c268l5mZ home]# df -h Filesystem Size Used Avail Use% Mounted on devtmpfs 461M 0 461M 0% /dev tmpfs 471M 8.">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#df">df</a>
+      <ol>
+        <li><a href="#常见用法">常见用法：</a></li>
+      </ol>
+    </li>
+    <li><a href="#du">du</a>
+      <ol>
+        <li><a href="#常见用法-1">常见用法</a></li>
+      </ol>
+    </li>
+    <li><a href="#fdisk">fdisk</a>
+      <ol>
+        <li><a href="#常见用法-2">常见用法</a></li>
+      </ol>
+    </li>
+    <li><a href="#lsblk">lsblk</a>
+      <ol>
+        <li><a href="#常见用法-3">常见用法</a></li>
+      </ol>
+    </li>
+    <li><a href="#磁盘格式化挂载卸载">磁盘格式化，挂载/卸载</a>
+      <ol>
+        <li><a href="#格式化">格式化</a></li>
+        <li><a href="#目录挂载">目录挂载</a></li>
+        <li><a href="#自动挂载">自动挂载</a></li>
+        <li><a href="#目录卸载">目录卸载</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" >
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">Linux-磁盘管理</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 22, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    13 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="linux-磁盘管理">Linux-磁盘管理</h1>
+<p>参考 <a class="link" href="https://blog.csdn.net/weixin_52122271/article/details/126242445"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/weixin_52122271/article/details/126242445</a> 的分类法：</p>
+<p>磁盘管理命令：</p>
+<ul>
+<li>查看使用量：df, du</li>
+<li>查看磁盘分区：fdisk, lsblk</li>
+<li>磁盘格式化，挂载/卸载</li>
+</ul>
+<h2 id="df">df</h2>
+<p>df(disk free)：查询文件系统的<strong>磁盘占用情况</strong>。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df</span>
+</span></span><span class="line"><span class="cl">Filesystem     1K-blocks     Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs          <span class="m">471568</span>        <span class="m">0</span>    <span class="m">471568</span>   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>        <span class="m">8</span>    <span class="m">482060</span>   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>      <span class="m">516</span>    <span class="m">481552</span>   1% /run
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>        <span class="m">0</span>    <span class="m">482068</span>   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1       <span class="m">41152812</span> <span class="m">21695184</span>  <span class="m">17553920</span>  56% /
+</span></span><span class="line"><span class="cl"><span class="c1"># 默认情况下，磁盘空间将以1KB为单位进行显示</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后接支持的参数，可通过<code>df --help</code>获取</p>
+<h3 id="常见用法">常见用法：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -a </span>
+</span></span><span class="line"><span class="cl">Filesystem     1K-blocks     Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">sysfs                  <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys
+</span></span><span class="line"><span class="cl">proc                   <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /proc
+</span></span><span class="line"><span class="cl">devtmpfs          <span class="m">471568</span>        <span class="m">0</span>    <span class="m">471568</span>   0% /dev
+</span></span><span class="line"><span class="cl">securityfs             <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/kernel/security
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>        <span class="m">8</span>    <span class="m">482060</span>   1% /dev/shm
+</span></span><span class="line"><span class="cl">devpts                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /dev/pts
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>      <span class="m">516</span>    <span class="m">481552</span>   1% /run
+</span></span><span class="line"><span class="cl">tmpfs             <span class="m">482068</span>        <span class="m">0</span>    <span class="m">482068</span>   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/systemd
+</span></span><span class="line"><span class="cl">pstore                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/pstore
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/devices
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/cpu,cpuacct
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/net_cls,net_prio
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/memory
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/cpuset
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/blkio
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/pids
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/perf_event
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/freezer
+</span></span><span class="line"><span class="cl">cgroup                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/fs/cgroup/hugetlb
+</span></span><span class="line"><span class="cl">configfs               <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/kernel/config
+</span></span><span class="line"><span class="cl">/dev/vda1       <span class="m">41152812</span> <span class="m">21695332</span>  <span class="m">17553772</span>  56% /
+</span></span><span class="line"><span class="cl">systemd-1              -        -         -    - /proc/sys/fs/binfmt_misc
+</span></span><span class="line"><span class="cl">mqueue                 <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /dev/mqueue
+</span></span><span class="line"><span class="cl">hugetlbfs              <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /dev/hugepages
+</span></span><span class="line"><span class="cl">debugfs                <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /sys/kernel/debug
+</span></span><span class="line"><span class="cl">binfmt_misc            <span class="m">0</span>        <span class="m">0</span>         <span class="m">0</span>    - /proc/sys/fs/binfmt_misc
+</span></span><span class="line"><span class="cl">tmpfs              <span class="m">96416</span>        <span class="m">0</span>     <span class="m">96416</span>   0% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 可读形式展现</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># df -h</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs        461M     <span class="m">0</span>  461M   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs           471M  8.0K  471M   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs           471M  516K  471M   1% /run
+</span></span><span class="line"><span class="cl">tmpfs           471M     <span class="m">0</span>  471M   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span><span class="line"><span class="cl">tmpfs            95M     <span class="m">0</span>   95M   0% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看具体某文件夹上的文件系统信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -h /home</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看具体磁盘空间的信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -h /dev/vda1</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 指定单位的查询，如-k(=1024byte), -m(MB), -BG(GB)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -BG</span>
+</span></span><span class="line"><span class="cl">Filesystem     1G-blocks  Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs              1G    0G        1G   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs                 1G    1G        1G   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs                 1G    1G        1G   1% /run
+</span></span><span class="line"><span class="cl">tmpfs                 1G    0G        1G   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1            40G   21G       17G  56% /
+</span></span><span class="line"><span class="cl">tmpfs                 1G    0G        1G   0% /run/user/0
+</span></span><span class="line"><span class="cl"><span class="c1"># 值得注意的是：您可以使用-B或–block size=size选项来提供大小的自定义格式。大小可以是KB（1000）或K（1024）中的一个（或者可以是一个整数，可选后跟）。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 以K（即1024）为单位显示磁盘空间使用情况：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df -k 或 df -BK</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. 以KB（即1000）为单位显示磁盘空间使用情况:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># df -BKB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其他单位类似</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示inode信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -i</span>
+</span></span><span class="line"><span class="cl">Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs        <span class="m">117892</span>    <span class="m">329</span>  <span class="m">117563</span>    1% /dev
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>      <span class="m">4</span>  <span class="m">120513</span>    1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>    <span class="m">439</span>  <span class="m">120078</span>    1% /run
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>     <span class="m">16</span>  <span class="m">120501</span>    1% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1      <span class="m">2621440</span> <span class="m">153635</span> <span class="m">2467805</span>    6% /
+</span></span><span class="line"><span class="cl">tmpfs           <span class="m">120517</span>      <span class="m">1</span>  <span class="m">120516</span>    1% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示文件系统类型</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df -T</span>
+</span></span><span class="line"><span class="cl">Filesystem     Type     1K-blocks     Used Available Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs       devtmpfs    <span class="m">471568</span>        <span class="m">0</span>    <span class="m">471568</span>   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>        <span class="m">8</span>    <span class="m">482060</span>   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>      <span class="m">516</span>    <span class="m">481552</span>   1% /run
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs       <span class="m">482068</span>        <span class="m">0</span>    <span class="m">482068</span>   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1      ext4      <span class="m">41152812</span> <span class="m">21920632</span>  <span class="m">17328472</span>  56% /
+</span></span><span class="line"><span class="cl">tmpfs          tmpfs        <span class="m">96416</span>        <span class="m">0</span>     <span class="m">96416</span>   0% /run/user/0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 最后一行显示总的size大小</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># df --total -h</span>
+</span></span><span class="line"><span class="cl">Filesystem      Size  Used Avail Use% Mounted on
+</span></span><span class="line"><span class="cl">devtmpfs        461M     <span class="m">0</span>  461M   0% /dev
+</span></span><span class="line"><span class="cl">tmpfs           471M  8.0K  471M   1% /dev/shm
+</span></span><span class="line"><span class="cl">tmpfs           471M  516K  471M   1% /run
+</span></span><span class="line"><span class="cl">tmpfs           471M     <span class="m">0</span>  471M   0% /sys/fs/cgroup
+</span></span><span class="line"><span class="cl">/dev/vda1        40G   21G   17G  56% /
+</span></span><span class="line"><span class="cl">tmpfs            95M     <span class="m">0</span>   95M   0% /run/user/0
+</span></span><span class="line"><span class="cl">total            42G   21G   19G  54% -
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="du">du</h2>
+<p>同样是查看磁盘使用量，与<code>df</code>相比，<code>du</code>主要用于对<strong>文件和目录</strong>磁盘使用的空间的查看。同样可以使用<code>du --help</code>查看基本用法。</p>
+<h3 id="常见用法-1">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看本目录下所有的目录大小（包含子、子子目录等）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span class="o">]</span><span class="c1"># du</span>
+</span></span><span class="line"><span class="cl"><span class="m">16</span>      ./.ssh
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       ./1111
+</span></span><span class="line"><span class="cl"><span class="m">104</span>     .
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ cindy<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">56</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root  root  <span class="m">4096</span> Nov <span class="m">29</span> 08:11 <span class="m">1111</span>
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">0</span> Apr  <span class="m">5</span>  <span class="m">2022</span> 1.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root   <span class="m">529</span> Apr  <span class="m">5</span>  <span class="m">2022</span> 2.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy  <span class="m">127</span> Jul <span class="m">18</span> 20:55 dump.rdb
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">5</span> Aug <span class="m">22</span> 20:31 good.txt
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">7</span> Apr <span class="m">17</span>  <span class="m">2022</span> new1.xlsx
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root  root     <span class="m">8</span> Apr <span class="m">17</span>  <span class="m">2022</span> new.word
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">49</span> Aug <span class="m">22</span> 20:32 out
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">3</span> Aug <span class="m">22</span> 19:01 tee1.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">3</span> Aug <span class="m">22</span> 19:01 tee2.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">12</span> Aug <span class="m">22</span> 19:00 tee.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">49</span> Jul <span class="m">16</span> 12:07 testCut.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">21</span> Aug  <span class="m">2</span> 18:47 testSort.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">16</span> Aug  <span class="m">6</span> 10:07 testUniq.txt
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy   <span class="m">10</span> Jul <span class="m">31</span> 18:47 testWc.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示某文件所占磁盘空间</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du data.txt
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       data.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 显示某文件所占磁盘空间</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du dir
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -h增加可读性</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -h dir
+</span></span><span class="line"><span class="cl">4.0K    dir/dir1
+</span></span><span class="line"><span class="cl">4.0K    dir/dir2
+</span></span><span class="line"><span class="cl">12K     dir
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -a统计该目录下的所有目录+文件（最后一行是总的目录大小）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -ah dir
+</span></span><span class="line"><span class="cl">4.0K    dir/dir1
+</span></span><span class="line"><span class="cl">4.0K    dir/dir2
+</span></span><span class="line"><span class="cl"><span class="m">0</span>       dir/123
+</span></span><span class="line"><span class="cl">12K     dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># -s仅统计此目录的大小</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -s dir
+</span></span><span class="line"><span class="cl"><span class="m">12</span>      dir
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -c统计多文件/目录的各自大小和总大小</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ dir<span class="o">]</span>$ du -c <span class="m">123</span> <span class="m">234</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       <span class="m">123</span>
+</span></span><span class="line"><span class="cl"><span class="m">4</span>       <span class="m">234</span>
+</span></span><span class="line"><span class="cl"><span class="m">8</span>       total
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ dir<span class="o">]</span>$ ls -l
+</span></span><span class="line"><span class="cl">total <span class="m">16</span>
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">6</span> Dec  <span class="m">5</span> 07:49 <span class="m">123</span>
+</span></span><span class="line"><span class="cl">-rw-rw-r-- <span class="m">1</span> cindy cindy    <span class="m">6</span> Dec  <span class="m">5</span> 07:49 <span class="m">234</span>
+</span></span><span class="line"><span class="cl">drwxrwxr-x <span class="m">2</span> cindy cindy <span class="m">4096</span> Dec  <span class="m">5</span> 07:44 dir1
+</span></span><span class="line"><span class="cl">drwxrwxr-x <span class="m">2</span> cindy cindy <span class="m">4096</span> Dec  <span class="m">5</span> 07:44 dir2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 获取目录下所有的目录/文件，并按空间大小排序展示</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -ah <span class="p">|</span> sort -nr
+</span></span><span class="line"><span class="cl">132K    .
+</span></span><span class="line"><span class="cl">20K     ./dir
+</span></span><span class="line"><span class="cl">16K     ./.ssh
+</span></span><span class="line"><span class="cl">8.0K    ./.bash_history
+</span></span><span class="line"><span class="cl">4.0K    ./.viminfo
+</span></span><span class="line"><span class="cl">4.0K    ./testWc.txt
+</span></span><span class="line"><span class="cl">4.0K    ./testUniq.txt
+</span></span><span class="line"><span class="cl">4.0K    ./testSort.txt
+</span></span><span class="line"><span class="cl">4.0K    ./testCut.txt
+</span></span><span class="line"><span class="cl">4.0K    ./tee.txt
+</span></span><span class="line"><span class="cl">4.0K    ./tee2.txt
+</span></span><span class="line"><span class="cl">4.0K    ./tee1.txt
+</span></span><span class="line"><span class="cl">4.0K    ./.ssh/id_rsa.pub
+</span></span><span class="line"><span class="cl">4.0K    ./.ssh/id_rsa_cindy
+</span></span><span class="line"><span class="cl">4.0K    ./.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">4.0K    ./.rediscli_history
+</span></span><span class="line"><span class="cl">4.0K    ./out
+</span></span><span class="line"><span class="cl">4.0K    ./new.word
+</span></span><span class="line"><span class="cl">4.0K    ./new1.xlsx
+</span></span><span class="line"><span class="cl">4.0K    ./insert.sql
+</span></span><span class="line"><span class="cl">4.0K    ./good.txt
+</span></span><span class="line"><span class="cl">4.0K    ./dump.rdb
+</span></span><span class="line"><span class="cl">4.0K    ./dir/dir2
+</span></span><span class="line"><span class="cl">4.0K    ./dir/dir1
+</span></span><span class="line"><span class="cl">4.0K    ./dir/234
+</span></span><span class="line"><span class="cl">4.0K    ./dir/123
+</span></span><span class="line"><span class="cl">4.0K    ./data.txt
+</span></span><span class="line"><span class="cl">4.0K    ./.bashrc
+</span></span><span class="line"><span class="cl">4.0K    ./.bash_profile
+</span></span><span class="line"><span class="cl">4.0K    ./.bash_logout
+</span></span><span class="line"><span class="cl">4.0K    ./2.txt
+</span></span><span class="line"><span class="cl">4.0K    ./1111
+</span></span><span class="line"><span class="cl"><span class="m">0</span>       ./1.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 只显示该目录下的直接子目录（不展示子子...目录）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -h --max-depth<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">16K     ./.ssh
+</span></span><span class="line"><span class="cl">20K     ./dir
+</span></span><span class="line"><span class="cl">4.0K    ./1111
+</span></span><span class="line"><span class="cl">132K    .
+</span></span><span class="line"><span class="cl"><span class="c1"># 对比没加--max-depth=1的</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ du -h
+</span></span><span class="line"><span class="cl">16K     ./.ssh
+</span></span><span class="line"><span class="cl">4.0K    ./dir/dir1
+</span></span><span class="line"><span class="cl">4.0K    ./dir/dir2
+</span></span><span class="line"><span class="cl">20K     ./dir
+</span></span><span class="line"><span class="cl">4.0K    ./1111
+</span></span><span class="line"><span class="cl">132K    .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="fdisk">fdisk</h2>
+<p><code>fdisk</code>是创建和维护磁盘分区表的命令。执行用户需要<code>root</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ fdisk --help
+</span></span><span class="line"><span class="cl">fdisk: invalid option -- <span class="s1">&#39;-&#39;</span>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl"> fdisk <span class="o">[</span>options<span class="o">]</span> &lt;disk&gt;    change partition table
+</span></span><span class="line"><span class="cl"> fdisk <span class="o">[</span>options<span class="o">]</span> -l &lt;disk&gt; list partition table<span class="o">(</span>s<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> fdisk -s &lt;partition&gt;      give partition size<span class="o">(</span>s<span class="o">)</span> in blocks
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl"> -b &lt;size&gt;             sector size <span class="o">(</span>512, 1024, <span class="m">2048</span> or 4096<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> -c<span class="o">[=</span>&lt;mode&gt;<span class="o">]</span>           compatible mode: <span class="s1">&#39;dos&#39;</span> or <span class="s1">&#39;nondos&#39;</span> <span class="o">(</span>default<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> -h                    print this <span class="nb">help</span> text
+</span></span><span class="line"><span class="cl"> -u<span class="o">[=</span>&lt;unit&gt;<span class="o">]</span>           display units: <span class="s1">&#39;cylinders&#39;</span> or <span class="s1">&#39;sectors&#39;</span> <span class="o">(</span>default<span class="o">)</span> <span class="c1"># 搭配”-l”参数列表，会用分区数目取代柱面数目，来表示每个分区的起始地址</span>
+</span></span><span class="line"><span class="cl"> -v                    print program version
+</span></span><span class="line"><span class="cl"> -C &lt;number&gt;           specify the number of cylinders <span class="c1"># 柱面数</span>
+</span></span><span class="line"><span class="cl"> -H &lt;number&gt;           specify the number of heads <span class="c1"># 磁头数</span>
+</span></span><span class="line"><span class="cl"> -S &lt;number&gt;           specify the number of sectors per track <span class="c1"># 每个磁道的扇区数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>理论基础：</p>
+<blockquote>
+<p>块（block）与扇区（sector）的区别。 扇区是对硬盘而言，扇区是硬盘的最小存储单位，块是对文件系统而言，块是文件系统最小存取单位。一般而言，一个扇区大小为512B，一个块大小为4KB，一个block是由连续的8个sector组成。</p>
+<p><a class="link" href="https://www.cnblogs.com/joshua317/p/15407969.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/joshua317/p/15407969.html</a></p>
+</blockquote>
+<h3 id="常见用法-2">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># fdisk -l</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disk /dev/vda: 42.9 GB, <span class="m">42949672960</span> bytes, <span class="m">83886080</span> sectors
+</span></span><span class="line"><span class="cl"><span class="nv">Units</span> <span class="o">=</span> sectors of <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">Disk label type: dos
+</span></span><span class="line"><span class="cl">Disk identifier: 0x000bb9c1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   Device Boot      Start         End      Blocks   Id  System
+</span></span><span class="line"><span class="cl">/dev/vda1   *        <span class="m">2048</span>    <span class="m">83886046</span>    41941999+  <span class="m">83</span>  Linux
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># fdisk -lu</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disk /dev/vda: 42.9 GB, <span class="m">42949672960</span> bytes, <span class="m">83886080</span> sectors
+</span></span><span class="line"><span class="cl"><span class="nv">Units</span> <span class="o">=</span> sectors of <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">Disk label type: dos
+</span></span><span class="line"><span class="cl">Disk identifier: 0x000bb9c1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   Device Boot      Start         End      Blocks   Id  System
+</span></span><span class="line"><span class="cl">/dev/vda1   *        <span class="m">2048</span>    <span class="m">83886046</span>    41941999+  <span class="m">83</span>  Linux
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#参数说明
+</span></span><span class="line"><span class="cl">Device：分区名称；
+</span></span><span class="line"><span class="cl">Boot：是否是活动分区。活动分区只能是主分区，一个硬盘只能有一个活动的主分区；一个硬盘的主分区与扩展分区总和不能超过4个。硬盘分区遵循着“主分区→扩展分区→逻辑分区”的次序原则，而删除分区则与之相反。
+</span></span><span class="line"><span class="cl"> 主分区：一个硬盘可以划分多个主分区，但没必要划分那么多，一个足矣。
+</span></span><span class="line"><span class="cl"> 扩展分区：主分区之外的硬盘空间就是扩展分区，
+</span></span><span class="line"><span class="cl"> 逻辑分区：是对扩展分区再行划分得到的。
+</span></span><span class="line"><span class="cl">Start：分区柱面的开始下标；
+</span></span><span class="line"><span class="cl">End：分区柱面的结束下标；
+</span></span><span class="line"><span class="cl">Blocks：该分区的块数量。
+</span></span><span class="line"><span class="cl">Id：各种分区的文件系统不同，如有ntfs分区，fat32分区，ext3分区，swap分区等。每一种文件系统都有一个代号，对应这里的Id。常见的文件系统ID有：
+</span></span><span class="line"><span class="cl"> f：FAT32 Extend,只限于扩展分区。
+</span></span><span class="line"><span class="cl"> 86：NTFS。
+</span></span><span class="line"><span class="cl"> 7：HPFS/NTFS
+</span></span><span class="line"><span class="cl"> b：FAT32。
+</span></span><span class="line"><span class="cl"> 83：Linux Ext2。
+</span></span><span class="line"><span class="cl"> 82：Linux 交换区。
+</span></span><span class="line"><span class="cl">System：文件系统名称。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 显示指定device的分区信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># fdisk -l /dev/vda1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Disk /dev/vda1: 42.9 GB, <span class="m">42948607488</span> bytes, <span class="m">83883999</span> sectors
+</span></span><span class="line"><span class="cl"><span class="nv">Units</span> <span class="o">=</span> sectors of <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">Sector size <span class="o">(</span>logical/physical<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span><span class="line"><span class="cl">I/O size <span class="o">(</span>minimum/optimal<span class="o">)</span>: <span class="m">512</span> bytes / <span class="m">512</span> bytes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># fdisk进入交互模式，进行相关操作</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># fdisk /dev/vda1</span>
+</span></span><span class="line"><span class="cl">Welcome to fdisk <span class="o">(</span>util-linux 2.23.2<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Changes will remain in memory only, <span class="k">until</span> you decide to write them.
+</span></span><span class="line"><span class="cl">Be careful before using the write command.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Device does not contain a recognized partition table
+</span></span><span class="line"><span class="cl">Building a new DOS disklabel with disk identifier 0x4b929c62.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: m 
+</span></span><span class="line"><span class="cl">Command action
+</span></span><span class="line"><span class="cl">   a   toggle a bootable flag
+</span></span><span class="line"><span class="cl">   b   edit bsd disklabel
+</span></span><span class="line"><span class="cl">   c   toggle the dos compatibility flag
+</span></span><span class="line"><span class="cl">   d   delete a partition
+</span></span><span class="line"><span class="cl">   g   create a new empty GPT partition table
+</span></span><span class="line"><span class="cl">   G   create an IRIX <span class="o">(</span>SGI<span class="o">)</span> partition table
+</span></span><span class="line"><span class="cl">   l   list known partition types
+</span></span><span class="line"><span class="cl">   m   print this menu
+</span></span><span class="line"><span class="cl">   n   add a new partition
+</span></span><span class="line"><span class="cl">   o   create a new empty DOS partition table
+</span></span><span class="line"><span class="cl">   p   print the partition table
+</span></span><span class="line"><span class="cl">   q   quit without saving changes
+</span></span><span class="line"><span class="cl">   s   create a new empty Sun disklabel
+</span></span><span class="line"><span class="cl">   t   change a partition<span class="err">&#39;</span>s system id
+</span></span><span class="line"><span class="cl">   u   change display/entry units
+</span></span><span class="line"><span class="cl">   v   verify the partition table
+</span></span><span class="line"><span class="cl">   w   write table to disk and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">   x   extra functionality <span class="o">(</span>experts only<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lsblk">lsblk</h2>
+<p>lsblk命令可以显示很多跟磁盘相关分区、所属关系以及lvm的重要信息。用于列出所有可用块设备的信息，而且还能显示他们之间的依赖关系，但是它不会列出RAM盘的信息。块设备有硬盘，闪存盘，cd-ROM等等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk --help</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl"> lsblk <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>&lt;device&gt; ...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl"> -a, --all            print all devices
+</span></span><span class="line"><span class="cl"> -b, --bytes          print SIZE in bytes rather than in human readable format
+</span></span><span class="line"><span class="cl"> -d, --nodeps         don<span class="s1">&#39;t print slaves or holders
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -D, --discard        print discard capabilities
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -e, --exclude &lt;list&gt; exclude devices by major number (default: RAM disks)
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -I, --include &lt;list&gt; show only devices with specified major numbers
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -f, --fs             output info about filesystems
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -h, --help           usage information (this)
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -i, --ascii          use ascii characters only
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -m, --perms          output info about permissions
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -l, --list           use list format output
+</span></span></span><span class="line"><span class="cl"><span class="s1"> -n, --noheadings     don&#39;</span>t print headings
+</span></span><span class="line"><span class="cl"> -o, --output &lt;list&gt;  output columns
+</span></span><span class="line"><span class="cl"> -p, --paths          print complate device path
+</span></span><span class="line"><span class="cl"> -P, --pairs          use <span class="nv">key</span><span class="o">=</span><span class="s2">&#34;value&#34;</span> output format
+</span></span><span class="line"><span class="cl"> -r, --raw            use raw output format
+</span></span><span class="line"><span class="cl"> -s, --inverse        inverse dependencies
+</span></span><span class="line"><span class="cl"> -t, --topology       output info about topology
+</span></span><span class="line"><span class="cl"> -S, --scsi           output info about SCSI devices
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> -h, --help     display this <span class="nb">help</span> and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl"> -V, --version  output version information and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Available columns <span class="o">(</span><span class="k">for</span> --output<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">        NAME  device name
+</span></span><span class="line"><span class="cl">       KNAME  internal kernel device name
+</span></span><span class="line"><span class="cl">     MAJ:MIN  major:minor device number
+</span></span><span class="line"><span class="cl">      FSTYPE  filesystem <span class="nb">type</span>
+</span></span><span class="line"><span class="cl">  MOUNTPOINT  where the device is mounted
+</span></span><span class="line"><span class="cl">       LABEL  filesystem LABEL
+</span></span><span class="line"><span class="cl">        UUID  filesystem UUID
+</span></span><span class="line"><span class="cl">   PARTLABEL  partition LABEL
+</span></span><span class="line"><span class="cl">    PARTUUID  partition UUID
+</span></span><span class="line"><span class="cl">          RA  read-ahead of the device
+</span></span><span class="line"><span class="cl">          RO  read-only device
+</span></span><span class="line"><span class="cl">          RM  removable device
+</span></span><span class="line"><span class="cl">       MODEL  device identifier
+</span></span><span class="line"><span class="cl">      SERIAL  disk serial number
+</span></span><span class="line"><span class="cl">        SIZE  size of the device
+</span></span><span class="line"><span class="cl">       STATE  state of the device
+</span></span><span class="line"><span class="cl">       OWNER  user name
+</span></span><span class="line"><span class="cl">       GROUP  group name
+</span></span><span class="line"><span class="cl">        MODE  device node permissions
+</span></span><span class="line"><span class="cl">   ALIGNMENT  alignment offset
+</span></span><span class="line"><span class="cl">      MIN-IO  minimum I/O size
+</span></span><span class="line"><span class="cl">      OPT-IO  optimal I/O size
+</span></span><span class="line"><span class="cl">     PHY-SEC  physical sector size
+</span></span><span class="line"><span class="cl">     LOG-SEC  logical sector size
+</span></span><span class="line"><span class="cl">        ROTA  rotational device
+</span></span><span class="line"><span class="cl">       SCHED  I/O scheduler name
+</span></span><span class="line"><span class="cl">     RQ-SIZE  request queue size
+</span></span><span class="line"><span class="cl">        TYPE  device <span class="nb">type</span>
+</span></span><span class="line"><span class="cl">    DISC-ALN  discard alignment offset
+</span></span><span class="line"><span class="cl">   DISC-GRAN  discard granularity
+</span></span><span class="line"><span class="cl">    DISC-MAX  discard max bytes
+</span></span><span class="line"><span class="cl">   DISC-ZERO  discard zeroes data
+</span></span><span class="line"><span class="cl">       WSAME  write same max bytes
+</span></span><span class="line"><span class="cl">         WWN  unique storage identifier
+</span></span><span class="line"><span class="cl">        RAND  adds randomness
+</span></span><span class="line"><span class="cl">      PKNAME  internal parent kernel device name
+</span></span><span class="line"><span class="cl">        HCTL  Host:Channel:Target:Lun <span class="k">for</span> SCSI
+</span></span><span class="line"><span class="cl">        TRAN  device transport <span class="nb">type</span>
+</span></span><span class="line"><span class="cl">         REV  device revision
+</span></span><span class="line"><span class="cl">      VENDOR  device vendor
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">For more details see lsblk<span class="o">(</span>8<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="常见用法-3">常见用法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 打印所有设备（树状形式）</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -a</span>
+</span></span><span class="line"><span class="cl">NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+</span></span><span class="line"><span class="cl">vda    253:0    <span class="m">0</span>  40G  <span class="m">0</span> disk 
+</span></span><span class="line"><span class="cl">└─vda1 253:1    <span class="m">0</span>  40G  <span class="m">0</span> part /
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># NAME : 这是块设备名。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MAJ:MIN : 本栏显示主要和次要设备号。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RM : 本栏显示设备是否可移动设备。1说明是可移动设备。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SIZE : 本栏列出设备的容量大小信息。例如40G表明该设备大小为40GB。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># RO : 该项表明设备是否为只读。0表明不是只读的。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># TYPE :本栏显示块设备是否是磁盘或磁盘上的一个分区。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MOUNTPOINT : 本栏指出设备挂载的挂载点。</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 以列表形式打印</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -l</span>
+</span></span><span class="line"><span class="cl">NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+</span></span><span class="line"><span class="cl">vda  253:0    <span class="m">0</span>  40G  <span class="m">0</span> disk 
+</span></span><span class="line"><span class="cl">vda1 253:1    <span class="m">0</span>  40G  <span class="m">0</span> part /
+</span></span><span class="line"><span class="cl"><span class="c1"># 不打印从属设备</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -d</span>
+</span></span><span class="line"><span class="cl">NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+</span></span><span class="line"><span class="cl">vda  253:0    <span class="m">0</span>  40G  <span class="m">0</span> disk
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印文件系统和UUID</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -f</span>
+</span></span><span class="line"><span class="cl">NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+</span></span><span class="line"><span class="cl">vda                                                      
+</span></span><span class="line"><span class="cl">└─vda1 ext4         9f2d3e15-a78a-4f3d-8385-0165b4b67864 /
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印关于每个设备的丢弃能力(TRIM, UNMAP)的信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -D</span>
+</span></span><span class="line"><span class="cl">NAME   DISC-ALN DISC-GRAN DISC-MAX DISC-ZERO
+</span></span><span class="line"><span class="cl">vda           <span class="m">0</span>        0B       0B         <span class="m">0</span>
+</span></span><span class="line"><span class="cl">└─vda1        <span class="m">0</span>        0B       0B         <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印设别全路径</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -p</span>
+</span></span><span class="line"><span class="cl">NAME        MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+</span></span><span class="line"><span class="cl">/dev/vda    253:0    <span class="m">0</span>  40G  <span class="m">0</span> disk 
+</span></span><span class="line"><span class="cl">└─/dev/vda1 253:1    <span class="m">0</span>  40G  <span class="m">0</span> part /
+</span></span><span class="line"><span class="cl"><span class="c1"># 打印反向依赖关系</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -s</span>
+</span></span><span class="line"><span class="cl">NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+</span></span><span class="line"><span class="cl">vda1  253:1    <span class="m">0</span>  40G  <span class="m">0</span> part /
+</span></span><span class="line"><span class="cl">└─vda 253:0    <span class="m">0</span>  40G  <span class="m">0</span> disk 
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出块设备拓扑信息</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -t</span>
+</span></span><span class="line"><span class="cl">NAME   ALIGNMENT MIN-IO OPT-IO PHY-SEC LOG-SEC ROTA SCHED       RQ-SIZE   RA WSAME
+</span></span><span class="line"><span class="cl">vda            <span class="m">0</span>    <span class="m">512</span>      <span class="m">0</span>     <span class="m">512</span>     <span class="m">512</span>    <span class="m">1</span> mq-deadline     <span class="m">256</span> <span class="m">4096</span>    0B
+</span></span><span class="line"><span class="cl">└─vda1         <span class="m">0</span>    <span class="m">512</span>      <span class="m">0</span>     <span class="m">512</span>     <span class="m">512</span>    <span class="m">1</span> mq-deadline     <span class="m">256</span> <span class="m">4096</span>    0B
+</span></span><span class="line"><span class="cl"><span class="c1"># 列出一个特定设备的拥有关系，同时也可以列出组和模式</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># lsblk -m</span>
+</span></span><span class="line"><span class="cl">NAME   SIZE OWNER GROUP MODE
+</span></span><span class="line"><span class="cl">vda     40G root  disk  brw-rw----
+</span></span><span class="line"><span class="cl">└─vda1  40G root  disk  brw-rw----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="磁盘格式化挂载卸载">磁盘格式化，挂载/卸载</h2>
+<blockquote>
+<p>磁盘新分好区了，使用lsblk -f查看时唯一的区别是：旧的硬盘分区都有一个UUID和挂载目录MOUNTPOINT，而新建的硬盘分区是没有的。就需要完成硬盘分区的格式化与目录挂载。所谓格式化，其实就是安装文件系统。</p>
+</blockquote>
+<h3 id="格式化">格式化</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># mkfs --help</span>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl"> mkfs <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>-t &lt;type&gt;<span class="o">]</span> <span class="o">[</span>fs-options<span class="o">]</span> &lt;device&gt; <span class="o">[</span>&lt;size&gt;<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl"> -t, --type<span class="o">=</span>&lt;type&gt;  filesystem type<span class="p">;</span> when unspecified, ext2 is used
+</span></span><span class="line"><span class="cl">     fs-options     parameters <span class="k">for</span> the real filesystem builder
+</span></span><span class="line"><span class="cl">     &lt;device&gt;       path to the device to be used
+</span></span><span class="line"><span class="cl">     &lt;size&gt;         number of blocks to be used on the device
+</span></span><span class="line"><span class="cl"> -V, --verbose      explain what is being <span class="k">done</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                      specifying -V more than once will cause a dry-run
+</span></span><span class="line"><span class="cl"> -V, --version      display version information and exit<span class="p">;</span>
+</span></span><span class="line"><span class="cl">                      -V as --version must be the only option
+</span></span><span class="line"><span class="cl"> -h, --help         display this <span class="nb">help</span> text and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">For more information see mkfs<span class="o">(</span>8<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 如把分区sdb1格式化为ext4文件系统</span>
+</span></span><span class="line"><span class="cl">mkfs -t ext4 /dev/sdb1
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者是</span>
+</span></span><span class="line"><span class="cl">mkfs.ext4 /dev/sdb1
+</span></span><span class="line"><span class="cl">mkfs.xfs /dev/vdb <span class="c1"># 格式化为xfs文件系统</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 查看支持的文件系统</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># mkfs (输入mkfs按两下tab键)</span>
+</span></span><span class="line"><span class="cl">mkfs         mkfs.btrfs   mkfs.cramfs  mkfs.ext2    mkfs.ext3    mkfs.ext4    mkfs.minix   mkfs.xfs 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="目录挂载">目录挂载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir -p /data<span class="p">;</span>        <span class="c1">#新建一个目录用于挂载新硬盘</span>
+</span></span><span class="line"><span class="cl">mount /dev/sdb1 /data<span class="p">;</span>   <span class="c1">#挂载新硬盘到目录</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完成格式化和挂载后，此时再使用<code>lsblk -f</code>查看分区，可以看到该分区的<code>UUID</code>和<code>MOUNTPOINT</code>都有值了。使用<code>df -h</code>也可以查看挂载结果。</p>
+<h3 id="自动挂载">自动挂载</h3>
+<p>上面完成的挂载关系，在操作系统<strong>重启之后就失效</strong>了。如果希望下次操作系统重启的时候自动挂载，需要在<code>/etc/fstab</code>文件中添加下面的一行记录实现自动挂载。</p>
+<p>参数说明可参考： <a class="link" href="https://help.aliyun.com/document_detail/194379.htm?spm=a2c4g.11186623.0.0.15757d02qNoM4R#task-2000719"  target="_blank" rel="noopener"
+    >https://help.aliyun.com/document_detail/194379.htm?spm=a2c4g.11186623.0.0.15757d02qNoM4R#task-2000719</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/dev/sdb1  /data  ext4 defaults <span class="m">0</span> <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果是root用户，也可使用以下命令修改<code>/etc/fstab</code>：</p>
+<p>参考 <a class="link" href="https://help.aliyun.com/document_detail/131111.html"  target="_blank" rel="noopener"
+    >https://help.aliyun.com/document_detail/131111.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="sb">`</span>blkid /dev/sdb1 <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/\&#34;//g&#39;</span><span class="sb">`</span> /data ext4 defaults <span class="m">0</span> <span class="m">0</span> &gt;&gt; /etc/fstab
+</span></span><span class="line"><span class="cl"><span class="c1"># 在本机上试试看echo的内容</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># echo `blkid /dev/vda1 | awk &#39;{print $2}&#39; | sed &#39;s/\&#34;//g&#39;` /data ext4 defaults 0 0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">UUID</span><span class="o">=</span>9f2d3e15-a78a-4f3d-8385-0165b4b67864 /data ext4 defaults <span class="m">0</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 其中blkid命令是查看分区的uuid</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行如下命令会重新加载配置文件，并使其生效：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mount -a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="目录卸载">目录卸载</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">umount /media/test  <span class="c1"># 将挂载在/media/test 目录下的文件系统卸载</span>
+</span></span><span class="line"><span class="cl">umount -f  /media/test <span class="c1"># 强制卸载</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
+<p><a class="link" href="https://www.runoob.com/linux/linux-filesystem.html"  target="_blank" rel="noopener"
+    >https://www.runoob.com/linux/linux-filesystem.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/hls-code/p/16333387.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/hls-code/p/16333387.html</a></p>
+<p><a class="link" href="https://www.11meigui.com/2021/df-command-in-linux.html"  target="_blank" rel="noopener"
+    >https://www.11meigui.com/2021/df-command-in-linux.html</a></p>
+<p><a class="link" href="https://blog.csdn.net/weixin_52122271/article/details/126242445"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/weixin_52122271/article/details/126242445</a></p>
+<p><a class="link" href="https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/machangwei-8/p/10353683.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/machangwei-8/p/10353683.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/zouhong/p/16109600.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/zouhong/p/16109600.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/joshua317/p/15407969.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/joshua317/p/15407969.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/aozhejin/p/15845945.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/aozhejin/p/15845945.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/machangwei-8/p/10403533.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/machangwei-8/p/10403533.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/my-show-time/p/16858420.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/my-show-time/p/16858420.html</a></p>
+<p><a class="link" href="https://www.yingsoo.com/news/servers/67277.html"  target="_blank" rel="noopener"
+    >https://www.yingsoo.com/news/servers/67277.html</a></p>
+<p><a class="link" href="https://www.cnblogs.com/zimug/p/16316110.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/zimug/p/16316110.html</a></p>
+<p><a class="link" href="https://blog.csdn.net/K_520_W/article/details/124132566"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/K_520_W/article/details/124132566</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux-文本处理三剑客</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux-磁盘扩容</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux-系统信息查看命令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux-防火墙firewall</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/linux-%E7%AE%A1%E9%81%93%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Linux-管道篇</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Redis-Redis基础 Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件 master-slave(主从)同步 应用场景：
+配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+多样的数据结构存储持久化数据
+Redis安装 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）
+步骤：
+将redis安装包ftp到服务器的/opt
+1 2 3 tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好了
+安装 make install
+查看安装后的文件
+1 2 3 4 5 6 7 [root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin -rwxr-xr-x 1 root root 9450208 Jul 4 21:31 redis-server -rwxr-xr-x 1 root root 4833352 Jul 4 21:31 redis-benchmark -rwxr-xr-x 1 root root 5003368 Jul 4 21:31 redis-cli lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-rdb -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-aof -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-sentinel -&amp;gt; redis-server redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何'>
+<title>Redis-Redis基础</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/redis-redis%E5%9F%BA%E7%A1%80/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Redis-Redis基础'>
+<meta property='og:description' content='Redis-Redis基础 Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件 master-slave(主从)同步 应用场景：
+配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+多样的数据结构存储持久化数据
+Redis安装 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）
+步骤：
+将redis安装包ftp到服务器的/opt
+1 2 3 tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好了
+安装 make install
+查看安装后的文件
+1 2 3 4 5 6 7 [root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin -rwxr-xr-x 1 root root 9450208 Jul 4 21:31 redis-server -rwxr-xr-x 1 root root 4833352 Jul 4 21:31 redis-benchmark -rwxr-xr-x 1 root root 5003368 Jul 4 21:31 redis-cli lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-rdb -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-aof -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-sentinel -&amp;gt; redis-server redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何'>
+<meta property='og:url' content='https://huangxindi.com/p/redis-redis%E5%9F%BA%E7%A1%80/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Redis' /><meta property='article:published_time' content='2022-07-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Redis-Redis基础">
+<meta name="twitter:description" content="Redis-Redis基础 Redis概述 开源 key-value value支持多种类型 操作原子性 支持不同方式的排序 缓存在内存 周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件 master-slave(主从)同步 应用场景：
+配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+多样的数据结构存储持久化数据
+Redis安装 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）
+步骤：
+将redis安装包ftp到服务器的/opt
+1 2 3 tar -zxvf redis-6.2.1.tar.gz cd redis-6.2.1 make # 编译 如图表示编译好了
+安装 make install
+查看安装后的文件
+1 2 3 4 5 6 7 [root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin -rwxr-xr-x 1 root root 9450208 Jul 4 21:31 redis-server -rwxr-xr-x 1 root root 4833352 Jul 4 21:31 redis-benchmark -rwxr-xr-x 1 root root 5003368 Jul 4 21:31 redis-cli lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-rdb -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-check-aof -&amp;gt; redis-server lrwxrwxrwx 1 root root 12 Jul 4 21:31 redis-sentinel -&amp;gt; redis-server redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#redis概述">Redis概述</a></li>
+    <li><a href="#redis安装">Redis安装</a></li>
+    <li><a href="#redis启动">Redis启动</a>
+      <ol>
+        <li><a href="#前台启动不推荐">前台启动（不推荐）</a></li>
+        <li><a href="#后台启动">后台启动</a></li>
+      </ol>
+    </li>
+    <li><a href="#redis基础介绍">Redis基础介绍</a>
+      <ol>
+        <li><a href="#端口号">端口号</a></li>
+        <li><a href="#对应数据库">对应数据库</a></li>
+        <li><a href="#单线程多路io复用技术">单线程+多路IO复用技术</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/redis/" >
+                Redis
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/redis-redis%E5%9F%BA%E7%A1%80/">Redis-Redis基础</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 04, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="redis-redis基础">Redis-Redis基础</h1>
+<h2 id="redis概述">Redis概述</h2>
+<ul>
+<li>开源</li>
+<li>key-value</li>
+<li>value支持多种类型</li>
+<li>操作原子性</li>
+<li>支持不同方式的排序</li>
+<li>缓存在内存</li>
+<li>周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件</li>
+<li>master-slave(主从)同步</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>
+<p>配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享</p>
+</li>
+<li>
+<p>多样的数据结构存储持久化数据</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220704204659221.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220704204659221"
+	
+	
+></p>
+</li>
+</ul>
+<h2 id="redis安装">Redis安装</h2>
+<p>最好在linux环境上用，所以我就直接安装在云服务器上</p>
+<p><strong>前置条件：服务器要带gcc编译器</strong>，可输入<code>gcc --version</code>来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略</p>
+<p>下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）</p>
+<p>步骤：</p>
+<ol>
+<li>
+<p>将redis安装包ftp到服务器的/opt</p>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tar -zxvf redis-6.2.1.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> redis-6.2.1
+</span></span><span class="line"><span class="cl">make <span class="c1"># 编译</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="http://cdn.huangxindi.com/img/image-20220704213052663.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220704213052663"
+	
+	
+></p>
+<p>如图表示编译好了</p>
+</li>
+<li>
+<p>安装 <code>make install</code></p>
+</li>
+</ol>
+<p><img src="http://cdn.huangxindi.com/img/image-20220704213226577.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220704213226577"
+	
+	
+></p>
+<ol start="4">
+<li>
+<p>查看安装后的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># ls -lrt /usr/local/bin</span>
+</span></span><span class="line"><span class="cl">-rwxr-xr-x <span class="m">1</span> root root <span class="m">9450208</span> Jul  <span class="m">4</span> 21:31 redis-server
+</span></span><span class="line"><span class="cl">-rwxr-xr-x <span class="m">1</span> root root <span class="m">4833352</span> Jul  <span class="m">4</span> 21:31 redis-benchmark
+</span></span><span class="line"><span class="cl">-rwxr-xr-x <span class="m">1</span> root root <span class="m">5003368</span> Jul  <span class="m">4</span> 21:31 redis-cli
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root      <span class="m">12</span> Jul  <span class="m">4</span> 21:31 redis-check-rdb -&gt; redis-server
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root      <span class="m">12</span> Jul  <span class="m">4</span> 21:31 redis-check-aof -&gt; redis-server
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root      <span class="m">12</span> Jul  <span class="m">4</span> 21:31 redis-sentinel -&gt; redis-server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何</p>
+<p>redis-check-aof：修复有问题的AOF文件，rdb和aof后面讲</p>
+<p>redis-check-dump：修复有问题的dump.rdb文件</p>
+<p>redis-sentinel：Redis集群使用</p>
+<p>redis-server：Redis服务器启动命令</p>
+<p>redis-cli：客户端，操作入口</p>
+</li>
+</ol>
+<h2 id="redis启动">Redis启动</h2>
+<h3 id="前台启动不推荐">前台启动（不推荐）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># redis-server</span>
+</span></span><span class="line"><span class="cl">18353:C <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.291 <span class="c1"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+</span></span><span class="line"><span class="cl">18353:C <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.291 <span class="c1"># Redis version=6.2.1, bits=64, commit=00000000, modified=0, pid=18353, just started</span>
+</span></span><span class="line"><span class="cl">18353:C <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.291 <span class="c1"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span>
+</span></span><span class="line"><span class="cl">18353:M <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.292 * monotonic clock: POSIX clock_gettime
+</span></span><span class="line"><span class="cl">                _._                                                  
+</span></span><span class="line"><span class="cl">           _.-<span class="sb">``</span>__ <span class="s1">&#39;&#39;</span>-._                                             
+</span></span><span class="line"><span class="cl">      _.-<span class="sb">``</span>    <span class="sb">`</span>.  <span class="sb">`</span>_.  <span class="s1">&#39;&#39;</span>-._           Redis 6.2.1 <span class="o">(</span>00000000/0<span class="o">)</span> <span class="m">64</span> bit
+</span></span><span class="line"><span class="cl">  .-<span class="sb">``</span> .-<span class="sb">```</span>.  <span class="sb">```</span><span class="se">\/</span>    _.,_ <span class="s1">&#39;&#39;</span>-._                                   
+</span></span><span class="line"><span class="cl"> <span class="o">(</span>    <span class="s1">&#39;      ,       .-`  | `,    )     Running in standalone mode
+</span></span></span><span class="line"><span class="cl"><span class="s1"> |`-._`-...-` __...-.``-._|&#39;</span><span class="sb">`</span> _.-<span class="s1">&#39;|     Port: 6379
+</span></span></span><span class="line"><span class="cl"><span class="s1"> |    `-._   `._    /     _.-&#39;</span>    <span class="p">|</span>     PID: <span class="m">18353</span>
+</span></span><span class="line"><span class="cl">  <span class="sb">`</span>-._    <span class="sb">`</span>-._  <span class="sb">`</span>-./  _.-<span class="s1">&#39;    _.-&#39;</span>                                   
+</span></span><span class="line"><span class="cl"> <span class="p">|</span><span class="sb">`</span>-._<span class="sb">`</span>-._    <span class="sb">`</span>-.__.-<span class="s1">&#39;    _.-&#39;</span>_.-<span class="s1">&#39;|                                  
+</span></span></span><span class="line"><span class="cl"><span class="s1"> |    `-._`-._        _.-&#39;</span>_.-<span class="s1">&#39;    |           http://redis.io        
+</span></span></span><span class="line"><span class="cl"><span class="s1">  `-._    `-._`-.__.-&#39;</span>_.-<span class="s1">&#39;    _.-&#39;</span>                                   
+</span></span><span class="line"><span class="cl"> <span class="p">|</span><span class="sb">`</span>-._<span class="sb">`</span>-._    <span class="sb">`</span>-.__.-<span class="s1">&#39;    _.-&#39;</span>_.-<span class="s1">&#39;|                                  
+</span></span></span><span class="line"><span class="cl"><span class="s1"> |    `-._`-._        _.-&#39;</span>_.-<span class="s1">&#39;    |                                  
+</span></span></span><span class="line"><span class="cl"><span class="s1">  `-._    `-._`-.__.-&#39;</span>_.-<span class="s1">&#39;    _.-&#39;</span>                                   
+</span></span><span class="line"><span class="cl">      <span class="sb">`</span>-._    <span class="sb">`</span>-.__.-<span class="s1">&#39;    _.-&#39;</span>                                       
+</span></span><span class="line"><span class="cl">          <span class="sb">`</span>-._        _.-<span class="s1">&#39;                                           
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `-.__.-&#39;</span>                                               
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">18353:M <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.293 <span class="c1"># WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span>
+</span></span><span class="line"><span class="cl">18353:M <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.293 <span class="c1"># Server initialized</span>
+</span></span><span class="line"><span class="cl">18353:M <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.293 <span class="c1"># WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add &#39;vm.overcommit_memory = 1&#39; to /etc/sysctl.conf and then reboot or run the command &#39;sysctl vm.overcommit_memory=1&#39; for this to take effect.</span>
+</span></span><span class="line"><span class="cl">18353:M <span class="m">04</span> Jul <span class="m">2022</span> 21:42:49.293 * Ready to accept connections
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是关闭这个窗口后，redis就退出了，无法在后台运行，所以不推荐</p>
+<h3 id="后台启动">后台启动</h3>
+<p>备份redis.conf文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ redis-6.2.1<span class="o">]</span><span class="c1"># pwd</span>
+</span></span><span class="line"><span class="cl">/opt/redis-6.2.1
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ redis-6.2.1<span class="o">]</span><span class="c1"># cp redis.conf /etc/redis.conf</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑/etc/redis.conf文件，把<code>daemonize no</code>改为<code>daemonize yes</code>，<em>daemonize</em>是用来指定redis是否要用守护线程的方式启动</p>
+<p>启动redis：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># redis-server /etc/redis.conf</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># ps -ef | grep redis</span>
+</span></span><span class="line"><span class="cl">root     <span class="m">18353</span>     <span class="m">1</span>  <span class="m">0</span> 21:42 ?        00:00:01 redis-server *:6379
+</span></span><span class="line"><span class="cl">root     <span class="m">18952</span> <span class="m">18494</span>  <span class="m">0</span> 21:52 pts/2    00:00:00 grep --color<span class="o">=</span>auto redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用客户端访问：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># redis-cli</span>
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; ping
+</span></span><span class="line"><span class="cl">PONG
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关闭redis：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">127.0.0.1:6379&gt; shutdown
+</span></span><span class="line"><span class="cl">not connected&gt; 
+</span></span><span class="line"><span class="cl">quit
+</span></span><span class="line"><span class="cl">或者
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># redis-cli shutdown</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ bin<span class="o">]</span><span class="c1"># ps -ef | grep redis</span>
+</span></span><span class="line"><span class="cl">root     <span class="m">19462</span> <span class="m">18494</span>  <span class="m">0</span> 21:59 pts/2    00:00:00 grep --color<span class="o">=</span>auto redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="redis基础介绍">Redis基础介绍</h2>
+<h3 id="端口号">端口号</h3>
+<p>端口号 6379</p>
+<p>来自女星Alessia  <strong>Merz</strong> -&gt; 对应手机9宫格的四位数</p>
+<h3 id="对应数据库">对应数据库</h3>
+<p>默认16个数据库（0-15），默认是0号库</p>
+<p>切换数据库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ redis-cli
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; <span class="k">select</span> <span class="m">8</span>
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379<span class="o">[</span>8<span class="o">]</span>&gt; <span class="k">select</span> <span class="m">15</span>
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379<span class="o">[</span>15<span class="o">]</span>&gt; <span class="k">select</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>统一密码管理，所有库同样密码</p>
+<h3 id="单线程多路io复用技术">单线程+多路IO复用技术</h3>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/redis/">Redis</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/redis-jedis/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis-Jedis</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis-Redis6新数据类型</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis-发布和订阅</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis-常用数据类型</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Redis-配置文件</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

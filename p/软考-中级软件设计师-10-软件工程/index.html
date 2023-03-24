@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+需求明确 二次开发 结构化开发 其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+多个模型组成 引入了风险分析 V模型 特点：
+强调测试 在前半部分的过程，同时也做后半部分的测试准备 喷泉模型 特点：
+面向对象模型 迭代 无间隙 RAD 特点：
+快速构建应用系统 构件组装模型(CBSD) 特点：
+提高复用性，缩短时间，减少成本，提高可靠性 统一过程（UP/RUP） 特点：
+用例驱动 以架构为中心 多轮迭代和增量 敏捷开发方法 特点：
+一组模型 比较适合(中)小型项目 信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级
+集成测试：模块之间的衔接
+确认测试：确认需求实现
+McCabe复杂度（常考） 注意：分叉点是否要转为结点，复杂度公式的结果都一样。如右边结点的5和6，如果不转换，则2、3、4都指向7，计算结果一致
+系统运行与维护（常考） 适应性维护：适应系统、数据环境
+完善性维护：扩充功能、改善功能
+软件过程改进 CMMI 阶段式：
+已管理级：项目级 已定义级：文档标准化 定量管理级：量化管理 优化级：持续优化 连续式：
+过程管理 项目管理 工程 支持 项目管理 甘特图：关键路径的计算'>
+<title>软考-中级软件设计师-10 软件工程</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='软考-中级软件设计师-10 软件工程'>
+<meta property='og:description' content='10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+需求明确 二次开发 结构化开发 其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+多个模型组成 引入了风险分析 V模型 特点：
+强调测试 在前半部分的过程，同时也做后半部分的测试准备 喷泉模型 特点：
+面向对象模型 迭代 无间隙 RAD 特点：
+快速构建应用系统 构件组装模型(CBSD) 特点：
+提高复用性，缩短时间，减少成本，提高可靠性 统一过程（UP/RUP） 特点：
+用例驱动 以架构为中心 多轮迭代和增量 敏捷开发方法 特点：
+一组模型 比较适合(中)小型项目 信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级
+集成测试：模块之间的衔接
+确认测试：确认需求实现
+McCabe复杂度（常考） 注意：分叉点是否要转为结点，复杂度公式的结果都一样。如右边结点的5和6，如果不转换，则2、3、4都指向7，计算结果一致
+系统运行与维护（常考） 适应性维护：适应系统、数据环境
+完善性维护：扩充功能、改善功能
+软件过程改进 CMMI 阶段式：
+已管理级：项目级 已定义级：文档标准化 定量管理级：量化管理 优化级：持续优化 连续式：
+过程管理 项目管理 工程 支持 项目管理 甘特图：关键路径的计算'>
+<meta property='og:url' content='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='软考-中级软件设计师' /><meta property='article:published_time' content='2022-05-14T22:51:46&#43;08:00'/><meta property='article:modified_time' content='2022-05-14T22:51:46&#43;08:00'/>
+<meta name="twitter:title" content="软考-中级软件设计师-10 软件工程">
+<meta name="twitter:description" content="10 软件工程 软件开发模型 瀑布模型（SDLC） 缺陷：需求难以在项目初期明确确定
+适用于：
+需求明确 二次开发 结构化开发 其他经典模型 原型（针对需求不明确的情况）：在初期先构造一个简易的系统，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。
+增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。
+螺旋模型 特征：
+多个模型组成 引入了风险分析 V模型 特点：
+强调测试 在前半部分的过程，同时也做后半部分的测试准备 喷泉模型 特点：
+面向对象模型 迭代 无间隙 RAD 特点：
+快速构建应用系统 构件组装模型(CBSD) 特点：
+提高复用性，缩短时间，减少成本，提高可靠性 统一过程（UP/RUP） 特点：
+用例驱动 以架构为中心 多轮迭代和增量 敏捷开发方法 特点：
+一组模型 比较适合(中)小型项目 信息系统开发方法 结构化方法缺点：一旦开发完，整个流程不容易改变
+需求开发 需求分类与获取 结构化设计 多扇入：复用性高；少扇出：一个函数包括的职能较少
+内聚与耦合 软件测试（常考） 回归测试：将之前的测试案例再测下，看会不会发现新的问题
+测试用例设计 等价类划分：选出各种类的代表性数据来测
+错误推测：根据经验，推测哪些容易产生问题
+测试阶段 单元测试：模块级/函数级
+集成测试：模块之间的衔接
+确认测试：确认需求实现
+McCabe复杂度（常考） 注意：分叉点是否要转为结点，复杂度公式的结果都一样。如右边结点的5和6，如果不转换，则2、3、4都指向7，计算结果一致
+系统运行与维护（常考） 适应性维护：适应系统、数据环境
+完善性维护：扩充功能、改善功能
+软件过程改进 CMMI 阶段式：
+已管理级：项目级 已定义级：文档标准化 定量管理级：量化管理 优化级：持续优化 连续式：
+过程管理 项目管理 工程 支持 项目管理 甘特图：关键路径的计算">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#软件开发模型">软件开发模型</a>
+      <ol>
+        <li><a href="#瀑布模型sdlc">瀑布模型（SDLC）</a></li>
+        <li><a href="#其他经典模型">其他经典模型</a></li>
+        <li><a href="#螺旋模型">螺旋模型</a></li>
+        <li><a href="#v模型">V模型</a></li>
+        <li><a href="#喷泉模型">喷泉模型</a></li>
+        <li><a href="#rad">RAD</a></li>
+        <li><a href="#构件组装模型cbsd">构件组装模型(CBSD)</a></li>
+        <li><a href="#统一过程uprup">统一过程（UP/RUP）</a></li>
+        <li><a href="#敏捷开发方法">敏捷开发方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#信息系统开发方法">信息系统开发方法</a></li>
+    <li><a href="#需求开发">需求开发</a>
+      <ol>
+        <li><a href="#需求分类与获取">需求分类与获取</a></li>
+      </ol>
+    </li>
+    <li><a href="#结构化设计">结构化设计</a>
+      <ol>
+        <li><a href="#内聚与耦合">内聚与耦合</a></li>
+      </ol>
+    </li>
+    <li><a href="#软件测试常考">软件测试（常考）</a>
+      <ol>
+        <li><a href="#测试用例设计">测试用例设计</a></li>
+        <li><a href="#测试阶段">测试阶段</a></li>
+        <li><a href="#mccabe复杂度常考">McCabe复杂度（常考）</a></li>
+      </ol>
+    </li>
+    <li><a href="#系统运行与维护常考">系统运行与维护（常考）</a></li>
+    <li><a href="#软件过程改进">软件过程改进</a>
+      <ol>
+        <li><a href="#cmmi">CMMI</a></li>
+      </ol>
+    </li>
+    <li><a href="#项目管理">项目管理</a>
+      <ol>
+        <li><a href="#风险管理">风险管理</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/" >
+                软考-中级软件设计师
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软考-中级软件设计师-10 软件工程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 14, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="10-软件工程">10 软件工程</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095342967.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504095342967"
+	
+	
+></p>
+<h2 id="软件开发模型">软件开发模型</h2>
+<h3 id="瀑布模型sdlc">瀑布模型（SDLC）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095417950.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504095417950"
+	
+	
+></p>
+<p>缺陷：需求难以在项目初期明确确定</p>
+<p>适用于：</p>
+<ul>
+<li>需求明确</li>
+<li>二次开发</li>
+<li>结构化开发</li>
+</ul>
+<h3 id="其他经典模型">其他经典模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504095741254.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504095741254"
+	
+	
+></p>
+<p><strong>原型（针对需求不明确的情况）：在初期先构造一个简易的系统</strong>，给用户做演示，记录用户发现的问题，再做调整。往往只用于需求分析阶段。最终变为演化模型。</p>
+<p>增量模型：先做核心部分，给用户用；发现问题，逐步修改和继续开发剩下内容。</p>
+<h3 id="螺旋模型">螺旋模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504100218644.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504100218644"
+	
+	
+></p>
+<p>特征：</p>
+<ul>
+<li>多个模型组成</li>
+<li><strong>引入了风险分析</strong></li>
+</ul>
+<h3 id="v模型">V模型</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504100358919.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504100358919"
+	
+	
+></p>
+<p>特点：</p>
+<ul>
+<li>强调测试</li>
+<li>在前半部分的过程，同时也做后半部分的测试准备</li>
+</ul>
+<h3 id="喷泉模型">喷泉模型</h3>
+<p>特点：</p>
+<ul>
+<li>面向对象模型</li>
+<li>迭代</li>
+<li>无间隙</li>
+</ul>
+<h3 id="rad">RAD</h3>
+<p>特点：</p>
+<ul>
+<li>快速构建应用系统</li>
+</ul>
+<h3 id="构件组装模型cbsd">构件组装模型(CBSD)</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101055110.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504101055110"
+	
+	
+></p>
+<p>特点：</p>
+<ul>
+<li>提高复用性，缩短时间，减少成本，提高可靠性</li>
+</ul>
+<h3 id="统一过程uprup">统一过程（UP/RUP）</h3>
+<p>特点：</p>
+<ul>
+<li>用例驱动</li>
+<li>以架构为中心</li>
+<li>多轮迭代和增量</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101501527.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504101501527"
+	
+	
+></p>
+<h3 id="敏捷开发方法">敏捷开发方法</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101526210.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504101526210"
+	
+	
+></p>
+<p>特点：</p>
+<ul>
+<li>一组模型</li>
+<li>比较适合(中)小型项目</li>
+</ul>
+<h2 id="信息系统开发方法">信息系统开发方法</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504101921546.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504101921546"
+	
+	
+></p>
+<p>结构化方法缺点：一旦开发完，整个流程不容易改变</p>
+<h2 id="需求开发">需求开发</h2>
+<h3 id="需求分类与获取">需求分类与获取</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504103632492.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504103632492"
+	
+	
+></p>
+<h2 id="结构化设计">结构化设计</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504103950236.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504103950236"
+	
+	
+></p>
+<p>多扇入：复用性高；少扇出：一个函数包括的职能较少</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104419235.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504104419235"
+	
+	
+></p>
+<h3 id="内聚与耦合">内聚与耦合</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104122970.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504104122970"
+	
+	
+></p>
+<h2 id="软件测试常考">软件测试（常考）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104454163.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504104454163"
+	
+	
+></p>
+<p>回归测试：将之前的测试案例再测下，看会不会发现新的问题</p>
+<h3 id="测试用例设计">测试用例设计</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504104835088.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504104835088"
+	
+	
+></p>
+<p>等价类划分：选出各种类的代表性数据来测</p>
+<p>错误推测：根据经验，推测哪些容易产生问题</p>
+<h3 id="测试阶段">测试阶段</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504105525432.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504105525432"
+	
+	
+></p>
+<p>单元测试：模块级/函数级</p>
+<p>集成测试：模块之间的衔接</p>
+<p>确认测试：确认需求实现</p>
+<h3 id="mccabe复杂度常考">McCabe复杂度（常考）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110011136.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504110011136"
+	
+	
+></p>
+<p>注意：分叉点是否要转为结点，复杂度公式的结果都一样。如右边结点的5和6，如果不转换，则2、3、4都指向7，计算结果一致</p>
+<h2 id="系统运行与维护常考">系统运行与维护（常考）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110441528.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504110441528"
+	
+	
+></p>
+<p>适应性维护：适应系统、数据环境</p>
+<p>完善性维护：扩充功能、改善功能</p>
+<h2 id="软件过程改进">软件过程改进</h2>
+<h3 id="cmmi">CMMI</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504110948229.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504110948229"
+	
+	
+></p>
+<p>阶段式：</p>
+<ul>
+<li>已管理级：项目级</li>
+<li>已定义级：文档标准化</li>
+<li>定量管理级：量化管理</li>
+<li>优化级：持续优化</li>
+</ul>
+<p>连续式：</p>
+<ul>
+<li>过程管理</li>
+<li>项目管理</li>
+<li>工程</li>
+<li>支持</li>
+</ul>
+<h2 id="项目管理">项目管理</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111528282.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504111528282"
+	
+	
+></p>
+<p>甘特图：关键路径的计算</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111858056.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504111858056"
+	
+	
+></p>
+<h3 id="风险管理">风险管理</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504111922171.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220504111922171"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88/">软考-中级软件设计师</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-00-%E6%97%A0%E5%88%86%E7%B1%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级软件设计师-00 无分类</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级软件设计师-01 计算机组成与体系结构</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级软件设计师-02 操作系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级软件设计师-03 数据库系统</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级软件设计师-04 计算机网络</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

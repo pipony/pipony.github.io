@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Windows on 2MUCH</title>
+        <link>https://huangxindi.com/tags/windows/</link>
+        <description>Recent content in Windows on 2MUCH</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/windows/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Windows命令行手册</title>
+        <link>https://huangxindi.com/p/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</link>
+        <pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;此笔记为&lt;a class=&#34;link&#34; href=&#34;https://sspai.com/series/295/list&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《少数派-生产力超频：Windows 命令行实用手册》&lt;/a&gt;l栏目的个人学习笔记，供个人回溯&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;一些概念&#34;&gt;一些概念&lt;/h2&gt;
+&lt;p&gt;Command Line Interface (CLI) 命令行界面
+Console App &amp;amp; Terminal App 控制台应用：没有图形界面，需要在命令提示符中使用。直接双击会闪退。&lt;/p&gt;
+&lt;p&gt;包管理器： Windows 平台三大包管理器（&lt;a class=&#34;link&#34; href=&#34;https://sspai.com/link?target=https%3A%2F%2Fchocolatey.org%2F&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Chocolatey&lt;/a&gt;、&lt;a class=&#34;link&#34; href=&#34;https://sspai.com/link?target=https%3A%2F%2Fscoop.sh%2F&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Scoop&lt;/a&gt;、&lt;a class=&#34;link&#34; href=&#34;https://sspai.com/link?target=https%3A%2F%2Flearn.microsoft.com%2Fen-us%2Fwindows%2Fpackage-manager%2Fwinget%2F&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;winget&lt;/a&gt;）。它们可以帮助你&lt;strong&gt;批量安装、卸载、升级 PC 中的应用&lt;/strong&gt;，无需再去官网获得安装包。&lt;/p&gt;
+&lt;p&gt;内核（kernel）：直接和硬件打交道；
+壳（shell）：运行命令的东西；可以将cd等命令翻译成计算机能听懂的语言&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Windows 上的 cmd、PowerShell 是 shell 的一种。此外，Linux 和 macOS 上有各种各样以 sh 结尾的应用，例如 bash、zsh、fish 以及 csh，其中的 sh 就是 shell 的缩写。
+壳的窗口：Windows 控制台（conhost.exe），也称为&lt;strong&gt;终端仿真器（terminal emulator）&lt;/strong&gt;，简称终端。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;外部命令和shell命令：外部命令不依赖shell存在，shell命令是shell自带的命令&lt;/p&gt;
+&lt;h2 id=&#34;基本操作&#34;&gt;基本操作&lt;/h2&gt;
+&lt;h3 id=&#34;执行特定应用在cmd中输入某应用的路径&#34;&gt;执行特定应用（在cmd中输入某应用的路径）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;cd到所在目录，访问&lt;/li&gt;
+&lt;li&gt;右键文件（Windows 10 需要按住 Shift 再右键），选择「复制文件地址」&lt;/li&gt;
+&lt;li&gt;直接拖动图标到cmd中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;cmd中的复制粘贴&#34;&gt;cmd中的复制粘贴&lt;/h3&gt;
+&lt;p&gt;选中文本按右键是复制功能，不选中文本按右键是粘贴功能&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

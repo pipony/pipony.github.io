@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='ORACLE-存储过程 概念 存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
+函数和存储过程的区别 https://www.php.cn/oracle/489142.html#/
+存储过程 函数 用于在数据库中完成特定的操作或任务（如插入、删除等） 用于特定数据（如查询返回值） 程序头部声明用PROCEDURE 程序头部声明用FUNCTION 程序头部声明时不需要返回类型 程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句 可以使用IN/OUT/IN OUT3种参数模式 可以使用IN/OUT/IN OUT3种参数模式 可以作为独立的PL/SQL语句执行 不能独立执行，必须作为表达式的一部分调用 可以通过OUT/IN OUT返回零个或多个值 对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量 SQL语句（DML或SELECT）中不可以调用存储过程 SQL语句（DML或SELECT）中可以调用函数 优点 更快（无需再次编译） 模块性 可维护性高 节省网络传输（存储在数据库中） 更安全（存储过程控制执行权限） 存储过程创建语法 1 2 3 4 5 6 7 8 9 10 11 CREATE [OR REPLACE] PROCEDURE pro_name [(p1 in|out 数据格式, p2 in|out 数据格式, ...)] is|as 声明部分 begin plsql代码块 exception 异常处理部分 end; 注意：
+OR REPLACE表示的是若已存在同名存储过程，则替换原内容
+形参定义中：
+参数不区分大小写，不需要DECLARE关键字
+其中参数IN表示输入参数，是参数的默认模式。入参值无法被修改。 OUT表示返回值参数，类型可以使用任意Oracle中的合法类型。 OUT模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程 IN OUT表示该参数可以向该过程中传递值，也可以将某个值传出去。'>
+<title>ORACLE-存储过程</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='ORACLE-存储过程'>
+<meta property='og:description' content='ORACLE-存储过程 概念 存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
+函数和存储过程的区别 https://www.php.cn/oracle/489142.html#/
+存储过程 函数 用于在数据库中完成特定的操作或任务（如插入、删除等） 用于特定数据（如查询返回值） 程序头部声明用PROCEDURE 程序头部声明用FUNCTION 程序头部声明时不需要返回类型 程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句 可以使用IN/OUT/IN OUT3种参数模式 可以使用IN/OUT/IN OUT3种参数模式 可以作为独立的PL/SQL语句执行 不能独立执行，必须作为表达式的一部分调用 可以通过OUT/IN OUT返回零个或多个值 对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量 SQL语句（DML或SELECT）中不可以调用存储过程 SQL语句（DML或SELECT）中可以调用函数 优点 更快（无需再次编译） 模块性 可维护性高 节省网络传输（存储在数据库中） 更安全（存储过程控制执行权限） 存储过程创建语法 1 2 3 4 5 6 7 8 9 10 11 CREATE [OR REPLACE] PROCEDURE pro_name [(p1 in|out 数据格式, p2 in|out 数据格式, ...)] is|as 声明部分 begin plsql代码块 exception 异常处理部分 end; 注意：
+OR REPLACE表示的是若已存在同名存储过程，则替换原内容
+形参定义中：
+参数不区分大小写，不需要DECLARE关键字
+其中参数IN表示输入参数，是参数的默认模式。入参值无法被修改。 OUT表示返回值参数，类型可以使用任意Oracle中的合法类型。 OUT模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程 IN OUT表示该参数可以向该过程中传递值，也可以将某个值传出去。'>
+<meta property='og:url' content='https://huangxindi.com/p/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据库' /><meta property='article:published_time' content='2022-07-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="ORACLE-存储过程">
+<meta name="twitter:description" content="ORACLE-存储过程 概念 存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。
+函数和存储过程的区别 https://www.php.cn/oracle/489142.html#/
+存储过程 函数 用于在数据库中完成特定的操作或任务（如插入、删除等） 用于特定数据（如查询返回值） 程序头部声明用PROCEDURE 程序头部声明用FUNCTION 程序头部声明时不需要返回类型 程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句 可以使用IN/OUT/IN OUT3种参数模式 可以使用IN/OUT/IN OUT3种参数模式 可以作为独立的PL/SQL语句执行 不能独立执行，必须作为表达式的一部分调用 可以通过OUT/IN OUT返回零个或多个值 对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量 SQL语句（DML或SELECT）中不可以调用存储过程 SQL语句（DML或SELECT）中可以调用函数 优点 更快（无需再次编译） 模块性 可维护性高 节省网络传输（存储在数据库中） 更安全（存储过程控制执行权限） 存储过程创建语法 1 2 3 4 5 6 7 8 9 10 11 CREATE [OR REPLACE] PROCEDURE pro_name [(p1 in|out 数据格式, p2 in|out 数据格式, ...)] is|as 声明部分 begin plsql代码块 exception 异常处理部分 end; 注意：
+OR REPLACE表示的是若已存在同名存储过程，则替换原内容
+形参定义中：
+参数不区分大小写，不需要DECLARE关键字
+其中参数IN表示输入参数，是参数的默认模式。入参值无法被修改。 OUT表示返回值参数，类型可以使用任意Oracle中的合法类型。 OUT模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程 IN OUT表示该参数可以向该过程中传递值，也可以将某个值传出去。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#概念">概念</a></li>
+    <li><a href="#函数和存储过程的区别">函数和存储过程的区别</a></li>
+    <li><a href="#优点">优点</a></li>
+    <li><a href="#存储过程创建语法">存储过程创建语法</a>
+      <ol>
+        <li><a href="#存储过程创建举例httpswwwcnblogscomdiandixingyunp12986482html">存储过程创建举例（https://www.cnblogs.com/diandixingyun/p/12986482.html#/）：</a></li>
+      </ol>
+    </li>
+    <li><a href="#调用存储过程">调用存储过程</a>
+      <ol>
+        <li><a href="#exec">exec</a></li>
+        <li><a href="#call">call</a></li>
+        <li><a href="#在函数中直接调用">在函数中直接调用</a></li>
+      </ol>
+    </li>
+    <li><a href="#游标的使用">游标的使用</a></li>
+    <li><a href="#存储过程的事务处理">存储过程的事务处理</a>
+      <ol>
+        <li><a href="#概念-1">概念</a></li>
+        <li><a href="#例子">例子</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" >
+                数据库
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 03, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="oracle-存储过程">ORACLE-存储过程</h1>
+<h2 id="概念">概念</h2>
+<p>存储过程(Stored Procedure)：</p>
+<p>一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。</p>
+<blockquote>
+<p>当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。</p>
+</blockquote>
+<h2 id="函数和存储过程的区别">函数和存储过程的区别</h2>
+<p><a class="link" href="https://www.php.cn/oracle/489142.html#/"  target="_blank" rel="noopener"
+    >https://www.php.cn/oracle/489142.html#/</a></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th><strong>存储过程</strong></th>
+<th><strong>函数</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用于在数据库中完成特定的操作或任务（如插入、删除等）</td>
+<td>用于特定数据（如查询返回值）</td>
+</tr>
+<tr>
+<td>程序头部声明用PROCEDURE</td>
+<td>程序头部声明用FUNCTION</td>
+</tr>
+<tr>
+<td>程序头部声明时不需要返回类型</td>
+<td>程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句</td>
+</tr>
+<tr>
+<td>可以使用IN/OUT/IN OUT3种参数模式</td>
+<td>可以使用IN/OUT/IN OUT3种参数模式</td>
+</tr>
+<tr>
+<td>可以作为独立的PL/SQL语句执行</td>
+<td>不能独立执行，必须作为表达式的一部分调用</td>
+</tr>
+<tr>
+<td>可以通过OUT/IN OUT返回零个或多个值</td>
+<td>对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量</td>
+</tr>
+<tr>
+<td>SQL语句（DML或SELECT）中不可以调用存储过程</td>
+<td>SQL语句（DML或SELECT）中可以调用函数</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="优点">优点</h2>
+<ul>
+<li>更快（无需再次编译）</li>
+<li>模块性</li>
+<li>可维护性高</li>
+<li>节省网络传输（存储在数据库中）</li>
+<li>更安全（存储过程控制执行权限）</li>
+</ul>
+<h2 id="存储过程创建语法">存储过程创建语法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="p">]</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">pro_name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[(</span><span class="n">p1</span><span class="w"> </span><span class="k">in</span><span class="o">|</span><span class="k">out</span><span class="w"> </span><span class="err">数据格式</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="k">in</span><span class="o">|</span><span class="k">out</span><span class="w"> </span><span class="err">数据格式</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">...)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">is</span><span class="o">|</span><span class="k">as</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="err">声明部分</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">plsql代码块</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">exception</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="err">异常处理部分</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：</p>
+<ol>
+<li>
+<p><code>OR REPLACE</code>表示的是若已存在同名存储过程，则替换原内容</p>
+</li>
+<li>
+<p>形参定义中：</p>
+<p>参数不区分大小写，不需要<code>DECLARE</code>关键字</p>
+<blockquote>
+<p>其中参数IN表示输入参数，是参数的<strong>默认模式</strong>。入参值无法被修改。
+OUT表示返回值参数，类型可以使用任意Oracle中的合法类型。
+OUT模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程
+<strong>IN OUT</strong>表示该参数可以向该过程中传递值，也可以将某个值传出去。</p>
+</blockquote>
+</li>
+<li>
+<p>声明部分：用于存储过程使用到的变量声明 <a class="link" href="https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/</a></p>
+<p><strong>声明的三种方法</strong></p>
+<ul>
+<li>直接声明数据类型，如<code>p1 varchar2(60)</code>或<code>p2 number(2)</code></li>
+<li>沿用数据表中某数据字段类型<code>%TYPE</code>，如<code>p1 table1.filed1%TYPE</code></li>
+<li>沿用数据表中的所有数据类型<code>%ROWTYPE</code>，如<code>p1 table1%ROWTYPE</code></li>
+</ul>
+</li>
+<li>
+<p>存储过程中的字段赋值</p>
+<p><strong>赋值的三种方法</strong></p>
+<ul>
+<li>
+<p>直接赋值<code>:=</code>，如<code>v_sql varchar2(100) := 'SELECT STUDENT_NAME FROM STUDENT where orgcode=to_char(410621101233)';</code></p>
+</li>
+<li>
+<p><code>select 字段名 into 变量 from 表名</code></p>
+<p>1、查询某字段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">ORGSEQ</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">V_ORGSEQ</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">BASE_ORG_INFO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ORGID</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">PARENTORGID</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">BASE_ORG_INFO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ORGID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">V_ORGID</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、查询表所有字段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">V_ROW_VIRTUAL_CARD</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">VIRTUAL_CARD</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5120</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：*<em>查询结果只能返回一条记录</em></p>
+</li>
+<li>
+<p><code>execute immediate sql into 变量</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">v_sql</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;SELECT ORGSEQ FROM BASE_ORG_INFO where orgcode=to_char(410621101233)&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">execute</span><span class="w"> </span><span class="k">immediate</span><span class="w"> </span><span class="n">v_sql</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">V_ORGSEQ</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">V_ORGSEQ</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">END</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p>异常处理：Oralce有3种异常处理方式（<em><strong>待学 TODO</strong></em>）</p>
+</li>
+</ol>
+<h3 id="存储过程创建举例httpswwwcnblogscomdiandixingyunp12986482html">存储过程创建举例（https://www.cnblogs.com/diandixingyun/p/12986482.html#/）：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="n">sp_score_pm</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">p_in_stuid</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">varchar2</span><span class="p">,</span><span class="w">   </span><span class="c1">--学号    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p_in_courseid</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">varchar2</span><span class="p">,</span><span class="w"> </span><span class="c1">--课程ID
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p_out_pm</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="nb">number</span><span class="w">      </span><span class="c1">--排名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">is</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ls_score</span><span class="w"> </span><span class="nb">number</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ls_pm</span><span class="w"> </span><span class="nb">number</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">--获取该学生的成绩
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">ls_score</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">stuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_in_stuid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">courseid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_in_courseid</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">--获取成绩比该学生高的人数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">ls_pm</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">courseid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p_in_courseid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">and</span><span class="w">  </span><span class="n">t</span><span class="p">.</span><span class="n">score</span><span class="o">&gt;</span><span class="n">ls_score</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">--得到该学生的成绩排名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">   </span><span class="n">p_out_pm</span><span class="p">:</span><span class="o">=</span><span class="n">ls_pm</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">exception</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">when</span><span class="w"> </span><span class="n">no_data_found</span><span class="w">  </span><span class="k">then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">&#39;该学生的课程：&#39;</span><span class="o">||</span><span class="n">p_in_courseid</span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;的成绩在成绩表中找不到&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="调用存储过程">调用存储过程</h2>
+<h3 id="exec">exec</h3>
+<p>仅支持在sqlplus中使用</p>
+<h3 id="call">call</h3>
+<p>在所有工具中都可以使用</p>
+<h3 id="在函数中直接调用">在函数中直接调用</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">fun</span><span class="p">();</span><span class="w"> </span><span class="c1">-- 调用存储过程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="游标的使用">游标的使用</h2>
+<p>TODO</p>
+<h2 id="存储过程的事务处理">存储过程的事务处理</h2>
+<p>参考 <a class="link" href="https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/</a></p>
+<h3 id="概念-1">概念</h3>
+<p>事务：确保数据的<strong>一致性</strong>，由一些DML语句组成，要么都执行，要么都不执行</p>
+<p>命令：</p>
+<ul>
+<li>COMMIT</li>
+<li>SAVEPOINT</li>
+<li>ROLLBACK</li>
+<li>ROLLBACK TO SAVEPOINT</li>
+</ul>
+<h3 id="例子">例子</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="n">stu_proc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">varchar2</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v_age</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">number</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v_msg</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="n">varchar2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">student</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">sname</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="n">v_id</span><span class="p">,</span><span class="w"> </span><span class="n">v_name</span><span class="p">,</span><span class="w"> </span><span class="n">v_age</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">commit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v_msg</span><span class="p">:</span><span class="o">=</span><span class="s1">&#39;添加成功&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">exception</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">when</span><span class="w"> </span><span class="n">others</span><span class="w"> </span><span class="k">then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">rollback</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">v_msg</span><span class="p">:</span><span class="o">=</span><span class="s1">&#39;失败成功&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">RAISE_APPLICATION_ERROR</span><span class="p">(</span><span class="o">-</span><span class="mi">20010</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ERROR：违反唯一索引约束！&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>非存储过程的事务处理例子 <a class="link" href="https://www.cnblogs.com/zengyu1234/p/15391621.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/zengyu1234/p/15391621.html#/</a>  ：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">--使用事务控制银行转账业务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">declare</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mc</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span><span class="o">=</span><span class="s1">&#39;转账成功&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mf</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span><span class="o">=</span><span class="s1">&#39;转账失败&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">err_exception</span><span class="w"> </span><span class="k">exception</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">pragma</span><span class="w"> </span><span class="n">exception_init</span><span class="p">(</span><span class="n">err_exception</span><span class="p">,</span><span class="o">-</span><span class="mi">2290</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">--向转入账户的交易记录表中插入一条交易记录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">   </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">business</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">seq_emp</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">systimestamp</span><span class="p">,</span><span class="mi">288</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">--向转出账户的交易记录表中插入一条交易记录
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">   </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">business</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">seq_emp</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">systimestamp</span><span class="p">,</span><span class="mi">287</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">--更新转入方账户余额（+20000）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">   </span><span class="k">update</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">balance</span><span class="o">+</span><span class="mi">10000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">288</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">--更新转出方账户余额（-20000）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">   </span><span class="k">update</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">balance</span><span class="o">-</span><span class="mi">10000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">287</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">commit</span><span class="p">;</span><span class="c1">-- 提交事务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">mc</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">exception</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">err_exception</span><span class="w"> </span><span class="k">then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">rollback</span><span class="p">;</span><span class="w"> </span><span class="c1">--撤销所有事务操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">mf</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">aaa</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">--事务执行中部分撤销
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">declare</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span><span class="o">=</span><span class="s1">&#39;0不能做除数&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">zer_err</span><span class="w"> </span><span class="k">exception</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">pragma</span><span class="w"> </span><span class="n">exception_init</span><span class="p">(</span><span class="n">zer_err</span><span class="p">,</span><span class="o">-</span><span class="mi">1476</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">begin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">aaa</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;呼伦贝尔&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">insert_point</span><span class="p">;</span><span class="c1">--设置一个保存点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="mi">56</span><span class="o">/</span><span class="mi">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">commit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">exception</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">zer_err</span><span class="w"> </span><span class="k">then</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">rollback</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">insert_point</span><span class="p">;</span><span class="c1">--撤销到保存点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="n">me</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="mi">56</span><span class="o">/</span><span class="mi">0</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="c1">--查看错误代码
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考链接">参考链接</h2>
+<p><a class="link" href="https://blog.csdn.net/weixin_41968788/article/details/83659164#/"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/weixin_41968788/article/details/83659164#/</a></p>
+<p><a class="link" href="https://www.cnblogs.com/inmeditation/p/12090574.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/inmeditation/p/12090574.html#/</a></p>
+<p><a class="link" href="https://www.cnblogs.com/diandixingyun/p/12986482.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/diandixingyun/p/12986482.html#/</a></p>
+<p><a class="link" href="https://www.cnblogs.com/taiguyiba/p/7809310.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/taiguyiba/p/7809310.html#/</a></p>
+<p><a class="link" href="https://www.cnblogs.com/dersome/p/14304205.html#/"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/dersome/p/14304205.html#/</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql修改root密码</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">oracle-&gt;mysql数据迁移数据事项</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql导入导出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库分页查询</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库日志基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Linux-安装Oracle数据库 安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
+背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
+正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，
+1 2 3 4 5 6 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ ps -ef | grep oracle cindy 26709 26624 0 20:22 pts/0 00:00:00 grep --color=auto oracle [cindy@iZbp15qc4wmx335c268l5mZ ~]$ id oracle id: oracle: no such user [cindy@iZbp15qc4wmx335c268l5mZ ~]$ rpm -qa | grep oracle # 查看以rpm包安装的软件列表 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ yum list installed | grep oracle # 查看以yum安装的软件列表 步骤概览 参考 http://www.javashuo.com/article/p-sbcnrnqx-gr.html
+安装swap分区 安装oracle依赖包 建立用户/用户组 在外面下载oralce包并传到linux oracle安装 安装swap分区 oracle安装需要swap分区，所以先检查下是否已有swap分区。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 [root@iZbp15qc4wmx335c268l5mZ ~]# free total used free shared buff/cache available Mem: 964136 425288 172940 304 365908 366360 Swap: 1049596 303616 745980 [root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/fstab # # /etc/fstab # Created by anaconda on Mon Sep 14 07:14:22 2020 # # Accessible filesystems, by reference, are maintained under &amp;#39;/dev/disk&amp;#39; # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info # UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 / ext4 defaults 1 1 /www/swap swap swap defaults 0 0 看起来是已有的，如果没有，可参考链接的方式创建。'>
+<title>Linux-安装Oracle</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/linux-%E5%AE%89%E8%A3%85oracle/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Linux-安装Oracle'>
+<meta property='og:description' content='Linux-安装Oracle数据库 安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
+背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
+正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，
+1 2 3 4 5 6 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ ps -ef | grep oracle cindy 26709 26624 0 20:22 pts/0 00:00:00 grep --color=auto oracle [cindy@iZbp15qc4wmx335c268l5mZ ~]$ id oracle id: oracle: no such user [cindy@iZbp15qc4wmx335c268l5mZ ~]$ rpm -qa | grep oracle # 查看以rpm包安装的软件列表 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ yum list installed | grep oracle # 查看以yum安装的软件列表 步骤概览 参考 http://www.javashuo.com/article/p-sbcnrnqx-gr.html
+安装swap分区 安装oracle依赖包 建立用户/用户组 在外面下载oralce包并传到linux oracle安装 安装swap分区 oracle安装需要swap分区，所以先检查下是否已有swap分区。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 [root@iZbp15qc4wmx335c268l5mZ ~]# free total used free shared buff/cache available Mem: 964136 425288 172940 304 365908 366360 Swap: 1049596 303616 745980 [root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/fstab # # /etc/fstab # Created by anaconda on Mon Sep 14 07:14:22 2020 # # Accessible filesystems, by reference, are maintained under &amp;#39;/dev/disk&amp;#39; # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info # UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 / ext4 defaults 1 1 /www/swap swap swap defaults 0 0 看起来是已有的，如果没有，可参考链接的方式创建。'>
+<meta property='og:url' content='https://huangxindi.com/p/linux-%E5%AE%89%E8%A3%85oracle/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据库' /><meta property='article:published_time' content='2022-08-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-08-02T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Linux-安装Oracle">
+<meta name="twitter:description" content="Linux-安装Oracle数据库 安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
+背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
+正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，
+1 2 3 4 5 6 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ ps -ef | grep oracle cindy 26709 26624 0 20:22 pts/0 00:00:00 grep --color=auto oracle [cindy@iZbp15qc4wmx335c268l5mZ ~]$ id oracle id: oracle: no such user [cindy@iZbp15qc4wmx335c268l5mZ ~]$ rpm -qa | grep oracle # 查看以rpm包安装的软件列表 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ yum list installed | grep oracle # 查看以yum安装的软件列表 步骤概览 参考 http://www.javashuo.com/article/p-sbcnrnqx-gr.html
+安装swap分区 安装oracle依赖包 建立用户/用户组 在外面下载oralce包并传到linux oracle安装 安装swap分区 oracle安装需要swap分区，所以先检查下是否已有swap分区。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 [root@iZbp15qc4wmx335c268l5mZ ~]# free total used free shared buff/cache available Mem: 964136 425288 172940 304 365908 366360 Swap: 1049596 303616 745980 [root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/fstab # # /etc/fstab # Created by anaconda on Mon Sep 14 07:14:22 2020 # # Accessible filesystems, by reference, are maintained under &amp;#39;/dev/disk&amp;#39; # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info # UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 / ext4 defaults 1 1 /www/swap swap swap defaults 0 0 看起来是已有的，如果没有，可参考链接的方式创建。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#步骤概览">步骤概览</a></li>
+    <li><a href="#安装swap分区">安装swap分区</a></li>
+    <li><a href="#安装依赖包">安装依赖包</a></li>
+    <li><a href="#创建用户组">创建用户/组</a></li>
+    <li><a href="#关闭selinux">关闭SELINUX</a></li>
+    <li><a href="#下载oralce包并解压">下载oralce包并解压</a></li>
+    <li><a href="#oracle安装">oracle安装</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" >
+                数据库
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-%E5%AE%89%E8%A3%85oracle/">Linux-安装Oracle</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 02, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="linux-安装oracle数据库">Linux-安装Oracle数据库</h1>
+<p><strong>安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧</strong></p>
+<blockquote>
+<p>背景：我的阿里云linux服务器（CentOS  7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。</p>
+</blockquote>
+<p>正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ ps -ef <span class="p">|</span> grep oracle
+</span></span><span class="line"><span class="cl">cindy    <span class="m">26709</span> <span class="m">26624</span>  <span class="m">0</span> 20:22 pts/0    00:00:00 grep --color<span class="o">=</span>auto oracle
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ id oracle
+</span></span><span class="line"><span class="cl">id: oracle: no such user
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ rpm -qa <span class="p">|</span> grep oracle <span class="c1"># 查看以rpm包安装的软件列表</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cindy@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ yum list installed <span class="p">|</span> grep oracle  <span class="c1"># 查看以yum安装的软件列表</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="步骤概览">步骤概览</h2>
+<p>参考 <a class="link" href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html"  target="_blank" rel="noopener"
+    >http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a></p>
+<ul>
+<li>安装swap分区</li>
+<li>安装oracle依赖包</li>
+<li>建立用户/用户组</li>
+<li>在外面下载oralce包并传到linux</li>
+<li>oracle安装</li>
+</ul>
+<h2 id="安装swap分区">安装swap分区</h2>
+<p>oracle安装需要swap分区，所以先检查下是否已有swap分区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># free</span>
+</span></span><span class="line"><span class="cl">              total        used        free      shared  buff/cache   available
+</span></span><span class="line"><span class="cl">Mem:         <span class="m">964136</span>      <span class="m">425288</span>      <span class="m">172940</span>         <span class="m">304</span>      <span class="m">365908</span>      <span class="m">366360</span>
+</span></span><span class="line"><span class="cl">Swap:       <span class="m">1049596</span>      <span class="m">303616</span>      <span class="m">745980</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># cat /etc/fstab</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/fstab</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Created by anaconda on Mon Sep 14 07:14:22 2020</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Accessible filesystems, by reference, are maintained under &#39;/dev/disk&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="nv">UUID</span><span class="o">=</span>9f2d3e15-a78a-4f3d-8385-0165b4b67864 /                       ext4    defaults        <span class="m">1</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">/www/swap    swap    swap    defaults    <span class="m">0</span> <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看起来是已有的，如果没有，可参考链接的方式创建。</p>
+<h2 id="安装依赖包">安装依赖包</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># yum -y install  gcc gcc-c++ make binutils compat-libstdc++-33 glibc glibc-devel libaio libaio-devel libgcc libstdc++ libstdc++-devel unixODBC unixODBC-devel sysstat ksh</span>
+</span></span><span class="line"><span class="cl">... <span class="c1"># 安装细节省略</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Installed:
+</span></span><span class="line"><span class="cl">  compat-libstdc++-33.x86_64 0:3.2.3-72.el7          ksh.x86_64 0:20120801-143.el7_9          unixODBC.x86_64 0:2.3.1-14.el7         
+</span></span><span class="line"><span class="cl">  unixODBC-devel.x86_64 0:2.3.1-14.el7              
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Updated:
+</span></span><span class="line"><span class="cl">  binutils.x86_64 0:2.27-44.base.el7_9.1          glibc.x86_64 0:2.17-326.el7_9          glibc-devel.x86_64 0:2.17-326.el7_9         
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Dependency Updated:
+</span></span><span class="line"><span class="cl">  glibc.i686 0:2.17-326.el7_9 glibc-common.x86_64 0:2.17-326.el7_9 glibc-headers.x86_64 0:2.17-326.el7_9 nscd.x86_64 0:2.17-326.el7_9
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Complete!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>root用户执行。最后会列出Installed，Updated，Dependency Updated。</p>
+<h2 id="创建用户组">创建用户/组</h2>
+<p>首先看下已有的用户和组，以免出现重复。没有与要创建的用户/组重名的，so放心安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cat /etc/passwd  <span class="c1"># 查看所有用户</span>
+</span></span><span class="line"><span class="cl">cat /etc/group  <span class="c1"># 查看所有组</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建用户组<code>oinstall</code>,<code>dba</code>，创建用户<code>oracle</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># groupadd -g 200 oinstall  # 组id设为200</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># groupadd -g 201 dba</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># useradd -u 440 -g oinstall -G dba oracle  # 创建oracle用户，指定uid为400</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># passwd oracle  # 设置oracle密码</span>
+</span></span><span class="line"><span class="cl">Changing password <span class="k">for</span> user oracle.
+</span></span><span class="line"><span class="cl">New password: 
+</span></span><span class="line"><span class="cl">Retype new password: 
+</span></span><span class="line"><span class="cl">passwd: all authentication tokens updated successfully.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># id oracle</span>
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>440<span class="o">(</span>oracle<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>200<span class="o">(</span>oinstall<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>200<span class="o">(</span>oinstall<span class="o">)</span>,201<span class="o">(</span>dba<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="关闭selinux">关闭SELINUX</h2>
+<p>oracle是需要关闭SELINUX的，至于为什么要关闭，或者说能否不要关闭，只需合适的设置即可，这部分后面有空了再说。先查看目前是否是关闭的（以下给了三种方法）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># cat /etc/selinux/config</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This file controls the state of SELinux on the system.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SELINUX= can take one of these three values:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     enforcing - SELinux security policy is enforced.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     permissive - SELinux prints warnings instead of enforcing.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     disabled - No SELinux policy is loaded.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SELINUX</span><span class="o">=</span>disabled
+</span></span><span class="line"><span class="cl"><span class="c1"># SELINUXTYPE= can take one of three values:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     targeted - Targeted processes are protected,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     minimum - Modification of targeted policy. Only selected processes are protected. </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     mls - Multi Level Security protection.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">SELINUXTYPE</span><span class="o">=</span>targeted
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># /usr/sbin/sestatus -v</span>
+</span></span><span class="line"><span class="cl">SELinux status:                 disabled
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span><span class="c1"># getenforce</span>
+</span></span><span class="line"><span class="cl">Disabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若当前是开启的，则需要关闭</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">setenforce <span class="m">0</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="下载oralce包并解压">下载oralce包并解压</h2>
+<p>官网只能看到最新版的下载包，我想安装的11g版本的不好找。。。于是找到网盘资源( <a class="link" href="https://blog.csdn.net/m0_53166211/article/details/121524069"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/m0_53166211/article/details/121524069</a> )来下载</p>
+<blockquote>
+<p>安装oracle的目录磁盘空间要充足，否则会安装oracle失败（大于4G）</p>
+</blockquote>
+<p>例如，可以新建目录<code>/app/oracle</code>并把压缩包放入并解压</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># ls -l /app/oracle</span>
+</span></span><span class="line"><span class="cl">total <span class="m">2295600</span>
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">1239269270</span> Aug  <span class="m">6</span> 11:34 linux.x64_11gR2_database_1of2.zip
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">1111416131</span> Aug  <span class="m">6</span> 11:36 linux.x64_11gR2_database_2of2.zip
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ home<span class="o">]</span><span class="c1"># cd /app/oracle</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ oracle<span class="o">]</span><span class="c1"># unzip linux.x64_11gR2_database_1of2.zip</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ oracle<span class="o">]</span><span class="c1"># unzip linux.x64_11gR2_database_2of2.zip</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ oracle<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">2295604</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">8</span> root root       <span class="m">4096</span> Aug <span class="m">21</span>  <span class="m">2009</span> database  <span class="c1"># 解压内容在这</span>
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">1239269270</span> Aug  <span class="m">6</span> 11:34 linux.x64_11gR2_database_1of2.zip
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root <span class="m">1111416131</span> Aug  <span class="m">6</span> 11:36 linux.x64_11gR2_database_2of2.zip
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ oracle<span class="o">]</span><span class="c1"># cd database</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ database<span class="o">]</span><span class="c1"># ls -l</span>
+</span></span><span class="line"><span class="cl">total <span class="m">36</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">12</span> root root <span class="m">4096</span> Aug <span class="m">17</span>  <span class="m">2009</span> doc
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">4</span> root root <span class="m">4096</span> Aug <span class="m">15</span>  <span class="m">2009</span> install
+</span></span><span class="line"><span class="cl">drwxrwxr-x  <span class="m">2</span> root root <span class="m">4096</span> Aug <span class="m">15</span>  <span class="m">2009</span> response
+</span></span><span class="line"><span class="cl">drwxr-xr-x  <span class="m">2</span> root root <span class="m">4096</span> Aug <span class="m">15</span>  <span class="m">2009</span> rpm
+</span></span><span class="line"><span class="cl">-rwxr-xr-x  <span class="m">1</span> root root <span class="m">3226</span> Aug <span class="m">15</span>  <span class="m">2009</span> runInstaller
+</span></span><span class="line"><span class="cl">drwxrwxr-x  <span class="m">2</span> root root <span class="m">4096</span> Aug <span class="m">15</span>  <span class="m">2009</span> sshsetup
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">14</span> root root <span class="m">4096</span> Aug <span class="m">15</span>  <span class="m">2009</span> stage
+</span></span><span class="line"><span class="cl">-rw-r--r--  <span class="m">1</span> root root <span class="m">5402</span> Aug <span class="m">18</span>  <span class="m">2009</span> welcome.html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="oracle安装">oracle安装</h2>
+<p>在此之前，还需要修改下/app/oracle/database/response/db_install.rsp`文件。修改内容参考 <a class="link" href="https://blog.csdn.net/csd_nuser/article/details/110089960"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/csd_nuser/article/details/110089960</a> 和 <a class="link" href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html"  target="_blank" rel="noopener"
+    >http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a> 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim db_install.rsp <span class="c1"># 以下为可参考的【http://www.javashuo.com/article/p-sbcnrnqx-gr.html】的修改内容，修改内容以具体情况和需求为准</span>
+</span></span><span class="line"><span class="cl">oracle.install.responseFileVersion<span class="o">=</span>/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
+</span></span><span class="line"><span class="cl">oracle.install.option<span class="o">=</span>INSTALL_DB_SWONLY
+</span></span><span class="line"><span class="cl"><span class="nv">ORACLE_HOSTNAME</span><span class="o">=</span>能够写本机地址
+</span></span><span class="line"><span class="cl"><span class="nv">UNIX_GROUP_NAME</span><span class="o">=</span>oinstall
+</span></span><span class="line"><span class="cl"><span class="nv">INVENTORY_LOCATION</span><span class="o">=</span>/app/oracle/oraInventory
+</span></span><span class="line"><span class="cl"><span class="nv">SELECTED_LANGUAGES</span><span class="o">=</span>zh_CN,en
+</span></span><span class="line"><span class="cl"><span class="nv">ORACLE_HOME</span><span class="o">=</span>/app/oracle/product/11.2.0/db_1
+</span></span><span class="line"><span class="cl"><span class="nv">ORACLE_BASE</span><span class="o">=</span>/app/oracle
+</span></span><span class="line"><span class="cl">oracle.install.db.InstallEdition<span class="o">=</span>EE
+</span></span><span class="line"><span class="cl">oracle.install.db.isCustomInstall<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.DBA_GROUP<span class="o">=</span>dba
+</span></span><span class="line"><span class="cl">oracle.install.db.OPER_GROUP<span class="o">=</span>oinstall
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.type<span class="o">=</span>GENERAL_PURPOSE
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.globalDBName<span class="o">=</span>orcl
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.SID<span class="o">=</span>orcl
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.characterSet<span class="o">=</span>AL32UTF8
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.memoryOption<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.memoryLimit<span class="o">=</span><span class="m">512</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.installExampleSchemas<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.enableSecuritySettings<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.password.ALL<span class="o">=</span>oracle2018
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.control<span class="o">=</span>DB_CONTROL
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl">oracle.install.db.config.starterdb.automatedBackup.enable<span class="o">=</span><span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="nv">DECLINE_SECURITY_UPDATES</span><span class="o">=</span><span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>root@iZbp15qc4wmx335c268l5mZ response<span class="o">]</span><span class="c1"># vim /app/oracle/database/response/db_install.rsp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 参考修改参数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>登陆<strong>oracle用户</strong>，进行正式安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>oracle@iZbp15qc4wmx335c268l5mZ ~<span class="o">]</span>$ <span class="nb">cd</span> /app/oracle/database
+</span></span><span class="line"><span class="cl"><span class="o">[</span>oracle@iZbp15qc4wmx335c268l5mZ database<span class="o">]</span>$ ./runInstaller -silent -responseFile /app/oracle/database/response/db_install.rsp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装过程杯具了，记录报错：</p>
+<p>1、Unable to create directory.等报错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>oracle@iZbp15qc4wmx335c268l5mZ database<span class="o">]</span>$ ./runInstaller -silent -responseFile /app/oracle/database/response/db_install.rsp
+</span></span><span class="line"><span class="cl">Starting Oracle Universal Installer...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Checking Temp space: must be greater than <span class="m">120</span> MB.   Actual <span class="m">19429</span> MB    Passed
+</span></span><span class="line"><span class="cl">Checking swap space: must be greater than <span class="m">150</span> MB.   Actual <span class="m">729</span> MB    Passed
+</span></span><span class="line"><span class="cl">Preparing to launch Oracle Universal Installer from /tmp/OraInstall2022-08-06_11-53-42AM. Please <span class="nb">wait</span> ...<span class="o">[</span>oracle@iZbp15qc4wmx335c268l5mZ database<span class="o">]</span>$ <span class="o">[</span>FATAL<span class="o">]</span> <span class="o">[</span>INS-32012<span class="o">]</span> Unable to create directory.
+</span></span><span class="line"><span class="cl">   CAUSE: Either proper permissions were not granted to create the directory or there was no space left in the volume.
+</span></span><span class="line"><span class="cl">   ACTION: Check your permission on the selected directory or choose another directory.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>FATAL<span class="o">]</span> <span class="o">[</span>INS-32021<span class="o">]</span> Insufficient disk space on this volume <span class="k">for</span> the selected Oracle home.
+</span></span><span class="line"><span class="cl">   CAUSE: The selected Oracle home was on a volume without enough disk space.
+</span></span><span class="line"><span class="cl">   ACTION: Choose a location <span class="k">for</span> Oracle home that has enough space <span class="o">(</span>minimum of 4,397MB<span class="o">)</span> or free up space on the existing volume.
+</span></span><span class="line"><span class="cl">A log of this session is currently saved as: /tmp/OraInstall2022-08-06_11-53-42AM/installActions2022-08-06_11-53-42AM.log. Oracle recommends that <span class="k">if</span> you want to keep this log, you should move it from the temporary location to a more permanent location.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 根据提示查看 /tmp/OraInstall2022-08-06_11-53-42AM 下面的日志</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><font color='red'>可能是空间不足。。。先放着，后面有缘再解决</font></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a class="link" href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html"  target="_blank" rel="noopener"
+    >http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a></p>
+<p><a class="link" href="https://blog.csdn.net/csd_nuser/article/details/110089960"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/csd_nuser/article/details/110089960</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql修改root密码</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">oracle-&gt;mysql数据迁移数据事项</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql导入导出</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库分页查询</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据库日志基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。 错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。 异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
+常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
+或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：
+异常类	说明 ClassCastException	类型转换异常 ArrayIndexOutOfBoundsException	数组越界异常 NegativeArraySizeException	指定数组维数为负值异常 ArithmeticException	算数异常 InternalException	Java系统内部异常 NullPointerException	空指针异常 IllegalAccessException	类定义不明确所产生的异常 IOException	一般情况下不能完成I/O操作产生的异常 EOFException	打开文件没有数据可以读取的异常 FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常 ClassNotFoundException	找不到类或接口所产生的异常 CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常
+异常处理 方法1：捕获处理 try&#43;catch(&#43;finally)
+1 2 3 4 5 6 7 try { xxx; //程序 } catch (ExceptionName e) { xxx; //捕获异常时的处理 } finally { xxx; //最终执行的代码块 } 若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用Exception e。'>
+<title>异常的处理</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='异常的处理'>
+<meta property='og:description' content='异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。 错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。 异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
+常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
+或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：
+异常类	说明 ClassCastException	类型转换异常 ArrayIndexOutOfBoundsException	数组越界异常 NegativeArraySizeException	指定数组维数为负值异常 ArithmeticException	算数异常 InternalException	Java系统内部异常 NullPointerException	空指针异常 IllegalAccessException	类定义不明确所产生的异常 IOException	一般情况下不能完成I/O操作产生的异常 EOFException	打开文件没有数据可以读取的异常 FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常 ClassNotFoundException	找不到类或接口所产生的异常 CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常
+异常处理 方法1：捕获处理 try&#43;catch(&#43;finally)
+1 2 3 4 5 6 7 try { xxx; //程序 } catch (ExceptionName e) { xxx; //捕获异常时的处理 } finally { xxx; //最终执行的代码块 } 若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用Exception e。'>
+<meta property='og:url' content='https://huangxindi.com/p/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-06-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="异常的处理">
+<meta name="twitter:description" content="异常的处理 分类 异常（Exception） 运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。 非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。 错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。 异常的层次 Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）
+常见内置异常类 Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 https://www.runoob.com/java/java-exceptions.html#/
+或者链接 https://blog.csdn.net/Pandafz1997/article/details/119898686#/ 给出的：
+异常类	说明 ClassCastException	类型转换异常 ArrayIndexOutOfBoundsException	数组越界异常 NegativeArraySizeException	指定数组维数为负值异常 ArithmeticException	算数异常 InternalException	Java系统内部异常 NullPointerException	空指针异常 IllegalAccessException	类定义不明确所产生的异常 IOException	一般情况下不能完成I/O操作产生的异常 EOFException	打开文件没有数据可以读取的异常 FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常 ClassNotFoundException	找不到类或接口所产生的异常 CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常
+异常处理 方法1：捕获处理 try&#43;catch(&#43;finally)
+1 2 3 4 5 6 7 try { xxx; //程序 } catch (ExceptionName e) { xxx; //捕获异常时的处理 } finally { xxx; //最终执行的代码块 } 若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用Exception e。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#分类">分类</a></li>
+    <li><a href="#异常的层次">异常的层次</a></li>
+    <li><a href="#常见内置异常类">常见内置异常类</a></li>
+    <li><a href="#异常处理">异常处理</a>
+      <ol>
+        <li><a href="#方法1捕获处理">方法1：捕获处理</a>
+          <ol>
+            <li><a href="#多重捕获">多重捕获</a></li>
+          </ol>
+        </li>
+        <li><a href="#方法2抛出异常">方法2：抛出异常</a></li>
+      </ol>
+    </li>
+    <li><a href="#常用方法">常用方法</a></li>
+    <li><a href="#自定义异常">自定义异常</a></li>
+    <li><a href="#try-with-resources">Try-With-Resources</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java/" >
+                Java
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">异常的处理</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 04, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="异常的处理">异常的处理</h1>
+<h2 id="分类">分类</h2>
+<ul>
+<li>异常（Exception）
+<ul>
+<li>运行时异常RuntimeException（不受检异常）：此类异常编译器不检查，一般是程序逻辑错误引起的，可捕获处理，也可不处理。如NullPointerException、ArrayIndexOutBoundException。</li>
+<li>非运行时异常/编译时异常（受检异常）：编译器检查此类异常，并且强制要做处理（捕获或抛出）。如IOException。</li>
+</ul>
+</li>
+<li>错误（Error）：非代码性错误，与异常不同的是，这类错误是程序无法处理的。此类错误发生时，JVM将终止线程。如Virtual MachineError（虚拟机运行错误）、NoClassDefFoundError（类定义错误）。</li>
+</ul>
+<h2 id="异常的层次">异常的层次</h2>
+<p>Exception和Error都继承自Throwable类。层次图可见下图（列出主要的异常类）</p>
+<p><img src="http://cdn.huangxindi.com/img/exception-hierarchy.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+></p>
+<h2 id="常见内置异常类">常见内置异常类</h2>
+<p>Java 语言定义了一些异常类在 java.lang 标准包中。主要分类可见 <a class="link" href="https://www.runoob.com/java/java-exceptions.html#/"  target="_blank" rel="noopener"
+    >https://www.runoob.com/java/java-exceptions.html#/</a></p>
+<p>或者链接 <a class="link" href="https://blog.csdn.net/Pandafz1997/article/details/119898686#/"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/Pandafz1997/article/details/119898686#/</a> 给出的：</p>
+<p>异常类	说明
+ClassCastException	类型转换异常
+ArrayIndexOutOfBoundsException	数组越界异常
+NegativeArraySizeException	指定数组维数为负值异常
+ArithmeticException	算数异常
+InternalException	Java系统内部异常
+NullPointerException	空指针异常
+IllegalAccessException	类定义不明确所产生的异常
+IOException	一般情况下不能完成I/O操作产生的异常
+EOFException	打开文件没有数据可以读取的异常
+FileNotFoundException	在文件系统中找不到文件路径或文件名称时的异常
+ClassNotFoundException	找不到类或接口所产生的异常
+CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所产生的异常</p>
+<h2 id="异常处理">异常处理</h2>
+<h3 id="方法1捕获处理">方法1：捕获处理</h3>
+<p>try+catch(+finally)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//最终执行的代码块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若指定捕获特定的异常类，则在catch中指定异常类；若要捕获任意异常，则直接用<code>Exception e</code>。</p>
+<p>finally不是必须的，包含无论是否发生异常都会被执行到的代码块（一般包含清理类型等收尾善后性质的语句）。</p>
+<blockquote>
+<p>有4种特殊情况，finally块不会被执行：</p>
+<ul>
+<li>finally语句块中发生了异常</li>
+<li>前面的代码中执行了System.exit()退出程序</li>
+<li>程序中所在的线程死亡</li>
+<li>关闭CPU</li>
+</ul>
+<p>需要注意的是，就算try块中有return，也会先执行完finally再return。</p>
+<p>当try中抛出异常且catch中有return语句，finally中没有return语句，java先执行catch中非return语句，再执行finally语句，最后执行return语句。若try中没有抛出异常，则程序不会执行catch体里面的语句，java先执行try中非return语句，再执行finally语句，最后再执行try中的return语句。</p>
+<p>但是：finally中有return时，会覆盖掉try和catch中的return。</p>
+<p>如果finally中定义的数据是基本数据类型或文本字符串，则在finally中对该基本数据的改变不起作用，try中的return语句依然会返回进入finally块中之前保存的值；如果finally中定义的数据是是引用类型，则finally中的语句会起作用，try中return语句的值就是在finally中改变后该属性的值。</p>
+<p>以上举例见：https://blog.csdn.net/Pandafz1997/article/details/119898686#/</p>
+</blockquote>
+<p>try不能单独存在，必须跟上catch或finally。</p>
+<h4 id="多重捕获">多重捕获</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName1</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常1时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionName2</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//捕获异常2时的处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行逻辑：依次匹配异常，当匹配到该异常或尝试匹配完所有异常后，停止匹配。</p>
+<blockquote>
+<p>通常，为捕获到所有可能出现的异常，可以在处理异常的末尾，加上Exception 类，这样即可以使所有异常都被捕捉到，也可以防止想捕获具体异常时被它提前捕获。</p>
+</blockquote>
+<h3 id="方法2抛出异常">方法2：抛出异常</h3>
+<p>throw（用于抛出异常），throws（用在方法签名中，用于声明该方法可能抛出的异常）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ExceptionName1</span><span class="o">,</span> <span class="n">ExceptionName2</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span> <span class="c1">//可能抛出异常的代码块
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若指定抛出特定的异常类，则在throws后面指定异常类；若要抛出任意异常，则直接用<code>Exception</code>。可抛出多个异常类，用逗号隔开（如上）。</p>
+<p>若要在执行代码块中手动抛出异常，格式为：<code>throw new 异常类名(参数)；</code>。<strong>通常用于抛出自定义的异常类</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">fun</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ArithmeticException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="n">ArithmeticException</span><span class="o">(</span><span class="s">&#34;异常信息：除数不能为0&#34;</span><span class="o">);</span><span class="c1">//抛出具体问题，编译时不检测
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>throw</code><strong>在方法体中</strong>，程序会在throw语句后立即终止，它后面的语句执行不到（后面的语句写了也会编译不通过）。</p>
+<p>try+catch(+finally) 和 throw 并不是互斥的，两者可以结合使用。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xxx</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="n">ExceptionName1</span><span class="o">(</span><span class="s">&#34;eMessage&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">catch</span> <span class="o">....</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在finally语句块中有return语句，finally语句可以让throw和return共存。</p>
+<p>注意：调用方法必须遵循一个原则：若覆盖一个方法，则不能声明与覆盖方法不同的异常，声明的任何异常必须是被覆盖方法所声明异常的同类或子类。如下例子（https://blog.csdn.net/Pandafz1997/article/details/119898686#/）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example6_3</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span><span class="c1">//合法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//编译错误，必须捕获或声明抛出IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method2</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  	<span class="c1">//编译错误，必须捕获或声明抛出IOException或其父类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOError</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出Exception，Exception是IOException的父类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method4</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，捕获IOException
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method5</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//编译错误，必须捕获或声明抛出Exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method6</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//合法，声明抛出Exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">method7</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">method1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">Exception</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用方法">常用方法</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>1</th>
+<th><strong>public String getMessage()</strong>  返回关于发生的异常的详细信息。这个消息在Throwable 类的构造函数中初始化了。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><strong>public Throwable getCause()</strong> 返回一个 Throwable 对象代表异常原因。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public String toString()</strong> 返回此 Throwable 的简短描述。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public void printStackTrace()</strong> 将此 Throwable 及其回溯打印到标准错误流。。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public StackTraceElement [] getStackTrace()</strong> 返回一个包含堆栈层次的数组。下标为0的元素代表栈顶，最后一个元素代表方法调用堆栈的栈底。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public Throwable fillInStackTrace()</strong> 用当前的调用栈层次填充Throwable 对象栈层次，添加到栈层次任何先前信息中。</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="自定义异常">自定义异常</h2>
+<h2 id="try-with-resources">Try-With-Resources</h2>
+<h2 id="参考链接">参考链接</h2>
+<p><a class="link" href="https://blog.csdn.net/Pandafz1997/article/details/119898686#/"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/Pandafz1997/article/details/119898686#/</a></p>
+<p><a class="link" href="https://www.runoob.com/java/java-exceptions.html#/"  target="_blank" rel="noopener"
+    >https://www.runoob.com/java/java-exceptions.html#/</a></p>
+<p><a class="link" href="https://blog.csdn.net/java_cxrs/article/details/91661623#/"  target="_blank" rel="noopener"
+    >https://blog.csdn.net/java_cxrs/article/details/91661623#/</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java基础之IO流</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">编译期常量</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Java基础之Calendar日历类</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%AE%A4%E8%AF%86jar%E5%8C%85/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">认识Jar包</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">文档注释</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
