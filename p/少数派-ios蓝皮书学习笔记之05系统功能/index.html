@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='教程来自少数派：https://sspai.com/series/277/list
+本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。
+通知 被动通知：并不需要及时关注的通知，例如淘宝商家给用户发送的定期商品折扣信息 主动通知（默认）：用户可能想知道的，例如最喜欢的体育比赛的最新比分 即时通知：需要人们立刻注意的通知，例如账户安全问题或最新快递动态 重要警告：直接影响用户并需要他们立即关注的关于健康和安全的紧急信息 这里的四种通知描述并不对等 iOS 有四种通知类型，严格来说 iOS 中只有两种通知类型，一种是重要警告，其他三种类型在 iOS 上的通知设置没有区别，都可以理解为普通通知。 重要警告上文未提及，但也是最容易理解的通知类型，这类通知极其罕见，一般是来自政府和公共机构或健康应用程序，比如极端天气预警和地震警告等，即使用户的设备静音也应该由系统通过声音强制提醒到用户以规避危险。 「即时通知」是比较容易让用户混淆的，即时通知跟重要警告都可以绕过用户的定时摘要和专注模式做到始终立即通知的效果，但区别在于重要警告可以绕过静音设置发出通知声音
+屏幕使用时间 内容与隐私访问限制模式： 可以限制应用的安装和删除、系统应用的使用、定位和蓝牙功能的权限等等，在把手机交给老人小孩时可用 为屏幕使用时间设置密码： 给屏幕使用时间功能设置密码，可以控制自己修改或是控制家人修改屏幕使用时间，达到自律或安全的效果 家人共享：
+与你设备上的「屏幕使用时间」功能一样，你可以查看你孩子的设备使用情况，或者为 Ta 设置 「app 限额」「停用时间」和「限定通信」等限制，孩子设备发出的屏幕使用时间申请会显示在信息 app 中，方便你准许或拒绝。
+聚焦 在聚焦的搜索输入框中，不仅可以实现搜索app或文件的需求，还能快捷完成一些操作。如：
+快捷设置计时器时间 打开专注模式 Shazam 查找歌名 简单计算 币种换算，如地区设置为中国大陆，则输入100美元，可以自动换算出折合人民币的价格。 查询单词 单位换算：比如键入「30C」或是「100F」，你可以实时得到摄氏度和华氏度之间的换算结果；同理，输入「100 厘米」则可以获得厘米与英寸的换算、输入「10 公斤」则可以获得公斤与磅之间的换算结果 对于不想在聚焦搜索中搜索的应用内容，可以在设置 &amp;gt; Siri 与搜索中关闭该应用的在搜索中显示内容的设置。
+此外，部分应用诸如 1Password、欧陆词典等出于安全性或易用性考虑，也会在其应用内部的设置当中提供「是否开启聚焦搜索」的开关。
+账户与密码 检测可能被泄露的密码： 「检测已泄漏的密码」功能会监控在网络上泄漏的密码库并且与你的密码比对。如果发现你的密码有泄漏的可能，iCloud 钥匙串会提醒你尽快更改密码，防止账号被盗。
+Apple Pay 与钱包 钱包Wallet ：通过钱包中管理的 Apple Pay 或者凭证，你可以使用银行卡进行无接触支付、使用交通卡乘坐地铁或公交、甚至是解锁门禁和汽车、查看预定的电影票。
+所在的城市暂时没出交通卡咋办？ 使用交通联合卡！
+只要你的城市支持交通联合卡，你就可以开通其他城市的交通卡，并在当地使用。你可以在下图或者微信公众号「交通联合官方服务号」的「城市名单」菜单中查看受支持的城市列表。
+设置快捷交通卡：
+你可以在设置 &amp;gt; 钱包与 Apple Pay &amp;gt; 快捷交通卡里设置你常用的交通卡为「快捷交通卡」。设置好快捷交通卡，在通过闸机或读卡器时，无需进入点亮屏幕或打开钱包，只需要将手机顶部靠近读卡器即可进行支付。'>
+<title>「少数派-IOS蓝皮书」学习笔记之05系统功能</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='「少数派-IOS蓝皮书」学习笔记之05系统功能'>
+<meta property='og:description' content='教程来自少数派：https://sspai.com/series/277/list
+本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。
+通知 被动通知：并不需要及时关注的通知，例如淘宝商家给用户发送的定期商品折扣信息 主动通知（默认）：用户可能想知道的，例如最喜欢的体育比赛的最新比分 即时通知：需要人们立刻注意的通知，例如账户安全问题或最新快递动态 重要警告：直接影响用户并需要他们立即关注的关于健康和安全的紧急信息 这里的四种通知描述并不对等 iOS 有四种通知类型，严格来说 iOS 中只有两种通知类型，一种是重要警告，其他三种类型在 iOS 上的通知设置没有区别，都可以理解为普通通知。 重要警告上文未提及，但也是最容易理解的通知类型，这类通知极其罕见，一般是来自政府和公共机构或健康应用程序，比如极端天气预警和地震警告等，即使用户的设备静音也应该由系统通过声音强制提醒到用户以规避危险。 「即时通知」是比较容易让用户混淆的，即时通知跟重要警告都可以绕过用户的定时摘要和专注模式做到始终立即通知的效果，但区别在于重要警告可以绕过静音设置发出通知声音
+屏幕使用时间 内容与隐私访问限制模式： 可以限制应用的安装和删除、系统应用的使用、定位和蓝牙功能的权限等等，在把手机交给老人小孩时可用 为屏幕使用时间设置密码： 给屏幕使用时间功能设置密码，可以控制自己修改或是控制家人修改屏幕使用时间，达到自律或安全的效果 家人共享：
+与你设备上的「屏幕使用时间」功能一样，你可以查看你孩子的设备使用情况，或者为 Ta 设置 「app 限额」「停用时间」和「限定通信」等限制，孩子设备发出的屏幕使用时间申请会显示在信息 app 中，方便你准许或拒绝。
+聚焦 在聚焦的搜索输入框中，不仅可以实现搜索app或文件的需求，还能快捷完成一些操作。如：
+快捷设置计时器时间 打开专注模式 Shazam 查找歌名 简单计算 币种换算，如地区设置为中国大陆，则输入100美元，可以自动换算出折合人民币的价格。 查询单词 单位换算：比如键入「30C」或是「100F」，你可以实时得到摄氏度和华氏度之间的换算结果；同理，输入「100 厘米」则可以获得厘米与英寸的换算、输入「10 公斤」则可以获得公斤与磅之间的换算结果 对于不想在聚焦搜索中搜索的应用内容，可以在设置 &amp;gt; Siri 与搜索中关闭该应用的在搜索中显示内容的设置。
+此外，部分应用诸如 1Password、欧陆词典等出于安全性或易用性考虑，也会在其应用内部的设置当中提供「是否开启聚焦搜索」的开关。
+账户与密码 检测可能被泄露的密码： 「检测已泄漏的密码」功能会监控在网络上泄漏的密码库并且与你的密码比对。如果发现你的密码有泄漏的可能，iCloud 钥匙串会提醒你尽快更改密码，防止账号被盗。
+Apple Pay 与钱包 钱包Wallet ：通过钱包中管理的 Apple Pay 或者凭证，你可以使用银行卡进行无接触支付、使用交通卡乘坐地铁或公交、甚至是解锁门禁和汽车、查看预定的电影票。
+所在的城市暂时没出交通卡咋办？ 使用交通联合卡！
+只要你的城市支持交通联合卡，你就可以开通其他城市的交通卡，并在当地使用。你可以在下图或者微信公众号「交通联合官方服务号」的「城市名单」菜单中查看受支持的城市列表。
+设置快捷交通卡：
+你可以在设置 &amp;gt; 钱包与 Apple Pay &amp;gt; 快捷交通卡里设置你常用的交通卡为「快捷交通卡」。设置好快捷交通卡，在通过闸机或读卡器时，无需进入点亮屏幕或打开钱包，只需要将手机顶部靠近读卡器即可进行支付。'>
+<meta property='og:url' content='https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='少数派-IOS蓝皮书' /><meta property='article:published_time' content='2023-03-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-03-25T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="「少数派-IOS蓝皮书」学习笔记之05系统功能">
+<meta name="twitter:description" content="教程来自少数派：https://sspai.com/series/277/list
+本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。
+通知 被动通知：并不需要及时关注的通知，例如淘宝商家给用户发送的定期商品折扣信息 主动通知（默认）：用户可能想知道的，例如最喜欢的体育比赛的最新比分 即时通知：需要人们立刻注意的通知，例如账户安全问题或最新快递动态 重要警告：直接影响用户并需要他们立即关注的关于健康和安全的紧急信息 这里的四种通知描述并不对等 iOS 有四种通知类型，严格来说 iOS 中只有两种通知类型，一种是重要警告，其他三种类型在 iOS 上的通知设置没有区别，都可以理解为普通通知。 重要警告上文未提及，但也是最容易理解的通知类型，这类通知极其罕见，一般是来自政府和公共机构或健康应用程序，比如极端天气预警和地震警告等，即使用户的设备静音也应该由系统通过声音强制提醒到用户以规避危险。 「即时通知」是比较容易让用户混淆的，即时通知跟重要警告都可以绕过用户的定时摘要和专注模式做到始终立即通知的效果，但区别在于重要警告可以绕过静音设置发出通知声音
+屏幕使用时间 内容与隐私访问限制模式： 可以限制应用的安装和删除、系统应用的使用、定位和蓝牙功能的权限等等，在把手机交给老人小孩时可用 为屏幕使用时间设置密码： 给屏幕使用时间功能设置密码，可以控制自己修改或是控制家人修改屏幕使用时间，达到自律或安全的效果 家人共享：
+与你设备上的「屏幕使用时间」功能一样，你可以查看你孩子的设备使用情况，或者为 Ta 设置 「app 限额」「停用时间」和「限定通信」等限制，孩子设备发出的屏幕使用时间申请会显示在信息 app 中，方便你准许或拒绝。
+聚焦 在聚焦的搜索输入框中，不仅可以实现搜索app或文件的需求，还能快捷完成一些操作。如：
+快捷设置计时器时间 打开专注模式 Shazam 查找歌名 简单计算 币种换算，如地区设置为中国大陆，则输入100美元，可以自动换算出折合人民币的价格。 查询单词 单位换算：比如键入「30C」或是「100F」，你可以实时得到摄氏度和华氏度之间的换算结果；同理，输入「100 厘米」则可以获得厘米与英寸的换算、输入「10 公斤」则可以获得公斤与磅之间的换算结果 对于不想在聚焦搜索中搜索的应用内容，可以在设置 &amp;gt; Siri 与搜索中关闭该应用的在搜索中显示内容的设置。
+此外，部分应用诸如 1Password、欧陆词典等出于安全性或易用性考虑，也会在其应用内部的设置当中提供「是否开启聚焦搜索」的开关。
+账户与密码 检测可能被泄露的密码： 「检测已泄漏的密码」功能会监控在网络上泄漏的密码库并且与你的密码比对。如果发现你的密码有泄漏的可能，iCloud 钥匙串会提醒你尽快更改密码，防止账号被盗。
+Apple Pay 与钱包 钱包Wallet ：通过钱包中管理的 Apple Pay 或者凭证，你可以使用银行卡进行无接触支付、使用交通卡乘坐地铁或公交、甚至是解锁门禁和汽车、查看预定的电影票。
+所在的城市暂时没出交通卡咋办？ 使用交通联合卡！
+只要你的城市支持交通联合卡，你就可以开通其他城市的交通卡，并在当地使用。你可以在下图或者微信公众号「交通联合官方服务号」的「城市名单」菜单中查看受支持的城市列表。
+设置快捷交通卡：
+你可以在设置 &amp;gt; 钱包与 Apple Pay &amp;gt; 快捷交通卡里设置你常用的交通卡为「快捷交通卡」。设置好快捷交通卡，在通过闸机或读卡器时，无需进入点亮屏幕或打开钱包，只需要将手机顶部靠近读卡器即可进行支付。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ios/" style="background-color: #2a9d8f; color: #fff;">
+                IOS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/">「少数派-IOS蓝皮书」学习笔记之05系统功能</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 25, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>教程来自少数派：https://sspai.com/series/277/list</p>
+<p>本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。</p>
+</blockquote>
+<hr>
+<h1 id="通知">通知</h1>
+<ul>
+<li>被动通知：并不需要及时关注的通知，例如淘宝商家给用户发送的定期商品折扣信息</li>
+<li>主动通知（默认）：用户可能想知道的，例如最喜欢的体育比赛的最新比分</li>
+<li>即时通知：需要人们立刻注意的通知，例如账户安全问题或最新快递动态</li>
+<li>重要警告：直接影响用户并需要他们立即关注的关于健康和安全的紧急信息</li>
+</ul>
+<blockquote>
+<p>这里的四种通知描述并不对等 iOS 有四种通知类型，严格来说 iOS 中只有两种通知类型，一种是重要警告，其他三种类型在 iOS 上的通知设置没有区别，都可以理解为普通通知。
+重要警告上文未提及，但也是最容易理解的通知类型，这类通知极其罕见，一般是来自政府和公共机构或健康应用程序，比如极端天气预警和地震警告等，即使用户的设备静音也应该由系统通过声音强制提醒到用户以规避危险。
+「即时通知」是比较容易让用户混淆的，即时通知跟重要警告都可以绕过用户的定时摘要和专注模式做到始终立即通知的效果，但区别在于重要警告可以绕过静音设置发出通知声音</p>
+</blockquote>
+<h1 id="屏幕使用时间">屏幕使用时间</h1>
+<p><strong>内容与隐私访问限制模式：</strong>
+可以限制应用的安装和删除、系统应用的使用、定位和蓝牙功能的权限等等，在把手机交给老人小孩时可用
+<strong>为屏幕使用时间设置密码：</strong>
+给屏幕使用时间功能设置密码，可以控制自己修改或是控制家人修改屏幕使用时间，达到自律或安全的效果
+<strong>家人共享：</strong></p>
+<blockquote>
+<p>与你设备上的「屏幕使用时间」功能一样，你可以查看你孩子的设备使用情况，或者为 Ta 设置 「app 限额」「停用时间」和「限定通信」等限制，孩子设备发出的屏幕使用时间申请会显示在信息 app 中，方便你准许或拒绝。</p>
+</blockquote>
+<h1 id="聚焦">聚焦</h1>
+<p>在聚焦的搜索输入框中，不仅可以实现搜索app或文件的需求，还能快捷完成一些操作。如：</p>
+<ul>
+<li>快捷设置计时器时间</li>
+<li>打开专注模式</li>
+<li>Shazam 查找歌名</li>
+<li>简单计算</li>
+<li>币种换算，如地区设置为中国大陆，则输入100美元，可以自动换算出折合人民币的价格。</li>
+<li>查询单词</li>
+<li>单位换算：<code>比如键入「30C」或是「100F」，你可以实时得到摄氏度和华氏度之间的换算结果；同理，输入「100 厘米」则可以获得厘米与英寸的换算、输入「10 公斤」则可以获得公斤与磅之间的换算结果</code></li>
+</ul>
+<p>对于不想在聚焦搜索中搜索的应用内容，可以在<code>设置 &gt; Siri 与搜索</code>中关闭该应用的在搜索中显示内容的设置。</p>
+<blockquote>
+<p>此外，部分应用诸如 1Password、欧陆词典等出于安全性或易用性考虑，也会在其应用内部的设置当中提供「是否开启聚焦搜索」的开关。</p>
+</blockquote>
+<h1 id="账户与密码">账户与密码</h1>
+<p>检测可能被泄露的密码：
+「检测已泄漏的密码」功能会监控在网络上泄漏的密码库并且与你的密码比对。如果发现你的密码有泄漏的可能，iCloud 钥匙串会提醒你尽快更改密码，防止账号被盗。</p>
+<h1 id="apple-pay-与钱包">Apple Pay 与钱包</h1>
+<p>钱包Wallet ：通过钱包中管理的 Apple Pay 或者凭证，你可以使用银行卡进行无接触支付、使用交通卡乘坐地铁或公交、甚至是解锁门禁和汽车、查看预定的电影票。</p>
+<p>所在的城市暂时没出交通卡咋办？
+使用交通联合卡！</p>
+<blockquote>
+<p>只要你的城市支持交通联合卡，你就可以开通<strong>其他城市</strong>的交通卡，并在当地使用。你可以在下图或者微信公众号「交通联合官方服务号」的「城市名单」菜单中查看受支持的城市列表。</p>
+</blockquote>
+<p>设置快捷交通卡：</p>
+<blockquote>
+<p>你可以在<code>设置 &gt; 钱包与 Apple Pay &gt; 快捷交通卡</code>里设置你常用的交通卡为「快捷交通卡」。设置好快捷交通卡，在通过闸机或读卡器时，无需进入点亮屏幕或打开钱包，只需要将手机顶部靠近读卡器即可进行支付。</p>
+</blockquote>
+<p>手机没电后，甚至可以在最多5小时内，借助手机的备用电量刷卡</p>
+<h1 id="隐私与定位权限">隐私与定位权限</h1>
+<p>安全检查：</p>
+<blockquote>
+<p>iOS 16 新增的「安全检查」隐私设置可帮助遭受<strong>家庭暴力或亲密关系暴力</strong>的人们快速重设之前授予他人的权限，还能帮你管理已授予过权限的人和 App。我们希望所有人用不到此类功能，但如果感知到任何危险可以借助此功能快速规避隐私风险，保护自身安全。</p>
+</blockquote>
+<p>1、紧急重设：</p>
+<ul>
+<li>用户与 App：确保 iPhone 不再与任何人或应用程序共享任何位置数据、照片库等，确保认可的设备才能登录您的 Apple ID，支持远程注销的任何设备并从中删除 Apple ID。</li>
+<li>账户安全性：确保帐户已设置（或删除）受信任的电话号码，用以接收关键的验证信息等。</li>
+<li>紧急联系人：确保紧急联系人可信任，如果使用 iPhone 的紧急 SOS 功能，这些联系人将收到通知。</li>
+</ul>
+<p>2、管理共享与访问权限</p>
+<h1 id="辅助功能">辅助功能</h1>
+<p>打开白噪音</p>
+<blockquote>
+<p>进入 <code>设置 &gt; 辅助功能 &gt; 音频 / 视觉 &gt; 背景音</code> 打开开关，就能得到一段白噪音了。如果想要更方面地启用，还可以在 <code>设置 &gt; 控制中心</code> 把「听觉」加入到控制中心。</p>
+</blockquote>
+<h1 id="键盘与文本编辑">键盘与文本编辑</h1>
+<p>选择文件：双击选择词，三击选择段落</p>
+<p>跨应用拖放：比如长按图片或文字，另一只手切换到另一个app（如备忘录），放手即放置</p>
+<p>连续输入大写字母：点击⬆️图标，只能输入一个大写字母。双击⬆️图标，则会进入固定输入大写字母的模式。</p>
+<p>关于自动补句号的功能：连续输入两个空格会自动转化句号，但是如果大部分场景不需要这种功能的话，反而还得手动删除句号。可以通过设置 &gt; 通用 &gt; 键盘关闭此功能。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6/">少数派-IOS蓝皮书</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B03%E7%94%9F%E6%B4%BB%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">「少数派-IOS蓝皮书」学习笔记之03生活篇</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B04%E8%AE%A4%E8%AF%86ios/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">「少数派-IOS蓝皮书」学习笔记之04认识iOS</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B00%E7%9B%AE%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">「少数派-IOS蓝皮书」学习笔记之00目录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B01%E5%88%9B%E4%BD%9C%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">「少数派-IOS蓝皮书」学习笔记之01创作篇</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B02%E6%95%88%E7%8E%87%E7%AF%87/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">「少数派-IOS蓝皮书」学习笔记之02效率篇</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

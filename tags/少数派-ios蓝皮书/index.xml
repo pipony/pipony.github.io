@@ -6,8 +6,94 @@
         <description>Recent content in 少数派-IOS蓝皮书 on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 18 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>「「少数派-IOS蓝皮书」学习笔记之03生活篇</title>
+        <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「少数派-IOS蓝皮书」学习笔记之05系统功能</title>
+        <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/</link>
+        <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/277/list&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;通知&#34;&gt;通知&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;被动通知：并不需要及时关注的通知，例如淘宝商家给用户发送的定期商品折扣信息&lt;/li&gt;
+&lt;li&gt;主动通知（默认）：用户可能想知道的，例如最喜欢的体育比赛的最新比分&lt;/li&gt;
+&lt;li&gt;即时通知：需要人们立刻注意的通知，例如账户安全问题或最新快递动态&lt;/li&gt;
+&lt;li&gt;重要警告：直接影响用户并需要他们立即关注的关于健康和安全的紧急信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这里的四种通知描述并不对等 iOS 有四种通知类型，严格来说 iOS 中只有两种通知类型，一种是重要警告，其他三种类型在 iOS 上的通知设置没有区别，都可以理解为普通通知。
+重要警告上文未提及，但也是最容易理解的通知类型，这类通知极其罕见，一般是来自政府和公共机构或健康应用程序，比如极端天气预警和地震警告等，即使用户的设备静音也应该由系统通过声音强制提醒到用户以规避危险。
+「即时通知」是比较容易让用户混淆的，即时通知跟重要警告都可以绕过用户的定时摘要和专注模式做到始终立即通知的效果，但区别在于重要警告可以绕过静音设置发出通知声音&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;屏幕使用时间&#34;&gt;屏幕使用时间&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;内容与隐私访问限制模式：&lt;/strong&gt;
+可以限制应用的安装和删除、系统应用的使用、定位和蓝牙功能的权限等等，在把手机交给老人小孩时可用
+&lt;strong&gt;为屏幕使用时间设置密码：&lt;/strong&gt;
+给屏幕使用时间功能设置密码，可以控制自己修改或是控制家人修改屏幕使用时间，达到自律或安全的效果
+&lt;strong&gt;家人共享：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;与你设备上的「屏幕使用时间」功能一样，你可以查看你孩子的设备使用情况，或者为 Ta 设置 「app 限额」「停用时间」和「限定通信」等限制，孩子设备发出的屏幕使用时间申请会显示在信息 app 中，方便你准许或拒绝。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;聚焦&#34;&gt;聚焦&lt;/h1&gt;
+&lt;p&gt;在聚焦的搜索输入框中，不仅可以实现搜索app或文件的需求，还能快捷完成一些操作。如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;快捷设置计时器时间&lt;/li&gt;
+&lt;li&gt;打开专注模式&lt;/li&gt;
+&lt;li&gt;Shazam 查找歌名&lt;/li&gt;
+&lt;li&gt;简单计算&lt;/li&gt;
+&lt;li&gt;币种换算，如地区设置为中国大陆，则输入100美元，可以自动换算出折合人民币的价格。&lt;/li&gt;
+&lt;li&gt;查询单词&lt;/li&gt;
+&lt;li&gt;单位换算：&lt;code&gt;比如键入「30C」或是「100F」，你可以实时得到摄氏度和华氏度之间的换算结果；同理，输入「100 厘米」则可以获得厘米与英寸的换算、输入「10 公斤」则可以获得公斤与磅之间的换算结果&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于不想在聚焦搜索中搜索的应用内容，可以在&lt;code&gt;设置 &amp;gt; Siri 与搜索&lt;/code&gt;中关闭该应用的在搜索中显示内容的设置。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此外，部分应用诸如 1Password、欧陆词典等出于安全性或易用性考虑，也会在其应用内部的设置当中提供「是否开启聚焦搜索」的开关。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;账户与密码&#34;&gt;账户与密码&lt;/h1&gt;
+&lt;p&gt;检测可能被泄露的密码：
+「检测已泄漏的密码」功能会监控在网络上泄漏的密码库并且与你的密码比对。如果发现你的密码有泄漏的可能，iCloud 钥匙串会提醒你尽快更改密码，防止账号被盗。&lt;/p&gt;
+&lt;h1 id=&#34;apple-pay-与钱包&#34;&gt;Apple Pay 与钱包&lt;/h1&gt;
+&lt;p&gt;钱包Wallet ：通过钱包中管理的 Apple Pay 或者凭证，你可以使用银行卡进行无接触支付、使用交通卡乘坐地铁或公交、甚至是解锁门禁和汽车、查看预定的电影票。&lt;/p&gt;
+&lt;p&gt;所在的城市暂时没出交通卡咋办？
+使用交通联合卡！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;只要你的城市支持交通联合卡，你就可以开通&lt;strong&gt;其他城市&lt;/strong&gt;的交通卡，并在当地使用。你可以在下图或者微信公众号「交通联合官方服务号」的「城市名单」菜单中查看受支持的城市列表。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;设置快捷交通卡：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你可以在&lt;code&gt;设置 &amp;gt; 钱包与 Apple Pay &amp;gt; 快捷交通卡&lt;/code&gt;里设置你常用的交通卡为「快捷交通卡」。设置好快捷交通卡，在通过闸机或读卡器时，无需进入点亮屏幕或打开钱包，只需要将手机顶部靠近读卡器即可进行支付。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;手机没电后，甚至可以在最多5小时内，借助手机的备用电量刷卡&lt;/p&gt;
+&lt;h1 id=&#34;隐私与定位权限&#34;&gt;隐私与定位权限&lt;/h1&gt;
+&lt;p&gt;安全检查：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;iOS 16 新增的「安全检查」隐私设置可帮助遭受&lt;strong&gt;家庭暴力或亲密关系暴力&lt;/strong&gt;的人们快速重设之前授予他人的权限，还能帮你管理已授予过权限的人和 App。我们希望所有人用不到此类功能，但如果感知到任何危险可以借助此功能快速规避隐私风险，保护自身安全。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;1、紧急重设：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户与 App：确保 iPhone 不再与任何人或应用程序共享任何位置数据、照片库等，确保认可的设备才能登录您的 Apple ID，支持远程注销的任何设备并从中删除 Apple ID。&lt;/li&gt;
+&lt;li&gt;账户安全性：确保帐户已设置（或删除）受信任的电话号码，用以接收关键的验证信息等。&lt;/li&gt;
+&lt;li&gt;紧急联系人：确保紧急联系人可信任，如果使用 iPhone 的紧急 SOS 功能，这些联系人将收到通知。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2、管理共享与访问权限&lt;/p&gt;
+&lt;h1 id=&#34;辅助功能&#34;&gt;辅助功能&lt;/h1&gt;
+&lt;p&gt;打开白噪音&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;进入 &lt;code&gt;设置 &amp;gt; 辅助功能 &amp;gt; 音频 / 视觉 &amp;gt; 背景音&lt;/code&gt; 打开开关，就能得到一段白噪音了。如果想要更方面地启用，还可以在 &lt;code&gt;设置 &amp;gt; 控制中心&lt;/code&gt; 把「听觉」加入到控制中心。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;键盘与文本编辑&#34;&gt;键盘与文本编辑&lt;/h1&gt;
+&lt;p&gt;选择文件：双击选择词，三击选择段落&lt;/p&gt;
+&lt;p&gt;跨应用拖放：比如长按图片或文字，另一只手切换到另一个app（如备忘录），放手即放置&lt;/p&gt;
+&lt;p&gt;连续输入大写字母：点击⬆️图标，只能输入一个大写字母。双击⬆️图标，则会进入固定输入大写字母的模式。&lt;/p&gt;
+&lt;p&gt;关于自动补句号的功能：连续输入两个空格会自动转化句号，但是如果大部分场景不需要这种功能的话，反而还得手动删除句号。可以通过设置 &amp;gt; 通用 &amp;gt; 键盘关闭此功能。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>「少数派-IOS蓝皮书」学习笔记之03生活篇</title>
         <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B03%E7%94%9F%E6%B4%BB%E7%AF%87/</link>
         <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
         
@@ -67,12 +153,17 @@
 </description>
         </item>
         <item>
-        <title>「「少数派-IOS蓝皮书」学习笔记之04认识iOS</title>
+        <title>「少数派-IOS蓝皮书」学习笔记之04认识iOS</title>
         <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B04%E8%AE%A4%E8%AF%86ios/</link>
         <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B04%E8%AE%A4%E8%AF%86ios/</guid>
-        <description>&lt;h1 id=&#34;主屏幕&#34;&gt;主屏幕&lt;/h1&gt;
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/277/list&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;主屏幕&#34;&gt;主屏幕&lt;/h1&gt;
 &lt;p&gt;今日视图（负一屏）无需解锁即可查看，直接在锁屏处右划即可查看&lt;/p&gt;
 &lt;h1 id=&#34;硬件按钮与手势&#34;&gt;硬件按钮与手势&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&#34;https://cdn.sspai.com/2022/09/29/article/5abc7a713c7099fd9c48801612332647?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1&#34;
@@ -103,6 +194,55 @@
 	
 	
 &gt;&lt;/p&gt;
+&lt;h1 id=&#34;siri&#34;&gt;siri&lt;/h1&gt;
+&lt;p&gt;没啥特殊的用法，主要有两点特别的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以通过设置使用打字来和siri沟通&lt;/li&gt;
+&lt;li&gt;打电话手不方便挂电话时，可以召唤siri来挂电话&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;apple-watch解锁&#34;&gt;Apple watch解锁&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过手表解锁后，如果这时候手机并不在自己手上，而是在其他人手上，而 iPhone 又通过 Apple Watch 被解锁了，可以立即点击 Apple Watch 上的「&lt;strong&gt;锁定 iPhone&lt;/strong&gt;」按钮再次锁定 iPhone 屏幕。而且在这次锁定之后，Face ID 和 Apple Watch 两种解锁方式将被禁用，只允许通过输入密码进行解锁，防止再次误解锁。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;网络功能设置&#34;&gt;网络功能设置&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;控制中心可以直接关闭wifi。但是此处的「断开」并非关闭无线局域网功能，而是暂时不连接 Wi-Fi。一般来说，它会在第二天之前保持断开状态，到第了第二天则会自动加入附近连接过的 Wi-Fi。如果需要完全关闭 Wi-Fi 功能，则需要前往「设置 &amp;gt; 无线局域网」中关闭「无线局域网」开关。（蓝牙同理）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;私有地址设置：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MAC 地址可以用于标识设备，并在互联网上追踪当前设备的访问情况，在「设置 &amp;gt; 通用 &amp;gt; 关于本机」里的「无线局域网地址」就是当前设备的 MAC 地址。
+从 iOS 8 开始，苹果便为 iOS 加入了「私有地址」功能来保护用户的 MAC 地址。在 &lt;code&gt;设置 &amp;gt; 无线局域网&lt;/code&gt; 中，点击 Wi-Fi 右侧 ⓘ 按钮进入详情页，即可看到「私有地址」的开关。打开「私有地址」后，设备会为每个 Wi-Fi 网络随机生成一个 MAC 地址，用于保护真实的 MAC 地址。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;配置代理：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 &lt;code&gt;设置 &amp;gt; 无线局域网&lt;/code&gt; 中，点击 Wi-Fi 右侧的 ⓘ 进入详情页面，随后点击「配置代理」即可进入配置页面。将代理选项修改为「手动」，并按照需求填写服务器和端口即可。
+以网络抓包为例，在同个网络中有一台 MacBook 开放了 8888 端口用于连接。这时，只需要将该 MacBook 的局域网 IP 和 8888 端口填入对应的输入框并保存，即可连接至 MacBook 作为代理服务器。在 MacBook 上，通过抓包软件就可以看到 iOS 设备上的数据流量。
+在完成网络代理的任务后，请记得将代理配置恢复为「关闭」。否则在代理服务器关闭后，iOS 设备可能会出现无法上网的情况。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;WAPI功能&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WAPI 是中国制定的一套无线局域网标准，由于它使用了双向认证，相较于传统的 Wi-Fi 技术会更加安全。不过这套协议暂未被广泛支持，日常生活中支持 WAPI 功能的路由器也不多。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;个人热点的三种连接方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无线局域网&lt;/li&gt;
+&lt;li&gt;蓝牙&lt;/li&gt;
+&lt;li&gt;USB
+飞行模式：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要注意的是，打开飞行模式后，iOS 只会关闭掉蜂窝网络相关的功能，已经连接的 Wi-Fi 和蓝牙设备不会受到影响。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;显示与个性化&#34;&gt;显示与个性化&lt;/h1&gt;
+&lt;p&gt;夜览模式（iOS 9 开始引入）
+夜晚除了深色模式，可以通过设置夜览模式的时间，在夜晚屏幕会呈现暖光效果。
+原彩显示
+通过摄像头检测不同环境下的色温，通过算法动态调整 iPhone 屏幕的色温。
+夜览、深色、原彩模式可以在控制中心快捷切换。
+铃声音量调节&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;需要注意「用按钮调整」开关。在 iPhone 上音量键可以控制两种音量：铃声音量和媒体音量。打开该开关后，在没有播放媒体的情况下，音量键控制的是铃声音量。在调整铃声音量的时候，会在状态栏区域显示铃声大小。&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>

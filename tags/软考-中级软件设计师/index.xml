@@ -106,7 +106,13 @@
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;主机=CPU（运算器+控制器）+主存储器&lt;/p&gt;
+&lt;p&gt;主机=CPU（运算器+控制器）+主存储器
+控制器：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指令寄存器 IR&lt;/li&gt;
+&lt;li&gt;程序计数器 PC&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;flynn分类法&#34;&gt;Flynn分类法&lt;/h2&gt;
 &lt;p&gt;单I/多M+指令I/数据D&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220328204105460.png&#34;

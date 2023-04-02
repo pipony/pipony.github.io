@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>macOS on 2MUCH</title>
+        <link>https://huangxindi.com/categories/macos/</link>
+        <description>Recent content in macOS on 2MUCH</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/macos/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「少数派-macOS蓝皮书」学习笔记之00目录</title>
+        <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-macos%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B00%E7%9B%AE%E5%BD%95/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-macos%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B00%E7%9B%AE%E5%BD%95/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/294&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.sspai.com/2023/01/18/768825f8dcf37387fe34982f46ec03c0.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;目录1&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.sspai.com/2023/03/08/886e7d321642f36a5d130a4ee44a42f3.jpg?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;目录2&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>「少数派-macOS蓝皮书」学习笔记之01初次见面</title>
+        <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-macos%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B01%E5%88%9D%E6%AC%A1%E8%A7%81%E9%9D%A2/</link>
+        <pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-macos%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B01%E5%88%9D%E6%AC%A1%E8%A7%81%E9%9D%A2/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/294&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;程序坞与菜单栏&#34;&gt;程序坞与菜单栏&lt;/h1&gt;
+&lt;h2 id=&#34;菜单栏顶部&#34;&gt;菜单栏（顶部）&lt;/h2&gt;
+&lt;p&gt;在左侧有Apple菜单和App菜单，右侧是菜单栏应用。App菜单是由开发者设定的。有两点可以注意的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;帮助菜单，可以搜索快速找到某一个功能（本应用或系统功能）&lt;/li&gt;
+&lt;li&gt;编辑菜单，可以查看快捷键&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;菜单栏应用的显示调整：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置中选定展示的应用&lt;/li&gt;
+&lt;li&gt;按住⌘Command，可直接拖动调整位置&lt;/li&gt;
+&lt;li&gt;拖到菜单栏外面，可快捷删除显示&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;程序坞&#34;&gt;程序坞&lt;/h2&gt;
+&lt;p&gt;用分隔线分成了三块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;常用App&lt;/li&gt;
+&lt;li&gt;已启动的App&lt;/li&gt;
+&lt;li&gt;特殊应用，如下载文件夹等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接力：如在手机上打开safari，在Mac上也有相同的设备，则会自动出现，右上角有接力图标&lt;/p&gt;
+&lt;p&gt;应用的快捷菜单：
+按住 &lt;code&gt;⌃Control&lt;/code&gt; 或直接用鼠标右键点击应用图标，类似于手机长按App图标&lt;/p&gt;
+&lt;p&gt;拖放功能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将文件拖到应用上，可以直接用该应用打开&lt;/li&gt;
+&lt;li&gt;将文件放到程序坞的特殊应用区域，可以把这个文件固定到程序坞里&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
