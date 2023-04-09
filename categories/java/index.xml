@@ -145,7 +145,7 @@
 &lt;li&gt;运行期：通过.class类去创建对象、执行代码&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;参考：https://www.modb.pro/db/211851&lt;/p&gt;
-&lt;p&gt;除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」**。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: &lt;strong&gt;「编译期常量不会触发类加载」&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」。&lt;strong&gt;那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;编译期常量定义方式&#34;&gt;编译期常量定义方式&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

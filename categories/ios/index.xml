@@ -6,7 +6,62 @@
         <description>Recent content in IOS on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 25 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/ios/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/ios/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「少数派-IOS蓝皮书」学习笔记之06苹果生态</title>
+        <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B06%E8%8B%B9%E6%9E%9C%E7%94%9F%E6%80%81/</link>
+        <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B06%E8%8B%B9%E6%9E%9C%E7%94%9F%E6%80%81/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/277/list&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;icloud&#34;&gt;iCloud&lt;/h1&gt;
+&lt;p&gt;登陆网页版，可以更清楚地查看数据分布&lt;/p&gt;
+&lt;h1 id=&#34;文件&#34;&gt;文件&lt;/h1&gt;
+&lt;p&gt;操作时复制和拷贝我经常混淆：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;复制：拷贝一份到当前文件夹&lt;/li&gt;
+&lt;li&gt;拷贝：存储在剪贴板&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如何找到下载项：
+文件 - 我的iphone - 下载项&lt;/p&gt;
+&lt;p&gt;解压和压缩，在文件中都能很好支持。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;想要压缩时，长按选择文件后点击压缩，或者多选文件后&lt;code&gt;选择 &amp;gt; 更多 &amp;gt; 压缩&lt;/code&gt;，便可以轻易得到目标文件们的压缩包形式。对于绝大多社交软件而言，我们无法直接分享文件夹给他人，便可以通过「先压缩、后分享」的方式，将成批的文件分享出去。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;查找&#34;&gt;查找&lt;/h1&gt;
+&lt;p&gt;丢失模式：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设置丢失模式时，您可以填写联系电话和显示信息，他人捡到该设备后，屏幕上会呈现您填写的信息，方便他人与您联系。此处可以选择「接收电子邮件更新」，但请特别注意识别钓鱼邮件，防止 Apple ID 被盗。若您捡到其他人的物品，可以在&lt;code&gt;物品 &amp;gt; 识别找到的物品&lt;/code&gt;查看它的信息。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;若要帮他人查找设备，可&lt;code&gt;查找 &amp;gt; 我 &amp;gt; 协助朋友&lt;/code&gt;，通过网页，让他人登录Apple ID 后管理其设备。&lt;/p&gt;
+&lt;h1 id=&#34;隔空投送播放打印&#34;&gt;隔空投送、播放、打印&lt;/h1&gt;
+&lt;p&gt;隔空投送很常见了，隔空播放倒是可以好好挖掘下场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;屏幕镜像（比如手机上一些图片，需要放大分析，可以投屏到电脑上看）&lt;/li&gt;
+&lt;li&gt;内容流化到其他显示设备（原生视频或视频平台）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;同播共享与您共享&#34;&gt;同播共享、与您共享&lt;/h1&gt;
+&lt;p&gt;同播共享：可以共同音乐、视频、屏幕，利用【Facetime通话】来实现
+与您共享：某些原生应用（如safari或音乐），可以将通过【信息】分享的链接直接归到应用内的【与您共享】区域，省去了从【信息】跳转到应用的步骤。虽然很优雅，但经常使用微信的话就没法用了&lt;/p&gt;
+&lt;h1 id=&#34;watch&#34;&gt;Watch&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果你想快速为 Apple Watch 开启静音模式，也可以打开「覆屏静音」功能，你只需要在收到提醒时，将手掌覆盖在 Apple Watch 屏幕 3 秒以上，即可为它开启静音模式。Apple Watch 会通过震动告诉你已经进入静音模式。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Apple Watch 上的截屏功能也可以在 &lt;code&gt;通用&lt;/code&gt; 里设置，打开「启用截屏」的开关后，在 Apple Watch 上同时按下数码表冠和侧边按钮即可截屏，截屏会被存在 iPhone 的「照片」应用中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SOS 紧急联络中有两项设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;按住手表的侧边栏按钮进行拨号&lt;/strong&gt;：长按 Apple Watch 的侧边按钮即可进行紧急呼叫。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;摔倒检测&lt;/strong&gt;：当你意外摔倒并无法做出相应时，Apple Watch 会响起提示音并向设置好的紧急联系人发起 SOS 紧急联络。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+</description>
+        </item>
+        <item>
         <title>「少数派-IOS蓝皮书」学习笔记之05系统功能</title>
         <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B05%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD/</link>
         <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>

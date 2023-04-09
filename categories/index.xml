@@ -6,13 +6,21 @@
         <description>Recent content in Categories on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 02 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 09 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>weekly-letter</title>
         <link>https://huangxindi.com/categories/weekly-letter/</link>
-        <pubDate>Sun, 02 Apr 2023 00:00:00 +0000</pubDate>
+        <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/categories/weekly-letter/</guid>
         <description></description>
+        </item>
+        <item>
+        <title>IOS</title>
+        <link>https://huangxindi.com/categories/ios/</link>
+        <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/categories/ios/</guid>
+        <description>&lt;img src="https://huangxindi.com/categories/ios/IOS.jpg" alt="Featured image of post IOS" /&gt;</description>
         </item>
         <item>
         <title>macOS</title>
@@ -37,14 +45,6 @@
         
         <guid>https://huangxindi.com/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/</guid>
         <description></description>
-        </item>
-        <item>
-        <title>IOS</title>
-        <link>https://huangxindi.com/categories/ios/</link>
-        <pubDate>Sat, 25 Mar 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://huangxindi.com/categories/ios/</guid>
-        <description>&lt;img src="https://huangxindi.com/categories/ios/IOS.jpg" alt="Featured image of post IOS" /&gt;</description>
         </item>
         <item>
         <title>Framework</title>
