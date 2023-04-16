@@ -12,8 +12,7 @@
         <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
-        <description>&lt;h1 id=&#34;认识编码&#34;&gt;认识编码&lt;/h1&gt;
-&lt;h2 id=&#34;概念&#34;&gt;概念&lt;/h2&gt;
+        <description>&lt;h1 id=&#34;概念&#34;&gt;概念&lt;/h1&gt;
 &lt;p&gt;字符集 vs. 编码方式：编码方式就是将字符集里的字符&lt;strong&gt;映射&lt;/strong&gt;成可以被计算机识别的若干位二进制来表示。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。
@@ -31,7 +30,7 @@
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/chiguozi/p/5860364.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.cnblogs.com/chiguozi/p/5860364.html&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;字符集对比&#34;&gt;字符集对比&lt;/h2&gt;
+&lt;h1 id=&#34;字符集对比&#34;&gt;字符集对比&lt;/h1&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -74,7 +73,21 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&#34;ascii&#34;&gt;ASCII&lt;/h2&gt;
+&lt;h1 id=&#34;常见的支持中文的字符集的对比&#34;&gt;常见的支持中文的字符集的对比&lt;/h1&gt;
+&lt;p&gt;常用的支持中文的字符集有：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;GB2312&lt;/li&gt;
+&lt;li&gt;GBK&lt;/li&gt;
+&lt;li&gt;GB18030&lt;/li&gt;
+&lt;li&gt;BIG5&lt;/li&gt;
+&lt;li&gt;HZ&lt;/li&gt;
+&lt;li&gt;Unicode&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中，&lt;strong&gt;GB2312、GBK、GB18030&lt;/strong&gt;是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：&lt;code&gt;GB18030&amp;gt; GBK&amp;gt; GB2312&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;BIG5是中国台湾的中文字符集，主要用于&lt;strong&gt;繁体&lt;/strong&gt;中文的编码。&lt;/p&gt;
+&lt;p&gt;HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在&lt;strong&gt;邮件&lt;/strong&gt;中传输中文字符。&lt;/p&gt;
+&lt;p&gt;Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是&lt;strong&gt;UTF-8和UTF-16&lt;/strong&gt;。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。&lt;/p&gt;
+&lt;h1 id=&#34;ascii&#34;&gt;ASCII&lt;/h1&gt;
 &lt;p&gt;American Standard Code for Information Interchange，美国标准信息交换代码&lt;/p&gt;
 &lt;p&gt;主要用来表示英文或其他西欧语言（在扩展版中）&lt;/p&gt;
 &lt;h3 id=&#34;编码格式&#34;&gt;编码格式&lt;/h3&gt;
@@ -82,7 +95,7 @@
 &lt;li&gt;使用&lt;strong&gt;7位&lt;/strong&gt;（1字节，高位是0）表示128种字符：标准（基础）ASCII 码&lt;/li&gt;
 &lt;li&gt;使用8位表示256种字符：&lt;strong&gt;扩展&lt;/strong&gt;ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;gb2312&#34;&gt;GB2312&lt;/h2&gt;
+&lt;h1 id=&#34;gb2312&#34;&gt;GB2312&lt;/h1&gt;
 &lt;p&gt;GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是&lt;strong&gt;对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;分区表示&lt;/strong&gt;：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。&lt;/p&gt;
 &lt;ul&gt;
@@ -97,13 +110,13 @@
 &lt;h3 id=&#34;编码格式-1&#34;&gt;编码格式&lt;/h3&gt;
 &lt;p&gt;每个汉字及符号以&lt;strong&gt;两个字节&lt;/strong&gt;来表示。第一个字节称为“&lt;strong&gt;高位字节&lt;/strong&gt;”，第二个字节称为“&lt;strong&gt;低位字节&lt;/strong&gt;”。
 “高位字节”使用了&lt;code&gt;0xA1–0xF7&lt;/code&gt;（把01–87区的区号加上0xA0），“低位字节”使用了&lt;code&gt;0xA1–0xFE&lt;/code&gt;（把01–94加上0xA0）。 由于一级汉字从16区起始，汉字区的“高位字节”的范围是0xB0–0xF7，“低位字节”的范围是0xA1–0xFE。&lt;/p&gt;
-&lt;h2 id=&#34;gbk&#34;&gt;GBK&lt;/h2&gt;
+&lt;h1 id=&#34;gbk&#34;&gt;GBK&lt;/h1&gt;
 &lt;p&gt;GBK（Chinese Internal Code Extension Specification），&lt;strong&gt;汉字内码扩展规范&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;K：Kuo Zhan（扩展）的K&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;GB 2312-80只收录6763个汉字&lt;/strong&gt;，有不少汉字，如部分在GB 2312-80推出以后才简化的汉字（如“啰”），部分人名用字（如中国前总理朱镕的“镕”字），台湾及香港使用的繁体字，日语及朝鲜语汉字等，并未有收录在内。GBK对GB 2312-80进行扩展, 总计拥有 23940 个码位，&lt;strong&gt;共收录21886个汉字和图形符号&lt;/strong&gt;，其中汉字（包括部首和构件）21003 个，图形符号883 个。&lt;/p&gt;
 &lt;h3 id=&#34;编码格式-2&#34;&gt;编码格式&lt;/h3&gt;
 &lt;p&gt;GBK 亦采用&lt;strong&gt;双字节&lt;/strong&gt;表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间。&lt;strong&gt;GBK向下完全兼容GB2312-80编码&lt;/strong&gt;。支持GB2312-80编码不支持的部分中文姓，中文繁体，日文假名，还包括希腊字母以及俄语字母等字母。不过这种编码&lt;strong&gt;支持韩国字&lt;/strong&gt;，也是其在实际使用中与unicode编码相比欠缺的部分。&lt;/p&gt;
-&lt;h2 id=&#34;gb18030&#34;&gt;GB18030&lt;/h2&gt;
+&lt;h1 id=&#34;gb18030&#34;&gt;GB18030&lt;/h1&gt;
 &lt;p&gt;全称《信息技术 中文编码字符集》，是&lt;a class=&#34;link&#34; href=&#34;https://baike.baidu.com/item/%e4%b8%ad%e5%8d%8e%e4%ba%ba%e6%b0%91%e5%85%b1%e5%92%8c%e5%9b%bd?fromModule=lemma_inlink&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;中华人民共和国&lt;/a&gt;&lt;a class=&#34;link&#34; href=&#34;https://baike.baidu.com/item/%e5%9b%bd%e5%ae%b6%e6%a0%87%e5%87%86?fromModule=lemma_inlink&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;国家标准&lt;/a&gt;所规定的&lt;strong&gt;变长多字节&lt;/strong&gt;字符集。&lt;strong&gt;其对GB 2312-1980完全&lt;a class=&#34;link&#34; href=&#34;https://baike.baidu.com/item/%e5%90%91%e5%90%8e%e5%85%bc%e5%ae%b9?fromModule=lemma_inlink&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -127,7 +140,7 @@
 &lt;li&gt;双字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x40到0xFE（不包括0x7F）。&lt;/li&gt;
 &lt;li&gt;四字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x30到0x39，第三个字节从0x81到0xFE，第四个字节从0x30到0x39。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;unicode&#34;&gt;Unicode&lt;/h2&gt;
+&lt;h1 id=&#34;unicode&#34;&gt;Unicode&lt;/h1&gt;
 &lt;p&gt;称为&lt;strong&gt;万国码&lt;/strong&gt;、&lt;strong&gt;国际码&lt;/strong&gt;、&lt;strong&gt;统一码&lt;/strong&gt;、&lt;strong&gt;单一码&lt;/strong&gt;。为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。&lt;/p&gt;
 &lt;h3 id=&#34;编码格式-4&#34;&gt;编码格式&lt;/h3&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zh.wikipedia.org/wiki/UCS-2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -170,21 +183,55 @@
 &lt;h2 id=&#34;utf-32&#34;&gt;UTF-32&lt;/h2&gt;
 &lt;p&gt;固定长度的编码，始终占用 4 个字节。&lt;/p&gt;
 &lt;p&gt;因此，&lt;strong&gt;只有 UTF-8 兼容 ASCII，UTF-32 和 UTF-16 都不兼容 ASCII，因为它们没有单字节编码。&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;宽字符和窄字符多字节字符&#34;&gt;宽字符和窄字符（多字节字符）&lt;/h2&gt;
+&lt;h1 id=&#34;宽字符和窄字符多字节字符&#34;&gt;宽字符和窄字符（多字节字符）&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;有的编码方式采用 1~n 个字节存储，是变长的，例如 UTF-8、GB2312、GBK 等；如果一个字符使用了这种编码方式，我们就将它称为多字节字符，或者窄字符。&lt;/p&gt;
 &lt;p&gt;有的编码方式是固定长度的，不管字符编号大小，始终采用 n 个字节存储，例如 UTF-32、UTF-16 等；如果一个字符使用了这种编码方式，我们就将它称为宽字符。&lt;/p&gt;
 &lt;p&gt;Unicode 字符集可以使用窄字符的方式存储，也可以使用宽字符的方式存储；GB2312、GBK、Shift-JIS 等国家编码一般都使用窄字符的方式存储；ASCII 只有一个字节，无所谓窄字符和宽字符。&lt;/p&gt;
 &lt;p&gt;原文链接：https://blog.csdn.net/guxiaonuan/article/details/78678043&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;数据库中的编码知识&#34;&gt;数据库中的编码知识&lt;/h2&gt;
+&lt;h1 id=&#34;数据库中的编码知识&#34;&gt;数据库中的编码知识&lt;/h1&gt;
 &lt;p&gt;以ORACLE和MYSQL为例&lt;/p&gt;
-&lt;h3 id=&#34;查看数据库设置的编码方式&#34;&gt;查看数据库设置的编码方式&lt;/h3&gt;
-&lt;h3 id=&#34;字符串类型的编码&#34;&gt;字符串类型的编码&lt;/h3&gt;
-&lt;h4 id=&#34;oracle&#34;&gt;ORACLE&lt;/h4&gt;
+&lt;h2 id=&#34;查看数据库设置的字符集&#34;&gt;查看数据库设置的字符集&lt;/h2&gt;
+&lt;p&gt;oralce：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nls_database_parameters&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WHERE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;parameter&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIKE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;%CHARACTERSET&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 查看字符长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LENGTH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;字符串&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dual&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 查看字节长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LENGTHB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;字符串&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dual&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;mysql:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;SHOW&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VARIABLES&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LIKE&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;%character%&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 查看字符长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;CHAR_LENGTH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;字符串&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 返回2
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;-- 查看字节长度
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LENGTH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;字符串&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 返回6
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;字符串类型的编码&#34;&gt;字符串类型的编码&lt;/h2&gt;
+&lt;h3 id=&#34;oracle&#34;&gt;ORACLE&lt;/h3&gt;
 &lt;p&gt;参考： &lt;a class=&#34;link&#34; href=&#34;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&#34;mysql&#34;&gt;MYSQL&lt;/h4&gt;
+&lt;h3 id=&#34;mysql&#34;&gt;MYSQL&lt;/h3&gt;
 &lt;p&gt;可参考：https://www.bilibili.com/read/cv12600183/&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;varchar 类型最大可以存放多少个字符？&lt;/p&gt;

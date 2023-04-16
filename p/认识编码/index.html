@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
 https://www.cnblogs.com/faetbwac/p/16355273.html
 字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
 https://www.cnblogs.com/chiguozi/p/5860364.html
-字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK 常见的支持中文的字符集的对比 常用的支持中文的字符集有：
+GB2312 GBK GB18030 BIG5 HZ Unicode 其中，GB2312、GBK、GB18030是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：GB18030&amp;gt; GBK&amp;gt; GB2312。
+BIG5是中国台湾的中文字符集，主要用于繁体中文的编码。
+HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在邮件中传输中文字符。
+Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是UTF-8和UTF-16。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。
+ASCII American Standard Code for Information Interchange，美国标准信息交换代码
 主要用来表示英文或其他西欧语言（在扩展版中）
-编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
-分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
-01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。'>
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。'>
 <title>认识编码</title>
 
 <link rel='canonical' href='https://huangxindi.com/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/'>
 
 <link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='认识编码'>
-<meta property='og:description' content='认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+<meta property='og:description' content='概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
 https://www.cnblogs.com/faetbwac/p/16355273.html
 字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
 https://www.cnblogs.com/chiguozi/p/5860364.html
-字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK 常见的支持中文的字符集的对比 常用的支持中文的字符集有：
+GB2312 GBK GB18030 BIG5 HZ Unicode 其中，GB2312、GBK、GB18030是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：GB18030&amp;gt; GBK&amp;gt; GB2312。
+BIG5是中国台湾的中文字符集，主要用于繁体中文的编码。
+HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在邮件中传输中文字符。
+Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是UTF-8和UTF-16。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。
+ASCII American Standard Code for Information Interchange，美国标准信息交换代码
 主要用来表示英文或其他西欧语言（在扩展版中）
-编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
-分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
-01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。'>
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。'>
 <meta property='og:url' content='https://huangxindi.com/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/'>
 <meta property='og:site_name' content='2MUCH'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='其他' /><meta property='article:published_time' content='2022-12-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-19T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="认识编码">
-<meta name="twitter:description" content="认识编码 概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+<meta name="twitter:description" content="概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。
 https://www.cnblogs.com/faetbwac/p/16355273.html
 字符(Character) 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。 字符集(Character set) 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。 字符编码(Character encoding) 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。 字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）
 https://www.cnblogs.com/chiguozi/p/5860364.html
-字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK ASCII American Standard Code for Information Interchange，美国标准信息交换代码
+字符集对比 字符集名称 字符集范围 编码格式 备注 ASCII 英文或其他西欧语言 单字节 GB2312 汉字 双字节 GBK 更多汉字（21886个汉字和图形符号） 双字节 完全向下兼容GB2312 GB18030 支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字 可变多字节（1、2、4字节） 完全兼容GB2312，基本兼容GBK 常见的支持中文的字符集的对比 常用的支持中文的字符集有：
+GB2312 GBK GB18030 BIG5 HZ Unicode 其中，GB2312、GBK、GB18030是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：GB18030&amp;gt; GBK&amp;gt; GB2312。
+BIG5是中国台湾的中文字符集，主要用于繁体中文的编码。
+HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在邮件中传输中文字符。
+Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是UTF-8和UTF-16。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。
+ASCII American Standard Code for Information Interchange，美国标准信息交换代码
 主要用来表示英文或其他西欧语言（在扩展版中）
-编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。
-分区表示：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。
-01–09区为特殊符号。 16–55区为一级汉字，按拼音排序。 56–87区为二级汉字，按部首／笔画排序。 举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。 10–15区及88–94区则未有编码。">
+编码格式 使用7位（1字节，高位是0）表示128种字符：标准（基础）ASCII 码 使用8位表示256种字符：扩展ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号 GB2312 GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。">
     </head>
     <body class="
     article-page
@@ -251,29 +260,39 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#概念">概念</a></li>
-    <li><a href="#字符集对比">字符集对比</a></li>
-    <li><a href="#ascii">ASCII</a>
+    <li>
       <ol>
         <li><a href="#编码格式">编码格式</a></li>
       </ol>
     </li>
-    <li><a href="#gb2312">GB2312</a>
+  </ol>
+
+  <ol>
+    <li>
       <ol>
         <li><a href="#编码格式-1">编码格式</a></li>
       </ol>
     </li>
-    <li><a href="#gbk">GBK</a>
+  </ol>
+
+  <ol>
+    <li>
       <ol>
         <li><a href="#编码格式-2">编码格式</a></li>
       </ol>
     </li>
-    <li><a href="#gb18030">GB18030</a>
+  </ol>
+
+  <ol>
+    <li>
       <ol>
         <li><a href="#编码格式-3">编码格式</a></li>
       </ol>
     </li>
-    <li><a href="#unicode">Unicode</a>
+  </ol>
+
+  <ol>
+    <li>
       <ol>
         <li><a href="#编码格式-4">编码格式</a></li>
       </ol>
@@ -281,16 +300,14 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
     <li><a href="#utf-8">UTF-8</a></li>
     <li><a href="#utf-16">UTF-16</a></li>
     <li><a href="#utf-32">UTF-32</a></li>
-    <li><a href="#宽字符和窄字符多字节字符">宽字符和窄字符（多字节字符）</a></li>
-    <li><a href="#数据库中的编码知识">数据库中的编码知识</a>
+  </ol>
+
+  <ol>
+    <li><a href="#查看数据库设置的字符集">查看数据库设置的字符集</a></li>
+    <li><a href="#字符串类型的编码">字符串类型的编码</a>
       <ol>
-        <li><a href="#查看数据库设置的编码方式">查看数据库设置的编码方式</a></li>
-        <li><a href="#字符串类型的编码">字符串类型的编码</a>
-          <ol>
-            <li><a href="#oracle">ORACLE</a></li>
-            <li><a href="#mysql">MYSQL</a></li>
-          </ol>
-        </li>
+        <li><a href="#oracle">ORACLE</a></li>
+        <li><a href="#mysql">MYSQL</a></li>
       </ol>
     </li>
     <li><a href="#参考链接">参考链接</a></li>
@@ -373,8 +390,7 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
     <section class="article-content">
     
     
-    <h1 id="认识编码">认识编码</h1>
-<h2 id="概念">概念</h2>
+    <h1 id="概念">概念</h1>
 <p>字符集 vs. 编码方式：编码方式就是将字符集里的字符<strong>映射</strong>成可以被计算机识别的若干位二进制来表示。</p>
 <blockquote>
 <p>对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。
@@ -392,7 +408,7 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 <p><a class="link" href="https://www.cnblogs.com/chiguozi/p/5860364.html"  target="_blank" rel="noopener"
     >https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
 </blockquote>
-<h2 id="字符集对比">字符集对比</h2>
+<h1 id="字符集对比">字符集对比</h1>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -435,7 +451,21 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 </tr>
 </tbody>
 </table></div>
-<h2 id="ascii">ASCII</h2>
+<h1 id="常见的支持中文的字符集的对比">常见的支持中文的字符集的对比</h1>
+<p>常用的支持中文的字符集有：</p>
+<ol>
+<li>GB2312</li>
+<li>GBK</li>
+<li>GB18030</li>
+<li>BIG5</li>
+<li>HZ</li>
+<li>Unicode</li>
+</ol>
+<p>其中，<strong>GB2312、GBK、GB18030</strong>是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：<code>GB18030&gt; GBK&gt; GB2312</code>。</p>
+<p>BIG5是中国台湾的中文字符集，主要用于<strong>繁体</strong>中文的编码。</p>
+<p>HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在<strong>邮件</strong>中传输中文字符。</p>
+<p>Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是<strong>UTF-8和UTF-16</strong>。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。</p>
+<h1 id="ascii">ASCII</h1>
 <p>American Standard Code for Information Interchange，美国标准信息交换代码</p>
 <p>主要用来表示英文或其他西欧语言（在扩展版中）</p>
 <h3 id="编码格式">编码格式</h3>
@@ -443,7 +473,7 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 <li>使用<strong>7位</strong>（1字节，高位是0）表示128种字符：标准（基础）ASCII 码</li>
 <li>使用8位表示256种字符：<strong>扩展</strong>ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号</li>
 </ul>
-<h2 id="gb2312">GB2312</h2>
+<h1 id="gb2312">GB2312</h1>
 <p>GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是<strong>对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。</strong></p>
 <p><strong>分区表示</strong>：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。</p>
 <ul>
@@ -458,13 +488,13 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 <h3 id="编码格式-1">编码格式</h3>
 <p>每个汉字及符号以<strong>两个字节</strong>来表示。第一个字节称为“<strong>高位字节</strong>”，第二个字节称为“<strong>低位字节</strong>”。
 “高位字节”使用了<code>0xA1–0xF7</code>（把01–87区的区号加上0xA0），“低位字节”使用了<code>0xA1–0xFE</code>（把01–94加上0xA0）。 由于一级汉字从16区起始，汉字区的“高位字节”的范围是0xB0–0xF7，“低位字节”的范围是0xA1–0xFE。</p>
-<h2 id="gbk">GBK</h2>
+<h1 id="gbk">GBK</h1>
 <p>GBK（Chinese Internal Code Extension Specification），<strong>汉字内码扩展规范</strong></p>
 <p>K：Kuo Zhan（扩展）的K</p>
 <p><strong>GB 2312-80只收录6763个汉字</strong>，有不少汉字，如部分在GB 2312-80推出以后才简化的汉字（如“啰”），部分人名用字（如中国前总理朱镕的“镕”字），台湾及香港使用的繁体字，日语及朝鲜语汉字等，并未有收录在内。GBK对GB 2312-80进行扩展, 总计拥有 23940 个码位，<strong>共收录21886个汉字和图形符号</strong>，其中汉字（包括部首和构件）21003 个，图形符号883 个。</p>
 <h3 id="编码格式-2">编码格式</h3>
 <p>GBK 亦采用<strong>双字节</strong>表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间。<strong>GBK向下完全兼容GB2312-80编码</strong>。支持GB2312-80编码不支持的部分中文姓，中文繁体，日文假名，还包括希腊字母以及俄语字母等字母。不过这种编码<strong>支持韩国字</strong>，也是其在实际使用中与unicode编码相比欠缺的部分。</p>
-<h2 id="gb18030">GB18030</h2>
+<h1 id="gb18030">GB18030</h1>
 <p>全称《信息技术 中文编码字符集》，是<a class="link" href="https://baike.baidu.com/item/%e4%b8%ad%e5%8d%8e%e4%ba%ba%e6%b0%91%e5%85%b1%e5%92%8c%e5%9b%bd?fromModule=lemma_inlink"  target="_blank" rel="noopener"
     >中华人民共和国</a><a class="link" href="https://baike.baidu.com/item/%e5%9b%bd%e5%ae%b6%e6%a0%87%e5%87%86?fromModule=lemma_inlink"  target="_blank" rel="noopener"
     >国家标准</a>所规定的<strong>变长多字节</strong>字符集。<strong>其对GB 2312-1980完全<a class="link" href="https://baike.baidu.com/item/%e5%90%91%e5%90%8e%e5%85%bc%e5%ae%b9?fromModule=lemma_inlink"  target="_blank" rel="noopener"
@@ -488,7 +518,7 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 <li>双字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x40到0xFE（不包括0x7F）。</li>
 <li>四字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x30到0x39，第三个字节从0x81到0xFE，第四个字节从0x30到0x39。</li>
 </ul>
-<h2 id="unicode">Unicode</h2>
+<h1 id="unicode">Unicode</h1>
 <p>称为<strong>万国码</strong>、<strong>国际码</strong>、<strong>统一码</strong>、<strong>单一码</strong>。为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。</p>
 <h3 id="编码格式-4">编码格式</h3>
 <p><a class="link" href="https://zh.wikipedia.org/wiki/UCS-2"  target="_blank" rel="noopener"
@@ -531,21 +561,55 @@ https://www.cnblogs.com/chiguozi/p/5860364.html
 <h2 id="utf-32">UTF-32</h2>
 <p>固定长度的编码，始终占用 4 个字节。</p>
 <p>因此，<strong>只有 UTF-8 兼容 ASCII，UTF-32 和 UTF-16 都不兼容 ASCII，因为它们没有单字节编码。</strong></p>
-<h2 id="宽字符和窄字符多字节字符">宽字符和窄字符（多字节字符）</h2>
+<h1 id="宽字符和窄字符多字节字符">宽字符和窄字符（多字节字符）</h1>
 <blockquote>
 <p>有的编码方式采用 1~n 个字节存储，是变长的，例如 UTF-8、GB2312、GBK 等；如果一个字符使用了这种编码方式，我们就将它称为多字节字符，或者窄字符。</p>
 <p>有的编码方式是固定长度的，不管字符编号大小，始终采用 n 个字节存储，例如 UTF-32、UTF-16 等；如果一个字符使用了这种编码方式，我们就将它称为宽字符。</p>
 <p>Unicode 字符集可以使用窄字符的方式存储，也可以使用宽字符的方式存储；GB2312、GBK、Shift-JIS 等国家编码一般都使用窄字符的方式存储；ASCII 只有一个字节，无所谓窄字符和宽字符。</p>
 <p>原文链接：https://blog.csdn.net/guxiaonuan/article/details/78678043</p>
 </blockquote>
-<h2 id="数据库中的编码知识">数据库中的编码知识</h2>
+<h1 id="数据库中的编码知识">数据库中的编码知识</h1>
 <p>以ORACLE和MYSQL为例</p>
-<h3 id="查看数据库设置的编码方式">查看数据库设置的编码方式</h3>
-<h3 id="字符串类型的编码">字符串类型的编码</h3>
-<h4 id="oracle">ORACLE</h4>
+<h2 id="查看数据库设置的字符集">查看数据库设置的字符集</h2>
+<p>oralce：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">nls_database_parameters</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%CHARACTERSET&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看字符长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看字节长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">LENGTHB</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dual</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>mysql:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%character%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 查看字符长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">CHAR_LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 返回2
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- 查看字节长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 返回6
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="字符串类型的编码">字符串类型的编码</h2>
+<h3 id="oracle">ORACLE</h3>
 <p>参考： <a class="link" href="http://t.zoukankan.com/dongxiaoguang-p-2966649.html"  target="_blank" rel="noopener"
     >http://t.zoukankan.com/dongxiaoguang-p-2966649.html</a></p>
-<h4 id="mysql">MYSQL</h4>
+<h3 id="mysql">MYSQL</h3>
 <p>可参考：https://www.bilibili.com/read/cv12600183/</p>
 <blockquote>
 <p>varchar 类型最大可以存放多少个字符？</p>

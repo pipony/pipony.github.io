@@ -6,7 +6,54 @@
         <description>Recent content in IOS on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Wed, 05 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/ios/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 13 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/ios/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>「少数派-IOS蓝皮书」学习笔记之07生活应用</title>
+        <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B07%E7%94%9F%E6%B4%BB%E5%BA%94%E7%94%A8/</link>
+        <pubDate>Thu, 13 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B07%E7%94%9F%E6%B4%BB%E5%BA%94%E7%94%A8/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;教程来自少数派：https://sspai.com/series/277/list&lt;/p&gt;
+&lt;p&gt;本学习笔记仅用于个人回溯参考，教程中的很多细节和图像没有体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;safari&#34;&gt;safari&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;标签页组&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;自动关闭标签页：如果没有手动关闭标签页的习惯，可以在设置的【关闭标签页】中改为自动定时删除&lt;/li&gt;
+&lt;li&gt;阅读模式：隐藏广告、导航菜单或其他干扰项，帮助营造一个沉浸式的阅读环境。再次点击「大小」按钮，支持用户修改阅读器的背景色、字体以及字体大小，字体目前支持苹方、宋体、楷体和圆体四种。但并不是所有网页都可用。&lt;/li&gt;
+&lt;li&gt;标记功能：将网页临时打开为pdf，可以在上面做标记高亮等，然后可以以pdf形式分享出去&lt;/li&gt;
+&lt;li&gt;扩展：在设置-safari-扩展中，可以前往app store安装扩展&lt;/li&gt;
+&lt;li&gt;底部栏的【大小】按钮：除了可以调整文字大小，还有比如翻译网页等实用操作&lt;/li&gt;
+&lt;li&gt;开发者模式：这在移动端比较少用。但如果需要用到的话，可以：在&lt;code&gt;设置 &amp;gt; Safari 浏览器&lt;/code&gt;高级中打开「网页检查器」开关&lt;/li&gt;
+&lt;li&gt;隐私与安全性：可以在设置-safari中看到一系列隐私安全设置，可以根据需要开或关。“除了「阻止所有 Cookie」外其他都建议保持打开”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;相机&#34;&gt;相机&lt;/h1&gt;
+&lt;p&gt;在设置&amp;gt;相机中可以对相机偏好和参数进行设置。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;格式：高效vs兼容性最佳。前者质量更好，后者采用 JPEG / MOV 格式来存储照片和视频，更好兼容不同设别的查看&lt;/li&gt;
+&lt;li&gt;【保留设置】中给出一些更细的拍照设置&lt;/li&gt;
+&lt;li&gt;拍照时除了左右上角可以快捷选择闪光灯、实况等，可以在拍照界面&lt;strong&gt;向上轻扫屏幕展开快捷菜单&lt;/strong&gt;。从左至右分别是闪光灯、实况照片、拍摄比例、曝光补偿、计时器以及滤镜。&lt;/li&gt;
+&lt;li&gt;通过调整手电筒的亮度可以影响到闪光灯的亮度&lt;/li&gt;
+&lt;li&gt;编辑实况照片：调整为循环播放的视频，再通过其他app转换为gif即可进行分享&lt;/li&gt;
+&lt;li&gt;曝光补偿&lt;/li&gt;
+&lt;li&gt;拍照时，长按快门就是视频快录。此时滑到锁的位置，就是进行录像模式，不需要手一直按着&lt;/li&gt;
+&lt;li&gt;向左（横屏时向下）滑动就会连拍&lt;/li&gt;
+&lt;li&gt;人像模式的光照：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自然光：清晰对焦到面部，并使背景变得模糊，更加适合拍摄静物。
+摄影室灯光：基本等同于在影楼拍写真的效果，即主要为被拍摄人物面部补光，让皮肤更亮，照片整体干净清晰，建议拍肖像的时候使用。
+轮廓光：面部高光和低光反差明显，可以凸显男士硬朗的风格。
+舞台光：给人一种「聚光灯」下的感觉，背景调整为深黑色，把人物主体从背景中抠出再放入纯色背景中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;曝光：如果对自动曝光不满意，还可以通过自动测光和手工调节曝光补偿来调节亮度。前者通过点击画面的物体控制，“点击画面中相对较暗的地方，拍摄出的照片会整体变亮；点击画面中相对较亮的地方，拍摄出的照片会整体变暗”；后者通过黄色对焦框右侧有一个「太阳」图标调节&lt;/li&gt;
+&lt;li&gt;慢动作视频拍摄后，可以在相册里随时修改视频需要慢动作播放的位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;通讯应用&#34;&gt;通讯应用&lt;/h1&gt;
+</description>
+        </item>
+        <item>
         <title>「少数派-IOS蓝皮书」学习笔记之06苹果生态</title>
         <link>https://huangxindi.com/p/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B06%E8%8B%B9%E6%9E%9C%E7%94%9F%E6%80%81/</link>
         <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>

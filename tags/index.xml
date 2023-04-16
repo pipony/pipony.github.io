@@ -6,10 +6,18 @@
         <description>Recent content in Tags on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 09 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 15 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Java</title>
+        <link>https://huangxindi.com/tags/java/</link>
+        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/tags/java/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>weekly-letter</title>
         <link>https://huangxindi.com/tags/weekly-letter/</link>
-        <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/weekly-letter/</guid>
         <description></description>
@@ -17,7 +25,7 @@
         <item>
         <title>少数派-IOS蓝皮书</title>
         <link>https://huangxindi.com/tags/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6/</link>
-        <pubDate>Wed, 05 Apr 2023 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 13 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/%E5%B0%91%E6%95%B0%E6%B4%BE-ios%E8%93%9D%E7%9A%AE%E4%B9%A6/</guid>
         <description></description>
@@ -92,14 +100,6 @@
         <pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/windows/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Java</title>
-        <link>https://huangxindi.com/tags/java/</link>
-        <pubDate>Wed, 11 Jan 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://huangxindi.com/tags/java/</guid>
         <description></description>
         </item>
         <item>
