@@ -564,10 +564,125 @@ JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的
 </div><p>其中，<code>EmployeeTestSuite</code>是一个定义测试套件的测试类，包含两个测试类<code>TestEmployeeDetails</code>和<code>TestEmployeeSalary</code>。如果你运行<code>EmployeeTestSuite</code>，JUnit将依次运行<code>TestEmployeeDetails</code>和<code>TestEmployeeSalary</code>中的所有测试方法，并输出测试结果。</p>
 <p><strong>注意：一定要保证测试套件之间没有循环包含关系，否则会有死循环！</strong></p>
 <h1 id="忽略测试">忽略测试</h1>
+<p><code>@Ignore</code> ： 可以修饰测试类或测试方法，使得此测试类或测试方法不会被执行到
+<strong>注意</strong>：JUnit5 中@Igonre不起作用，一个替换方案是使用<code>@Disabled</code></p>
 <h1 id="时间测试">时间测试</h1>
-<h1 id="异常测试">异常测试</h1>
-<h1 id="参数化测试">参数化测试</h1>
-<h1 id="实际项目中的应用">实际项目中的应用</h1>
+<p>一般用于测试某方法是否执行时间过长，设定<code>timeout</code>参数用于指定该测试方法的最大执行时间，单位为毫秒。如果测试时执行超过该时长，则会中止测试方法并标记为失败。例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Test</span><span class="o">(</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">1000</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testTimeout</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> <span class="c1">// 等待 2 秒钟，超时时间为 1 秒钟 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">2000</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="异常测试">异常测试</h1>
+<p>设定<code>expected</code>参数，用于验证待测试的方法抛的异常是否符合预期。例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Test</span><span class="o">(</span><span class="n">expected</span> <span class="o">=</span> <span class="n">ArithmeticException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testPrintMessage</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="参数化测试">参数化测试</h1>
+<p>使用不同的值多次测试同一个方法，简化测试过程。构造特点：</p>
+<ul>
+<li>用<code>@RunWith(Parameterized.class)</code>通知JUnit这是一个参数化测试类</li>
+<li><code>@Parameterized.Parameters</code> 使用该注释构造公共的静态方法，返回一个对象集合作为测试数据集合</li>
+<li>创建一个构造方法，与测试数据相匹配</li>
+</ul>
+<p>例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">Parameterized</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">num1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">num2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">expectedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Calculator</span> <span class="n">calculator</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Parameterized.Parameters</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">[]&gt;</span> <span class="nf">input</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">[][]{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">{</span><span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">5</span><span class="o">},</span>
+</span></span><span class="line"><span class="cl">                <span class="o">{</span><span class="n">5</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">12</span><span class="o">},</span>
+</span></span><span class="line"><span class="cl">                <span class="o">{</span><span class="n">9</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">13</span><span class="o">},</span>
+</span></span><span class="line"><span class="cl">                <span class="o">{</span><span class="n">8</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">9</span><span class="o">},</span>
+</span></span><span class="line"><span class="cl">                <span class="o">{</span><span class="n">6</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">8</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">num1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">expectedResult</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">num1</span> <span class="o">=</span> <span class="n">num1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">num2</span> <span class="o">=</span> <span class="n">num2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">expectedResult</span> <span class="o">=</span> <span class="n">expectedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Before</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num1</span><span class="o">,</span> <span class="n">num2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertEquals</span><span class="o">(</span><span class="n">expectedResult</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="实际项目中的应用">实际项目中的应用</h1>
 <p><strong>比如在一个Springboot+mybatisPlus的项目中，要如何利用JUnit测试在<code>ServiceImpl</code>中实现的各种方法呢？这里我直接给出ChatGPT给我的回答吧：</strong></p>
 <p>假设有一个名为<code>UserServiceImpl</code>的实现类，实现了<code>UserService</code>接口，该接口定义了数据库表<code>user</code>的增删改查方法，我们可以为其编写JUnit测试方法。</p>
 <p>这里我们为<code>UserServiceImpl</code>中的每一个方法编写了一个对应的测试方法，其中使用了JUnit提供的<code>Assertions</code>断言方法，比如<code>Assertions.assertTrue()</code>和<code>Assertions.assertNotNull()</code>，用来判断测试结果是否正确。注意，在测试方法上要加上<code>@Test</code>注解，以标识这是一个JUnit测试方法，同时需要使用<code>@SpringBootTest</code>注解来启动Spring容器，以便能够注入<code>UserService</code>实例。</p>
@@ -683,7 +798,8 @@ JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的
 <p>当我们使用JUnit测试时，例如插入数据，必然会往表中插入脏数据。那么，如何在不影响真实表数据的情况下，完成测试呢？</p>
 <ul>
 <li>使用注解<code>@Transactional</code>实现事务回滚</li>
-<li>在测试完成后，使用<code>@After</code>注解执行清空数据等操作；或是在测试方法中写清空数据的操作</li>
+<li>在测试完成后，使用<code>@After</code>注解执行清空数据等操作</li>
+<li>在测试方法中写清空数据的操作</li>
 </ul>
 <h2 id="测试时如何指定id">测试时如何指定id</h2>
 <p>当我们使用JUnit测试删除或更新操作时，往往需要指定操作id。这里也给出两种常用做法：</p>

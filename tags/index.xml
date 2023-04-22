@@ -6,20 +6,28 @@
         <description>Recent content in Tags on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 15 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Java</title>
-        <link>https://huangxindi.com/tags/java/</link>
-        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>HOW</title>
+        <link>https://huangxindi.com/tags/how/</link>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://huangxindi.com/tags/java/</guid>
+        <guid>https://huangxindi.com/tags/how/</guid>
         <description></description>
         </item>
         <item>
         <title>weekly-letter</title>
         <link>https://huangxindi.com/tags/weekly-letter/</link>
-        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/weekly-letter/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Java</title>
+        <link>https://huangxindi.com/tags/java/</link>
+        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/tags/java/</guid>
         <description></description>
         </item>
         <item>

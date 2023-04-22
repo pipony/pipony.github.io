@@ -1,45 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='1、(1,null,2) 唯一索引也不算重复的问题 2、值的大小写敏感
-oracle的all_tables,user_tab_comments,user_tab_columns,user_col_comments这几张表，对应mysql分别是什么表
-这几个 Oracle 数据库中的表在 MySQL 中对应的表如下：
-all_tables - 没有直接对应的表，可能需要查询多个 MySQL 系统表来获取相应信息，例如 information_schema.TABLES、information_schema.COLUMNS 和 mysql.TABLES_priv 等。 user_tab_comments - INFORMATION_SCHEMA.TABLES 系统表中的 TABLE_COMMENT 字段。 user_tab_columns - INFORMATION_SCHEMA.COLUMNS 系统表。 user_col_comments - INFORMATION_SCHEMA.COLUMNS 系统表中的 COLUMN_COMMENT 字段。 oralce中，all_tab_comments和user_tab_comments表的区别是什么
-在 Oracle 数据库中，ALL_TAB_COMMENTS 和 USER_TAB_COMMENTS 都是用来存储表的注释信息的表，它们之间的区别在于：
-所有者：USER_TAB_COMMENTS 只包含当前用户拥有的表的注释信息，而 ALL_TAB_COMMENTS 则包含了所有可见的表的注释信息，包括系统表、其他用户的表以及当前用户的表。
-权限：查询 USER_TAB_COMMENTS 不需要特殊权限，而查询 ALL_TAB_COMMENTS 则需要 SELECT_CATALOG_ROLE 角色或 SELECT ANY DICTIONARY 权限。
-因此，如果只需要获取当前用户拥有的表的注释信息，那么应该使用 USER_TAB_COMMENTS 表；如果需要获取所有可见表的注释信息，则可以使用 ALL_TAB_COMMENTS 表。
-oralce的user_constraints和user_cons_columns分别对应mysql的哪个表
-在 MySQL 中，user_constraints 和 user_cons_columns 这两张表没有直接的对应物，因为 MySQL 和 Oracle 在数据库架构设计上存在一些差异。以下是一些相关的 MySQL 表及其作用：'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=''>
 <title></title>
 
 <link rel='canonical' href='https://huangxindi.com/p/'>
 
 <link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content=''>
-<meta property='og:description' content='1、(1,null,2) 唯一索引也不算重复的问题 2、值的大小写敏感
-oracle的all_tables,user_tab_comments,user_tab_columns,user_col_comments这几张表，对应mysql分别是什么表
-这几个 Oracle 数据库中的表在 MySQL 中对应的表如下：
-all_tables - 没有直接对应的表，可能需要查询多个 MySQL 系统表来获取相应信息，例如 information_schema.TABLES、information_schema.COLUMNS 和 mysql.TABLES_priv 等。 user_tab_comments - INFORMATION_SCHEMA.TABLES 系统表中的 TABLE_COMMENT 字段。 user_tab_columns - INFORMATION_SCHEMA.COLUMNS 系统表。 user_col_comments - INFORMATION_SCHEMA.COLUMNS 系统表中的 COLUMN_COMMENT 字段。 oralce中，all_tab_comments和user_tab_comments表的区别是什么
-在 Oracle 数据库中，ALL_TAB_COMMENTS 和 USER_TAB_COMMENTS 都是用来存储表的注释信息的表，它们之间的区别在于：
-所有者：USER_TAB_COMMENTS 只包含当前用户拥有的表的注释信息，而 ALL_TAB_COMMENTS 则包含了所有可见的表的注释信息，包括系统表、其他用户的表以及当前用户的表。
-权限：查询 USER_TAB_COMMENTS 不需要特殊权限，而查询 ALL_TAB_COMMENTS 则需要 SELECT_CATALOG_ROLE 角色或 SELECT ANY DICTIONARY 权限。
-因此，如果只需要获取当前用户拥有的表的注释信息，那么应该使用 USER_TAB_COMMENTS 表；如果需要获取所有可见表的注释信息，则可以使用 ALL_TAB_COMMENTS 表。
-oralce的user_constraints和user_cons_columns分别对应mysql的哪个表
-在 MySQL 中，user_constraints 和 user_cons_columns 这两张表没有直接的对应物，因为 MySQL 和 Oracle 在数据库架构设计上存在一些差异。以下是一些相关的 MySQL 表及其作用：'>
+<meta property='og:description' content=''>
 <meta property='og:url' content='https://huangxindi.com/p/'>
 <meta property='og:site_name' content='2MUCH'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="1、(1,null,2) 唯一索引也不算重复的问题 2、值的大小写敏感
-oracle的all_tables,user_tab_comments,user_tab_columns,user_col_comments这几张表，对应mysql分别是什么表
-这几个 Oracle 数据库中的表在 MySQL 中对应的表如下：
-all_tables - 没有直接对应的表，可能需要查询多个 MySQL 系统表来获取相应信息，例如 information_schema.TABLES、information_schema.COLUMNS 和 mysql.TABLES_priv 等。 user_tab_comments - INFORMATION_SCHEMA.TABLES 系统表中的 TABLE_COMMENT 字段。 user_tab_columns - INFORMATION_SCHEMA.COLUMNS 系统表。 user_col_comments - INFORMATION_SCHEMA.COLUMNS 系统表中的 COLUMN_COMMENT 字段。 oralce中，all_tab_comments和user_tab_comments表的区别是什么
-在 Oracle 数据库中，ALL_TAB_COMMENTS 和 USER_TAB_COMMENTS 都是用来存储表的注释信息的表，它们之间的区别在于：
-所有者：USER_TAB_COMMENTS 只包含当前用户拥有的表的注释信息，而 ALL_TAB_COMMENTS 则包含了所有可见的表的注释信息，包括系统表、其他用户的表以及当前用户的表。
-权限：查询 USER_TAB_COMMENTS 不需要特殊权限，而查询 ALL_TAB_COMMENTS 则需要 SELECT_CATALOG_ROLE 角色或 SELECT ANY DICTIONARY 权限。
-因此，如果只需要获取当前用户拥有的表的注释信息，那么应该使用 USER_TAB_COMMENTS 表；如果需要获取所有可见表的注释信息，则可以使用 ALL_TAB_COMMENTS 表。
-oralce的user_constraints和user_cons_columns分别对应mysql的哪个表
-在 MySQL 中，user_constraints 和 user_cons_columns 这两张表没有直接的对应物，因为 MySQL 和 Oracle 在数据库架构设计上存在一些差异。以下是一些相关的 MySQL 表及其作用：">
+<meta name="twitter:description" content="">
     </head>
     <body class="
     article-page

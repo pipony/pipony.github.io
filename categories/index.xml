@@ -6,20 +6,28 @@
         <description>Recent content in Categories on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 15 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Java</title>
-        <link>https://huangxindi.com/categories/java/</link>
-        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>charging</title>
+        <link>https://huangxindi.com/categories/charging/</link>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
-        <guid>https://huangxindi.com/categories/java/</guid>
+        <guid>https://huangxindi.com/categories/charging/</guid>
         <description></description>
         </item>
         <item>
         <title>weekly-letter</title>
         <link>https://huangxindi.com/categories/weekly-letter/</link>
-        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/categories/weekly-letter/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Java</title>
+        <link>https://huangxindi.com/categories/java/</link>
+        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/categories/java/</guid>
         <description></description>
         </item>
         <item>
@@ -69,14 +77,6 @@
         
         <guid>https://huangxindi.com/categories/tool/</guid>
         <description>&lt;img src="https://huangxindi.com/categories/tool/tool.jpg" alt="Featured image of post tool" /&gt;</description>
-        </item>
-        <item>
-        <title>charging</title>
-        <link>https://huangxindi.com/categories/charging/</link>
-        <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://huangxindi.com/categories/charging/</guid>
-        <description></description>
         </item>
         <item>
         <title>fun</title>

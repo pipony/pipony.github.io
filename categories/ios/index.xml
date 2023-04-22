@@ -51,6 +51,26 @@
 &lt;li&gt;慢动作视频拍摄后，可以在相册里随时修改视频需要慢动作播放的位置&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;通讯应用&#34;&gt;通讯应用&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;【电话】的默认界面拨号盘，长按上方空白处或已输入的号码，可以快捷拷贝、保存、粘贴号码&lt;/li&gt;
+&lt;li&gt;「穿透」勿扰模式：将电话设为个人收藏后，可以在&lt;code&gt;设置 &amp;gt; 勿扰模式 &amp;gt; 允许的通知 &amp;gt; 联系人 &amp;gt; 总是允许&lt;/code&gt;中选择「个人收藏」，这样当处于勿扰模式时，该来电也不会被静音&lt;/li&gt;
+&lt;li&gt;对于来电的操作：除了普通的接听和挂断，还有以下操作很实用：
+&lt;ul&gt;
+&lt;li&gt;提醒我：挂断电话并创建一个提醒事项&lt;/li&gt;
+&lt;li&gt;静音：按一下侧边锁屏按钮/从底部向上滑动，停止震动响铃&lt;/li&gt;
+&lt;li&gt;挂断：连续按两次侧边锁屏按钮（因为锁屏状态下的来电没有挂断按钮，所以可以通过这个方法来挂电话）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;「添加通话」：&amp;ldquo;当从运营商处成功开通多人通话功能后，在通话中轻点「添加通话」即可邀请其他联系人加入通话。此时与第一位联系人的通话会暂时中断而得以保留，直到第二位联系人的通话接通后，可以轻点「合并通话」以将两个单独的通话合并，组成一个电话会议。&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;FaceTime 可以给自己的脸添加memoji表情&lt;/li&gt;
+&lt;li&gt;数码点触：iMessage应用，可以通过触摸发送不同的信息效果。一个浪漫的玩法：“在 Apple Watch 上用两根手指同时按住触摸区域则可以记录自己的心跳发送给对方，如果对方也使用 Apple Watch 查看该条消息，则可以感受到 Apple Watch 按这个心率发出的振动。”&lt;/li&gt;
+&lt;li&gt;发送协作邀请：很多原生或第三方app支持邀请协作，通过信息发送协作邀请，则会将TA自动加入该协作项目中&lt;/li&gt;
+&lt;li&gt;iMessage 相机：在imessage的左边相机按钮，可以打开相机。一个特色是可以在拍照或录像时添加脸部特效，很好玩！&lt;/li&gt;
+&lt;li&gt;iMessage 群组：类似微信，iMessage也是可以拉群的&lt;/li&gt;
+&lt;li&gt;已读回执：点开对方的头像，可以选择是否给对方发送已读回执&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;图书&#34;&gt;图书&lt;/h1&gt;
+&lt;p&gt;支持epub和PDF格式&lt;/p&gt;
 </description>
         </item>
         <item>
