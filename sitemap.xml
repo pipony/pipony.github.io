@@ -20,10 +20,19 @@
     <loc>https://huangxindi.com/tags/how/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://huangxindi.com/tags/mysql/</loc>
+    <lastmod>2023-04-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://huangxindi.com/p/mysql%E5%AF%BC%E5%85%A5%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2023-04-22T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://huangxindi.com/page/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/post/</loc>
+    <lastmod>2023-04-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://huangxindi.com/p/shell%E4%B8%AD%E6%89%A7%E8%A1%8Cmysql%E8%AF%AD%E5%8F%A5/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/tags/</loc>
@@ -33,6 +42,9 @@
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/categories/weekly-letter/</loc>
+    <lastmod>2023-04-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://huangxindi.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-04-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/p/%E6%B3%A8%E5%86%8C%E7%BE%8E%E5%8C%BAappleid/</loc>
@@ -204,9 +216,6 @@
     <lastmod>2022-12-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://huangxindi.com/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2022-12-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://huangxindi.com/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/</loc>
@@ -517,8 +526,6 @@
   </url><url>
     <loc>https://huangxindi.com/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://huangxindi.com/p/</loc>
   </url><url>
     <loc>https://huangxindi.com/p/</loc>
   </url><url>
