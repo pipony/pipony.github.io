@@ -236,10 +236,13 @@ load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load
     <li><a href="#批量insert时如果其中一行insert失败会影响其他行的导入吗">批量insert时，如果其中一行insert失败，会影响其他行的导入吗</a></li>
     <li><a href="#local_infile参数的用法">local_infile参数的用法</a></li>
     <li><a href="#local_infile参数设置为on后为啥会出现自己自动变回off的情况">local_infile参数设置为ON后，为啥会出现自己自动变回OFF的情况</a></li>
+    <li><a href="#数值类型比如decimal或integer当导入值为空字符串时值会转化为0如何在导入后维持原值null">数值类型（比如decimal或integer），当导入值为空字符串时，值会转化为0。如何在导入后维持原值（null）</a></li>
+    <li><a href="#load-data-replace-into和load-data-ignore-into-有什么区别吗">load data replace into和load data ignore into 有什么区别吗</a></li>
+    <li><a href="#load-data语句如何实现先清空表再导入">load data语句如何实现先清空表再导入</a></li>
+    <li><a href="#load-data什么场景下会发生死锁">load data什么场景下会发生死锁</a></li>
+    <li><a href="#导入有哪些常见的坑常见的导入失败场景有哪些">导入有哪些常见的坑，常见的导入失败场景有哪些</a></li>
     <li><a href="#转义符">转义符</a></li>
     <li><a href="#datetime导入时为空">datetime导入时为空</a></li>
-    <li><a href="#local_infile-突然变回off">local_infile 突然变回OFF</a></li>
-    <li><a href="#数值类型字段为null时导入后如何保持为null">数值类型字段为null时导入后如何保持为null</a></li>
   </ol>
 </nav>
         </div>
@@ -304,7 +307,7 @@ load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -369,7 +372,8 @@ load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="kt">SET</span><span class="w"> </span><span class="n">_col_name_</span><span class="o">=</span><span class="err">{</span><span class="n">_expr_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">_col_name_</span><span class="o">=</span><span class="err">{</span><span class="n">_expr_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">...]</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="遇到的问题及收获">遇到的问题及收获</h1>
+</div><p>研读官网用法：</p>
+<h1 id="遇到的问题及收获">遇到的问题及收获</h1>
 <p>列表：</p>
 <ul>
 <li>时间类型datetime字段的值，当导入值为空时，默认值是什么，会报错吗</li>
@@ -378,12 +382,12 @@ load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load
 <li>批量insert时，如果其中一行insert失败，会影响其他行的导入吗</li>
 <li>local_infile参数的用法</li>
 <li>local_infile参数设置为ON后，为啥会出现自己自动变回OFF的情况</li>
-<li>数值类型（比如decimal或integer），当导入值为null时，值会转化为0。如何在导入后维持原值（null）</li>
+<li>数值类型（比如decimal或integer），当导入值为空字符串时，值会转化为0。如何在导入后维持原值（null）</li>
+<li>load data replace into和load data ignore into 有什么区别吗</li>
 <li>load data语句如何实现先清空表再导入</li>
 <li>load data什么场景下会发生死锁</li>
-<li>导入有哪些常见的坑</li>
-<li>如何设置导入时，如果违反唯一约束，不报错</li>
-<li>常见的导入失败场景有哪些</li>
+<li>导入有哪些常见的坑，常见的导入失败场景有哪些</li>
+<li>load data会识别哪些转义字符</li>
 </ul>
 <h2 id="时间类型datetime字段的值当导入值为null时默认值是什么会报错吗">时间类型datetime字段的值，当导入值为NULL时，默认值是什么，会报错吗</h2>
 <p>如果导入时没有指定空时的默认值时，会导入<code>'0000-00-00 00:00:00'</code>，并不会报错</p>
@@ -467,8 +471,81 @@ load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="local_infile参数设置为on后为啥会出现自己自动变回off的情况">local_infile参数设置为ON后，为啥会出现自己自动变回OFF的情况</h2>
-<p>有可能是因为该参数被设置为MySQL的默认值，或者是被其他配置文件覆盖了。</p>
-<p>注意：MYSQL重启后是否会重置这个参数！<strong>（这点存疑，需要验证）</strong></p>
+<p>有可能是因为该参数被设置为MySQL的默认值（比如重启后），或者是被其他配置文件覆盖了。Mysql重启后，会重置该参数为默认值。为了保持设置，可以在配置文件中进行设置，如在<code>my.cnf</code>中设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>mysql<span class="o">]</span>
+</span></span><span class="line"><span class="cl">local-infile<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：MYSQL重启后是否会重置这个参数！<strong>（这点存疑，需要验证）</strong></p>
+<h2 id="数值类型比如decimal或integer当导入值为空字符串时值会转化为0如何在导入后维持原值null">数值类型（比如decimal或integer），当导入值为空字符串时，值会转化为0。如何在导入后维持原值（null）</h2>
+<p>和之前将的<code>datetime</code>格式导入空会自动转换为<code>'0000-00-00 00:00:00'</code>类似，使用LOAD DATA导入空时，Mysql会自动转换为该字段的默认值。对于数值类型，默认值就是0。如果不想要这种效果的话，可以使用<code>set</code>来特殊处理。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="n">INFILE</span><span class="w"> </span><span class="s1">&#39;data.txt&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">mytable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">FIELDS</span><span class="w"> </span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">LINES</span><span class="w"> </span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">mycol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULLIF</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>即，若var1为空字符串时，则转换为NULL导入。</p>
+<h2 id="load-data-replace-into和load-data-ignore-into-有什么区别吗">load data replace into和load data ignore into 有什么区别吗</h2>
+<p>两者都和“导入时存在相同主键的记录”处理相关。前者会替换掉原来的记录，后者会直接忽略。</p>
+<p>但是，使用 <code>REPLACE</code> 或 <code>IGNORE</code> 可以在一定程度上忽略一些数据导入时的错误。<strong>（这点存疑，需要验证）</strong></p>
+<h2 id="load-data语句如何实现先清空表再导入">load data语句如何实现先清空表再导入</h2>
+<p><code>load data</code>本身没有提供此类参数可以指定先清空再导入。只能在导入前先执行一次清空sql，如<code>truncate table xxx</code></p>
+<h2 id="load-data什么场景下会发生死锁">load data什么场景下会发生死锁</h2>
+<p>以下是charGPT的回答：
+在MySQL中，LOAD DATA语句会获取一个表级锁，如果同时有其他用户对该表进行写操作，则可能发生死锁。</p>
+<p>以下是几种可能发生死锁的场景：</p>
+<ol>
+<li>
+<p>并发导入：当多个用户<strong>同时使用LOAD DATA</strong>语句导入数据到同一个表中时，由于LOAD DATA会获取表级锁，可能会导致死锁。例如，用户A和用户B同时导入数据到表T中。</p>
+</li>
+<li>
+<p>并发插入：当多个用户同时使用<strong>INSERT INTO</strong>语句插入数据到同一个表中时，可能会与LOAD DATA语句产生竞争，导致死锁。例如，用户A使用LOAD DATA导入数据到表T中，同时用户B使用INSERT INTO语句向表T中插入数据。</p>
+</li>
+<li>
+<p>导入大量数据：当导入的数据量很大时，LOAD DATA语句可能需要较长的时间来完成，而在此期间，其他用户可能会试图对该表进行写操作，从而导致死锁。</p>
+</li>
+</ol>
+<p>对于以上情况，可以通过以下几种方式来避免死锁：</p>
+<ol>
+<li>
+<p>使用LOAD DATA LOCAL语句：<strong>LOAD DATA LOCAL语句不会获取表级锁</strong>，而是在客户端上读取文件并将数据发送到服务器，因此可以避免死锁。</p>
+</li>
+<li>
+<p>使用LOCK TABLES语句：在使用LOAD DATA语句之前，可以使用<strong>LOCK TABLES语句显式地锁定要导入数据的表</strong>，这样可以确保在LOAD DATA语句执行期间没有其他用户对表进行写操作。</p>
+</li>
+<li>
+<p>尽量避免并发操作：<strong>可以通过限制并发操作的数量</strong>，或者将导入操作与其他写操作分开，来降低死锁的风险。</p>
+</li>
+</ol>
+<h2 id="导入有哪些常见的坑常见的导入失败场景有哪些">导入有哪些常见的坑，常见的导入失败场景有哪些</h2>
+<ul>
+<li>数据类型不匹配</li>
+<li>字符编码</li>
+<li>行终止符不一致</li>
+<li>空值问题</li>
+<li>文件权限问题（导入的数据文件需要有读取权限）</li>
+<li>数据完整性（如有外键约束时）
+等等</li>
+</ul>
 <p><strong>以下这些后面再整理</strong></p>
 <h2 id="转义符">转义符</h2>
 <p><code>escaprd by ''</code></p>
@@ -499,8 +576,6 @@ These are the same values that result if you assign an empty string explicitly t
 <p>Server SQL Modes
 <a class="link" href="https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html"  target="_blank" rel="noopener"
     >https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html</a></p>
-<h2 id="local_infile-突然变回off">local_infile 突然变回OFF</h2>
-<h2 id="数值类型字段为null时导入后如何保持为null">数值类型字段为null时导入后如何保持为null</h2>
 
 </section>
 
