@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获
+load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load-data.html
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE &amp;#39;_file_name_&amp;#39; [REPLACE | IGNORE] INTO TABLE _tbl_name_ [PARTITION (_partition_name_ [, _partition_name_] ...)] [CHARACTER SET _charset_name_] [{FIELDS | COLUMNS} [TERMINATED BY &amp;#39;_string_&amp;#39;] [[OPTIONALLY] ENCLOSED BY &amp;#39;_char_&amp;#39;] [ESCAPED BY &amp;#39;_char_&amp;#39;] ] [LINES [STARTING BY &amp;#39;_string_&amp;#39;] [TERMINATED BY &amp;#39;_string_&amp;#39;] ] [IGNORE _number_ {LINES | ROWS}] [(_col_name_or_user_var_ [, _col_name_or_user_var_] .'>
+<title>Mysql之“load data”学习</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/mysql%E4%B9%8Bload-data%E5%AD%A6%E4%B9%A0/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Mysql之“load data”学习'>
+<meta property='og:description' content='Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获
+load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load-data.html
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE &amp;#39;_file_name_&amp;#39; [REPLACE | IGNORE] INTO TABLE _tbl_name_ [PARTITION (_partition_name_ [, _partition_name_] ...)] [CHARACTER SET _charset_name_] [{FIELDS | COLUMNS} [TERMINATED BY &amp;#39;_string_&amp;#39;] [[OPTIONALLY] ENCLOSED BY &amp;#39;_char_&amp;#39;] [ESCAPED BY &amp;#39;_char_&amp;#39;] ] [LINES [STARTING BY &amp;#39;_string_&amp;#39;] [TERMINATED BY &amp;#39;_string_&amp;#39;] ] [IGNORE _number_ {LINES | ROWS}] [(_col_name_or_user_var_ [, _col_name_or_user_var_] .'>
+<meta property='og:url' content='https://huangxindi.com/p/mysql%E4%B9%8Bload-data%E5%AD%A6%E4%B9%A0/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Mysql' /><meta property='article:published_time' content='2023-04-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-04-22T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Mysql之“load data”学习">
+<meta name="twitter:description" content="Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获
+load data 官网用法 可参考： https://dev.mysql.com/doc/refman/8.0/en/load-data.html
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE &amp;#39;_file_name_&amp;#39; [REPLACE | IGNORE] INTO TABLE _tbl_name_ [PARTITION (_partition_name_ [, _partition_name_] ...)] [CHARACTER SET _charset_name_] [{FIELDS | COLUMNS} [TERMINATED BY &amp;#39;_string_&amp;#39;] [[OPTIONALLY] ENCLOSED BY &amp;#39;_char_&amp;#39;] [ESCAPED BY &amp;#39;_char_&amp;#39;] ] [LINES [STARTING BY &amp;#39;_string_&amp;#39;] [TERMINATED BY &amp;#39;_string_&amp;#39;] ] [IGNORE _number_ {LINES | ROWS}] [(_col_name_or_user_var_ [, _col_name_or_user_var_] .">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#本地vs非本地操作non-local-versus-local-operation">本地vs非本地操作(Non-LOCAL Versus LOCAL Operation)</a></li>
+    <li><a href="#输入文件字符集input-file-character-set">输入文件字符集(Input File Character Set)</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" >
+                数据库
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/mysql%E4%B9%8Bload-data%E5%AD%A6%E4%B9%A0/">Mysql之“load data”学习</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 22, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote>
+<p>Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获</p>
+</blockquote>
+<h1 id="load-data-官网用法">load data 官网用法</h1>
+<p>可参考： <a class="link" href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html"  target="_blank" rel="noopener"
+    >https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="k">LOAD</span><span class="w"> </span><span class="n">DATA</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="k">LOW_PRIORITY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">CONCURRENT</span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">LOCAL</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INFILE</span><span class="w"> </span><span class="s1">&#39;_file_name_&#39;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="k">REPLACE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">IGNORE</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">_tbl_name_</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="nf">PARTITION</span><span class="w"> </span><span class="p">(</span><span class="n">_partition_name_</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">_partition_name_</span><span class="p">]</span><span class="w"> </span><span class="p">...)]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="k">CHARACTER</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">_charset_name_</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="err">{</span><span class="n">FIELDS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">COLUMNS</span><span class="err">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="p">[</span><span class="k">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;_string_&#39;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="p">[[</span><span class="k">OPTIONALLY</span><span class="p">]</span><span class="w"> </span><span class="k">ENCLOSED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;_char_&#39;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="p">[</span><span class="k">ESCAPED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;_char_&#39;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="k">LINES</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="p">[</span><span class="k">STARTING</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;_string_&#39;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="p">[</span><span class="k">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;_string_&#39;</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="k">IGNORE</span><span class="w"> </span><span class="n">_number_</span><span class="w"> </span><span class="err">{</span><span class="k">LINES</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ROWS</span><span class="err">}</span><span class="p">]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[(</span><span class="n">_col_name_or_user_var_</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">_col_name_or_user_var_</span><span class="p">]</span><span class="w"> </span><span class="p">...)]</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">[</span><span class="kt">SET</span><span class="w"> </span><span class="n">_col_name_</span><span class="o">=</span><span class="err">{</span><span class="n">_expr_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">_col_name_</span><span class="o">=</span><span class="err">{</span><span class="n">_expr_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DEFAULT</span><span class="err">}</span><span class="p">]</span><span class="w"> </span><span class="p">...]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="介绍">介绍</h2>
+<p><code>LOAD DATA</code>语法用于读取文件的行到表中，速度很快。它相当于是<code>SELECT ... INTO OUTFILE</code>
+的反向过程。<a class="link" href="https://dev.mysql.com/doc/refman/8.0/en/mysqlimport.html"  title="4.5.5 mysqlimport — A Data Import Program"
+     target="_blank" rel="noopener"
+    ><strong>mysqlimport</strong></a> 也可以作为导入的方法，它的原理是将<code>LOAD DATA</code>语句发到服务端。</p>
+<h2 id="本地vs非本地操作non-local-versus-local-operation">本地vs非本地操作(Non-LOCAL Versus LOCAL Operation)</h2>
+<p>使用了<code>LOCAL</code>修饰符，会有以下影响：</p>
+<ul>
+<li>输入文件的预期位置会变成客户端（而不是服务端的文件系统路径）</li>
+<li>更高的安全要求：因为可以直接读取客户端的文件，所以需要用户具有<code>SUPER</code>或<code>FILE</code>权限</li>
+<li>与<code>IGNORE</code>修饰符有同样的错误处理效果，即遇到重复键问题，不会报错只会记录警告信息
+需要注意的是，<code>LOCAL</code>参数必须在客户端和服务端都配置了才能生效。例如，可以在<code>etc/mysql/my.cnf</code>中添加：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>mysql<span class="o">]</span>
+</span></span><span class="line"><span class="cl">local-infile<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>mysqld<span class="o">]</span>
+</span></span><span class="line"><span class="cl">local-infile<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>[mysql] and [mysqld]</code>分别是客户端和服务端配置，区别主要如下：</p>
+<ul>
+<li><code>[mysql]</code>部分用于配置MySQL客户端工具（例如mysql命令行客户端）的默认选项，如默认主机、端口号、用户、密码、使用的默认字符集等。</li>
+<li><code>[mysqld]</code>部分用于配置MySQL服务器的运行时选项，如监听的IP地址和端口号、数据目录位置、日志文件设置、缓存大小设置、连接数限制等。</li>
+</ul>
+<p>上述方法是设置默认的<code>local-infile=1</code>。一般<strong>是重启mysql生效</strong>。但需要注意的是，这里的“重启生效”仅针对<strong>服务端</strong>的设置（即<code>[mysqld]</code>的设置）。对于客户端(<code>[mysql]</code>)的设置，无需重启，只需重新打开客户端连接到mysql服务，即可生效。</p>
+<p>还有以下方法可以分别进行客户端和服务端的设置，如：
+1、当前客户端会话开启：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mysql --local-infile<span class="o">=</span><span class="m">1</span> -u username -p
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、设置全局变量local_infile（服务端）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;local_infile&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">local_infile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ON&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;local_infile&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，这种服务端设置会立刻生效，无需像在my.cnf中配置需要重启生效。但是这种方法只会对当前运行的 MySQL 实例生效，并且在 MySQL 实例重启后会丢失。</p>
+<p>因此，如果想要长久的客户端和服务端<code>local_infile</code>参数的设置，需要在配置文件<code>my.cnf</code>中设置。如果仅需要当前客户端会话或当前服务实例生效，可采取下面的设置方法。</p>
+<h2 id="输入文件字符集input-file-character-set">输入文件字符集(Input File Character Set)</h2>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mysql/">Mysql</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E4%B8%AA%E4%BA%BA%E6%94%B6%E8%8E%B7/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql导入常见问题及个人收获</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/shell%E4%B8%AD%E6%89%A7%E8%A1%8Cmysql%E8%AF%AD%E5%8F%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">shell中执行mysql语句</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql修改root密码</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">oracle-&gt;mysql数据迁移数据事项</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mysql导入导出</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

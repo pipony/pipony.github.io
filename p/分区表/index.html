@@ -46,6 +46,8 @@ https://www.cnblogs.com/qianmojie/p/16326975.html
 range分区：给定连续区间 list分区：匹配一个离散值集合 hash分区：基于用户定义的表达式（MySQL 中有效的、产生非负整数值的任何表达式）的返回值来进行选择的分区 key分区：根据MySQL数据库提供的哈希函数来进行分区。 另外，还需要关注自动分区表（mysql不能自然支持，其他数据库可能支持，如gaussdb）
 分区表定义 参考：https://www.cnblogs.com/dream98/p/10620877.html
 RANGE分区 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 CREATE TABLE employees ( id INT NOT NULL, fname VARCHAR(30), lname VARCHAR(30), hired DATE NOT NULL DEFAULT &amp;#39;1970-01-01&amp;#39;, separated DATE NOT NULL DEFAULT &amp;#39;9999-12-31&amp;#39;, job_code INT NOT NULL, store_id INT NOT NULL ) partition BY RANGE (store_id) ( partition p0 VALUES LESS THAN (6), partition p1 VALUES LESS THAN (11), partition p2 VALUES LESS THAN (16), partition p3 VALUES LESS THAN (21) ); 如果增加了一个编号为第21的商店，将会发生什么呢？在这种方案下，由于没有规则把store_id大于20的商店包含在内，服务器将不知道把该行保存在何处，将会导致错误。 要避免这种错误，可以将最后一行规则换成：">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

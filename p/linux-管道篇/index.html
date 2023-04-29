@@ -31,6 +31,8 @@
 注意点 管道只能传输正确输出，而无法传输错误信息。从管道接连输出的标准错误会混合到一起。 常见相关命令 grep (Global search REgular expression and Print out the line) 根据模式（正则表达式）对文本逐行扫描，找到并打印匹配的行
 格式：
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 grep [options] [pattern] file or command | grep [options] [pattern] [options] -v # 反向匹配 invert (等同于--invert-match) -n # 输出加上行号 -i # 忽略大小写匹配 ignorecase -c # 只输出匹配的行数 -E # 适用egrep匹配 --color=auto # 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep=&amp;#39;grep --color=auto&amp;#39;) -w # 整词对比，而不是字符 -o # 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数） -q # 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等） -l # 只输出匹配的文件名 -r # 递归模式，查找所有层级子目录里的文件 [pattern] # 匹配模式，见正则表达式篇 例子：">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

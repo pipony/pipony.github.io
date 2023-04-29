@@ -6,20 +6,28 @@
         <description>Recent content in Categories on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 29 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>weekly-letter</title>
+        <link>https://huangxindi.com/categories/weekly-letter/</link>
+        <pubDate>Sat, 29 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/categories/weekly-letter/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>books</title>
+        <link>https://huangxindi.com/categories/books/</link>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/categories/books/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>charging</title>
         <link>https://huangxindi.com/categories/charging/</link>
         <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/categories/charging/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>weekly-letter</title>
-        <link>https://huangxindi.com/categories/weekly-letter/</link>
-        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://huangxindi.com/categories/weekly-letter/</guid>
         <description></description>
         </item>
         <item>
@@ -92,6 +100,14 @@
         <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/categories/fun/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>资源</title>
+        <link>https://huangxindi.com/categories/%E8%B5%84%E6%BA%90/</link>
+        <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/categories/%E8%B5%84%E6%BA%90/</guid>
         <description></description>
         </item>
         <item>

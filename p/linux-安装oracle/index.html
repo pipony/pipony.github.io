@@ -28,6 +28,8 @@
 1 2 3 4 5 6 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ ps -ef | grep oracle cindy 26709 26624 0 20:22 pts/0 00:00:00 grep --color=auto oracle [cindy@iZbp15qc4wmx335c268l5mZ ~]$ id oracle id: oracle: no such user [cindy@iZbp15qc4wmx335c268l5mZ ~]$ rpm -qa | grep oracle # 查看以rpm包安装的软件列表 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ yum list installed | grep oracle # 查看以yum安装的软件列表 步骤概览 参考 http://www.javashuo.com/article/p-sbcnrnqx-gr.html
 安装swap分区 安装oracle依赖包 建立用户/用户组 在外面下载oralce包并传到linux oracle安装 安装swap分区 oracle安装需要swap分区，所以先检查下是否已有swap分区。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 [root@iZbp15qc4wmx335c268l5mZ ~]# free total used free shared buff/cache available Mem: 964136 425288 172940 304 365908 366360 Swap: 1049596 303616 745980 [root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/fstab # # /etc/fstab # Created by anaconda on Mon Sep 14 07:14:22 2020 # # Accessible filesystems, by reference, are maintained under &amp;#39;/dev/disk&amp;#39; # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info # UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 / ext4 defaults 1 1 /www/swap swap swap defaults 0 0 看起来是已有的，如果没有，可参考链接的方式创建。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

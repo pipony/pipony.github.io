@@ -19,6 +19,8 @@
 <meta name="twitter:description" content="Oracle-实现事务提交和回滚 背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。
 失败回滚命令 WHENEVER SQLERROR官网介绍： https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C
 常见用法 1 WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]} 出现错误后退出sql执行 1 SQL&amp;gt; WHENEVER SQLERROR EXIT SQL.SQLCODE 出现错误后先回滚【还没提交的变化】再退出sql执行 1 2 3 SQL&amp;gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE or SQL&amp;gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK 失败不回滚命令 如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

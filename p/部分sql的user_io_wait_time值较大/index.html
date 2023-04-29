@@ -22,6 +22,8 @@ oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/
 oracle sql 响应时间分析 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
 1 2 3 4 5 6 7 8 9 10 select * from (select sql_text, sql_id, elapsed_time, cpu_time, user_io_wait_time from sys.v_$sqlarea order by 5 desc) where rownum &amp;lt; 6; 2、根据步骤1获取具体SQL详情
 1 2 3 4 5 6 7 8 9 10 11 select event, time_waited, owner, object_name, current_file#, current_block# from sys.v_$active_session_history a, sys.dba_objects b where sql_id = &amp;#39;6gvch1xu9ca3g&amp;#39; and a.current_obj# = b.object_id and time_waited &amp;lt;&amp;gt; 0; ">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

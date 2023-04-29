@@ -25,6 +25,8 @@
 基础概念 lv (logical volume)：逻辑卷 vg (volume group)：卷组 pv (physical volume)：物理卷 pe (physical extent)：物理区域 目录是挂载在卷组vg上的，可以通过在vg中添加lv，扩大vg的容量，从而达到该目录的lvm磁盘扩容效果。
 扩容基本操作 查看当前挂载点 1 df -h 显示当前的lv 1 lvdisplay 显示当前的vg 1 vgdisplay 显示当前的pv 1 pvdisplay 查看磁盘内容 1 2 fdisk -l fdisk -l | grep &amp;#39;/dev&amp;#39; 目前有sda和sdb两块硬盘（其中sdb是新增硬盘，等待将其扩容到vg）
 创建新分区，格式化 1 2 fdisk /dev/sdb mkfs -t ext4 /dev/sdb1 创建pv 1 2 pvcreate /dev/sdb1 pvscan #查看所有的pv情况 扩容vg 1 2 3 vgextend ubuntu-vg /dev/sdb1 #ubuntu-vg为待扩容的vg名称 pvscan #查看扩容结果 vgdisplay #查看扩容结果 扩容lv 1 2 3 4 lvdisplay #查看要扩容的lv path和lv name lvextend -L &#43;10G /dev/ubuntu-vg/ubuntu-lv #扩容10G resize2fs /dev/ubuntu-vg/ubuntu-lv df -h #查看扩容结果 刚才的操作是将vg中Free PE的10G移到可分配的Alloc PE中，从上图看已操作成功，即完成了扩容（真正可使用的vg空间&#43;10G）。现在要将所有的Free PE扩容到Alloc PE中，可采用：">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

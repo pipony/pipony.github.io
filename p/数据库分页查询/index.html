@@ -28,6 +28,8 @@ LIMIT基础用法 SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
 需要注意：初始偏移量是0而不是1。
 举例：
 1 2 3 4 5 6 7 8 SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15 SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n） select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始） # 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为 select * from table limit (pageNum-1)*numPerPage ,numPerPage # 方法1 select * from table limit numPerPage offset (pageNum-1)*numPerPage # 方法2 优化分页查询方法 由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的offset较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

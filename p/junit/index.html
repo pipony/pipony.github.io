@@ -25,6 +25,8 @@ JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的
 特点 提供注解来识别测试方法。 提供断言来测试预期结果。 提供测试运行来运行测试。 简单的示例 创建一个Demo类
 1 2 3 4 5 6 7 public class Demo { public static int add(int a, int b) { return a&#43;b; } } 创建一个相应的Test类
 1 2 3 4 5 6 7 8 9 10 11 12 13 import org.junit.Test; import static org.junit.Assert.assertEquals; public class DemoTest { @Test public void testAdd() { assertEquals(5,Demo.add(1,4)); } } 创建Test Runner 类">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

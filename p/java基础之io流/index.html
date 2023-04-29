@@ -31,6 +31,8 @@ http://www.51gjie.com/java/686.html
 http://www.51gjie.com/java/686.html
 分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 按用法分类：
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 (1) 按数据来源（去向）使用 是文件： FileInputStream, FileOutputStream, FileReader, FileWriter 是byte[]：ByteArrayInputStream, ByteArrayOutputStream 是Char[]: CharArrayReader, CharArrayWriter 是String: StringBufferInputStream, StringReader, StringWriter 网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用 要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用 要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。 (4) 按数据格式使用 二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类 纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用 输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要 从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter 对象输入输出：ObjectInputStream, ObjectOutputStream 进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream 更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader (7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

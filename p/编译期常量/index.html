@@ -28,6 +28,8 @@ java四个阶段 编辑期 编译期：将.java文件编译为.class文件 加�
 编译期常量定义方式 1 2 3 // final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。 public final int a = 10000; public static final int b = 10000; 反例：
 1 2 public int a = 10; // 没用final修饰，不是编译期常量 public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量 编译期常量的表现 编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。
 1 2 3 4 5 6 7 8 9 10 11 12 13 public class Class { public final int a = 10000; public static final int b = 10000; } // 查看编译后.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

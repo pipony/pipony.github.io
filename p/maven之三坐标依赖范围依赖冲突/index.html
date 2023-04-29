@@ -28,6 +28,8 @@ Maven构件 构件：在Maven中，任何项目输出都可成为构件。
 坐标组成：
 groupId：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须) artifactId：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须) version：当前版本。(必须) packaging：打包方式，比如 jar，war&amp;hellip;，默认是jar (可选) classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。 标识和jar包名的对应关系（顺序拼接）：
 1 2 3 4 5 6 7 8 9 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 对应的jar包名: json-lib-2.2.2-jdk15.jar --&amp;gt; classifier标识使用场景 区分不同JDK版本所生成的jar包 1 2 3 4 5 6 7 8 9 10 11 12 13 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt; &amp;lt;classifier&amp;gt;jdk15&amp;lt;/classifier&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;net.sf.json-lib&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;json-lib&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page

@@ -6,7 +6,23 @@
         <description>Recent content in Tags on 2MUCH</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 29 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>weekly-letter</title>
+        <link>https://huangxindi.com/tags/weekly-letter/</link>
+        <pubDate>Sat, 29 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/tags/weekly-letter/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>book highlights</title>
+        <link>https://huangxindi.com/tags/book-highlights/</link>
+        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/tags/book-highlights/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>HOW</title>
         <link>https://huangxindi.com/tags/how/</link>
         <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
@@ -20,14 +36,6 @@
         <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/mysql/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>weekly-letter</title>
-        <link>https://huangxindi.com/tags/weekly-letter/</link>
-        <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
-        
-        <guid>https://huangxindi.com/tags/weekly-letter/</guid>
         <description></description>
         </item>
         <item>
@@ -100,6 +108,14 @@
         <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/tags/music/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>music资源</title>
+        <link>https://huangxindi.com/tags/music%E8%B5%84%E6%BA%90/</link>
+        <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://huangxindi.com/tags/music%E8%B5%84%E6%BA%90/</guid>
         <description></description>
         </item>
         <item>

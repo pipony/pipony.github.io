@@ -16,6 +16,8 @@
 <meta name="twitter:title" content="Redis-Redis6新数据类型">
 <meta name="twitter:description" content="Redis-Redis6新数据类型 Bitmaps 本身不是一种数据类型，实际上是每个单位存储0和1的字符串，可以看作是以位为单位的数组，下标称为偏移量（从0开始）。但是操作命令和字符串不同。
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 [commands] - setbit key offset value # - getbit key offset - bitcount key [start] [end] # 以字节为单位统计1的个数，这和上面两个命令以bit为单位操作不同 - bitop ope destkey key [key...] # 对一或多个key做操作并保存在destkey:and（交集）,or（并集）,not（非）,xor（异或） 127.">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
     </head>
     <body class="
     article-page
