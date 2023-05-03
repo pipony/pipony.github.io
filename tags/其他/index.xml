@@ -227,55 +227,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;SELECT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;LENGTH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;字符串&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- 返回6
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;字符串类型的编码&#34;&gt;字符串类型的编码&lt;/h2&gt;
-&lt;h3 id=&#34;oracle&#34;&gt;ORACLE&lt;/h3&gt;
-&lt;p&gt;参考： &lt;a class=&#34;link&#34; href=&#34;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;http://t.zoukankan.com/dongxiaoguang-p-2966649.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;mysql&#34;&gt;MYSQL&lt;/h3&gt;
-&lt;p&gt;可参考：https://www.bilibili.com/read/cv12600183/&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;varchar 类型最大可以存放多少个字符？&lt;/p&gt;
-&lt;p&gt;MySQL 规定的 VARCHAR 的单位是字符，所以需要将字节数转成字符数，另外默认需留出1-3个字节用于存放字符数。我们知道表有很多的编码方式如：utf8、gbk等，其中 utf8 是可变长的采用 1 到 6 个字节存放一个字符，我们的汉字是一个汉字对应 3 个字节，如果不懂编码可看我之前写的文章搞懂编码问题：https://www.zwjjiaozhu.top/2021/01/the-relation-between-ascii-unicode-and-utf8.html。&lt;/p&gt;
-&lt;p&gt;假设表的编码方式是utf8 ，MySQL按照一个字符对应最大三个字节来算，减去存放字符数的最大值（三个字节），最终的字符数等于num = (65535-3)/3=21844。所以你在设置 VARCHAR(num) 的时候，num 最大是21844。如果是gbk方式，则是按最大两个字节对应一个字符的规则，得出num = (65535-3)/2=32766。&lt;/p&gt;
-&lt;p&gt;数据类型，varchar的范围是0-65535个字节，对应0~21844个字符&lt;/p&gt;
-&lt;p&gt;表的字符集是 utf8 编码&lt;/p&gt;
-&lt;p&gt;CREATE TABLE t2 (&lt;code&gt;name&lt;/code&gt; VARCHAR(21844)) CHARACTER SET utf8; # ✅
-CREATE TABLE t2 (&lt;code&gt;name&lt;/code&gt; VARCHAR(21845)) CHARACTER SET utf8;  # ❌&lt;/p&gt;
-&lt;p&gt;表的字符集是 gbk 编码&lt;/p&gt;
-&lt;p&gt;CREATE TABLE t3 (&lt;code&gt;name&lt;/code&gt; VARCHAR(32766)) CHARACTER SET gbk; # ✅
-CREATE TABLE t3 (&lt;code&gt;name&lt;/code&gt; VARCHAR(32767)) CHARACTER SET gbk; # ❌&lt;/p&gt;
-&lt;p&gt;作者：西园公子冲冲冲 &lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/read/cv12600183/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://www.bilibili.com/read/cv12600183/&lt;/a&gt; 出处：bilibili&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;参考： &lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/sshduanzhijun/article/details/121357488&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://blog.csdn.net/sshduanzhijun/article/details/121357488&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 mysql 4.1 及之前早期版本中，如果是字符集为UTF-8 ， varchar 以字节为单位存储，一个汉字占 3 个字节，则 varchar(100) 类型字段只能存放约 33 个汉字。&lt;/p&gt;
-&lt;p&gt;而在往后的版本中，如 5.x ，一个汉字占多少长度与编码有关 。
-在 UTF-8 字符集下，varchar 以字符为单位存储。所以 varchar(100) 类型字段可存放约 100 个汉字。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;举个例子：&lt;/p&gt;
-&lt;p&gt;我的mysql版本是5.6.5&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mysql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;------------+
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;------------+
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;50&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;------------+
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;row&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;01&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/klb561/p/12064095.html#/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.cnblogs.com/klb561/p/12064095.html#/&lt;/a&gt;&lt;/p&gt;

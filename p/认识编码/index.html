@@ -306,12 +306,6 @@ ASCII American Standard Code for Information Interchange，美国标准信息交
 
   <ol>
     <li><a href="#查看数据库设置的字符集">查看数据库设置的字符集</a></li>
-    <li><a href="#字符串类型的编码">字符串类型的编码</a>
-      <ol>
-        <li><a href="#oracle">ORACLE</a></li>
-        <li><a href="#mysql">MYSQL</a></li>
-      </ol>
-    </li>
     <li><a href="#参考链接">参考链接</a></li>
   </ol>
 </nav>
@@ -605,55 +599,6 @@ ASCII American Standard Code for Information Interchange，美国标准信息交
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">CHAR_LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 返回2
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- 查看字节长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 返回6
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="字符串类型的编码">字符串类型的编码</h2>
-<h3 id="oracle">ORACLE</h3>
-<p>参考： <a class="link" href="http://t.zoukankan.com/dongxiaoguang-p-2966649.html"  target="_blank" rel="noopener"
-    >http://t.zoukankan.com/dongxiaoguang-p-2966649.html</a></p>
-<h3 id="mysql">MYSQL</h3>
-<p>可参考：https://www.bilibili.com/read/cv12600183/</p>
-<blockquote>
-<p>varchar 类型最大可以存放多少个字符？</p>
-<p>MySQL 规定的 VARCHAR 的单位是字符，所以需要将字节数转成字符数，另外默认需留出1-3个字节用于存放字符数。我们知道表有很多的编码方式如：utf8、gbk等，其中 utf8 是可变长的采用 1 到 6 个字节存放一个字符，我们的汉字是一个汉字对应 3 个字节，如果不懂编码可看我之前写的文章搞懂编码问题：https://www.zwjjiaozhu.top/2021/01/the-relation-between-ascii-unicode-and-utf8.html。</p>
-<p>假设表的编码方式是utf8 ，MySQL按照一个字符对应最大三个字节来算，减去存放字符数的最大值（三个字节），最终的字符数等于num = (65535-3)/3=21844。所以你在设置 VARCHAR(num) 的时候，num 最大是21844。如果是gbk方式，则是按最大两个字节对应一个字符的规则，得出num = (65535-3)/2=32766。</p>
-<p>数据类型，varchar的范围是0-65535个字节，对应0~21844个字符</p>
-<p>表的字符集是 utf8 编码</p>
-<p>CREATE TABLE t2 (<code>name</code> VARCHAR(21844)) CHARACTER SET utf8; # ✅
-CREATE TABLE t2 (<code>name</code> VARCHAR(21845)) CHARACTER SET utf8;  # ❌</p>
-<p>表的字符集是 gbk 编码</p>
-<p>CREATE TABLE t3 (<code>name</code> VARCHAR(32766)) CHARACTER SET gbk; # ✅
-CREATE TABLE t3 (<code>name</code> VARCHAR(32767)) CHARACTER SET gbk; # ❌</p>
-<p>作者：西园公子冲冲冲 <a class="link" href="https://www.bilibili.com/read/cv12600183/"  target="_blank" rel="noopener"
-    >https://www.bilibili.com/read/cv12600183/</a> 出处：bilibili</p>
-</blockquote>
-<p>参考： <a class="link" href="https://blog.csdn.net/sshduanzhijun/article/details/121357488"  target="_blank" rel="noopener"
-    >https://blog.csdn.net/sshduanzhijun/article/details/121357488</a></p>
-<blockquote>
-<p>在 mysql 4.1 及之前早期版本中，如果是字符集为UTF-8 ， varchar 以字节为单位存储，一个汉字占 3 个字节，则 varchar(100) 类型字段只能存放约 33 个汉字。</p>
-<p>而在往后的版本中，如 5.x ，一个汉字占多少长度与编码有关 。
-在 UTF-8 字符集下，varchar 以字符为单位存储。所以 varchar(100) 类型字段可存放约 100 个汉字。</p>
-</blockquote>
-<p>举个例子：</p>
-<p>我的mysql版本是5.6.5</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">version</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="k">version</span><span class="p">()</span><span class="w">  </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">|</span><span class="w"> </span><span class="mi">5</span><span class="p">.</span><span class="mi">6</span><span class="p">.</span><span class="mi">50</span><span class="o">-</span><span class="n">log</span><span class="w"> </span><span class="o">|</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+</span><span class="c1">------------+
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考链接">参考链接</h2>

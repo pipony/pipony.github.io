@@ -125,11 +125,17 @@
     &gt;https://6pen.art/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;文心作画大模型 （给出描述文本可生成艺术作品、工业设计、游戏动漫、文章插画等不同种类图像） &lt;a class=&#34;link&#34; href=&#34;https://wenxin.baidu.com/ernie-vilg#/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://wenxin.baidu.com/ernie-vilg#/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;image2description &lt;a class=&#34;link&#34; href=&#34;https://scenex.jinaai.cn/scenes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://scenex.jinaai.cn/scenes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;让简笔画动起来 &lt;a class=&#34;link&#34; href=&#34;https://sketch.metademolab.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://sketch.metademolab.com/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;音频&#34;&gt;音频&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;输入音频，总结成文字 &lt;a class=&#34;link&#34; href=&#34;https://plaud.ai/transcribe&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://plaud.ai/transcribe&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;根据描述生成spotify歌单 &lt;a class=&#34;link&#34; href=&#34;https://www.playlistgeniusai.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.playlistgeniusai.com/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;pdf&#34;&gt;PDF&lt;/h1&gt;
 &lt;ul&gt;
@@ -233,6 +239,8 @@ chargpt prompt模版 &lt;a class=&#34;link&#34; href=&#34;https://www.aishort.to
     &gt;https://pixabay.com/music/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;歌词搜索 &lt;a class=&#34;link&#34; href=&#34;https://mojim.com/cnznew.htm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mojim.com/cnznew.htm&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;图像&#34;&gt;图像&lt;/h1&gt;
 &lt;ul&gt;
@@ -290,8 +298,14 @@ chargpt prompt模版 &lt;a class=&#34;link&#34; href=&#34;https://www.aishort.to
     &gt;https://www.jiansouti.com/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;kindle2flomo &lt;a class=&#34;link&#34; href=&#34;https://tit1e.github.io/kindle2Flomo/#/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://tit1e.github.io/kindle2Flomo/#/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;emoji搜索 &lt;a class=&#34;link&#34; href=&#34;https://www.emojidaquan.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;li&gt;emoji搜索
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.emojidaquan.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://www.emojidaquan.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://emojipedia.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://emojipedia.org/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;网络测速网站 &lt;a class=&#34;link&#34; href=&#34;https://test.ustc.edu.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://test.ustc.edu.cn/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;亲戚关系计算器 &lt;a class=&#34;link&#34; href=&#34;https://passer-by.com/relationship/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
