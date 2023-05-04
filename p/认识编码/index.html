@@ -306,6 +306,10 @@ ASCII American Standard Code for Information Interchange，美国标准信息交
 
   <ol>
     <li><a href="#查看数据库设置的字符集">查看数据库设置的字符集</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#getbytes方法对比">getBytes方法对比</a></li>
     <li><a href="#参考链接">参考链接</a></li>
   </ol>
 </nav>
@@ -600,6 +604,100 @@ ASCII American Standard Code for Information Interchange，美国标准信息交
 </span></span></span><span class="line"><span class="cl"><span class="c1">-- 查看字节长度
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="s1">&#39;字符串&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">-- 返回6
 </span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="编码的应用">编码的应用</h1>
+<h2 id="getbytes方法对比">getBytes方法对比</h2>
+<p><code>String.getBytes(&quot;xxx&quot;)</code>方法是将字符串编码为字节数组，根据编码方式的不同，生成的字节数组也是不同的。以下对比GBK和UTF-8的编码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">&#34;测试&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">str2</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="o">[]</span> <span class="n">str1gbk</span> <span class="o">=</span> <span class="n">str1</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;GBK&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="o">[]</span> <span class="n">str1uft8</span> <span class="o">=</span> <span class="n">str1</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="o">[]</span> <span class="n">str2gbk</span> <span class="o">=</span> <span class="n">str2</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;GBK&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="o">[]</span> <span class="n">str2uft8</span> <span class="o">=</span> <span class="n">str2</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">// print  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;str1gbk=&#34;</span><span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">str1gbk</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;str1uft8=&#34;</span><span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">str1uft8</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;str2gbk=&#34;</span><span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">str2gbk</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;str2uft8=&#34;</span><span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">str2uft8</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">str1gbk=[-78, -30, -54, -44]
+</span></span><span class="line"><span class="cl">str1uft8=[-26, -75, -117, -24, -81, -107]
+</span></span><span class="line"><span class="cl">str2gbk=[97, 98, 99]
+</span></span><span class="line"><span class="cl">str2uft8=[97, 98, 99]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实例2:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ublic</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;测试&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">// string -&gt; byte[] GBK encoding  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">byte</span><span class="o">[]</span> <span class="n">gbkBytes</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;GBK&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">// byte[] -&gt; string -&gt; byte[] -&gt; string  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 由于最外层的new String没有指定编码方式，故使用的是默认的编码方式。但是此编码方式非GBK，所以结果是乱码  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">String</span> <span class="n">strgbk</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">gbkBytes</span><span class="o">,</span> <span class="s">&#34;GBK&#34;</span><span class="o">).</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;GBK&#34;</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">strgbk</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">// byte[] -&gt; string -&gt; byte[] -&gt; string  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 当最后的getBytes()和最外层的new String都没有指定编码方式，即都是使用默认的编码方式。故抵消后获取的字符串是正常的  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">String</span> <span class="n">strgbk1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">gbkBytes</span><span class="o">,</span> <span class="s">&#34;GBK&#34;</span><span class="o">).</span><span class="na">getBytes</span><span class="o">());</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">strgbk1</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">����
+</span></span><span class="line"><span class="cl">测试
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考链接">参考链接</h2>
 <p><a class="link" href="https://www.cnblogs.com/klb561/p/12064095.html#/"  target="_blank" rel="noopener"

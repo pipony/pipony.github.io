@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+以及chatgpt
 概念 IO流（stream）
 流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
 流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
 http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 按用法分类：
+分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 有一些类名容易搞混，比如：InputStreamReader和FileInputStream，两者都含Input和Stream，但是前者是继承Reader类的字符流，后者是继承InputStream类的字节流。因此，要识别类是属于字符or字节流的话，看【后缀】即可：
+Reader后缀：输入字符流 Writer后缀：输出字符流 InputStream后缀：输入字节流 OutputStream后缀：输出字节流 按用法分类：
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 (1) 按数据来源（去向）使用 是文件： FileInputStream, FileOutputStream, FileReader, FileWriter 是byte[]：ByteArrayInputStream, ByteArrayOutputStream 是Char[]: CharArrayReader, CharArrayWriter 是String: StringBufferInputStream, StringReader, StringWriter 网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用 要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用 要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。 (4) 按数据格式使用 二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类 纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用 输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要 从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter 对象输入输出：ObjectInputStream, ObjectOutputStream 进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream 更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader (7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?'>
 <title>Java基础之IO流</title>
 
 <link rel='canonical' href='https://huangxindi.com/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/'>
 
 <link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='Java基础之IO流'>
-<meta property='og:description' content='Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+<meta property='og:description' content='参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+以及chatgpt
 概念 IO流（stream）
 流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
 流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
 http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 按用法分类：
+分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 有一些类名容易搞混，比如：InputStreamReader和FileInputStream，两者都含Input和Stream，但是前者是继承Reader类的字符流，后者是继承InputStream类的字节流。因此，要识别类是属于字符or字节流的话，看【后缀】即可：
+Reader后缀：输入字符流 Writer后缀：输出字符流 InputStream后缀：输入字节流 OutputStream后缀：输出字节流 按用法分类：
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 (1) 按数据来源（去向）使用 是文件： FileInputStream, FileOutputStream, FileReader, FileWriter 是byte[]：ByteArrayInputStream, ByteArrayOutputStream 是Char[]: CharArrayReader, CharArrayWriter 是String: StringBufferInputStream, StringReader, StringWriter 网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用 要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用 要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。 (4) 按数据格式使用 二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类 纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用 输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要 从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter 对象输入输出：ObjectInputStream, ObjectOutputStream 进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream 更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader (7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?'>
 <meta property='og:url' content='https://huangxindi.com/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/'>
 <meta property='og:site_name' content='2MUCH'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2023-01-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-01-11T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2023-05-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="Java基础之IO流">
-<meta name="twitter:description" content="Java基础之IO流 参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+<meta name="twitter:description" content="参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html
+以及chatgpt
 概念 IO流（stream）
 流的源端和目的端可简单地看成是字节的生产者和消费者，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。
 流是一组有顺序的，有起点和终点的字节集合，是对数据传输的总称或抽象。即数据在两设备间的传输称为流，流的本质是数据传输，根据数据传输特性将流抽象为各种类，方便更直观的进行数据操作。
 http://www.51gjie.com/java/686.html
-分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 按用法分类：
+分类 数据类型：字符、字节 流向：输入、输出 方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&amp;hellip; 有一些类名容易搞混，比如：InputStreamReader和FileInputStream，两者都含Input和Stream，但是前者是继承Reader类的字符流，后者是继承InputStream类的字节流。因此，要识别类是属于字符or字节流的话，看【后缀】即可：
+Reader后缀：输入字符流 Writer后缀：输出字符流 InputStream后缀：输入字节流 OutputStream后缀：输出字节流 按用法分类：
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 (1) 按数据来源（去向）使用 是文件： FileInputStream, FileOutputStream, FileReader, FileWriter 是byte[]：ByteArrayInputStream, ByteArrayOutputStream 是Char[]: CharArrayReader, CharArrayWriter 是String: StringBufferInputStream, StringReader, StringWriter 网络数据流：InputStream, OutputStream, Reader, Writer (2) 按是否格式化输出使用 要格式化输出：PrintStream, PrintWriter (3) 按是否要缓冲使用 要缓冲：BufferedInputStream, BufferedOutputStream, BufferedReader, BufferedWriter。 (4) 按数据格式使用 二进制格式（只要不能确定是纯文本的）: InputStream, OutputStream及其所有带Stream结束的子类 纯文本格式（含纯英文与汉字或其他编码方式）；Reader, Writer及其所有带Reader, Writer的子类 (5) 按输入输出使用 输入：Reader, InputStream类型的子类；输出：Writer, OutputStream类型的子类 (6) 特殊需要 从Stream到Reader,Writer的转换类：InputStreamReader, OutputStreamWriter 对象输入输出：ObjectInputStream, ObjectOutputStream 进程间通信：PipeInputStream, PipeOutputStream, PipeReader, PipeWriter 合并输入：SequenceInputStream 更特殊的需要：PushbackInputStream, PushbackReader, LineNumberInputStream, LineNumberReader (7) 决定使用哪个类以及它的构造进程的一般准则如下（不考虑特殊需要）： 考虑最原始的数据格式是什么：是否为文本？是输入还是输出?">
     <link rel="shortcut icon" href="/favicon.svg" />
 
@@ -244,20 +250,19 @@ http://www.51gjie.com/java/686.html
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#概念">概念</a></li>
-    <li><a href="#分类">分类</a></li>
-    <li><a href="#字符流和字节流的转换">字符流和字节流的转换</a></li>
-    <li><a href="#file类">File类</a></li>
-    <li><a href="#inputstream类">InputStream类</a>
-      <ol>
-        <li><a href="#定义">定义</a></li>
-        <li><a href="#读取文件">读取文件</a></li>
-      </ol>
-    </li>
-    <li><a href="#outputstream类">OutputStream类</a></li>
-    <li><a href="#reader类">Reader类</a></li>
-    <li><a href="#writer类">Writer类</a></li>
-    <li><a href="#参考链接">参考链接</a></li>
+    <li><a href="#fileinputstream">FileInputStream</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#fileoutputstream">FileOutputStream</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#bufferedreader">BufferedReader</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#outputstreamwriter">OutputStreamWriter</a></li>
   </ol>
 </nav>
         </div>
@@ -307,7 +312,7 @@ http://www.51gjie.com/java/686.html
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jan 11, 2023</time>
+                <time class="article-time--published">May 03, 2023</time>
             </div>
         
 
@@ -322,7 +327,7 @@ http://www.51gjie.com/java/686.html
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    4 minute read
                 </time>
             </div>
         
@@ -337,11 +342,11 @@ http://www.51gjie.com/java/686.html
     <section class="article-content">
     
     
-    <h1 id="java基础之io流">Java基础之IO流</h1>
-<blockquote>
+    <blockquote>
 <p>参考JAVAschool基础教程的IO流学习：http://www.51gjie.com/java/686.html</p>
+<p>以及chatgpt</p>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h1 id="概念">概念</h1>
 <p>IO流（stream）</p>
 <blockquote>
 <p>流的源端和目的端可简单地看成是<strong>字节的生产者和消费者</strong>，对输入流，可不必关心它的源端是什么，只要简单地从流中读数据，而对输出流，也可不知道它的目的端，只是简单地往流中写数据。</p>
@@ -359,11 +364,18 @@ http://www.51gjie.com/java/686.html
 	
 	
 ></p>
-<h2 id="分类">分类</h2>
+<h1 id="分类">分类</h1>
 <ul>
 <li>数据类型：字符、字节</li>
 <li>流向：输入、输出</li>
 <li>方法类型：结点流、过滤器流（buffer）、数据流（也是过滤器流）&hellip;</li>
+</ul>
+<p>有一些类名容易搞混，比如：InputStreamReader和FileInputStream，两者都含<code>Input</code>和<code>Stream</code>，但是前者是继承Reader类的字符流，后者是继承InputStream类的字节流。因此，要识别类是属于字符or字节流的话，看【<strong>后缀</strong>】即可：</p>
+<ul>
+<li>Reader后缀：输入字符流</li>
+<li>Writer后缀：输出字符流</li>
+<li>InputStream后缀：输入字节流</li>
+<li>OutputStream后缀：输出字节流</li>
 </ul>
 <p>按用法分类：</p>
 <div class="highlight"><div class="chroma">
@@ -434,25 +446,448 @@ http://www.51gjie.com/java/686.html
 </span></span><span class="line"><span class="cl">http://www.51gjie.com/java/686.html
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="字符流和字节流的转换">字符流和字节流的转换</h2>
+</div><h1 id="字符流和字节流的转换">字符流和字节流的转换</h1>
 <p>转换流：是两者之间的桥梁</p>
 <ul>
 <li>字节到字符的桥梁：InputStreamReader</li>
 <li>字符到字节的桥梁：OutputStreamWriter</li>
 </ul>
-<h2 id="file类">File类</h2>
-<h2 id="inputstream类">InputStream类</h2>
-<h3 id="定义">定义</h3>
-<p><code>public abstract class InputStream  extends Object  implements Closeable</code></p>
-<h3 id="读取文件">读取文件</h3>
-<p>使用InputStream对文件进行读取，读取内容可用一个byte数组来存储</p>
-<h2 id="outputstream类">OutputStream类</h2>
-<h2 id="reader类">Reader类</h2>
-<h2 id="writer类">Writer类</h2>
-<h2 id="参考链接">参考链接</h2>
-<p><a class="link" href="http://www.51gjie.com/java/686.html"  target="_blank" rel="noopener"
-    >http://www.51gjie.com/java/686.html</a></p>
-
+<h1 id="file类">File类</h1>
+<p><code>java.io.File</code>类实现对文件进行基本操作。常用方法如下：</p>
+<ul>
+<li>创建
+<ul>
+<li>createNewFile()</li>
+<li>mkdir()</li>
+<li>mkdirs()</li>
+</ul>
+</li>
+<li>获取信息
+<ul>
+<li>getName()</li>
+<li>getParent()</li>
+<li>getParentFile()</li>
+<li>getPath()</li>
+<li>lastModified()</li>
+<li>exists()</li>
+<li>isFile()</li>
+<li>isDirectory()</li>
+<li>length()</li>
+<li>listFiles()</li>
+<li>listFiles(FileFilter filter)</li>
+<li>list()</li>
+<li>list(FilenameFilter filter)</li>
+</ul>
+</li>
+<li>修改
+<ul>
+<li>delete()</li>
+<li>renameTo(File dest)</li>
+</ul>
+</li>
+</ul>
+<p>其中，listFiles返回的是<code>File[]</code>类型，list方法返回的是<code>String[]</code>类型</p>
+<h1 id="inputstream类">InputStream类</h1>
+<p>是字节输入流的所有类的超类。常见子类：</p>
+<ul>
+<li>FileInputStream</li>
+<li>StringBufferInputStream</li>
+<li>BufferedInputStream
+<img src="https://cdn.huangxindi.com/img/202305031435845.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+</ul>
+<p>以下仅介绍<code>FileInputStream</code>的常见用法。需要注意的是，因为这些字类都实现了<code>InputStream</code>定义的基本方法，故基本的使用方法是差不多的。但是各自有自己的特色方法，我们可以按需使用。</p>
+<h2 id="fileinputstream">FileInputStream</h2>
+<p>用法：读取文件内容，用<code>byte[]</code>存储。主要方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">FileInputStream</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="c1">// 构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">read</span><span class="o">()</span> <span class="c1">// 从输入流中读取一个字节的数据（输出时可用(char)转换为字符）。如果已经到达文件的末尾，则返回-1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">read</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">)</span> <span class="c1">// 从输入流中读取若干个字节的数据，并将其存储在缓冲区`b`中。返回实际读取的字节数。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">read</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span> <span class="c1">// 从输入流中读取最多`len`个字节的数据，并将其存储在缓冲区`b`中，从偏移量`off`开始存储。返回实际读取的字节数。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="c1">// 关闭并释放流
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">fileRead</span><span class="o">()</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;IOStreamLearning/file.txt&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 如果不确定文件路径是否写对，可以在失败时输出文件路径进行调整  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(!</span><span class="n">file</span><span class="o">.</span><span class="na">exists</span><span class="o">())</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">FileNotFoundException</span><span class="o">(</span><span class="s">&#34;File not found: &#34;</span> <span class="o">+</span> <span class="n">file</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>  
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 1.使用read()方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileInputStream</span> <span class="n">fis1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 也可以直接将文件路径写在参数里  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// FileInputStream fis1 = new FileInputStream(&#34;IOStreamLearning/file.txt&#34;);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 读取结果转换为int赋值给data  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span> <span class="o">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">fis1</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">// System.out.print((char)data);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fis1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2.使用read(byte[] b)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileInputStream</span> <span class="n">fis2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span><span class="o">[]</span> <span class="n">b2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">2</span><span class="o">];</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">byteArray</span> <span class="o">=</span> <span class="n">fis2</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">b2</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 依次读取b2所定义的字节数量，直到读取结束  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">while</span> <span class="o">(-</span><span class="n">1</span> <span class="o">!=</span> <span class="n">byteArray</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">// System.out.print(new String(b2)); // byte[]-&gt;String用的是new String(byte[])哦！  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">byteArray</span> <span class="o">=</span> <span class="n">fis2</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">b2</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fis2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 3.使用read(byte[], int offset, int len)  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileInputStream</span> <span class="n">fis3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span><span class="o">[]</span> <span class="n">b3</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="o">(-</span><span class="n">1</span> <span class="o">!=</span> <span class="n">fis3</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">b3</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">1024</span><span class="o">))</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">b3</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fis3</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="outputstream类">OutputStream类</h1>
+<p>是字节输出流的所有类的超类。常见子类：</p>
+<ul>
+<li>BufferedOutputStream</li>
+<li>FileOutputStream</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305031655968.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<p>以下仅介绍<code>FileOutputStream</code>的常见用法。</p>
+<h2 id="fileoutputstream">FileOutputStream</h2>
+<p>用于将数据写入文件，常用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="c1">// 写入一个字节到输出流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">)</span> <span class="c1">// 写入一个字节数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span><span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">flush</span><span class="o">()</span> <span class="c1">// 刷新输出流，将缓冲区的内容写入目标文件。虽然大部分情况下，程序正常结束时数据都会自动写入文件中，但是保险起见需要在适当的时候及时刷新写入数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">close</span><span class="o">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关于为何第一个方法的参数是<code>int</code>类型：</p>
+<blockquote>
+<p>虽然这个方法接受一个int作为参数，但它实际上会写入一个无符号字节。Java没有无符号字节数据类型，所以这里要使用int来代替。</p>
+<p>by <a class="link" href="https://www.jianshu.com/p/c47c79882607"  target="_blank" rel="noopener"
+    >https://www.jianshu.com/p/c47c79882607</a></p>
+</blockquote>
+<p>应用实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeFile</span><span class="o">()</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 1.使用write(int b)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// FileOutputStream第二个参数为可选，表示是否追加写。默认为false  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileOutputStream</span> <span class="n">fos1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;IOStreamLearning/file1.txt&#34;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="n">66</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos1</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos1</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2.使用write(byte[])方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileOutputStream</span> <span class="n">fos2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;IOStreamLearning/file2.txt&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos2</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span> <span class="c1">// 通过getBytes方法将要写入的String转换为byte[]  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">fos2</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 3.使用write(byte[], int offset, int len)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FileOutputStream</span> <span class="n">fos3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">&#34;IOStreamLearning/file3.txt&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">content1</span> <span class="o">=</span> <span class="s">&#34;bye&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span><span class="o">[]</span> <span class="n">b3</span> <span class="o">=</span> <span class="n">content1</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span> <span class="c1">// 将String对象转换为UTF-8编码的byte数组  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 如果要写入全部，len参数取数组的长度。注意len参数不能指定为超出实际数组的长度  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">fos3</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">b3</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">b3</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>   
+</span></span><span class="line"><span class="cl"><span class="n">fos3</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">fos3</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="reader类">Reader类</h1>
+<p>是字符输入流的所有类的超类。常见子类：</p>
+<ul>
+<li>BufferedReader</li>
+<li>InputStreamReader</li>
+<li>FileReader
+<img src="https://cdn.huangxindi.com/img/202305031434503.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+</ul>
+<p>三者的区别：
+<code>BufferedReader</code>是一个缓冲字符输入流，它可以减少了读取文件的次数，提高读取文件的效率。<code>InputStreamReader</code>是用来读取字节流并将其转换为字符流的类，可以将任何字节流转换为字符流。更重要的是：<code>InputStreamReader</code>可以接收第二个参数，指定字节流使用的编码格式。FileReader继承自<code>InputStreamReader</code>类，读取文本文件时可以直接使用该类。但是，<code>FileReader</code>是使用系统默认的字符编码读取文件（无法指定的编码），如果文件的编码不是系统默认的编码，那么就不能正确地读取文件内容(乱码)。</p>
+<p><strong>需要注意的是</strong>：这些类都是用于读取文本文件的，如果要读取<strong>二进制</strong>文件（例如图片、音频、视频等），则应该使用<code>InputStream</code>类及其子类，而不是使用这些类。</p>
+<p>下面介绍仅<code>BufferedReader</code>的用法。</p>
+<h2 id="bufferedreader">BufferedReader</h2>
+<p>在开始之前，先搞清楚一件事：前面说到，InputStreamReader可以通过第二个参数指定读取的编码，但是BufferedReader并不能这样做。那么如果实现缓存+指定编码的效果呢？答案是：<strong>将InputStreamReader对象传递给BufferedReader构造函数</strong>（下面会给出例子）。</p>
+<p>BufferedReader的常用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">read</span><span class="o">()</span> <span class="c1">// 与InputStream类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">read</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">)</span> <span class="c1">// 与InputStream类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">String</span> <span class="nf">readLine</span><span class="o">()</span> <span class="c1">// 读取一行文本数据，如到达文件结尾返回null
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">close</span><span class="o">()</span> <span class="c1">// 与InputStream类似
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">readFile</span><span class="o">()</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;IOStreamLearning/file.txt&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 1.使用FileReader构建BufferedReader对象  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">BufferedReader</span> <span class="n">br1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">filePath</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">line</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="o">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">br1</span><span class="o">.</span><span class="na">readLine</span><span class="o">()))</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">// System.out.println(line);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2.使用InputStreamReader构建BufferedReader对象  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// FileReader无法指定读取编码，但是可以借助FileInputStream+InputStreamReader来指定编码  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">BufferedReader</span> <span class="n">br2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="o">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">br2</span><span class="o">.</span><span class="na">readLine</span><span class="o">()))</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Error reading file: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>BufferedReader的构造函数不能直接使用文件路径作为参数，而是必须使用<strong>字符输入流</strong>传递进去（例如借助桥梁<code>InputStreamReader</code>或它的子类<code>FileReader</code>）。即，需要使用这些方法作为字节流和字符流的连接桥梁。</p>
+<p>分析方法2:<code>BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), &quot;UTF-8&quot;)); </code>。FileInputStream提供文件的字节流，InputStreamReader将字节流转换为字符流，BufferedReader接收字符流生成对象。此外，读取的<strong>编码集</strong>在InputStreamReader的第二个参数指定。如果不指定编码方式，则会使用默认的编码方式（据说Windows下默认编码是GBK，Linux下默认编码是UTF-8）。</p>
+<h1 id="writer类">Writer类</h1>
+<p>是字符输出流的所有类的超类，常用子类：</p>
+<ul>
+<li>BufferedWriter</li>
+<li>OutputStreamWriter，子类有FileWriter。前者可以设置<strong>编码集</strong>
+<img src="https://cdn.huangxindi.com/img/202305031748769.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+</ul>
+<p>以下仅介绍<code>OutputStreamWriter</code>的常见用法。</p>
+<h2 id="outputstreamwriter">OutputStreamWriter</h2>
+<p>将字符流转换为字节流。常见用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="c1">// 写入单个字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">c</span><span class="o">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span> <span class="c1">// 写入字符数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">write</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">,</span> <span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span> <span class="c1">// 写入字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">flush</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">close</span><span class="o">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体实例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeFile</span><span class="o">()</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">&#34;IOStreamLearning/file4.txt&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 1.使用write(int c)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OutputStreamWriter</span> <span class="n">osw1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">66</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw1</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw1</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2。使用write(char[] c, int offset, int len)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OutputStreamWriter</span> <span class="n">osw2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kt">char</span><span class="o">[]</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">3</span><span class="o">];</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">c2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">c2</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw2</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">c2</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">c2</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw2</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2。使用write(String str, int offset, int len)方法  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">OutputStreamWriter</span> <span class="n">osw3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="s">&#34;hello world&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw3</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">content</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw3</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">osw3</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
