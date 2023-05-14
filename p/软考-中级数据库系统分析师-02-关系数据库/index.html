@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='关系数据库概述 相关名词 关系：实体以及实体间的联系 关系模式：关系的描述，类似于程序设计语言中类型定义的概念 关系模型：若干个关系模式组成的集合 属性 域：每个属性的取值范围所对应一个值的集合 候选码：或称为码。某个属性或一组属性可以唯一标识一个元组，一个关系可能有多个候选码 主码（主键）：若有多个候选码，可选定一个为主码 主属性：包含在任何候选码（出现在一个候选码中即可）的各个属性 非主属性：不包含在任何候选码的属性 外码：非该关系的码，但是其他关系的码 全码：所有属性组是这个关系模式的候选码 元组/记录：某行 字段、数据项 元数：属性的个数（列数） 基数：记录的个数（行数） n元关系：元数为几，就是几元关系 关系模式 可以表示为：R(U,D,dom,F)，一般简化为：R(U)或R(A1,A2,...)
+分类：
+基本表：真实表 查询表：查询结果对应的表 视图表：虚拟的表 关系的完整性约束 用于保证用户对数据库修改时不会破坏数据的一致性
+实体完整性：基本关系R的主属性不能取空值 参照完整性：例如学生的所属院系属性值必须在学院表的院系属性字段取值中 用户定义完整性：对于某一具体的关系数据库的约束条件，可用户指定 关系运算 基本关系代数运算 扩展运算 基本关系代数运算 并（要求两个关系必须有相同的关系模式，如相同的列数量和类型） 差（也是要求有相同的关系模式，属于R且不属于S） 广义笛卡尔积（不要求有相同的关系模式） 投影及广义投影（列选择）（不去重） 选择运算（选择满足条件的元组）（行选择） 扩展的关系运算 交（需要具有相同的关系模式） 连接（扩展的笛卡尔积，即笛卡尔积后进行条件筛选，包括西塔连接【大小于，不等于】、等值连接【等于】、自然连接【要求比较的字段必须是相同的属性组，并且所有相同的属性都得等值判断。并且去掉重复属性组。如果没有重复属性，则转换为普通的笛卡尔积】） 除（结果去重） 外连接（自然连接的扩展）（注意看图中的运算符号）
+左外连接（左侧为准，右侧补充。不匹配的用NULL填充） 右外连接（与上面相反） 全外连接（左外&#43;右外，取并集） 元组演算、域演算、查询优化 元组演算 域演算 查询优化 为查询选择最有效的查询计划的过程，节省时间和空间。在关系代数运算中，笛卡尔积、连接运算最耗费时间和空间。（笛卡尔积比连接运算代价更大，因为连接运算会只保留相同的列）
+例如，连接前先把各自的表在横向和纵向上进行精简
+关系数据库设计基础知识 函数依赖 如果两个相同的X，是否Y一定是相同的。满足则为X决定Y或Y函数依赖于X。
+非平凡的函数依赖
+平凡的函数依赖（一般不考虑） 完全函数依赖：X的任何一个真子集，都不能决定Y
+部分（局部）函数依赖
+传递函数依赖
+码 候选码：可以决定全码，任何一个真子集都不能决定全码。 主码（主键）：若有多个候选码，则可以选择一个作为主码。 包含在任何一个（即可）候选码的属性叫主属性，否则叫非主属性 外码（外键）：非此表的码，是另一个表的码 多值依赖 规范化（重点） 1NF（第一范式） 定义：每一个分量是不可再分的数据项
+存在的问题：'>
+<title>软考-中级数据库系统分析师-02 关系数据库</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-02-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='软考-中级数据库系统分析师-02 关系数据库'>
+<meta property='og:description' content='关系数据库概述 相关名词 关系：实体以及实体间的联系 关系模式：关系的描述，类似于程序设计语言中类型定义的概念 关系模型：若干个关系模式组成的集合 属性 域：每个属性的取值范围所对应一个值的集合 候选码：或称为码。某个属性或一组属性可以唯一标识一个元组，一个关系可能有多个候选码 主码（主键）：若有多个候选码，可选定一个为主码 主属性：包含在任何候选码（出现在一个候选码中即可）的各个属性 非主属性：不包含在任何候选码的属性 外码：非该关系的码，但是其他关系的码 全码：所有属性组是这个关系模式的候选码 元组/记录：某行 字段、数据项 元数：属性的个数（列数） 基数：记录的个数（行数） n元关系：元数为几，就是几元关系 关系模式 可以表示为：R(U,D,dom,F)，一般简化为：R(U)或R(A1,A2,...)
+分类：
+基本表：真实表 查询表：查询结果对应的表 视图表：虚拟的表 关系的完整性约束 用于保证用户对数据库修改时不会破坏数据的一致性
+实体完整性：基本关系R的主属性不能取空值 参照完整性：例如学生的所属院系属性值必须在学院表的院系属性字段取值中 用户定义完整性：对于某一具体的关系数据库的约束条件，可用户指定 关系运算 基本关系代数运算 扩展运算 基本关系代数运算 并（要求两个关系必须有相同的关系模式，如相同的列数量和类型） 差（也是要求有相同的关系模式，属于R且不属于S） 广义笛卡尔积（不要求有相同的关系模式） 投影及广义投影（列选择）（不去重） 选择运算（选择满足条件的元组）（行选择） 扩展的关系运算 交（需要具有相同的关系模式） 连接（扩展的笛卡尔积，即笛卡尔积后进行条件筛选，包括西塔连接【大小于，不等于】、等值连接【等于】、自然连接【要求比较的字段必须是相同的属性组，并且所有相同的属性都得等值判断。并且去掉重复属性组。如果没有重复属性，则转换为普通的笛卡尔积】） 除（结果去重） 外连接（自然连接的扩展）（注意看图中的运算符号）
+左外连接（左侧为准，右侧补充。不匹配的用NULL填充） 右外连接（与上面相反） 全外连接（左外&#43;右外，取并集） 元组演算、域演算、查询优化 元组演算 域演算 查询优化 为查询选择最有效的查询计划的过程，节省时间和空间。在关系代数运算中，笛卡尔积、连接运算最耗费时间和空间。（笛卡尔积比连接运算代价更大，因为连接运算会只保留相同的列）
+例如，连接前先把各自的表在横向和纵向上进行精简
+关系数据库设计基础知识 函数依赖 如果两个相同的X，是否Y一定是相同的。满足则为X决定Y或Y函数依赖于X。
+非平凡的函数依赖
+平凡的函数依赖（一般不考虑） 完全函数依赖：X的任何一个真子集，都不能决定Y
+部分（局部）函数依赖
+传递函数依赖
+码 候选码：可以决定全码，任何一个真子集都不能决定全码。 主码（主键）：若有多个候选码，则可以选择一个作为主码。 包含在任何一个（即可）候选码的属性叫主属性，否则叫非主属性 外码（外键）：非此表的码，是另一个表的码 多值依赖 规范化（重点） 1NF（第一范式） 定义：每一个分量是不可再分的数据项
+存在的问题：'>
+<meta property='og:url' content='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-02-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='软考-中级数据库系统分析师' /><meta property='article:published_time' content='2023-05-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-06T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="软考-中级数据库系统分析师-02 关系数据库">
+<meta name="twitter:description" content="关系数据库概述 相关名词 关系：实体以及实体间的联系 关系模式：关系的描述，类似于程序设计语言中类型定义的概念 关系模型：若干个关系模式组成的集合 属性 域：每个属性的取值范围所对应一个值的集合 候选码：或称为码。某个属性或一组属性可以唯一标识一个元组，一个关系可能有多个候选码 主码（主键）：若有多个候选码，可选定一个为主码 主属性：包含在任何候选码（出现在一个候选码中即可）的各个属性 非主属性：不包含在任何候选码的属性 外码：非该关系的码，但是其他关系的码 全码：所有属性组是这个关系模式的候选码 元组/记录：某行 字段、数据项 元数：属性的个数（列数） 基数：记录的个数（行数） n元关系：元数为几，就是几元关系 关系模式 可以表示为：R(U,D,dom,F)，一般简化为：R(U)或R(A1,A2,...)
+分类：
+基本表：真实表 查询表：查询结果对应的表 视图表：虚拟的表 关系的完整性约束 用于保证用户对数据库修改时不会破坏数据的一致性
+实体完整性：基本关系R的主属性不能取空值 参照完整性：例如学生的所属院系属性值必须在学院表的院系属性字段取值中 用户定义完整性：对于某一具体的关系数据库的约束条件，可用户指定 关系运算 基本关系代数运算 扩展运算 基本关系代数运算 并（要求两个关系必须有相同的关系模式，如相同的列数量和类型） 差（也是要求有相同的关系模式，属于R且不属于S） 广义笛卡尔积（不要求有相同的关系模式） 投影及广义投影（列选择）（不去重） 选择运算（选择满足条件的元组）（行选择） 扩展的关系运算 交（需要具有相同的关系模式） 连接（扩展的笛卡尔积，即笛卡尔积后进行条件筛选，包括西塔连接【大小于，不等于】、等值连接【等于】、自然连接【要求比较的字段必须是相同的属性组，并且所有相同的属性都得等值判断。并且去掉重复属性组。如果没有重复属性，则转换为普通的笛卡尔积】） 除（结果去重） 外连接（自然连接的扩展）（注意看图中的运算符号）
+左外连接（左侧为准，右侧补充。不匹配的用NULL填充） 右外连接（与上面相反） 全外连接（左外&#43;右外，取并集） 元组演算、域演算、查询优化 元组演算 域演算 查询优化 为查询选择最有效的查询计划的过程，节省时间和空间。在关系代数运算中，笛卡尔积、连接运算最耗费时间和空间。（笛卡尔积比连接运算代价更大，因为连接运算会只保留相同的列）
+例如，连接前先把各自的表在横向和纵向上进行精简
+关系数据库设计基础知识 函数依赖 如果两个相同的X，是否Y一定是相同的。满足则为X决定Y或Y函数依赖于X。
+非平凡的函数依赖
+平凡的函数依赖（一般不考虑） 完全函数依赖：X的任何一个真子集，都不能决定Y
+部分（局部）函数依赖
+传递函数依赖
+码 候选码：可以决定全码，任何一个真子集都不能决定全码。 主码（主键）：若有多个候选码，则可以选择一个作为主码。 包含在任何一个（即可）候选码的属性叫主属性，否则叫非主属性 外码（外键）：非此表的码，是另一个表的码 多值依赖 规范化（重点） 1NF（第一范式） 定义：每一个分量是不可再分的数据项
+存在的问题：">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#相关名词">相关名词</a></li>
+    <li><a href="#关系模式">关系模式</a></li>
+    <li><a href="#关系的完整性约束">关系的完整性约束</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#基本关系代数运算">基本关系代数运算</a></li>
+    <li><a href="#扩展的关系运算">扩展的关系运算</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#元组演算">元组演算</a></li>
+    <li><a href="#域演算">域演算</a></li>
+    <li><a href="#查询优化">查询优化</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#函数依赖">函数依赖</a></li>
+    <li><a href="#码">码</a></li>
+    <li><a href="#多值依赖">多值依赖</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#1nf第一范式">1NF（第一范式）</a></li>
+    <li><a href="#2nf第二范式">2NF（第二范式）</a></li>
+    <li><a href="#3nf第三范式">3NF（第三范式）</a></li>
+    <li><a href="#bcnf巴克斯范式">BCNF（巴克斯范式）</a></li>
+    <li><a href="#4nf第四范式">4NF（第四范式）</a></li>
+    <li><a href="#5nf一般不考">5NF（一般不考）</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#函数依赖的闭包">函数依赖的闭包</a></li>
+    <li><a href="#候选码求解">候选码求解</a></li>
+    <li><a href="#最小函数依赖集极小函数依赖集最小覆盖">最小函数依赖集（极小函数依赖集/最小覆盖）</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#无损连接">无损连接</a></li>
+    <li><a href="#保持函数依赖">保持函数依赖</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/" >
+                软考-中级数据库系统分析师
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-02-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/">软考-中级数据库系统分析师-02 关系数据库</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 06, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="关系数据库概述">关系数据库概述</h1>
+<h2 id="相关名词">相关名词</h2>
+<ul>
+<li>关系：实体以及实体间的联系</li>
+<li>关系模式：关系的描述，类似于程序设计语言中类型定义的概念</li>
+<li>关系模型：若干个关系模式组成的集合</li>
+<li>属性</li>
+<li>域：每个属性的取值范围所对应一个值的集合</li>
+<li><strong>候选码</strong>：<strong>或称为码</strong>。某个属性或一组属性可以唯一标识一个元组，一个关系可能有多个候选码</li>
+<li><strong>主码（主键）</strong>：若有多个候选码，可选定一个为主码</li>
+<li><strong>主属性</strong>：包含在任何候选码（出现在一个候选码中即可）的各个属性</li>
+<li>非主属性：不包含在任何候选码的属性</li>
+<li>外码：非该关系的码，但是其他关系的码</li>
+<li>全码：所有属性组是这个关系模式的候选码</li>
+<li>元组/记录：某行</li>
+<li>字段、数据项</li>
+<li>元数：属性的个数（列数）</li>
+<li>基数：记录的个数（行数）</li>
+<li>n元关系：元数为几，就是几元关系</li>
+</ul>
+<h2 id="关系模式">关系模式</h2>
+<p>可以表示为：<code>R(U,D,dom,F)</code>，一般简化为：<code>R(U)</code>或<code>R(A1,A2,...)</code></p>
+<p>分类：</p>
+<ul>
+<li>基本表：真实表</li>
+<li>查询表：查询结果对应的表</li>
+<li>视图表：虚拟的表</li>
+</ul>
+<h2 id="关系的完整性约束">关系的完整性约束</h2>
+<p>用于保证用户对数据库修改时不会破坏数据的一致性</p>
+<ul>
+<li>实体完整性：基本关系R的主属性不能取空值</li>
+<li>参照完整性：例如学生的所属院系属性值必须在学院表的院系属性字段取值中</li>
+<li>用户定义完整性：对于某一具体的关系数据库的约束条件，可用户指定</li>
+</ul>
+<h1 id="关系运算">关系运算</h1>
+<ul>
+<li>基本关系代数运算</li>
+<li>扩展运算</li>
+</ul>
+<h2 id="基本关系代数运算">基本关系代数运算</h2>
+<ul>
+<li>并（要求两个关系必须有相同的关系模式，如相同的列数量和类型）</li>
+<li>差（也是要求有相同的关系模式，属于R且不属于S）</li>
+<li>广义笛卡尔积（不要求有相同的关系模式）
+<img src="https://cdn.huangxindi.com/img/202305071642586.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+<li>投影及广义投影（列选择）（不去重）
+<img src="https://cdn.huangxindi.com/img/202305071644180.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+<li>选择运算（选择满足条件的元组）（行选择）
+<img src="https://cdn.huangxindi.com/img/202305071646210.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+</ul>
+<h2 id="扩展的关系运算">扩展的关系运算</h2>
+<ul>
+<li>交（需要具有相同的关系模式）</li>
+<li>连接（扩展的笛卡尔积，即笛卡尔积后进行条件筛选，包括西塔连接【大小于，不等于】、等值连接【等于】、自然连接【要求比较的字段必须是相同的属性组，并且所有相同的属性都得等值判断。并且去掉重复属性组。如果没有重复属性，则转换为普通的笛卡尔积】）
+<img src="https://cdn.huangxindi.com/img/202305071654934.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+<img src="https://cdn.huangxindi.com/img/202305071655708.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305071658564.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<ul>
+<li>
+<p>除（结果去重）
+<img src="https://cdn.huangxindi.com/img/202305071704918.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+</li>
+<li>
+<p>外连接（自然连接的扩展）（注意看图中的运算符号）</p>
+<ul>
+<li>左外连接（左侧为准，右侧补充。不匹配的用NULL填充）</li>
+<li>右外连接（与上面相反）</li>
+<li>全外连接（左外+右外，取并集）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305071711811.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+<img src="https://cdn.huangxindi.com/img/202305071712208.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+>
+<img src="https://cdn.huangxindi.com/img/202305071713275.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="元组演算域演算查询优化">元组演算、域演算、查询优化</h1>
+<h2 id="元组演算">元组演算</h2>
+<p><img src="https://cdn.huangxindi.com/img/202305071744078.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<p><img src="https://cdn.huangxindi.com/img/202305102025536.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="域演算">域演算</h2>
+<h2 id="查询优化">查询优化</h2>
+<p>为查询选择最有效的查询计划的过程，节省时间和空间。在关系代数运算中，笛卡尔积、连接运算最耗费时间和空间。（笛卡尔积比连接运算代价更大，因为连接运算会只保留相同的列）</p>
+<p>例如，连接前先把各自的表在横向和纵向上进行精简</p>
+<h1 id="关系数据库设计基础知识">关系数据库设计基础知识</h1>
+<h2 id="函数依赖">函数依赖</h2>
+<p>如果两个相同的X，是否Y一定是相同的。满足则为X决定Y或Y函数依赖于X。</p>
+<ul>
+<li>
+<p>非平凡的函数依赖</p>
+</li>
+<li>
+<p>平凡的函数依赖（一般不考虑）
+<img src="https://cdn.huangxindi.com/img/202305102100142.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+</li>
+<li>
+<p>完全函数依赖：X的任何一个真子集，都不能决定Y</p>
+</li>
+<li>
+<p>部分（局部）函数依赖</p>
+</li>
+<li>
+<p>传递函数依赖</p>
+</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305102106502.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="码">码</h2>
+<ul>
+<li>候选码：可以决定全码，任何一个真子集都不能决定全码。</li>
+<li>主码（主键）：若有多个候选码，则可以选择一个作为主码。</li>
+<li>包含在任何一个（即可）候选码的属性叫主属性，否则叫非主属性</li>
+<li>外码（外键）：非此表的码，是另一个表的码</li>
+</ul>
+<h2 id="多值依赖">多值依赖</h2>
+<p><img src="https://cdn.huangxindi.com/img/202305102125390.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<p><img src="https://cdn.huangxindi.com/img/202305102130780.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="规范化重点">规范化（重点）</h1>
+<p><img src="https://cdn.huangxindi.com/img/202305132059067.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="1nf第一范式">1NF（第一范式）</h2>
+<p>定义：每一个分量是不可再分的数据项</p>
+<p>存在的问题：</p>
+<ul>
+<li>数据冗余</li>
+<li>更新异常（修改操作后数据不一致）</li>
+<li>插入异常</li>
+<li>删除异常</li>
+</ul>
+<h2 id="2nf第二范式">2NF（第二范式）</h2>
+<p>定义：当1NF消除了非主属性对码的<strong>部分</strong>函数依赖</p>
+<h2 id="3nf第三范式">3NF（第三范式）</h2>
+<p>定义：当2NF消除了非主属性对码的<strong>传递</strong>函数依赖</p>
+<h2 id="bcnf巴克斯范式">BCNF（巴克斯范式）</h2>
+<p>定义：当3NF消除了<strong>主属性</strong>对码的部分函数依赖和传递函数依赖</p>
+<p>性质：</p>
+<ul>
+<li>所有非主属性对每个码都是完全函数依赖</li>
+<li>所有主属性对每一个不包含它的码，也是完全函数依赖</li>
+<li>没有任何属性完全函数依赖于非码的任何一组属性</li>
+</ul>
+<h2 id="4nf第四范式">4NF（第四范式）</h2>
+<p>定义：限制关系模式的属性间不允许有非平凡且非函数依赖的多值依赖</p>
+<p>注意：如果只考虑函数依赖，则最高为BCNF范式。如果考虑多值依赖，则最高为4NF。只包含多值依赖关系的关系才可能是4NF，如果包含非多值依赖的属性，要拿出来才能组成4NF</p>
+<p><img src="https://cdn.huangxindi.com/img/202305132055058.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="5nf一般不考">5NF（一般不考）</h2>
+<h1 id="armstrong公理系统">Armstrong公理系统</h1>
+<p><img src="https://cdn.huangxindi.com/img/202305132109482.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="函数依赖的闭包">函数依赖的闭包</h2>
+<ul>
+<li>函数依赖的闭包</li>
+<li>属性的闭包</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305132111813.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<p><img src="https://cdn.huangxindi.com/img/202305132113526.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<p><img src="https://cdn.huangxindi.com/img/202305132115232.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="候选码求解">候选码求解</h2>
+<p>1、根据函数关系，将所有属性分类</p>
+<ul>
+<li>L 只在左边出现：一定是</li>
+<li>R 只在右边出现：一定不是</li>
+<li>LR 同时在左右出现：可能是，可能不是</li>
+<li>NLR 左右都没出现：一定是
+2、将所有L和NLR组合起来，设为P，求P的闭包，若为全集U，则为候选码
+3、若第2步闭包不是全集，则<strong>依次</strong>将LR类属性和P组合起来求闭包，只要其闭包为全集，则为候选码。注意：如果LR有多个，则要依次判断，因为可能有多个候选码</li>
+</ul>
+<h2 id="最小函数依赖集极小函数依赖集最小覆盖">最小函数依赖集（极小函数依赖集/最小覆盖）</h2>
+<p>定义：</p>
+<ul>
+<li>所有函数依赖的右侧只有一个属性</li>
+<li>没有冗余的函数依赖</li>
+<li>所有函数依赖的左侧没有冗余的属性</li>
+</ul>
+<h1 id="模式分解">模式分解</h1>
+<h2 id="无损连接">无损连接</h2>
+<p>定义：一个关系模式分解为若干个关系模式后，通过自然连接和投影等运算仍能还原为原来的关系模式</p>
+<p><img src="https://cdn.huangxindi.com/img/202305132131250.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h2 id="保持函数依赖">保持函数依赖</h2>
+<p><img src="https://cdn.huangxindi.com/img/202305132135074.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="补充知识">补充知识</h1>
+<ul>
+<li>平凡和非平凡的函数依赖：X-&gt;Y,若Y是X的子集，则为平凡；否则为非平凡</li>
+<li>平凡和非平凡的多值依赖：U=X+Y+Z，若X-&gt;-&gt;Y，且Z为空集，则为平凡；否则非平凡</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/">软考-中级数据库系统分析师</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-04-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93nosql/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-04 非关系型数据库NoSQL</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-05-%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%92%8C%E8%BF%90%E8%A1%8C%E7%9F%A5%E8%AF%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-05 系统开发和运行知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-03-sql/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-03 SQL</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-01-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-01 数据库技术基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-00-%E8%80%83%E8%AF%95%E4%BB%8B%E7%BB%8D/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-00 考试介绍</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

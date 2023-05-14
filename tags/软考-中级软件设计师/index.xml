@@ -92,7 +92,7 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示&lt;/p&gt;
 &lt;h3 id=&#34;浮点数运算&#34;&gt;浮点数运算&lt;/h3&gt;
-&lt;p&gt;M*R^e&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;M*R^e&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;M：尾数；R：基数：e：指数&lt;/p&gt;
 &lt;p&gt;对阶（&lt;strong&gt;小向大的指数对&lt;/strong&gt;） - 尾数计算 - 结果格式化（&lt;strong&gt;尾数小数点左边是1&lt;/strong&gt;）&lt;/p&gt;
 &lt;h2 id=&#34;计算机结构&#34;&gt;计算机结构&lt;/h2&gt;
@@ -111,8 +111,10 @@
 &lt;ul&gt;
 &lt;li&gt;指令寄存器 IR&lt;/li&gt;
 &lt;li&gt;程序计数器 PC&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;地址寄存器 AR&lt;/li&gt;
+&lt;li&gt;指令译码器 ID：对指令中的操作码进行解释&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;指令=操作码+操作数或操作数地址&lt;/p&gt;
 &lt;h2 id=&#34;flynn分类法&#34;&gt;Flynn分类法&lt;/h2&gt;
 &lt;p&gt;单I/多M+指令I/数据D&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220328204105460.png&#34;
@@ -278,13 +280,14 @@
 &lt;li&gt;内部总线&lt;/li&gt;
 &lt;li&gt;系统总线
 &lt;ul&gt;
-&lt;li&gt;数据总线（传输数据，字长与数据总线宽度有关）&lt;/li&gt;
-&lt;li&gt;地址总线（宽度与内存大小有关，如32位操作系统内存最多2^32=4G）&lt;/li&gt;
-&lt;li&gt;控制总线&lt;/li&gt;
+&lt;li&gt;数据总线（传输数据，字长与数据总线宽度有关），双向&lt;/li&gt;
+&lt;li&gt;地址总线（宽度与内存大小有关，如32位操作系统内存最多2^32=4G），单向&lt;/li&gt;
+&lt;li&gt;控制总线，一条来看是单向的，总的来看是双向的&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;外部总线&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;总线结构优点：简化系统结构，减少连线数目，便于维修&lt;/p&gt;
 &lt;h2 id=&#34;系统可靠性分析与设计&#34;&gt;系统可靠性分析与设计&lt;/h2&gt;
 &lt;h3 id=&#34;串联系统与并联系统&#34;&gt;串联系统与并联系统&lt;/h3&gt;
 &lt;p&gt;可靠度：&lt;/p&gt;
@@ -342,6 +345,14 @@
 	
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;周期-1&#34;&gt;周期&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;时钟周期（CPU时钟周期，T周期），主频决定，最小的时间单位&lt;/li&gt;
+&lt;li&gt;机器周期（CPU周期）：完成一项基本操作所需最短时间&lt;/li&gt;
+&lt;li&gt;总线周期：一次访问存储器或I/O端口所需时间&lt;/li&gt;
+&lt;li&gt;指令周期：取出并执行一条指令的时间&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;关系：时钟周期⊆总线周期⊆机器周期⊆指令周期&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -665,21 +676,11 @@
 &lt;h3 id=&#34;数据传输控制方式&#34;&gt;数据传输控制方式&lt;/h3&gt;
 &lt;h4 id=&#34;方式&#34;&gt;方式&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;程序控制方式（需要很多CPU参数，CPU持续发出查询指令）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;程序中断方式（主动发中断）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;DMA方式（直接存取控制方式，专门的DMA控制器，CPU只要在开头介入即可）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;通道&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;输入输出机&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;程序控制方式（需要很多CPU参数，CPU持续发出查询指令）&lt;/li&gt;
+&lt;li&gt;程序中断方式（外设准备好后，主动向CPU发中断请求）&lt;/li&gt;
+&lt;li&gt;DMA方式（直接内存存取控制方式，专门的DMA控制器硬件。由主存和外设之间交互，CPU只要在开头介入即可）&lt;/li&gt;
+&lt;li&gt;通道&lt;/li&gt;
+&lt;li&gt;输入输出机&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;虚设备与spooling技术&#34;&gt;虚设备与SPOOLING技术&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220501112453111.png&#34;
