@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据库应用系统的生命期 数据库规划 需求描述与分析 数据库与应用程序设计 数据库设计实现 测试 运行维护 一般策略 自顶向下 自底向上 数据库设计的基本步骤 用户需求分析 概念结构设计 逻辑结构设计 物理结构设计 实施阶段 运行和维护 以下分别进行分析。
+系统需求分析 信息要求：保存、需求哪些信息 处理要求：功能方面 系统要求 成果：系统需求说明书，包括数据流图、数据字典、各种说明性表格、统计输出表、系统功能结构图
+数据字典：是各类数据描述的集合，是关于数据库中数据的描述，即元数据。比如用户向数据库中输入什么信息，得到什么信息等，数据字典包括数据项、数据结构、数据流、数据存储、处理过程。
+概念结构设计 主要工作：E-R图（实体-联系方法）
+步骤包括：选择局部应用、逐一设计分E-R图、E-R图合并（解决冲突，消除冗余）
+合并时冲突三类：
+属性冲突 命名冲突 结构冲突：同一实体在不同分ER图中属性不同；或者出现同一对象在某ER是对象，在另一ER是属性 逻辑结构设计 步骤：
+转换为数据模型 关系规范化（最好最少达到3NF；但是有时候需要反规范化，比如为了查询更方便） 模式优化 设计用户子模式 设计目标：
+层次模型 网状模型 关系模型 重要：E-R图向关系模式的转换，即实体和联系向关系模式的转换
+联系向关系模式的转换 1:1 1:n n:n 数据库物理设计 主要步骤：确定数据分布，存储结构和访问方式
+注意：确定索引是这一步的工作
+数据库运行维护与管理 数据库重组和重构：前者不改变逻辑和物理结构 审计：记录资源和权限的使用。是被动的，只能跟踪不能防止 存储管理 安全管理 SQL编码校验 数据安全性管理 索引维护和改进 '>
+<title>软考-中级数据库系统分析师-06 数据库设计</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='软考-中级数据库系统分析师-06 数据库设计'>
+<meta property='og:description' content='数据库应用系统的生命期 数据库规划 需求描述与分析 数据库与应用程序设计 数据库设计实现 测试 运行维护 一般策略 自顶向下 自底向上 数据库设计的基本步骤 用户需求分析 概念结构设计 逻辑结构设计 物理结构设计 实施阶段 运行和维护 以下分别进行分析。
+系统需求分析 信息要求：保存、需求哪些信息 处理要求：功能方面 系统要求 成果：系统需求说明书，包括数据流图、数据字典、各种说明性表格、统计输出表、系统功能结构图
+数据字典：是各类数据描述的集合，是关于数据库中数据的描述，即元数据。比如用户向数据库中输入什么信息，得到什么信息等，数据字典包括数据项、数据结构、数据流、数据存储、处理过程。
+概念结构设计 主要工作：E-R图（实体-联系方法）
+步骤包括：选择局部应用、逐一设计分E-R图、E-R图合并（解决冲突，消除冗余）
+合并时冲突三类：
+属性冲突 命名冲突 结构冲突：同一实体在不同分ER图中属性不同；或者出现同一对象在某ER是对象，在另一ER是属性 逻辑结构设计 步骤：
+转换为数据模型 关系规范化（最好最少达到3NF；但是有时候需要反规范化，比如为了查询更方便） 模式优化 设计用户子模式 设计目标：
+层次模型 网状模型 关系模型 重要：E-R图向关系模式的转换，即实体和联系向关系模式的转换
+联系向关系模式的转换 1:1 1:n n:n 数据库物理设计 主要步骤：确定数据分布，存储结构和访问方式
+注意：确定索引是这一步的工作
+数据库运行维护与管理 数据库重组和重构：前者不改变逻辑和物理结构 审计：记录资源和权限的使用。是被动的，只能跟踪不能防止 存储管理 安全管理 SQL编码校验 数据安全性管理 索引维护和改进 '>
+<meta property='og:url' content='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='软考-中级数据库系统分析师' /><meta property='article:published_time' content='2023-05-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="软考-中级数据库系统分析师-06 数据库设计">
+<meta name="twitter:description" content="数据库应用系统的生命期 数据库规划 需求描述与分析 数据库与应用程序设计 数据库设计实现 测试 运行维护 一般策略 自顶向下 自底向上 数据库设计的基本步骤 用户需求分析 概念结构设计 逻辑结构设计 物理结构设计 实施阶段 运行和维护 以下分别进行分析。
+系统需求分析 信息要求：保存、需求哪些信息 处理要求：功能方面 系统要求 成果：系统需求说明书，包括数据流图、数据字典、各种说明性表格、统计输出表、系统功能结构图
+数据字典：是各类数据描述的集合，是关于数据库中数据的描述，即元数据。比如用户向数据库中输入什么信息，得到什么信息等，数据字典包括数据项、数据结构、数据流、数据存储、处理过程。
+概念结构设计 主要工作：E-R图（实体-联系方法）
+步骤包括：选择局部应用、逐一设计分E-R图、E-R图合并（解决冲突，消除冗余）
+合并时冲突三类：
+属性冲突 命名冲突 结构冲突：同一实体在不同分ER图中属性不同；或者出现同一对象在某ER是对象，在另一ER是属性 逻辑结构设计 步骤：
+转换为数据模型 关系规范化（最好最少达到3NF；但是有时候需要反规范化，比如为了查询更方便） 模式优化 设计用户子模式 设计目标：
+层次模型 网状模型 关系模型 重要：E-R图向关系模式的转换，即实体和联系向关系模式的转换
+联系向关系模式的转换 1:1 1:n n:n 数据库物理设计 主要步骤：确定数据分布，存储结构和访问方式
+注意：确定索引是这一步的工作
+数据库运行维护与管理 数据库重组和重构：前者不改变逻辑和物理结构 审计：记录资源和权限的使用。是被动的，只能跟踪不能防止 存储管理 安全管理 SQL编码校验 数据安全性管理 索引维护和改进 ">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#联系向关系模式的转换">联系向关系模式的转换</a>
+      <ol>
+        <li><a href="#11">1:1</a></li>
+        <li><a href="#1n">1:n</a></li>
+        <li><a href="#nn">n:n</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/" >
+                软考-中级数据库系统分析师
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">软考-中级数据库系统分析师-06 数据库设计</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 14, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="数据库应用系统的生命期">数据库应用系统的生命期</h1>
+<ul>
+<li>数据库规划</li>
+<li>需求描述与分析</li>
+<li>数据库与应用程序设计</li>
+<li>数据库设计实现</li>
+<li>测试</li>
+<li>运行维护</li>
+</ul>
+<h1 id="一般策略">一般策略</h1>
+<ul>
+<li>自顶向下</li>
+<li>自底向上</li>
+</ul>
+<h1 id="数据库设计的基本步骤">数据库设计的基本步骤</h1>
+<ul>
+<li>用户需求分析</li>
+<li>概念结构设计</li>
+<li>逻辑结构设计</li>
+<li>物理结构设计</li>
+<li>实施阶段</li>
+<li>运行和维护</li>
+</ul>
+<p>以下分别进行分析。</p>
+<h1 id="系统需求分析">系统需求分析</h1>
+<ul>
+<li>信息要求：保存、需求哪些信息</li>
+<li>处理要求：功能方面</li>
+<li>系统要求</li>
+</ul>
+<p>成果：系统需求说明书，包括<strong>数据流图、数据字典</strong>、各种说明性表格、统计输出表、系统功能结构图</p>
+<p>数据字典：是各类数据描述的集合，是关于数据库中数据的描述，即元数据。比如用户向数据库中输入什么信息，得到什么信息等，数据字典包括数据项、数据结构、数据流、数据存储、处理过程。</p>
+<h1 id="概念结构设计">概念结构设计</h1>
+<p>主要工作：E-R图（实体-联系方法）</p>
+<p>步骤包括：选择局部应用、逐一设计分E-R图、E-R图合并（解决冲突，消除冗余）</p>
+<p>合并时冲突三类：</p>
+<ul>
+<li>属性冲突</li>
+<li>命名冲突</li>
+<li>结构冲突：同一实体在不同分ER图中属性不同；或者出现同一对象在某ER是对象，在另一ER是属性</li>
+</ul>
+<h1 id="逻辑结构设计">逻辑结构设计</h1>
+<p>步骤：</p>
+<ul>
+<li>转换为数据模型</li>
+<li>关系规范化（最好最少达到3NF；但是有时候需要反规范化，比如为了查询更方便）</li>
+<li>模式优化</li>
+<li>设计用户子模式</li>
+</ul>
+<p>设计目标：</p>
+<ul>
+<li>层次模型</li>
+<li>网状模型</li>
+<li>关系模型</li>
+</ul>
+<p>重要：E-R图向关系模式的转换，即实体和联系向关系模式的转换</p>
+<h2 id="联系向关系模式的转换">联系向关系模式的转换</h2>
+<h3 id="11">1:1</h3>
+<p><img src="https://cdn.huangxindi.com/img/202305141608221.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h3 id="1n">1:n</h3>
+<p><img src="https://cdn.huangxindi.com/img/202305141610892.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h3 id="nn">n:n</h3>
+<p><img src="https://cdn.huangxindi.com/img/202305141611893.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="数据库物理设计">数据库物理设计</h1>
+<p>主要步骤：确定数据分布，存储结构和访问方式</p>
+<p>注意：确定索引是这一步的工作</p>
+<h1 id="数据库运行维护与管理">数据库运行维护与管理</h1>
+<ul>
+<li>数据库重组和重构：前者不改变逻辑和物理结构</li>
+<li>审计：记录资源和权限的使用。是被动的，只能跟踪不能防止</li>
+<li>存储管理</li>
+<li>安全管理</li>
+<li>SQL编码校验</li>
+<li>数据安全性管理</li>
+<li>索引维护和改进</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/">软考-中级数据库系统分析师</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-08-%E4%BA%91%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-08 云计算和大数据处理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-09-%E5%A4%A7%E9%A2%98%E8%AE%B2%E8%A7%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-09 大题讲解</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-04-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93nosql/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-04 非关系型数据库NoSQL</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-05-%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%92%8C%E8%BF%90%E8%A1%8C%E7%9F%A5%E8%AF%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-05 系统开发和运行知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-07-%E4%BA%8B%E5%8A%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-07 事务</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

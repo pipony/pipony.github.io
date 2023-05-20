@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='事务概念 定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。
+语句：
+1 2 3 4 5 begin transaction end transaction commit / commit work rollback / rollback work 事务特性 原子性 一致性 隔离性：两个事务对同一个数据进行操作，不会相互干扰 持久性：存在磁盘上，不是存在内存中 事务的状态 活动状态 部分提交 提交状态 失败状态 中止状态 并发控制（重要） 事务调度 串行调度 并发调度：利用分时的方法同时处理多个事务 可恢复调度：当事务A要读事务B写的数据时，B事务必须要先于事务A提交 并发调度是否正确：结果和任意一次串性执行结果一致即可，则可以认为是可串行化的调度。可串行性是并发事务正确性的准则。
+并发操作的不一致性：
+丢失修改 不可重复读 读脏数据：读取的是其他事务修改后的值，但是该修改后来又被撤销了 并发控制技术 1、排它锁（X锁）：其他事务无法进行读或写 2、共享锁（S锁，读锁）：其他事务可以读，不能写
+封锁协议 一级封锁协议：修改前加X锁，解决丢失修改问题 二级封锁协议：一级协议基础上加上读之前加S锁，读完释放S锁。解决读脏数据的问题 三级封锁协议：一级协议基础上加上读之前加S锁，事务结束才释放S锁。解决不可重复读的问题 两段锁协议（2PL） 定义：同一事务对任何数据进行读写之前必须对该数据加锁，在释放一个封锁之后，该事务不再申请和获得任何其他封锁。第一阶段获得封锁，即扩展阶段；第二阶段是释放封锁，即收缩阶段。（含义要背下来！）
+特点：
+遵循两段锁，一定是可串行化的；不遵循两段锁，可能是可串行化，可能不是 采用两段锁协议可能产生死锁 事务的隔离级别 READ UNCOMMITED 读未提交 避免丢失修改 READ COMMITED 读已提交 避免丢失修改、读脏数据 REPETABLE READ 可重复读 避免丢失修改、读脏数据、不可重复读 SERIALIZABLE 串行化 最高级别，避免丢失修改、读脏数据、不可重复读、幻读 幻读：事务A查询到N条数据，然后事务B又插入M条数据，导致事务A再次搜索发现有N&#43;M条数据，产生幻读（与不可重复读区别，幻读是第二次读取到更多条数据，脏数据是同一个数据值变了）'>
+<title>软考-中级数据库系统分析师-07 事务</title>
+
+<link rel='canonical' href='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-07-%E4%BA%8B%E5%8A%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css"><meta property='og:title' content='软考-中级数据库系统分析师-07 事务'>
+<meta property='og:description' content='事务概念 定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。
+语句：
+1 2 3 4 5 begin transaction end transaction commit / commit work rollback / rollback work 事务特性 原子性 一致性 隔离性：两个事务对同一个数据进行操作，不会相互干扰 持久性：存在磁盘上，不是存在内存中 事务的状态 活动状态 部分提交 提交状态 失败状态 中止状态 并发控制（重要） 事务调度 串行调度 并发调度：利用分时的方法同时处理多个事务 可恢复调度：当事务A要读事务B写的数据时，B事务必须要先于事务A提交 并发调度是否正确：结果和任意一次串性执行结果一致即可，则可以认为是可串行化的调度。可串行性是并发事务正确性的准则。
+并发操作的不一致性：
+丢失修改 不可重复读 读脏数据：读取的是其他事务修改后的值，但是该修改后来又被撤销了 并发控制技术 1、排它锁（X锁）：其他事务无法进行读或写 2、共享锁（S锁，读锁）：其他事务可以读，不能写
+封锁协议 一级封锁协议：修改前加X锁，解决丢失修改问题 二级封锁协议：一级协议基础上加上读之前加S锁，读完释放S锁。解决读脏数据的问题 三级封锁协议：一级协议基础上加上读之前加S锁，事务结束才释放S锁。解决不可重复读的问题 两段锁协议（2PL） 定义：同一事务对任何数据进行读写之前必须对该数据加锁，在释放一个封锁之后，该事务不再申请和获得任何其他封锁。第一阶段获得封锁，即扩展阶段；第二阶段是释放封锁，即收缩阶段。（含义要背下来！）
+特点：
+遵循两段锁，一定是可串行化的；不遵循两段锁，可能是可串行化，可能不是 采用两段锁协议可能产生死锁 事务的隔离级别 READ UNCOMMITED 读未提交 避免丢失修改 READ COMMITED 读已提交 避免丢失修改、读脏数据 REPETABLE READ 可重复读 避免丢失修改、读脏数据、不可重复读 SERIALIZABLE 串行化 最高级别，避免丢失修改、读脏数据、不可重复读、幻读 幻读：事务A查询到N条数据，然后事务B又插入M条数据，导致事务A再次搜索发现有N&#43;M条数据，产生幻读（与不可重复读区别，幻读是第二次读取到更多条数据，脏数据是同一个数据值变了）'>
+<meta property='og:url' content='https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-07-%E4%BA%8B%E5%8A%A1/'>
+<meta property='og:site_name' content='2MUCH'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='软考-中级数据库系统分析师' /><meta property='article:published_time' content='2023-05-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-05-14T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="软考-中级数据库系统分析师-07 事务">
+<meta name="twitter:description" content="事务概念 定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。
+语句：
+1 2 3 4 5 begin transaction end transaction commit / commit work rollback / rollback work 事务特性 原子性 一致性 隔离性：两个事务对同一个数据进行操作，不会相互干扰 持久性：存在磁盘上，不是存在内存中 事务的状态 活动状态 部分提交 提交状态 失败状态 中止状态 并发控制（重要） 事务调度 串行调度 并发调度：利用分时的方法同时处理多个事务 可恢复调度：当事务A要读事务B写的数据时，B事务必须要先于事务A提交 并发调度是否正确：结果和任意一次串性执行结果一致即可，则可以认为是可串行化的调度。可串行性是并发事务正确性的准则。
+并发操作的不一致性：
+丢失修改 不可重复读 读脏数据：读取的是其他事务修改后的值，但是该修改后来又被撤销了 并发控制技术 1、排它锁（X锁）：其他事务无法进行读或写 2、共享锁（S锁，读锁）：其他事务可以读，不能写
+封锁协议 一级封锁协议：修改前加X锁，解决丢失修改问题 二级封锁协议：一级协议基础上加上读之前加S锁，读完释放S锁。解决读脏数据的问题 三级封锁协议：一级协议基础上加上读之前加S锁，事务结束才释放S锁。解决不可重复读的问题 两段锁协议（2PL） 定义：同一事务对任何数据进行读写之前必须对该数据加锁，在释放一个封锁之后，该事务不再申请和获得任何其他封锁。第一阶段获得封锁，即扩展阶段；第二阶段是释放封锁，即收缩阶段。（含义要背下来！）
+特点：
+遵循两段锁，一定是可串行化的；不遵循两段锁，可能是可串行化，可能不是 采用两段锁协议可能产生死锁 事务的隔离级别 READ UNCOMMITED 读未提交 避免丢失修改 READ COMMITED 读已提交 避免丢失修改、读脏数据 REPETABLE READ 可重复读 避免丢失修改、读脏数据、不可重复读 SERIALIZABLE 串行化 最高级别，避免丢失修改、读脏数据、不可重复读、幻读 幻读：事务A查询到N条数据，然后事务B又插入M条数据，导致事务A再次搜索发现有N&#43;M条数据，产生幻读（与不可重复读区别，幻读是第二次读取到更多条数据，脏数据是同一个数据值变了）">
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu0b1fbdadf920853cb8ecc921180037b5_174717_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🏅️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">2MUCH</a></h1>
+            <h2 class="site-description">去做想做的事吧！</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/pipony'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#事务调度">事务调度</a></li>
+    <li><a href="#并发控制技术">并发控制技术</a></li>
+    <li><a href="#封锁协议">封锁协议</a></li>
+    <li><a href="#两段锁协议2pl">两段锁协议（2PL）</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#故障种类">故障种类</a></li>
+    <li><a href="#数据库备份">数据库备份</a></li>
+    <li><a href="#数据库恢复">数据库恢复</a></li>
+    <li><a href="#检查点机制-checkpoint">检查点机制 checkpoint</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/" >
+                软考-中级数据库系统分析师
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-07-%E4%BA%8B%E5%8A%A1/">软考-中级数据库系统分析师-07 事务</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 14, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="事务概念">事务概念</h1>
+<p>定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。</p>
+<p>语句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">begin</span><span class="w"> </span><span class="k">transaction</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">end</span><span class="w"> </span><span class="k">transaction</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">commit</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">commit</span><span class="w"> </span><span class="k">work</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">rollback</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="k">work</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="事务特性">事务特性</h1>
+<ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性：两个事务对同一个数据进行操作，不会相互干扰</li>
+<li>持久性：存在磁盘上，不是存在内存中</li>
+</ul>
+<h1 id="事务的状态">事务的状态</h1>
+<ul>
+<li>活动状态</li>
+<li>部分提交</li>
+<li>提交状态</li>
+<li>失败状态</li>
+<li>中止状态</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305141727230.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="并发控制重要">并发控制（重要）</h1>
+<h2 id="事务调度">事务调度</h2>
+<ul>
+<li>串行调度</li>
+<li>并发调度：利用分时的方法同时处理多个事务</li>
+<li>可恢复调度：当事务A要读事务B写的数据时，B事务必须要先于事务A提交</li>
+</ul>
+<p>并发调度是否正确：结果和任意一次串性执行结果一致即可，则可以认为是可串行化的调度。可串行性是并发事务正确性的准则。</p>
+<p>并发操作的不一致性：</p>
+<ul>
+<li>丢失修改</li>
+<li>不可重复读</li>
+<li>读脏数据：读取的是其他事务修改后的值，但是该修改后来又被撤销了</li>
+</ul>
+<h2 id="并发控制技术">并发控制技术</h2>
+<p>1、排它锁（X锁）：其他事务无法进行读或写
+2、共享锁（S锁，读锁）：其他事务可以读，不能写</p>
+<h2 id="封锁协议">封锁协议</h2>
+<ul>
+<li>一级封锁协议：修改前加X锁，解决丢失修改问题</li>
+<li>二级封锁协议：一级协议基础上加上读之前加S锁，读完释放S锁。解决读脏数据的问题</li>
+<li>三级封锁协议：一级协议基础上加上读之前加S锁，事务结束才释放S锁。解决不可重复读的问题</li>
+</ul>
+<h2 id="两段锁协议2pl">两段锁协议（2PL）</h2>
+<p>定义：同<strong>一事务</strong>对任何数据进行读写之前必须对该数据加锁，<strong>在释放一个封锁之后</strong>，该事务不再申请和获得任何其他封锁。第一阶段获得封锁，即扩展阶段；第二阶段是释放封锁，即收缩阶段。<strong>（含义要背下来！）</strong></p>
+<p>特点：</p>
+<ul>
+<li>遵循两段锁，一定是可串行化的；不遵循两段锁，可能是可串行化，可能不是</li>
+<li>采用两段锁协议可能产生死锁</li>
+</ul>
+<h1 id="事务的隔离级别">事务的隔离级别</h1>
+<ul>
+<li>READ UNCOMMITED 读未提交 避免丢失修改</li>
+<li>READ COMMITED 读已提交 避免丢失修改、读脏数据</li>
+<li>REPETABLE READ 可重复读 避免丢失修改、读脏数据、不可重复读</li>
+<li>SERIALIZABLE 串行化 最高级别，避免丢失修改、读脏数据、不可重复读、幻读</li>
+</ul>
+<p>幻读：事务A查询到N条数据，然后事务B又插入M条数据，导致事务A再次搜索发现有N+M条数据，产生幻读（与不可重复读区别，幻读是第二次读取到更多条数据，脏数据是同一个数据值变了）</p>
+<p><img src="https://cdn.huangxindi.com/img/202305150738741.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image.png"
+	
+	
+></p>
+<h1 id="数据库备份与恢复">数据库备份与恢复</h1>
+<h2 id="故障种类">故障种类</h2>
+<ul>
+<li>事务故障：由于程序执行错误引起事务异常终止
+<ul>
+<li>逻辑错误</li>
+<li>系统错误：如死锁</li>
+</ul>
+</li>
+<li>系统故障：硬件故障，未破坏存储在外存上的信息</li>
+<li>介质故障：存储介质发生故障，如磁盘损坏，会直接破坏数据库</li>
+</ul>
+<h2 id="数据库备份">数据库备份</h2>
+<ul>
+<li>静态转储、动态转储：静态在转储期间不能进行任何存取、修改操作</li>
+<li>海量转储、增量转储</li>
+<li>日志文件</li>
+<li>数据库镜像</li>
+</ul>
+<h2 id="数据库恢复">数据库恢复</h2>
+<p>要能够恢复，必须建立冗余数据。</p>
+<p>恢复操作：</p>
+<ul>
+<li>撤销undo：将未完成的事务撤销，使数据库恢复到事务执行前的正确状态。通过反向扫描日志文件，进行逆操作，直至事务开始标志</li>
+<li>重做数据redo：正向扫描日志文件，重新执行，直至事务结束标志</li>
+</ul>
+<p>恢复策略：</p>
+<ul>
+<li>事务故障的恢复（在运行到正常终止点commit或rollback前终止）：undo。是由系统自动完成，对用户透明</li>
+<li>系统故障的恢复，包括未完成事务已经写入数据库（undo），或者已提交的事务还没写入数据库（redo）</li>
+<li>介质故障：重装数据库，装载最近一次的备份和日志文件副本，再undoundo+redo</li>
+</ul>
+<h2 id="检查点机制-checkpoint">检查点机制 checkpoint</h2>
+<p>反向扫描日志文件，找到检查点。对于检查点后提交的事务，执行redo；对于检查点后未提交的事务，执行undo</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88/">软考-中级数据库系统分析师</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-08-%E4%BA%91%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-08 云计算和大数据处理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-09-%E5%A4%A7%E9%A2%98%E8%AE%B2%E8%A7%A3/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-09 大题讲解</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-04-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93nosql/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-04 非关系型数据库NoSQL</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-05-%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91%E5%92%8C%E8%BF%90%E8%A1%8C%E7%9F%A5%E8%AF%86/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-05 系统开发和运行知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">软考-中级数据库系统分析师-06 数据库设计</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 2MUCH
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
