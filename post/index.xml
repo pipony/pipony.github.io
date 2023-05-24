@@ -49,7 +49,42 @@
         <pubDate>Wed, 17 May 2023 00:00:00 +0000</pubDate>
         
         <guid>https://huangxindi.com/p/podcast001-%E6%9D%A8%E5%8D%83%E5%AC%85/</guid>
-        <description></description>
+        <description>&lt;h1 id=&#34;数据来源&#34;&gt;数据来源&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.discogs.com/artist/2256553-Miriam-Yeung?type=Releases&amp;amp;subtype=Albums&amp;amp;filter_anv=0&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.discogs.com/artist/2256553-Miriam-Yeung?type=Releases&amp;subtype=Albums&amp;filter_anv=0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zh.wikipedia.org/wiki/%E6%A5%8A%E5%8D%83%E5%AC%85#%E9%9F%B3%E6%A8%82%E5%B0%88%E8%BC%AF&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://zh.wikipedia.org/wiki/%E6%A5%8A%E5%8D%83%E5%AC%85#%E9%9F%B3%E6%A8%82%E5%B0%88%E8%BC%AF&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;狼来了-1996&#34;&gt;狼来了 1996&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;心魔 4:00&lt;/li&gt;
+&lt;li&gt;狼來了 (Piano Version) 4:05&lt;/li&gt;
+&lt;li&gt;傷感真相 4:22&lt;/li&gt;
+&lt;li&gt;陌生人 3:54&lt;/li&gt;
+&lt;li&gt;燭光夜 4:30&lt;/li&gt;
+&lt;li&gt;三分鐘戀愛熱度 3:46&lt;/li&gt;
+&lt;li&gt;愛戀中也有自我 3:44&lt;/li&gt;
+&lt;li&gt;認錯人 3:03&lt;/li&gt;
+&lt;li&gt;爭執 4:22&lt;/li&gt;
+&lt;li&gt;我錯過了甚麼 3:23&lt;/li&gt;
+&lt;li&gt;狼來了 (Band Version) 3:56&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;miriam-2001&#34;&gt;Miriam 2001&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;熱血青年 3:18&lt;/li&gt;
+&lt;li&gt;照相本子 3:54&lt;/li&gt;
+&lt;li&gt;姊妹 4:27&lt;/li&gt;
+&lt;li&gt;野孩子 3:44&lt;/li&gt;
+&lt;li&gt;罐頭湯 4:20&lt;/li&gt;
+&lt;li&gt;紫色 3:57&lt;/li&gt;
+&lt;li&gt;深紫色 3:32&lt;/li&gt;
+&lt;li&gt;悲歌之王 3:47&lt;/li&gt;
+&lt;li&gt;假如讓我說下去 3:30&lt;/li&gt;
+&lt;li&gt;河童 4:15&lt;/li&gt;
+&lt;li&gt;亂唱的歌 3:13&lt;/li&gt;
+&lt;/ol&gt;
+</description>
         </item>
         <item>
         <title>软考-中级数据库系统分析师-08 云计算和大数据处理</title>
@@ -17567,7 +17602,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;p&gt;RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）&lt;/p&gt;
 &lt;h2 id=&#34;流水线&#34;&gt;流水线&lt;/h2&gt;
 &lt;p&gt;主要考察计算&lt;/p&gt;
-&lt;h3 id=&#34;周期&#34;&gt;周期&lt;/h3&gt;
+&lt;h3 id=&#34;流水线周期&#34;&gt;流水线周期&lt;/h3&gt;
 &lt;p&gt;概念：执行时间最长的一个步骤时间&lt;/p&gt;
 &lt;p&gt;n条指令全部执行时间：&lt;/p&gt;
 &lt;ul&gt;
@@ -17631,9 +17666,52 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;h3 id=&#34;cache&#34;&gt;cache&lt;/h3&gt;
 &lt;p&gt;特点：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CPU和内存之间&lt;/li&gt;
+&lt;li&gt;介于CPU和内存（主存）之间，速度比主存快&lt;/li&gt;
 &lt;li&gt;为何能改善系统性能：局部性原理&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;不命中时的替换算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;随机替换&lt;/li&gt;
+&lt;li&gt;先进先出&lt;/li&gt;
+&lt;li&gt;近期最少使用&lt;/li&gt;
+&lt;li&gt;优化替换&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;地址映像：CPU工作时给出的是主存的地址，要从cache中读写信息时，需要把主存的地址转换为cache地址&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接映像：主存和cache块对应关系是固定的&lt;/li&gt;
+&lt;li&gt;全相联映像：主存和cache均分为容量相同的块，主存的块可以调入cache的任何一块&lt;/li&gt;
+&lt;li&gt;组相联映像：组采用直接映像，块采用全相联映像&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305232340314.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.huangxindi.com/img/202305232340110.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://cdn.huangxindi.com/img/202305232340811.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;平均周期公式&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220328211058542.png&#34;
 	
@@ -17664,7 +17742,8 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;li&gt;只读存储器 ROM&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;编址&#34;&gt;编址&lt;/h4&gt;
-&lt;p&gt;8*4位的存储器：8个地址空间，每个地址空间含4位&lt;/p&gt;
+&lt;p&gt;知识点：内存是以字节编码的&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;8*4&lt;/code&gt;位的存储器：8个地址空间，每个地址空间含4位&lt;/p&gt;
 &lt;p&gt;两种组合方法：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220328211732881.png&#34;
 	
@@ -17695,6 +17774,11 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;h3 id=&#34;存储补充知识&#34;&gt;存储补充知识&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;虚拟存储器实际上是一种逻辑存储器&lt;/li&gt;
+&lt;li&gt;相联存储器是一种按内容访问的存储器&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;总线&#34;&gt;总线&lt;/h2&gt;
 &lt;p&gt;分类&lt;/p&gt;
 &lt;ul&gt;
@@ -17766,7 +17850,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;周期-1&#34;&gt;周期&lt;/h2&gt;
+&lt;h2 id=&#34;周期&#34;&gt;周期&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;时钟周期（CPU时钟周期，T周期），主频决定，最小的时间单位&lt;/li&gt;
 &lt;li&gt;机器周期（CPU周期）：完成一项基本操作所需最短时间&lt;/li&gt;
@@ -17774,6 +17858,18 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;li&gt;指令周期：取出并执行一条指令的时间&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;关系：时钟周期⊆总线周期⊆机器周期⊆指令周期&lt;/p&gt;
+&lt;h3 id=&#34;计算机可靠性&#34;&gt;计算机可靠性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;计算机系统的可靠性：从开始运行到时刻t时间段内能正常运行的概率，R(t)&lt;/li&gt;
+&lt;li&gt;失效率：单位时间内失效的元件数与元件总数的比例&lt;/li&gt;
+&lt;li&gt;平均无故障时间：两次故障之间能正常工作的时间平均值&lt;/li&gt;
+&lt;li&gt;可维修性：故障发生到修复平均所需时间&lt;/li&gt;
+&lt;li&gt;可用性：执行任务的任意时刻能正常工作的概率&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;补充知识&#34;&gt;补充知识&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;KB - MB - GB 各自相差1024，如1GB=1024MB&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -17799,12 +17895,25 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;li&gt;作业管理&lt;/li&gt;
 &lt;li&gt;设备管理&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;并发性&lt;/li&gt;
+&lt;li&gt;共享性&lt;/li&gt;
+&lt;li&gt;虚拟性&lt;/li&gt;
+&lt;li&gt;不确定性&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;进程状态&#34;&gt;进程状态&lt;/h2&gt;
+&lt;p&gt;基本概念：进程是程序的一次执行。通常由程序、数据、进程控制块组成。是资源分配和独立运行的基本单位。&lt;/p&gt;
+&lt;p&gt;进程两个基本属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可拥有资源的独立单位&lt;/li&gt;
+&lt;li&gt;可独立调度和分配的基本单位&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;三态模型&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;运行：万事具备&lt;/li&gt;
 &lt;li&gt;就绪：只等CPU资源&lt;/li&gt;
-&lt;li&gt;等待：除了CPU资源，还在等其他资源&lt;/li&gt;
+&lt;li&gt;等待（阻塞）：除了CPU资源，还在等其他资源&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220412221041687.png&#34;
 	
@@ -17846,18 +17955,27 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;同步与互斥&#34;&gt;同步与互斥&lt;/h2&gt;
+&lt;p&gt;概念：同步指的是一些需要相互合作的进程，之间的相互联系；互斥指的是争用临界资源而互斥执行&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;互斥：一个资源同时只能被一个进程所用&lt;/li&gt;
 &lt;li&gt;同步：速度有差异，一定情况下要等待&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;【注意】：两者不为相反的概念，互斥&amp;lt;-&amp;gt;共享，同步&amp;lt;-&amp;gt;异步&lt;/p&gt;
 &lt;p&gt;在生产者消费者问题，理解互斥和同步：如一个商场只能存放一件物品，若目前已有一件时，生产者无法将新的一件放入（互斥）；生产者是否可以放入也取决于消费者是否消费了这个物品，只有等消费者消费了，生产者才能新生产（同步）&lt;/p&gt;
-&lt;h2 id=&#34;pv操作&#34;&gt;PV操作&lt;/h2&gt;
+&lt;h2 id=&#34;pv操作信号量机制&#34;&gt;PV操作（信号量机制）&lt;/h2&gt;
 &lt;h3 id=&#34;概念&#34;&gt;概念&lt;/h3&gt;
 &lt;p&gt;临界资源：进程间需要互斥访问的资源（如打印机，磁带机）&lt;/p&gt;
 &lt;p&gt;临界区：每个进程中访问临界资源的那段代码&lt;/p&gt;
 &lt;p&gt;信号量：一种特殊的变量，如P(s)中的s&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;公用信号量：实现互斥，初值为1或资源的数目&lt;/li&gt;
+&lt;li&gt;私用信号量：实现同步，初值为0或某个正整数&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;P分配（减），V释放（加）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;P操作后，&amp;gt;=0继续执行；&amp;lt;0设为阻塞&lt;/li&gt;
+&lt;li&gt;V操作后，&amp;gt;0继续执行；&amp;lt;=0从阻塞唤醒一个进程到就绪队列，然后V操作的进程继续&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220412222459869.png&#34;
 	
 	
@@ -17905,6 +18023,27 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;解题思路：信号量的赋值可根据从上到下、从左到右的原则赋值，出箭头设为V(s)，入箭头设为P(s)。如P1出箭头那里是V(S1)，P2出箭头那里是V(S2)，P3入箭头那里是P(S1)和P(S2)。&lt;/p&gt;
+&lt;h2 id=&#34;进程调度&#34;&gt;进程调度&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;高级调度（作业调度）&lt;/li&gt;
+&lt;li&gt;中级调度（交换区的哪个就绪进程可以调入内存）&lt;/li&gt;
+&lt;li&gt;低级调度（进程调度，决定内存中的哪个就绪进程可以占用CPU，最重要）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;进程调度：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先来先服务&lt;/li&gt;
+&lt;li&gt;时间片轮转&lt;/li&gt;
+&lt;li&gt;优先级调度&lt;/li&gt;
+&lt;li&gt;多级反馈调度：时间片和优先级算法的综合发展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;线程&#34;&gt;线程&lt;/h2&gt;
+&lt;p&gt;概念：线程作为调度和分配的基本单位，进程作为独立分配资源的单位。线程基本不拥有资源，只拥有一点运行中必不可少的资源（如&lt;strong&gt;程序计数器、一组寄存器和栈&lt;/strong&gt;）。&lt;/p&gt;
+&lt;p&gt;线程可以创建另一个线程，同一个进程中的多个线程可以并发执行&lt;/p&gt;
+&lt;p&gt;分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户级线程：不依赖内核，创建、撤销、切换不利用系统调用&lt;/li&gt;
+&lt;li&gt;内核支持线程：依赖内核，利用系统调用&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;死锁&#34;&gt;死锁&lt;/h2&gt;
 &lt;h3 id=&#34;最小需要多少个资源不发生死锁&#34;&gt;最小需要多少个资源不发生死锁&lt;/h3&gt;
 &lt;p&gt;公式：k*(n-1)+1；k：进程数，n，每个进程需要的资源数&lt;/p&gt;
@@ -17919,6 +18058,8 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;ul&gt;
 &lt;li&gt;预防：打破四大条件&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;避免&lt;/strong&gt;：有序资源分配法，&lt;strong&gt;银行家算法&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;检测&lt;/li&gt;
+&lt;li&gt;解除：资源剥夺法、撤销进程法&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;银行家算法&#34;&gt;银行家算法&lt;/h3&gt;
 &lt;p&gt;例题：&lt;/p&gt;
@@ -17943,6 +18084,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;存储管理&#34;&gt;存储管理&lt;/h2&gt;
+&lt;p&gt;概念：地址重定位，将外存中的程序装载到内存，需要将程序中指令和数据的逻辑地址转换为对应的物理地址&lt;/p&gt;
 &lt;h3 id=&#34;分区存储&#34;&gt;分区存储&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;首次适应法&lt;/li&gt;
@@ -18020,6 +18162,22 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;结合段式和页式，先分段再分页&lt;/p&gt;
+&lt;p&gt;涉及：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;段表&lt;/li&gt;
+&lt;li&gt;页表&lt;/li&gt;
+&lt;li&gt;逻辑地址：段号、段内页号、页内地址&lt;/li&gt;
+&lt;li&gt;物理地址：块号、页内地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;请求分页页面置换&#34;&gt;请求分页（页面置换）&lt;/h3&gt;
+&lt;p&gt;当访问的页面不存在主存时，产生缺页中断&lt;/p&gt;
+&lt;p&gt;页面置换算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最佳置换算法：最长时间不被访问&lt;/li&gt;
+&lt;li&gt;先进先出&lt;/li&gt;
+&lt;li&gt;最近最少未使用：为每个页面设置一个访问字段，代表访问时间T&lt;/li&gt;
+&lt;li&gt;最近未用置换算法：为每个页面设置一个访问字段，1或0&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;快表&#34;&gt;快表&lt;/h3&gt;
 &lt;p&gt;小容量的相联存储器，放在cache，速度快。从硬件保证按内存并行查找。&lt;/p&gt;
 &lt;h3 id=&#34;页面置换算法&#34;&gt;页面置换算法&lt;/h3&gt;
@@ -18074,10 +18232,10 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;h3 id=&#34;空闲存储空间管理&#34;&gt;空闲存储空间管理&lt;/h3&gt;
 &lt;h4 id=&#34;方法分类&#34;&gt;方法分类&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;空闲区表法（空闲文件目录）&lt;/li&gt;
-&lt;li&gt;空闲链表法&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;位示图法&lt;/strong&gt;（0，1分别代表空闲和占用）&lt;/li&gt;
-&lt;li&gt;成组链接法&lt;/li&gt;
+&lt;li&gt;空闲区表法（空闲文件目录），适用于连续文件结构&lt;/li&gt;
+&lt;li&gt;空闲链表法：每个空闲物理块设置一个指针指向下一个空闲物理块&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;位示图法&lt;/strong&gt;（每一位对应一个物理块，0，1分别代表空闲和占用）&lt;/li&gt;
+&lt;li&gt;成组链接法：将空闲块分成若干组，每组第一块记录下一组空闲块的块号和空闲块总数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;位示图法&#34;&gt;位示图法&lt;/h4&gt;
 &lt;p&gt;例题：&lt;/p&gt;
@@ -18125,6 +18283,48 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;作业管理&#34;&gt;作业管理&lt;/h2&gt;
+&lt;p&gt;作业调度算法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先来先服务&lt;/li&gt;
+&lt;li&gt;短作业优先&lt;/li&gt;
+&lt;li&gt;相应比高优先，相应比=响应时间/执行时间=（等待+执行时间）/执行时间&lt;/li&gt;
+&lt;li&gt;优先级调度&lt;/li&gt;
+&lt;li&gt;均衡调度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;设备管理&#34;&gt;设备管理&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242259501.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;相关技术&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通道技术&lt;/li&gt;
+&lt;li&gt;DMA技术&lt;/li&gt;
+&lt;li&gt;缓冲技术&lt;/li&gt;
+&lt;li&gt;Spooling技术：使用脱机输入输出操作缓和CPU高速和IO低速的矛盾&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;磁盘调度算法&#34;&gt;磁盘调度算法&lt;/h3&gt;
+&lt;p&gt;分为移臂调度和旋转调度，使得平均寻道时间最少&lt;/p&gt;
+&lt;p&gt;读取磁盘数据的时间=存道时间+旋转延迟+数据传输时间&lt;/p&gt;
+&lt;h4 id=&#34;移臂调度&#34;&gt;移臂调度&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;先来先服务：按照进程请求顺序&lt;/li&gt;
+&lt;li&gt;最短寻道时间优先：磁头最近的磁道优先&lt;/li&gt;
+&lt;li&gt;扫描算法：不仅考虑距离最近，还考虑磁头当前的移动方向&lt;/li&gt;
+&lt;li&gt;单向扫描算法：规则只做单向移动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;旋转调度&#34;&gt;旋转调度&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;请求的是不同编号的扇区，让首先到达磁头位置下的扇区先&lt;/li&gt;
+&lt;li&gt;请求的是相同编号的扇区，任选一个扇区进行读写&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -18476,6 +18676,37 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
         
         <guid>https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
         <description>&lt;h1 id=&#34;04-计算机网络&#34;&gt;04 计算机网络&lt;/h1&gt;
+&lt;h2 id=&#34;网络的分类&#34;&gt;网络的分类&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;局域网 LAN&lt;/li&gt;
+&lt;li&gt;城域网 MAN&lt;/li&gt;
+&lt;li&gt;广域网 WAN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;拓扑结构：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;总线型&lt;/li&gt;
+&lt;li&gt;星型&lt;/li&gt;
+&lt;li&gt;环型&lt;/li&gt;
+&lt;li&gt;树型&lt;/li&gt;
+&lt;li&gt;分布式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;网络设备&#34;&gt;网络设备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;物理层：中继器（局域网网段互联），集线器（可看成是特殊的多路中继器）&lt;/li&gt;
+&lt;li&gt;链路层：网桥（连接两个局域网网段，过滤帧【检查源和目的地址，转发不在同网段的帧】），交换机（按mac地址，即物理地址进行数据转发）&lt;/li&gt;
+&lt;li&gt;网络层：路由器（连接多个逻辑上分开的网络，如不通的子网。主要功能是选择转发的路径），三层交换机（包含交换机和网络层的部分功能。一次路由，多次交换）&lt;/li&gt;
+&lt;li&gt;应用层：网关（协议转换）
+&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242318894.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;osirm七层模型&#34;&gt;OSI/RM七层模型&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220502151216512.png&#34;
 	
@@ -18484,6 +18715,16 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20220502151216512&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242322108.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -18511,6 +18752,13 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;TCP/IP 包含五个特性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;逻辑编址：每一台互联网设备都要分配IP地址&lt;/li&gt;
+&lt;li&gt;路由选择：定义路由器选择路径的协议&lt;/li&gt;
+&lt;li&gt;域名解析&lt;/li&gt;
+&lt;li&gt;错误检测与流量控制&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;TCP：三次握手，可靠传输&lt;/p&gt;
 &lt;p&gt;UDP：没有反馈过程&lt;/p&gt;
 &lt;p&gt;DHCP：IP地址动态分配&lt;/p&gt;
@@ -18544,6 +18792,17 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20220503110604170&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;域名&#34;&gt;域名&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242326651.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -18595,10 +18854,32 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;全0：网络地址；全1：广播地址&lt;/p&gt;
+&lt;p&gt;全0：网络地址；全1：广播地址 （所有求网络个数和主机地址时，都要-2）&lt;/p&gt;
 &lt;p&gt;A类：前8位网络号，后24位为主机号，可包含2^24-2主机&lt;/p&gt;
 &lt;p&gt;B类：前16位网络号，后16位为主机号，可包含2^16-2主机&lt;/p&gt;
 &lt;p&gt;C类：前24位网络号，后8位为主机号，可包含2^8-2主机&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242326251.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;子网掩码：区分网络号和主机号
+&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242332966.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;子网划分&lt;/p&gt;
 &lt;p&gt;例题：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503113529296.png&#34;
 	
@@ -18701,6 +18982,11 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &gt;&lt;/p&gt;
 &lt;p&gt;IPv4：32位地址，地址不够用&lt;/p&gt;
 &lt;p&gt;IPv4：128位地址&lt;/p&gt;
+&lt;h2 id=&#34;补充知识&#34;&gt;补充知识&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;FTP端口：控制21 上传20&lt;/li&gt;
+&lt;li&gt;telnet：23端口&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -18710,6 +18996,13 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
         
         <guid>https://huangxindi.com/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/</guid>
         <description>&lt;h1 id=&#34;05-计算机安全&#34;&gt;05 计算机安全&lt;/h1&gt;
+&lt;h2 id=&#34;安全分类&#34;&gt;安全分类&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;物理安全&lt;/li&gt;
+&lt;li&gt;网络安全&lt;/li&gt;
+&lt;li&gt;系统安全：操作系统的安全&lt;/li&gt;
+&lt;li&gt;应用安全&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;信息系统安全属性&#34;&gt;信息系统安全属性&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503120047748.png&#34;
 	
@@ -18749,6 +19042,11 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;可分为：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;加密模型：用B的公钥加密&lt;/li&gt;
+&lt;li&gt;认证模型：用A的私钥加密&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;信息摘要&#34;&gt;信息摘要&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503124546319.png&#34;
 	
@@ -18760,7 +19058,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;特性：单向&lt;/p&gt;
+&lt;p&gt;特性：单向，产生128位的信息摘要&lt;/p&gt;
 &lt;p&gt;用于验证数据完整性&lt;/p&gt;
 &lt;h2 id=&#34;数字签名&#34;&gt;数字签名&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503124914320.png&#34;
@@ -18867,6 +19165,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;数组&#34;&gt;数组&lt;/h2&gt;
+&lt;p&gt;概念：长度固定的线性表，每个元素类型相同&lt;/p&gt;
 &lt;p&gt;考点：存储地址计算&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503153232866.png&#34;
 	
@@ -18875,6 +19174,28 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;image-20220503153232866&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;矩阵&#34;&gt;矩阵&lt;/h2&gt;
+&lt;p&gt;主要考察特殊矩阵的压缩存储问题：对称矩阵、三对角矩阵、稀疏矩阵
+&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242017354.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cdn.huangxindi.com/img/202305242017512.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image.png&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -18919,8 +19240,9 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;li&gt;
 &lt;p&gt;队列（先进先出）&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;循环队列&lt;/p&gt;
+&lt;li&gt;顺序队列&lt;/li&gt;
+&lt;li&gt;循环队列&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503155120397.png&#34;
 	
 	
@@ -18931,8 +19253,6 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;栈（先进后出）&lt;/p&gt;
@@ -18964,6 +19284,8 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;串&#34;&gt;串&lt;/h2&gt;
+&lt;p&gt;字符串的基本数据元素是字符，是取值范围受限的线性表。&lt;/p&gt;
 &lt;h2 id=&#34;树与二叉树&#34;&gt;树与二叉树&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503160933287.png&#34;
 	
@@ -18979,6 +19301,9 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;p&gt;数的度：所有结点度数最高的度&lt;/p&gt;
 &lt;p&gt;内部节点：非头节点和叶子节点&lt;/p&gt;
 &lt;p&gt;深度：最大的层数&lt;/p&gt;
+&lt;h3 id=&#34;二叉树&#34;&gt;二叉树&lt;/h3&gt;
+&lt;p&gt;二叉树与树的区别：二叉树要区分左子树和右子树，树不用区分；二叉树节点的最大度为2&lt;/p&gt;
+&lt;p&gt;重要性质：&lt;code&gt;n0=n2+1&lt;/code&gt;，其中n0为终端节点，n2为度为2的节点&lt;/p&gt;
 &lt;h3 id=&#34;特殊二叉树&#34;&gt;特殊二叉树&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;满二叉树&lt;/li&gt;
@@ -18997,7 +19322,12 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;h3 id=&#34;二叉树遍历&#34;&gt;二叉树遍历&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;前、中、后序遍历：差别在根节点前、中、后时候被访问&lt;/p&gt;
+&lt;p&gt;前、中、后序遍历：差别在&lt;strong&gt;根节点&lt;/strong&gt;前、中、后时候被访问&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前：&lt;strong&gt;根&lt;/strong&gt;、左、右&lt;/li&gt;
+&lt;li&gt;中：左、&lt;strong&gt;根&lt;/strong&gt;、右&lt;/li&gt;
+&lt;li&gt;后：左、右、&lt;strong&gt;根&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;层次遍历&lt;/p&gt;
@@ -19038,6 +19368,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;li&gt;左孩子小于根&lt;/li&gt;
 &lt;li&gt;右孩子大于根&lt;/li&gt;
 &lt;li&gt;极大提高查找速度&lt;/li&gt;
+&lt;li&gt;中序遍历，可得到一个码递增的序列&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;操作：插入和删除结点&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503163239625.png&#34;
@@ -19054,7 +19385,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;p&gt;哈夫曼树：用于无损压缩&lt;/p&gt;
 &lt;p&gt;基本概念：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;树的路径长度&lt;/li&gt;
+&lt;li&gt;树的路径长度：每个节点到根节点的路径长度&lt;/li&gt;
 &lt;li&gt;权（每个结点的数值，一般表示出现的频度）&lt;/li&gt;
 &lt;li&gt;带权路径长度&lt;/li&gt;
 &lt;li&gt;树的带权路径长度（树的代价）&lt;/li&gt;
@@ -19088,12 +19419,19 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;/ul&gt;
 &lt;p&gt;非平衡二叉树 -&amp;gt; 平衡二叉树&lt;/p&gt;
 &lt;h2 id=&#34;图&#34;&gt;图&lt;/h2&gt;
+&lt;p&gt;概念：由顶点集合V和边集合E组成&lt;/p&gt;
 &lt;p&gt;图与树最大的区别：&lt;strong&gt;树没有环路&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;分类：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;有向图&lt;/li&gt;
+&lt;li&gt;有向图：有向边也称为弧&lt;/li&gt;
 &lt;li&gt;无向图&lt;/li&gt;
 &lt;li&gt;完全图（可连的边都连了）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;特殊：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;连通图：针对无向图，任意两顶点之间都有路径&lt;/li&gt;
+&lt;li&gt;强连通图：针对有向图，任意两顶点之间都有路径&lt;/li&gt;
+&lt;li&gt;网：边有权值的图&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;存储&#34;&gt;存储&lt;/h3&gt;
 &lt;ul&gt;
@@ -19110,7 +19448,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;邻接表&lt;/li&gt;
+&lt;li&gt;邻接链表&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503165817778.png&#34;
 	
@@ -19143,7 +19481,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &lt;p&gt;执行完把连线去掉，继续分析&lt;/p&gt;
 &lt;h3 id=&#34;图的最小生成树&#34;&gt;图的最小生成树&lt;/h3&gt;
 &lt;p&gt;使得留下来的边（n-1条，n为节点数）构成树（注意不能有环），权值总和最小&lt;/p&gt;
-&lt;h4 id=&#34;普利姆算法&#34;&gt;普利姆算法&lt;/h4&gt;
+&lt;h4 id=&#34;普利姆算法以点为主&#34;&gt;普利姆算法（以点为主）&lt;/h4&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503170607893.png&#34;
 	
 	
@@ -19155,7 +19493,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;分析：画图时实时将结点分成两个阵营，寻找到另一个阵营的最短边&lt;/p&gt;
-&lt;h4 id=&#34;克鲁斯卡尔算法&#34;&gt;克鲁斯卡尔算法&lt;/h4&gt;
+&lt;h4 id=&#34;克鲁斯卡尔算法以边为主&#34;&gt;克鲁斯卡尔算法（以边为主）&lt;/h4&gt;
 &lt;p&gt;依次选择权最小的边，注意不要构成环。连接所有结点后，即生成结束&lt;/p&gt;
 &lt;h2 id=&#34;算法基础&#34;&gt;算法基础&lt;/h2&gt;
 &lt;h3 id=&#34;算法的特性&#34;&gt;算法的特性&lt;/h3&gt;
@@ -19237,9 +19575,12 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 &gt;&lt;/p&gt;
 &lt;p&gt;冲突解决：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;线性探测法（往后顺序查找第一个空的）&lt;/li&gt;
-&lt;li&gt;伪随机数法&lt;/li&gt;
-&lt;li&gt;再散列法&lt;/li&gt;
+&lt;li&gt;开放定址法（增量查找，1、线性探测再散列；2、二次探测再散列；3、随机探测再散列）
+&lt;ul&gt;
+&lt;li&gt;缺点：可能集中在一块&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;链地址法：将每个值对应的用链表串起来&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;排序重要&#34;&gt;排序（重要）&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503172611622.png&#34;
@@ -19426,6 +19767,22 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;汇编解释编译&#34;&gt;汇编、解释、编译&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;汇编：汇编程序翻译成目标程序&lt;/li&gt;
+&lt;li&gt;高级语言编写的，需要解释或编译程序进行翻译&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;解释：要么直接解释执行，要么翻译为某种中间代码再执行。逐条翻译并立即执行&lt;/li&gt;
+&lt;li&gt;编译：分成两阶段，编译阶段（源程序翻译为独立的&lt;strong&gt;目标程序&lt;/strong&gt;）和运行阶段（此时编译器不参与）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;两者区别：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译效率大于解释&lt;/li&gt;
+&lt;li&gt;解释比编译更灵活、可移植性好&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;变量和常量&#34;&gt;变量和常量&lt;/h2&gt;
+&lt;p&gt;系统为全局变量分配的存储空间在运行中一般是不改变的，为局部变量分配的存储单元是可以动态改变的&lt;/p&gt;
 &lt;h2 id=&#34;编译过程&#34;&gt;编译过程&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503180335797.png&#34;
 	
@@ -19437,6 +19794,7 @@ CloneNotSupportedException	使用对象的clone方法但无法执行Cloneable所
 	
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;词法（识别单词符号） - 语法（是否合法的表达式等，语法错误） - 语义（静态语义错误检查，比如整数取余是否为整数） - 中间代码生成（生成后缀式等）&lt;/p&gt;
 &lt;h2 id=&#34;文法定义&#34;&gt;文法定义&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://cdn.huangxindi.com/img/image-20220503201153738.png&#34;
 	
