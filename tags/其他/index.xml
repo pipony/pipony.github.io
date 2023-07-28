@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>其他 on 2MUCH</title>
+    <link>https://huangxindi.com/tags/%E5%85%B6%E4%BB%96/</link>
+    <description>Recent content in 其他 on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>认识编码</title>
+      <link>https://huangxindi.com/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/</guid>
+      <description>概念 字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。 对于一个字符集来说要正确编码转码一个字符需要三</description>
+    </item>
+    
+    <item>
+      <title>开始Hugo&#43;Github Pages</title>
+      <link>https://huangxindi.com/p/%E5%BC%80%E5%A7%8Bhugo-github-pages/</link>
+      <pubDate>Sun, 15 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/%E5%BC%80%E5%A7%8Bhugo-github-pages/</guid>
+      <description>开始Hugo+Github Pages 参考：https://www.gohugo.org/#/ 准备工作准备 安装Hugo，git过程略 配置Hugo路径到</description>
+    </item>
+    
+  </channel>
+</rss>

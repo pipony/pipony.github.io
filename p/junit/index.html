@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>JUnit - 2MUCH</title>
+    <meta property="og:title" content="JUnit - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="学习教程：https://www.w3cschool.cn/junit/
+[&amp;hellip;] JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的白盒测试，能快速完成单元测试（Unit Test，又称为模块测试）。
+[&amp;hellip;] 创建一个Demo类
+public class Demo { public static int add(int a, int b) { &amp;hellip;">
+      <meta property="og:description" content="学习教程：https://www.w3cschool.cn/junit/
+[&amp;hellip;] JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的白盒测试，能快速完成单元测试（Unit Test，又称为模块测试）。
+[&amp;hellip;] 创建一个Demo类
+public class Demo { public static int add(int a, int b) { &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>JUnit</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-04-15
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<blockquote>
+<p>学习教程：https://www.w3cschool.cn/junit/</p>
+</blockquote>
+<p>JUnit 是一个 Java 编程语言的单元测试框架。Junit也就是所谓的白盒测试，能快速完成单元测试（Unit Test，又称为模块测试）。</p>
+<h1 id="特点">特点</h1>
+<ul>
+<li>提供<strong>注解</strong>来识别测试方法。</li>
+<li>提供<strong>断言</strong>来测试预期结果。</li>
+<li>提供测试运行来运行测试。</li>
+</ul>
+<h1 id="简单的示例">简单的示例</h1>
+<p>创建一个Demo类</p>
+<pre><code class="language-java">public class Demo {  
+  
+    public static int add(int a, int b) {  
+        return a+b;  
+    }  
+  
+}
+</code></pre>
+<p>创建一个相应的Test类</p>
+<pre><code class="language-java">import org.junit.Test;  
+  
+import static org.junit.Assert.assertEquals;  
+  
+public class DemoTest {  
+  
+    @Test  
+    public void testAdd() {  
+        assertEquals(5,Demo.add(1,4));  
+    }  
+  
+  
+}
+</code></pre>
+<p>创建Test Runner 类</p>
+<pre><code class="language-java">import org.junit.runner.JUnitCore;  
+import org.junit.runner.Result;  
+import org.junit.runner.notification.Failure;  
+  
+public class TestRunner {  
+    public static void main(String[] args) {  
+        Result result = JUnitCore.runClasses(DemoTest.class);  
+        for (Failure failure: result.getFailures()) {  
+            System.out.println(failure.toString());  
+        }  
+        System.out.println(result.wasSuccessful());  
+    }  
+}
+</code></pre>
+<p>运行TestRunner的结果：</p>
+<pre><code class="language-java">// 验证通过
+true
+
+// 故意模拟验证失败的情况，执行结果：
+testAdd(DemoTest): expected:&lt;3&gt; but was:&lt;5&gt;
+false
+</code></pre>
+<h1 id="基本用法">基本用法</h1>
+<p>Test类：</p>
+<ul>
+<li>类名以Test为待测试类名的<strong>后缀</strong></li>
+<li>测试方法以test为方法名的<strong>前缀</strong></li>
+<li>单独测试某方法，可以在该测试方法处点右键进行单独测试；如果要运行该测试类的所有测试方法，可以借助测试运行器TestRunner（如上面的示例）（或者直接右键运行该测试类）</li>
+</ul>
+<h2 id="常用注解">常用注解</h2>
+<ul>
+<li>@Test: 表示为测试方法</li>
+<li>@BeforeClass: static方法，会在所有方法执行前执行</li>
+<li>@AfterClass: 和上面类似，在所有方法执行后执行</li>
+<li>@Before: 每个测试方法执行前会执行</li>
+<li>@After: 每个测试方法执行后会执行</li>
+<li>@Ignore: 会被测试运行器忽略</li>
+<li>@RunWith: 可以更改测试运行器</li>
+</ul>
+<h2 id="junitcore">JUnitCore</h2>
+<p>在测试运行器中，使用<code>JUnitCore</code>类来执行。对于只有一次的测试运行，可以使用静态方法 <code>runClasses(Class[])</code>。</p>
+<h1 id="junit-api">Junit API</h1>
+<blockquote>
+<p>JUnit 中的最重要的程序包是 <strong>​<code>junit.framework</code>​</strong> 它包含了所有的核心类。</p>
+</blockquote>
+<h2 id="assert">Assert</h2>
+<p><code>import org.junit.Assert;</code> 包含检验各种条件是否符合的方法，若不符合则抛错</p>
+<h2 id="testcase">TestCase</h2>
+<p><code>import junit.framework.TestCase;</code> 定义了运行多重测试的固定装置</p>
+<pre><code class="language-java">import org.junit.Test;  
+import junit.framework.TestCase;  
+  
+public class DemoTest extends TestCase{  
+    @Test  
+    public void testTestCase() {  
+        System.out.println(&quot;No of Test Case = &quot;+ this.countTestCases());  
+        System.out.println(&quot;Test Case Name = &quot;+ this.getName());  
+        this.setName(&quot;newName&quot;);  
+        System.out.println(&quot;Test Case Name = &quot;+ this.getName());  
+    }  
+}
+</code></pre>
+<p>执行结果：</p>
+<pre><code class="language-java">No of Test Case = 1
+Test Case Name = testTestCase
+Test Case Name = newName
+true
+</code></pre>
+<h2 id="testresult">TestResult</h2>
+<p><code>import junit.framework.TestResult;</code> 集合了执行测试样例的所有结果</p>
+<h2 id="testsuite">TestSuite</h2>
+<p><code>import junit.framework.TestSuite;</code> 表示测试的集合</p>
+<h1 id="测试套件">测试套件</h1>
+<p>测试套件是一种将<strong>多个测试类组合在一起执行</strong>的方式，以便对整个应用程序或系统进行更全面的测试。测试套件类似于一个集合，它将多个测试类组合在一起，每个测试类都是一个测试套件的一部分。测试套件会依次运行其中包含的所有测试类，并输出整个测试过程的结果。</p>
+<h2 id="如何使用">如何使用</h2>
+<p>需要编写一个<strong>特殊的测试类</strong>来定义测试套件，这个测试类需要使用<code>@RunWith(Suite.class)</code>注解来运行测试套件。在测试类中，你需要使用<code>@Suite.SuiteClasses</code>注解来指定包含在测试套件中的测试类。
+例如：</p>
+<pre><code class="language-java">import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+   TestEmployeeDetails.class,
+   TestEmployeeSalary.class
+})
+
+public class EmployeeTestSuite {
+  // 这个类没有测试方法，只是用来指定包含在测试套件中的测试类
+}
+
+</code></pre>
+<p>其中，<code>EmployeeTestSuite</code>是一个定义测试套件的测试类，包含两个测试类<code>TestEmployeeDetails</code>和<code>TestEmployeeSalary</code>。如果你运行<code>EmployeeTestSuite</code>，JUnit将依次运行<code>TestEmployeeDetails</code>和<code>TestEmployeeSalary</code>中的所有测试方法，并输出测试结果。</p>
+<p><strong>注意：一定要保证测试套件之间没有循环包含关系，否则会有死循环！</strong></p>
+<h1 id="忽略测试">忽略测试</h1>
+<p><code>@Ignore</code> ： 可以修饰测试类或测试方法，使得此测试类或测试方法不会被执行到
+<strong>注意</strong>：JUnit5 中@Igonre不起作用，一个替换方案是使用<code>@Disabled</code></p>
+<h1 id="时间测试">时间测试</h1>
+<p>一般用于测试某方法是否执行时间过长，设定<code>timeout</code>参数用于指定该测试方法的最大执行时间，单位为毫秒。如果测试时执行超过该时长，则会中止测试方法并标记为失败。例子如下：</p>
+<pre><code class="language-java">@Test(timeout = 1000)
+public void testTimeout() throws InterruptedException { // 等待 2 秒钟，超时时间为 1 秒钟 
+Thread.sleep(2000); 
+}
+</code></pre>
+<h1 id="异常测试">异常测试</h1>
+<p>设定<code>expected</code>参数，用于验证待测试的方法抛的异常是否符合预期。例子如下：</p>
+<pre><code class="language-java">@Test(expected = ArithmeticException.class) 
+public void testPrintMessage() { 
+	...
+}
+</code></pre>
+<h1 id="参数化测试">参数化测试</h1>
+<p>使用不同的值多次测试同一个方法，简化测试过程。构造特点：</p>
+<ul>
+<li>用<code>@RunWith(Parameterized.class)</code>通知JUnit这是一个参数化测试类</li>
+<li><code>@Parameterized.Parameters</code> 使用该注释构造公共的静态方法，返回一个对象集合作为测试数据集合</li>
+<li>创建一个构造方法，与测试数据相匹配</li>
+</ul>
+<p>例子如下：</p>
+<pre><code class="language-java">@RunWith(Parameterized.class)
+public class CalculatorTest {
+    private int num1;
+    private int num2;
+    private int expectedResult;
+    private Calculator calculator;
+
+    @Parameterized.Parameters
+    public static Collection&lt;Object[]&gt; input() {
+        return Arrays.asList(new Object[][]{
+                {2, 3, 5},
+                {5, 7, 12},
+                {9, 4, 13},
+                {8, 1, 9},
+                {6, 2, 8}
+        });
+    }
+
+    public CalculatorTest(int num1, int num2, int expectedResult) {
+        this.num1 = num1;
+        this.num2 = num2;
+        this.expectedResult = expectedResult;
+    }
+
+    @Before
+    public void setUp() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    public void testAdd() {
+        int result = calculator.add(num1, num2);
+        assertEquals(expectedResult, result);
+    }
+}
+
+</code></pre>
+<h1 id="实际项目中的应用">实际项目中的应用</h1>
+<p><strong>比如在一个Springboot+mybatisPlus的项目中，要如何利用JUnit测试在<code>ServiceImpl</code>中实现的各种方法呢？这里我直接给出ChatGPT给我的回答吧：</strong></p>
+<p>假设有一个名为<code>UserServiceImpl</code>的实现类，实现了<code>UserService</code>接口，该接口定义了数据库表<code>user</code>的增删改查方法，我们可以为其编写JUnit测试方法。</p>
+<p>这里我们为<code>UserServiceImpl</code>中的每一个方法编写了一个对应的测试方法，其中使用了JUnit提供的<code>Assertions</code>断言方法，比如<code>Assertions.assertTrue()</code>和<code>Assertions.assertNotNull()</code>，用来判断测试结果是否正确。注意，在测试方法上要加上<code>@Test</code>注解，以标识这是一个JUnit测试方法，同时需要使用<code>@SpringBootTest</code>注解来启动Spring容器，以便能够注入<code>UserService</code>实例。</p>
+<pre><code class="language-java">package com.example.demo.service.impl;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class UserServiceImplTest {
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void testSaveUser() {
+        User user = new User();
+        user.setName(&quot;test&quot;);
+        user.setAge(18);
+        boolean result = userService.save(user);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = userService.getById(1L);
+        user.setAge(20);
+        boolean result = userService.updateById(user);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void testDeleteUser() {
+        boolean result = userService.removeById(1L);
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void testGetUserById() {
+        User user = userService.getById(2L);
+        Assertions.assertNotNull(user);
+    }
+
+    @Test
+    public void testGetUserPage() {
+        Page&lt;User&gt; page = new Page&lt;&gt;(1, 10);
+        Page&lt;User&gt; userPage = userService.page(page, null);
+        Assertions.assertNotNull(userPage);
+    }
+}
+
+</code></pre>
+<h2 id="测试如何不影响真实的表数据">测试如何不影响真实的表数据</h2>
+<p>当我们使用JUnit测试时，例如插入数据，必然会往表中插入脏数据。那么，如何在不影响真实表数据的情况下，完成测试呢？</p>
+<ul>
+<li>使用注解<code>@Transactional</code>实现事务回滚</li>
+<li>在测试完成后，使用<code>@After</code>注解执行清空数据等操作</li>
+<li>在测试方法中写清空数据的操作</li>
+</ul>
+<h2 id="测试时如何指定id">测试时如何指定id</h2>
+<p>当我们使用JUnit测试删除或更新操作时，往往需要指定操作id。这里也给出两种常用做法：</p>
+<ul>
+<li>写死数据库中已有的某id来测</li>
+<li>通过<code>@Before</code>注解，在方法中预置记录并在后续测试方法中使用此id。但注意最后要清理此脏数据。</li>
+</ul>
+<h1 id="进阶使用">进阶使用</h1>
+<ul>
+<li>使用<code>ant</code>运行junit，可以简化测试过程、生成测试报告等。等用到了再学习吧</li>
+<li>测试报告生成：除了使用<code>ant</code>生成测试报告外，有些IDE也支持生成测试报告。比如在IDEA中执行时选择<code>“Run xxx with Coverage”</code>，然后就可以导出测试报告</li>
+<li>还有其他基于JUnit的框架扩展，如JWebUnit、MockObject</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-00-%E8%80%83%E8%AF%95%E4%BB%8B%E7%BB%8D/">软考-中级数据库系统分析师-00 考试介绍</a></span>
+  <span class="nav-next"><a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E4%B8%AA%E4%BA%BA%E6%94%B6%E8%8E%B7/">Mysql导入常见问题及个人收获</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

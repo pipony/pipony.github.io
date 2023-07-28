@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-管道篇 - 2MUCH</title>
+    <meta property="og:title" content="Linux-管道篇 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
+格式：命令1 | 命令2 | ...
+管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
+管道（又称无名管道）和命名管道FIFO的区别：等后面学到命名管道了再说
+[&amp;hellip;] 根据模式（正则表达 &amp;hellip;">
+      <meta property="og:description" content="管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）
+格式：命令1 | 命令2 | ...
+管道和重定向（命令1 &amp;gt; file）的区别：重定向是接收对象是文件，而管道是接命令的。
+管道（又称无名管道）和命名管道FIFO的区别：等后面学到命名管道了再说
+[&amp;hellip;] 根据模式（正则表达 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-管道篇</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-31
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="linux-管道篇">Linux-管道篇</h1>
+<h2 id="概念">概念</h2>
+<p>管道（pipe）可以连接两个或多个命令，将前一个命令的标准输出作为后一个的标准输入（这也就意味着，若某命令不能支持标准输出/输入的话，则无法应用管道命令）</p>
+<p>格式：<code>命令1 | 命令2 | ...</code></p>
+<p>管道和重定向（<code>命令1 &gt; file</code>）的区别：重定向是接收对象是文件，而管道是接命令的。</p>
+<p>管道（又称无名管道）和命名管道FIFO的区别：<em><font color='red'>等后面学到命名管道了再说</font></em></p>
+<h2 id="注意点">注意点</h2>
+<ul>
+<li><strong>管道只能传输正确输出，而无法传输错误信息</strong>。从管道接连输出的标准错误会混合到一起。</li>
+</ul>
+<h2 id="常见相关命令">常见相关命令</h2>
+<h3 id="grep-global-search-regular-expression-and-print-out-the-line">grep (Global search REgular expression and Print out the line)</h3>
+<p>根据模式（正则表达式）对文本<strong>逐行</strong>扫描，找到并打印匹配的行</p>
+<p>格式：</p>
+<pre><code class="language-shell">grep [options] [pattern] file
+or
+command | grep [options] [pattern]
+
+[options]
+	-v # 反向匹配 invert (等同于--invert-match)
+	-n # 输出加上行号
+	-i # 忽略大小写匹配 ignorecase
+	-c # 只输出匹配的行数
+	-E # 适用egrep匹配
+	--color=auto # 为过滤结果添加颜色 (通常在alias中默认会有这个参数，如alias grep='grep --color=auto')
+	-w # 整词对比，而不是字符
+	-o # 只输出匹配到的字符串本身（匹配到多少个就会输出几行） （常用于与wc -l配合获取到匹配的个数，而不是行数）
+    -q # 静默模式（stderr除外，不输出任何东西 quiet） 等同于：--quiet, --silent （不打印任何标准输出，如果有匹配的内容则返回状态值0，常用于if判断等）
+    -l # 只输出匹配的文件名
+    -r # 递归模式，查找所有层级子目录里的文件
+[pattern]
+	# 匹配模式，见正则表达式篇
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt  # 新建测试文件
+i am cindy
+i live in china!
+I am writing in KFC.
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep &quot;cindy&quot;
+i am cindy
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -n &quot;KFC&quot;
+3:I am writing in KFC.
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -v &quot;am&quot; # 空行也会被匹配到
+i live in china!
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -c &quot;am&quot; # 只输出匹配到的行数
+2
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep &quot;i &quot;
+i am cindy
+i live in china!
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -i &quot;i &quot;
+i am cindy
+i live in china!
+I am writing in KFC.
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep &quot;c*&quot; # 注意正则表达式和通配符的区别，正则表达式表示0个或多个'c'，通配符则表示匹配c+*的字符串
+i am cindy
+i live in china!
+I am writing in KFC.
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep &quot;c.&quot;
+i am cindy
+i live in china!
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep &quot;ci|ch&quot;  # 没加-E只表示普通的匹配&quot;ci|ch&quot;字符串
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -E &quot;ci|ch&quot;  # 加了-E，表示匹配'ci'或'ch'
+i am cindy
+i live in china!
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -w &quot;liv&quot; # liv不是连在一起的“单词”，因为后面还跟着'e'，所有无法匹配
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -w &quot;live&quot;
+i live in china!
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -q &quot;liv&quot;
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo $?  
+0  # 匹配到
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -q &quot;abc&quot;
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo $?  
+1  # 没匹配到
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testGrep.txt | grep -o &quot;in&quot; | wc -l # 获取匹配的次数
+5
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cd testGrepDir
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ cat 1.txt
+i am from file1 haha
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ cat 2.txt
+i am from file2 haha
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ grep -l &quot;from&quot; ./*  # 只输出匹配到的文件名
+./1.txt
+./2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ cd testGrepDir2
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir2]$ cat 3.txt
+i am from file3 haha
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir2]$ cd .. 
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ grep -l &quot;from&quot; ./*  # 非递归模式
+./1.txt
+./2.txt
+grep: ./testGrepDir2: Is a directory
+[cindy@iZbp15qc4wmx335c268l5mZ testGrepDir]$ grep -rl &quot;from&quot; ./*  # 递归模式
+./1.txt
+./2.txt
+./testGrepDir2/3.txt
+</code></pre>
+<h3 id="cut">cut</h3>
+<p>根据某条件（分隔符）分割输入的内容，并输出特定的分割结果。<strong>但是<code>cut</code>只支持单个字符的分隔符。</strong></p>
+<p>格式：</p>
+<pre><code class="language-shell">cut [options] file
+or
+command | cut [options]
+
+[options]
+	-d # 指定分割符（默认分隔符是Tab，而不是空格），常与-f配合适用。分隔符只能是单个字符。
+	-f # 指定输出分割后的第几列
+    -c # 指定输出某区间结果（以字符为单位）
+    -b # 以字节为单位指定某区间结果
+    –complement # 反选选中的部分，即输出除去该条件的内容
+	–output-delimiter # 修改输出时使用的分隔符。
+	--only-delimited # 不输出不包含分隔符的列。
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt  # 新建测试文件
+i am cindy
+
+it.so.hot
+butiamcold
+但是我冷呀
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -d '.' -f 2  # 第三行有匹配到分隔符，并输出第2个内容。其他行没有匹配到，全部输出。
+i am cindy
+
+so
+butiamcold
+但是我冷呀
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -d '.' -f 4  # 第三行有匹配到分隔符，但分割后只有三个子字符串，故输出为空
+i am cindy
+
+
+butiamcold
+但是我冷呀
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -c 1  # 分割第一个字符
+i
+
+i
+b
+但
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -c 1-3  # 分割1-3个字符
+i a
+
+it.
+but
+但是我
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -d '.' -f 2,3  # 取第2和第3个分割结果
+i am cindy
+
+so.hot
+butiamcold
+但是我冷呀
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;12345678&quot; | cut -c -4  # 取第4个之前的字符
+1234
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;1 2 3&quot; | cut -d ':' -f 1-  # 取第1个之后的字符
+1 2 3
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;1  2&quot; | cut -d  '  ' -f 2  # 分隔符不能指定超过单个字符
+cut: the delimiter must be a single character
+Try 'cut --help' for more information.
+# 英文 cut -b/-c 没啥区别，但是中文就不一样了，如下所示（提醒：一个汉字对应多少个字节，要看采用的编码方式）
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;咖啡&quot; | cut -c 1-2
+咖啡
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;咖啡&quot; | cut -b 1-2
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;咖啡&quot; | cut -b 1-6
+咖啡
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;咖啡&quot; | cut -b 1-5
+咖
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;1 2 3&quot; | cut -d ' ' --complement -f2
+1 3
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo $PATH
+/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/cindy/.local/bin:/home/cindy/bin
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo $PATH | cut -d ':' -f 2-4 --output-delimiter ' '  # 分割后，取出第2到第4的内容，并替换:为空格符输出
+/usr/bin /usr/local/sbin /usr/sbin
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testCut.txt | cut -d '.' -f 1- --only-delimited  # 只输出匹配到分隔符的行
+it.so.hot
+</code></pre>
+<h3 id="sort-wc-uniq">sort, wc, uniq</h3>
+<h4 id="sort">sort</h4>
+<p>针对文本文件的内容，以行为单位进行排序</p>
+<pre><code class="language-shell">sort [options] file
+or
+command | sort [options]
+
+[options]
+	-n # 以数字格式来大小排序（默认是以字符串格式）
+	-r # 反向排序（从大到小）
+	-k # 以某列进行排序
+	-t # 指定分隔符（默认分割符为空格）
+	-b # 忽略每行前面的空格再排序
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt
+12 13 14
+2 3 4
+2 1 5
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt | sort  # 按照字符串格式比较，即依次比较第1,2..个字符
+12 13 14
+2 1 5
+2 3 4
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt | sort -r
+2 3 4
+2 1 5
+12 13 14
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt | sort -n  # 按数字格式比较，即2&lt;12
+2 1 5
+2 3 4
+12 13 14
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ vi testSort.txt
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt
+12,13,14
+2,3,4
+2,1,5
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testSort.txt | sort -k 2 -t ',' -n  # 分隔符为逗号，根据第2列的数字格式排序
+2,1,5
+2,3,4
+12,13,14
+</code></pre>
+<h4 id="wc">wc</h4>
+<p>用于统计文件的字节数、字数、行数</p>
+<pre><code class="language-shell">wc [options] file
+or
+command | wc [options]
+
+[options]
+	-c # 统计字节(char)数
+	-l # 行数(line)
+	-m # 字符数
+	-w # 字数(word)，一个字被定义为由空白、跳格或换行字符分隔的字符串。
+	-L # 获取最长行的长度
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;123&quot; | wc -c
+4  # 因为echo输出会带换行符，而换行符也会被算1个，故结果是4
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;123&quot; | wc -m
+4
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;123&quot; | wc -w
+1  # 123算一个字
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ vi testWc.txt
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testWc.txt
+123
+4
+我
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ wc testWc.txt # 参数分别为：行数，字数，字节数，文件名
+ 3  3 10 testWc.txt
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testWc.txt | wc -c
+10
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testWc.txt | wc -m  # 注意-c和-m对于中文的长度统计不一样
+8
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo -n &quot;123&quot; | wc -m  # echo -n 表示不输出换行符的echo
+3
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testWc.txt | wc -l  # 统计行数（常用）
+3
+</code></pre>
+<h4 id="uniq">uniq</h4>
+<p>用于检查或删除重复的列，可以与<code>sort</code>结合使用。</p>
+<pre><code class="language-shell">uniq [options] file
+or
+command | uniq [options]
+
+[options]
+	- uniq filename (cat filename | unique) # 显示删除重复行的文件内容，但不改变原文件内容
+	-u # 仅显示只出现一次的行(unique)，与`uniq filename`效果不同
+	-d # 仅显示有重复的行(dupli)
+	-c # 在每一行前面标上重复的行数(count)
+	-i # 忽略大小写(ignore)
+	-f # 忽略比较第几栏（以空格为分割符）
+# 需要注意的是，判断重复行的范围仅是相邻行。若不是相邻行的重复行，并不会被识别为重复行。若要实现将不相邻的重复行也视为重复的uniq命令，则要配合上sort命令：
+	sort filename | uniq
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ vi testUniq.txt
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt
+hhhhh
+hhhhh
+HHHHH
+11111
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq  #列出去重后的结果
+hhhhh
+HHHHH
+11111
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq -u  # 只列出不重复的行
+HHHHH
+11111
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq -d
+hhhhh
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq -c
+      2 hhhhh
+      1 HHHHH
+      1 11111
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq -i  # 忽略大小写后，前三行可视为相同
+hhhhh
+11111
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt
+111
+222
+222
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ uniq testUniq.txt  # 输出剔重的文件内容
+111
+222
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt  # 但不改变原文件内容
+111
+222
+222
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt
+111
+222
+111
+222
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat testUniq.txt | uniq -u
+111
+222
+111
+222
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ sort testUniq.txt | uniq
+111
+222
+</code></pre>
+<h3 id="tee">tee</h3>
+<p>标准输入 -&gt; tee -&gt; 标准输出**+文件**，即实现既将执行结果输出，并保存到文件中。</p>
+<pre><code class="language-shell">command | tee [options] filenameßß
+
+[options]
+	-a # 追加写到文件（默认是覆盖写）
+	-i # 忽略中断信号
+	- - ... # 重复多次
+	&gt; dev/null # 静默输出（只输出到文件）
+
+# 注：默认会将标准输入的信息通过tee输出到文件中（即，过滤错误信息），如需要一并输出错误信息，则要结合 2&gt;&amp;1
+</code></pre>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ whoami | tee tee.txt
+cindy  # 1、控制台输出
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat tee.txt
+cindy  # 2、文件输出
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ whoami | tee tee.txt
+cindy
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat tee.txt  # 覆盖写
+cindy
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ whoami | tee -a tee.txt
+cindy
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat tee.txt  # 追加写
+cindy
+cindy
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;hi&quot; | tee tee1.txt tee2.txt  # 同时输出到多个文件
+hi
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat tee1.txt
+hi
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat tee2.txt
+hi
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;good&quot; | tee - -  # 额外重复输出2次
+good
+good
+good
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ echo &quot;good&quot; | tee good.txt &gt; /dev/null
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat good.txt  # 仅输出到文件中
+good
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ ls kkk | tee out
+ls: cannot access kkk: No such file or directory
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat out  # 正常没有把错误信息输出到文件中
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ ls kkk 2&gt;&amp;1 | tee out
+ls: cannot access kkk: No such file or directory
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat out  # 此时错误信息有输出到文件中
+ls: cannot access kkk: No such file or directory
+</code></pre>
+<h3 id="split">split</h3>
+<h3 id="xargs">xargs</h3>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/w-j-q/p/14833714.html">https://www.cnblogs.com/w-j-q/p/14833714.html</a></p>
+<p><a href="https://blog.csdn.net/m0_50370837/article/details/125068528">https://blog.csdn.net/m0_50370837/article/details/125068528</a></p>
+<p><a href="https://blog.csdn.net/weixin_50196615/article/details/121834020">https://blog.csdn.net/weixin_50196615/article/details/121834020</a></p>
+<p><a href="https://blog.csdn.net/weixin_45842494/article/details/124679008">https://blog.csdn.net/weixin_45842494/article/details/124679008</a></p>
+<p><a href="http://linux.tedu.cn/workplace/420732.html">http://linux.tedu.cn/workplace/420732.html</a></p>
+<p><a href="https://blog.csdn.net/cnds123321/article/details/125150383">https://blog.csdn.net/cnds123321/article/details/125150383</a></p>
+<p><a href="https://blog.csdn.net/carefree2005/article/details/115324770">https://blog.csdn.net/carefree2005/article/details/115324770</a></p>
+<p><a href="https://www.cnblogs.com/baichunyu/p/15314763.html">https://www.cnblogs.com/baichunyu/p/15314763.html</a></p>
+<p><a href="https://www.cnblogs.com/nanruosen/p/16317025.html">https://www.cnblogs.com/nanruosen/p/16317025.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/redis-jedis/">Redis-Jedis</a></span>
+  <span class="nav-next"><a href="/p/%E8%AE%A4%E8%AF%86jar%E5%8C%85/">认识Jar包</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shell on 2MUCH</title>
+    <link>https://huangxindi.com/tags/shell/</link>
+    <description>Recent content in Shell on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sun, 02 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>常用Shell语句</title>
+      <link>https://huangxindi.com/p/%E5%B8%B8%E7%94%A8shell%E8%AF%AD%E5%8F%A5/</link>
+      <pubDate>Sun, 02 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/%E5%B8%B8%E7%94%A8shell%E8%AF%AD%E5%8F%A5/</guid>
+      <description>记录一些常用的shell，便于使用 文件篇 获取某目录下的所有子目录的文件名 https://blog.csdn.net/Register_man/article/details/53860064 #! /bin/bash function read_dir(){ for file in `ls $1` #注意此处这是两个反引号，表示运行系统命令 do if [</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>SQL函数篇 - 2MUCH</title>
+    <meta property="og:title" content="SQL函数篇 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="此为Oracle函数。l/r(left/right)&#43;pad(填充)，表示从左边/右边填充。
+格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
+参数一：被填充/截取的原字符串
+参数二：最终长度
+参数三：填充的字符，若无赋值，则默认填充空格
+注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边） &amp;hellip;">
+      <meta property="og:description" content="此为Oracle函数。l/r(left/right)&#43;pad(填充)，表示从左边/右边填充。
+格式：lpad( string, padded_length, [ pad_string ] ) （rpad同理）
+参数一：被填充/截取的原字符串
+参数二：最终长度
+参数三：填充的字符，若无赋值，则默认填充空格
+注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边） &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>SQL函数篇</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-06-13
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="sql函数篇">SQL函数篇</h1>
+<blockquote>
+<ul>
+<li>lpad/rpad函数</li>
+</ul>
+</blockquote>
+<h2 id="lpad-rpad函数">lpad/rpad函数</h2>
+<p>此为Oracle函数。l/r(left/right)+pad(填充)，表示从左边/右边填充。</p>
+<p>格式：<code>lpad( string, padded_length, [ pad_string ] )</code> （rpad同理）</p>
+<p>参数一：被填充/截取的原字符串</p>
+<p>参数二：最终长度</p>
+<p>参数三：填充的字符，若无赋值，则默认填充空格</p>
+<p>注意：若原字符串长度大于参数二的长度，则lpad从左开始截取指定长度（rpad从右边）</p>
+<pre><code class="language-sql">SQL&gt; select lpad('abcde',10,'x') from dual;
+LPAD('ABCDE',10,'X')
+--------------------
+xxxxxabcde
+
+SQL&gt; select lpad('abcde',2) from dual;
+LPAD('ABCDE',2)
+---------------
+ab
+</code></pre>
+<p>参考链接：https://blog.csdn.net/yulei_qq/article/details/17389901#/</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">异常的处理</a></span>
+  <span class="nav-next"><a href="/p/oracle-%E5%BA%8F%E5%88%97/">ORACLE-序列</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

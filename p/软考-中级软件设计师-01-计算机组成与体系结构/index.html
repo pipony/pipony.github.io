@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级软件设计师-01 计算机组成与体系结构 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级软件设计师-01 计算机组成与体系结构 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="R进制-&amp;gt;十进制：底数，指数
+十进制-&amp;gt;R进制：短除法
+二进制-&amp;gt;八进制，十六进制
+[&amp;hellip;] ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
+[&amp;hellip;] https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
+[&amp;hellip;] 为何补码比原/反码多一个数：原/反 &amp;hellip;">
+      <meta property="og:description" content="R进制-&amp;gt;十进制：底数，指数
+十进制-&amp;gt;R进制：短除法
+二进制-&amp;gt;八进制，十六进制
+[&amp;hellip;] ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减
+[&amp;hellip;] https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/
+[&amp;hellip;] 为何补码比原/反码多一个数：原/反 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220328201500845.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级软件设计师-01 计算机组成与体系结构</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="01-计算机组成与体系结构">01 计算机组成与体系结构</h1>
+<h2 id="数据的表示">数据的表示</h2>
+<h3 id="进制转换">进制转换</h3>
+<p>R进制-&gt;十进制：底数，指数</p>
+<p>十进制-&gt;R进制：短除法</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328201500845.png" alt="image-20220328201500845"></p>
+<p>二进制-&gt;八进制，十六进制</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328201707416.png" alt="image-20220328201707416"></p>
+<h3 id="编码">编码</h3>
+<ul>
+<li>原码：正常转为二进制，位数不足前面补0。最高位为符号位（0正1负）</li>
+<li>反码：正数=原码；负数：符号位不动，其他位原码取反</li>
+<li>补码：正数=原码；负数：反码+1</li>
+<li>移码：一般用来做浮点运算的阶码；<strong>符号位为补码的反，其他位一样</strong>。这样在数轴上，正数在负数的右边，看起来正常些</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328202526249.png" alt="image-20220328202526249"></p>
+<p>ps. 原码：1-1为-2，是不正常的，因此计算机里不能用原版来做加减</p>
+<h4 id="移码">移码</h4>
+<p><a href="https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/">https://blog.csdn.net/Desire_Dir_W/article/details/114399797#/</a></p>
+<h4 id="表示范围">表示范围</h4>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328202915692.png" alt="image-20220328202915692"></p>
+<p>为何补码比原/反码多一个数：原/反码有正负0，补码只有一种0的表示</p>
+<h3 id="浮点数运算">浮点数运算</h3>
+<p><code>M*R^e</code></p>
+<p>M：尾数；R：基数：e：指数</p>
+<p>对阶（<strong>小向大的指数对</strong>） - 尾数计算 - 结果格式化（<strong>尾数小数点左边是1</strong>）</p>
+<h2 id="计算机结构">计算机结构</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328203437719.png" alt="image-20220328203437719"></p>
+<p>主机=CPU（运算器+控制器）+主存储器
+控制器：</p>
+<ul>
+<li>指令寄存器 IR</li>
+<li>程序计数器 PC</li>
+<li>地址寄存器 AR</li>
+<li>指令译码器 ID：对指令中的操作码进行解释</li>
+</ul>
+<p>指令=操作码+操作数或操作数地址</p>
+<h2 id="flynn分类法">Flynn分类法</h2>
+<p>单I/多M+指令I/数据D</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328204105460.png" alt="image-20220328204105460"></p>
+<p>SISD 现在的机器几乎没有，可能在单片机用到</p>
+<p>SIMD 阵列处理机：适合处理数组运算</p>
+<p>MISD 只在理论中</p>
+<p>MIMD 全面并行</p>
+<h2 id="cisc和rics">CISC和RICS</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328204144102.png" alt="image-20220328204144102"></p>
+<p>CISC 比较早期，通常是定制。指令数量多；可变长格式</p>
+<p>RICS 复杂操作由简单操作组成即可；定长格式；操作寄存器；硬布线（速度快）</p>
+<h2 id="流水线">流水线</h2>
+<p>主要考察计算</p>
+<h3 id="流水线周期">流水线周期</h3>
+<p>概念：执行时间最长的一个步骤时间</p>
+<p>n条指令全部执行时间：</p>
+<ul>
+<li>理论公式：1条指令执行时间+（指令条数-1）*流水线周期</li>
+<li>实践公式：（k+n-1）*周期；k为子指令个数</li>
+</ul>
+<p>考试时优先用理论公式算，没有这个选项，再用实践公式</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328205445725.png" alt="image-20220328205445725"></p>
+<h3 id="吞吐率">吞吐率</h3>
+<p>概念：单位时间内处理指令条数</p>
+<p>公式：TP=指令条数/流水线时间</p>
+<p>最大吞吐率：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328205659851.png" alt="image-20220328205659851"></p>
+<p>理解：极限情况下（不考虑流水线建立的时间等），1条指令配合上一个流水线周期</p>
+<h3 id="加速比">加速比</h3>
+<p>概念及公式：同一个任务不使用流水线时间/使用流水线时间</p>
+<h3 id="效率">效率</h3>
+<p>概念：流水线的设备利用率。时空图中，设备占用时空区占总时空区之比。</p>
+<p>公式：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328210302495.png" alt="image-20220328210302495"></p>
+<p>每个子任务时间一样 -&gt; 效率最高</p>
+<h2 id="存储">存储</h2>
+<h3 id="层次化存储结构">层次化存储结构</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328210428582.png" alt="image-20220328210428582"></p>
+<h3 id="cache">cache</h3>
+<p>特点：</p>
+<ul>
+<li>介于CPU和内存（主存）之间，速度比主存快</li>
+<li>为何能改善系统性能：局部性原理</li>
+</ul>
+<p>不命中时的替换算法：</p>
+<ul>
+<li>随机替换</li>
+<li>先进先出</li>
+<li>近期最少使用</li>
+<li>优化替换</li>
+</ul>
+<p>地址映像：CPU工作时给出的是主存的地址，要从cache中读写信息时，需要把主存的地址转换为cache地址</p>
+<ul>
+<li>直接映像：主存和cache块对应关系是固定的</li>
+<li>全相联映像：主存和cache均分为容量相同的块，主存的块可以调入cache的任何一块</li>
+<li>组相联映像：组采用直接映像，块采用全相联映像</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305232340314.png" alt="image.png">
+<img src="https://cdn.huangxindi.com/img/202305232340110.png" alt="image.png">
+<img src="https://cdn.huangxindi.com/img/202305232340811.png" alt="image.png"></p>
+<p>平均周期公式</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328211058542.png" alt="image-20220328211058542"></p>
+<p><strong>局部性原理</strong></p>
+<p>时间/空间局部性</p>
+<p>工作集理论：工作集是进程运行时被频繁访问的页面集合；把工作集打包到cache，短时间内不被替换，可提高效率</p>
+<h3 id="主存">主存</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328211454312.png" alt="image-20220328211454312"></p>
+<ul>
+<li>随机存取存储器 RAM</li>
+<li>只读存储器 ROM</li>
+</ul>
+<h4 id="编址">编址</h4>
+<p>知识点：内存是以字节编码的</p>
+<p><code>8*4</code>位的存储器：8个地址空间，每个地址空间含4位</p>
+<p>两种组合方法：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220328211732881.png" alt="image-20220328211732881"></p>
+<p>（1）=C7FFFH-AC000H+1=C7FFFH+1-AC000H=112</p>
+<p>（2）112k x 16 = 28 x 16k x 未知数 结果为4</p>
+<h3 id="磁盘">磁盘</h3>
+<p>主要掌握：读取一次数据过程中1、哪些动作；2、多少时间</p>
+<p>存取时间=存道时间+等待时间（平均定位时间+旋转延迟时间）</p>
+<ul>
+<li>存道时间：磁头移动到磁道</li>
+<li>等待时间：等待扇区转到磁头</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220412080207199.png" alt="image-20220412080207199"></p>
+<h3 id="存储补充知识">存储补充知识</h3>
+<ul>
+<li>虚拟存储器实际上是一种逻辑存储器</li>
+<li>相联存储器是一种按内容访问的存储器</li>
+</ul>
+<h2 id="总线">总线</h2>
+<p>分类</p>
+<ul>
+<li>内部总线</li>
+<li>系统总线
+<ul>
+<li>数据总线（传输数据，字长与数据总线宽度有关），双向</li>
+<li>地址总线（宽度与内存大小有关，如32位操作系统内存最多2^32=4G），单向</li>
+<li>控制总线，一条来看是单向的，总的来看是双向的</li>
+</ul>
+</li>
+<li>外部总线</li>
+</ul>
+<p>总线结构优点：简化系统结构，减少连线数目，便于维修</p>
+<h2 id="系统可靠性分析与设计">系统可靠性分析与设计</h2>
+<h3 id="串联系统与并联系统">串联系统与并联系统</h3>
+<p>可靠度：</p>
+<ul>
+<li>串联：可靠性为各节点可靠性相乘</li>
+<li>并联：R=1-(1-R1)x(1-R2)x&hellip;x(1-Rn)</li>
+</ul>
+<p>失效率=1-可靠度</p>
+<h3 id="模冗余系统与混合系统">模冗余系统与混合系统</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220412081248508.png" alt="image-20220412081248508"></p>
+<h2 id="校验码">校验码</h2>
+<h3 id="码距">码距</h3>
+<p>概念：编码系统中任意（所有）两个码字的最小距离，即A-&gt;B需要改变最少几位；如采用3位长度作为二进制编码，可选用111和000作为合法编码，这时码距就是3（000需要改变3位才变为111）</p>
+<h3 id="循环校验码crc-检错不纠错">循环校验码CRC（检错不纠错）</h3>
+<p>采用模2除法，接收到除多项式若余数为0，则表明传输正确</p>
+<p>CRC编码：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220412083256693.png" alt="image-20220412083256693"></p>
+<p>编码后：原报文+余数吗，作为最终报文传输</p>
+<p>接收端接收到报文后，将报文同样除以二项式，若余数为0，则表示传输正确</p>
+<h3 id="海明码-检错加纠错">海明码（检错加纠错）</h3>
+<p>校验位：</p>
+<ul>
+<li>位置：2^n
+<ul>
+<li>如一个信息位，最终有3位（因为0和1位需要填校验码）</li>
+</ul>
+</li>
+<li>需要校验位数r：2^r-1&gt;=x+r</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220412220103111.png" alt="image-20220412220103111"></p>
+<h2 id="周期">周期</h2>
+<ul>
+<li>时钟周期（CPU时钟周期，T周期），主频决定，最小的时间单位</li>
+<li>机器周期（CPU周期）：完成一项基本操作所需最短时间</li>
+<li>总线周期：一次访问存储器或I/O端口所需时间</li>
+<li>指令周期：取出并执行一条指令的时间</li>
+</ul>
+<p>关系：时钟周期⊆总线周期⊆机器周期⊆指令周期</p>
+<h3 id="计算机可靠性">计算机可靠性</h3>
+<ul>
+<li>计算机系统的可靠性：从开始运行到时刻t时间段内能正常运行的概率，R(t)</li>
+<li>失效率：单位时间内失效的元件数与元件总数的比例</li>
+<li>平均无故障时间：两次故障之间能正常工作的时间平均值</li>
+<li>可维修性：故障发生到修复平均所需时间</li>
+<li>可用性：执行任务的任意时刻能正常工作的概率</li>
+</ul>
+<h2 id="补充知识">补充知识</h2>
+<ul>
+<li>KB - MB - GB 各自相差1024，如1GB=1024MB</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-02-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-02 操作系统</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-00-%E6%97%A0%E5%88%86%E7%B1%BB/">软考-中级软件设计师-00 无分类</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

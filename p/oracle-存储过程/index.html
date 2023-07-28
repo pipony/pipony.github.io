@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ORACLE-存储过程 - 2MUCH</title>
+    <meta property="og:title" content="ORACLE-存储过程 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+[&amp;hellip;] 当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作 &amp;hellip;">
+      <meta property="og:description" content="存储过程(Stored Procedure)：
+一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。
+[&amp;hellip;] 当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>ORACLE-存储过程</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-03
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="oracle-存储过程">ORACLE-存储过程</h1>
+<h2 id="概念">概念</h2>
+<p>存储过程(Stored Procedure)：</p>
+<p>一组为了完成某功能的一段sql语句集（一种PL/SQL块），存储在数据库中，经过第一次编译后再次调用就无需再次编译，用户通过调用指定存储过程名称和给定参数来调用。当数据库启动时,会自动加载到数据库内存中,执行效率高。</p>
+<blockquote>
+<p>当对数据库进行复杂操作时(如对多个表进行Update、Insert、Query、Delete时），可将此复杂操作用存储过程封装起来与数据库提供的事务处理结合一起使用。</p>
+</blockquote>
+<h2 id="函数和存储过程的区别">函数和存储过程的区别</h2>
+<p><a href="https://www.php.cn/oracle/489142.html#/">https://www.php.cn/oracle/489142.html#/</a></p>
+<table>
+<thead>
+<tr>
+<th><strong>存储过程</strong></th>
+<th><strong>函数</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用于在数据库中完成特定的操作或任务（如插入、删除等）</td>
+<td>用于特定数据（如查询返回值）</td>
+</tr>
+<tr>
+<td>程序头部声明用PROCEDURE</td>
+<td>程序头部声明用FUNCTION</td>
+</tr>
+<tr>
+<td>程序头部声明时不需要返回类型</td>
+<td>程序头部声明时要描述返回类型，而且PL/SQL块至少要包括一个有效的RETURN语句</td>
+</tr>
+<tr>
+<td>可以使用IN/OUT/IN OUT3种参数模式</td>
+<td>可以使用IN/OUT/IN OUT3种参数模式</td>
+</tr>
+<tr>
+<td>可以作为独立的PL/SQL语句执行</td>
+<td>不能独立执行，必须作为表达式的一部分调用</td>
+</tr>
+<tr>
+<td>可以通过OUT/IN OUT返回零个或多个值</td>
+<td>对过RETURN语句返回一个值，且该值与声明部分一致，也可以通过OUT类型的参数带出变量</td>
+</tr>
+<tr>
+<td>SQL语句（DML或SELECT）中不可以调用存储过程</td>
+<td>SQL语句（DML或SELECT）中可以调用函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="优点">优点</h2>
+<ul>
+<li>更快（无需再次编译）</li>
+<li>模块性</li>
+<li>可维护性高</li>
+<li>节省网络传输（存储在数据库中）</li>
+<li>更安全（存储过程控制执行权限）</li>
+</ul>
+<h2 id="存储过程创建语法">存储过程创建语法</h2>
+<pre><code class="language-sql">CREATE [OR REPLACE] PROCEDURE pro_name
+[(p1 in|out 数据格式,
+ p2 in|out 数据格式,
+ ...)]
+is|as
+	声明部分
+begin
+	plsql代码块
+	exception
+		异常处理部分
+end;
+</code></pre>
+<p>注意：</p>
+<ol>
+<li>
+<p><code>OR REPLACE</code>表示的是若已存在同名存储过程，则替换原内容</p>
+</li>
+<li>
+<p>形参定义中：</p>
+<p>参数不区分大小写，不需要<code>DECLARE</code>关键字</p>
+<blockquote>
+<p>其中参数IN表示输入参数，是参数的<strong>默认模式</strong>。入参值无法被修改。
+OUT表示返回值参数，类型可以使用任意Oracle中的合法类型。
+OUT模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程
+<strong>IN OUT</strong>表示该参数可以向该过程中传递值，也可以将某个值传出去。</p>
+</blockquote>
+</li>
+<li>
+<p>声明部分：用于存储过程使用到的变量声明 <a href="https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/">https://www.cnblogs.com/caiguangbi-53/p/11398696.html#/</a></p>
+<p><strong>声明的三种方法</strong></p>
+<ul>
+<li>直接声明数据类型，如<code>p1 varchar2(60)</code>或<code>p2 number(2)</code></li>
+<li>沿用数据表中某数据字段类型<code>%TYPE</code>，如<code>p1 table1.filed1%TYPE</code></li>
+<li>沿用数据表中的所有数据类型<code>%ROWTYPE</code>，如<code>p1 table1%ROWTYPE</code></li>
+</ul>
+</li>
+<li>
+<p>存储过程中的字段赋值</p>
+<p><strong>赋值的三种方法</strong></p>
+<ul>
+<li>
+<p>直接赋值<code>:=</code>，如<code>v_sql varchar2(100) := 'SELECT STUDENT_NAME FROM STUDENT where orgcode=to_char(410621101233)';</code></p>
+</li>
+<li>
+<p><code>select 字段名 into 变量 from 表名</code></p>
+<p>1、查询某字段：</p>
+<pre><code class="language-sql">SELECT ORGSEQ INTO V_ORGSEQ FROM BASE_ORG_INFO
+ WHERE ORGID =
+       (SELECT PARENTORGID FROM BASE_ORG_INFO WHERE ORGID = V_ORGID);
+</code></pre>
+<p>2、查询表所有字段：</p>
+<pre><code class="language-sql">SELECT * INTO V_ROW_VIRTUAL_CARD FROM VIRTUAL_CARD T where t.id = 5120;
+</code></pre>
+<p>注意：*<em>查询结果只能返回一条记录</em></p>
+</li>
+<li>
+<p><code>execute immediate sql into 变量</code></p>
+<pre><code class="language-sql">begin
+v_sql := 'SELECT ORGSEQ FROM BASE_ORG_INFO where orgcode=to_char(410621101233)';
+execute immediate v_sql INTO V_ORGSEQ;
+DBMS_OUTPUT.put_line(V_ORGSEQ);
+END;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>异常处理：Oralce有3种异常处理方式（<em><strong>待学 TODO</strong></em>）</p>
+</li>
+</ol>
+<h3 id="存储过程创建举例-https-www-cnblogs-com-diandixingyun-p-12986482-html">存储过程创建举例（https://www.cnblogs.com/diandixingyun/p/12986482.html#/）：</h3>
+<pre><code class="language-sql">create or replace  procedure sp_score_pm(
+p_in_stuid in varchar2,   --学号    
+p_in_courseid in  varchar2, --课程ID
+p_out_pm out number      --排名
+)
+is
+ls_score number:=0;
+ls_pm number:=0;
+begin
+  --获取该学生的成绩
+  select t.score into ls_score from score t
+   where t.stuid = p_in_stuid
+    and t.courseid = p_in_courseid;
+  --获取成绩比该学生高的人数
+  select count(1) into ls_pm from score t
+   where t.courseid = p_in_courseid
+   and  t.score&gt;ls_score;
+   --得到该学生的成绩排名
+   p_out_pm:=ls_pm+1;
+exception
+  when no_data_found  then
+     dbms_output.put_line('该学生的课程：'||p_in_courseid|| '的成绩在成绩表中找不到');
+end;
+</code></pre>
+<h2 id="调用存储过程">调用存储过程</h2>
+<h3 id="exec">exec</h3>
+<p>仅支持在sqlplus中使用</p>
+<h3 id="call">call</h3>
+<p>在所有工具中都可以使用</p>
+<h3 id="在函数中直接调用">在函数中直接调用</h3>
+<pre><code class="language-sql">begin
+	fun(); -- 调用存储过程
+end;
+</code></pre>
+<h2 id="游标的使用">游标的使用</h2>
+<p>TODO</p>
+<h2 id="存储过程的事务处理">存储过程的事务处理</h2>
+<p>参考 <a href="https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/">https://www.cnblogs.com/linjiqin/archive/2011/04/18/2019990.html#/</a></p>
+<h3 id="概念-1">概念</h3>
+<p>事务：确保数据的<strong>一致性</strong>，由一些DML语句组成，要么都执行，要么都不执行</p>
+<p>命令：</p>
+<ul>
+<li>COMMIT</li>
+<li>SAVEPOINT</li>
+<li>ROLLBACK</li>
+<li>ROLLBACK TO SAVEPOINT</li>
+</ul>
+<h3 id="例子">例子</h3>
+<pre><code class="language-sql">create or replace procedure stu_proc
+(
+  v_id in number,
+  v_name in varchar2,
+  v_age in number,
+  v_msg out varchar2
+) as
+begin
+  insert into student(id, sname, age) values (v_id, v_name, v_age);
+  commit;
+  v_msg:='添加成功';
+exception
+  when others then
+    rollback;
+    v_msg:='失败成功';
+    RAISE_APPLICATION_ERROR(-20010, 'ERROR：违反唯一索引约束！');
+end;
+</code></pre>
+<p>非存储过程的事务处理例子 <a href="https://www.cnblogs.com/zengyu1234/p/15391621.html#/">https://www.cnblogs.com/zengyu1234/p/15391621.html#/</a>  ：</p>
+<pre><code class="language-sql">--使用事务控制银行转账业务
+declare
+
+mc string(64):='转账成功';
+mf string(64):='转账失败';
+err_exception exception;
+pragma exception_init(err_exception,-2290);
+
+begin
+
+   --向转入账户的交易记录表中插入一条交易记录
+   INSERT INTO business VALUES(seq_emp.nextval,10000,1,systimestamp,288);
+   --向转出账户的交易记录表中插入一条交易记录
+   INSERT INTO business VALUES(seq_emp.nextval,10000,0,systimestamp,287);
+   --更新转入方账户余额（+20000）
+   update account set balance = balance+10000 where id = 288;
+   --更新转出方账户余额（-20000）
+   update account set balance = balance-10000 where id = 287;
+   
+    commit;-- 提交事务
+    dbms_output.put_line(mc);
+    exception when err_exception then
+    rollback; --撤销所有事务操作
+    dbms_output.put_line(mf);
+end;
+
+select * from aaa;
+
+--事务执行中部分撤销
+declare
+ me string(64):='0不能做除数';
+ zer_err exception;
+ pragma exception_init(zer_err,-1476);
+begin
+  INSERT INTO aaa VALUES('呼伦贝尔');
+  SAVEPOINT insert_point;--设置一个保存点
+  dbms_output.put_line(56/0);
+  commit;
+  exception when zer_err then
+  rollback to insert_point;--撤销到保存点
+  dbms_output.put_line(me);
+end;
+
+select 56/0 from dual;--查看错误代码
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/weixin_41968788/article/details/83659164#/">https://blog.csdn.net/weixin_41968788/article/details/83659164#/</a></p>
+<p><a href="https://www.cnblogs.com/inmeditation/p/12090574.html#/">https://www.cnblogs.com/inmeditation/p/12090574.html#/</a></p>
+<p><a href="https://www.cnblogs.com/diandixingyun/p/12986482.html#/">https://www.cnblogs.com/diandixingyun/p/12986482.html#/</a></p>
+<p><a href="https://www.cnblogs.com/taiguyiba/p/7809310.html#/">https://www.cnblogs.com/taiguyiba/p/7809310.html#/</a></p>
+<p><a href="https://www.cnblogs.com/dersome/p/14304205.html#/">https://www.cnblogs.com/dersome/p/14304205.html#/</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/redis-nosql%E6%95%B0%E6%8D%AE%E5%BA%93/">Redis-NoSQL数据库</a></span>
+  <span class="nav-next"><a href="/p/redis-redis%E5%9F%BA%E7%A1%80/">Redis-Redis基础</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

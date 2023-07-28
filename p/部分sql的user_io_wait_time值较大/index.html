@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>部分sql的user_io_wait_time值较大 - 2MUCH</title>
+    <meta property="og:title" content="部分sql的user_io_wait_time值较大 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+[&amp;hellip;] 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text, sql_id, &amp;hellip;">
+      <meta property="og:description" content="背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化
+[&amp;hellip;] 1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）
+select * from (select sql_text, sql_id, &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>部分sql的user_io_wait_time值较大</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="部分sql的user-io-wait-time值较大">部分sql的user_io_wait_time值较大</h1>
+<blockquote>
+<p>背景：报“针对近一个月的sql语句执行进行分析，每天执行较频繁的sql中，有几个sql的user_io_wait_time值较大，建议进行优化</p>
+</blockquote>
+<h2 id="oracle-sql-响应时间分析">oracle sql 响应时间分析</h2>
+<p>1、按照IO等待取top5（https://blog.csdn.net/fengsd_sy/article/details/51322766#/）</p>
+<pre><code class="language-sql">select *
+from
+(select sql_text,
+        sql_id,
+        elapsed_time,
+        cpu_time,
+        user_io_wait_time
+from    sys.v_$sqlarea
+order by 5 desc)
+where rownum &lt; 6;
+</code></pre>
+<p>2、根据步骤1获取具体SQL详情</p>
+<pre><code class="language-sql">select event,
+        time_waited,
+        owner,
+        object_name,
+        current_file#,
+        current_block# 
+from    sys.v_$active_session_history a,
+        sys.dba_objects b 
+where   sql_id = '6gvch1xu9ca3g' and
+        a.current_obj# = b.object_id and
+        time_waited &lt;&gt; 0;
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/"></a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-%E5%BC%80%E5%A7%8B/">软考-中级软件设计师-开始</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ORACLE-序列 - 2MUCH</title>
+    <meta property="og:title" content="ORACLE-序列 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="背景：了解NEXTVAL的概念
+[&amp;hellip;] 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
+sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个 &amp;hellip;">
+      <meta property="og:description" content="背景：了解NEXTVAL的概念
+[&amp;hellip;] 是oacle提供的用于产生一系列唯一数字的数据库对象。主要用于提供主键值。
+sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>ORACLE-序列</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-06-13
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="oracle-序列">ORACLE-序列</h1>
+<blockquote>
+<p>背景：了解NEXTVAL的概念</p>
+</blockquote>
+<h2 id="oracle序列">ORACLE序列</h2>
+<h3 id="概念">概念</h3>
+<p>是oacle提供的用于产生一系列唯一数字的数据库对象。<strong>主要用于提供主键值</strong>。</p>
+<p>sequence是序列号生成器，可以为表中的行自动生成序列号，产生一组等间隔的数值(类型为数字)。**其主要的用途是生成表的主键值，可以在插入语句中引用，在插入之前，获取序列号nextval值，然后进行插入。**也可以通过查询检查当前值，或使序列增至下一个值。（https://www.jb51.net/article/220007.htm#/）</p>
+<h3 id="创建方式">创建方式</h3>
+<pre><code class="language-sql">CREATE SEQUENCE sequence  //创建序列名称
+
+       [INCREMENT BY n]  //递增的序列值是n 如果n是正数就递增,如果是负数就递减 默认是1
+
+       [START WITH n]    //开始的值,递增默认是minvalue 递减是maxvalue
+
+       [{MAXVALUE n | NOMAXVALUE}] //最大值
+
+       [{MINVALUE n | NOMINVALUE}] //最小值
+
+       [{CYCLE | NOCYCLE}] //循环/不循环
+
+       [{CACHE n | NOCACHE}];//分配并存入到内存中
+</code></pre>
+<h3 id="currval">CURRVAL</h3>
+<p>CURRVAL 中存放序列的当前值</p>
+<p><code>SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual</code> - 获取当前的sequence的值</p>
+<p>CURRVAL = 最后一次对 NEXTVAL 的引用所返回的值</p>
+<h3 id="nextval">NEXTVAL</h3>
+<p>NEXTVAL 返回序列中下一个有效的值，任何用户都可以引用</p>
+<p><code>select SEQ_TABLESPACETEST_con.nextval from dual</code> - 获取下一个值，<strong>序列经过查询每次也会自增</strong></p>
+<p>注意：</p>
+<ul>
+<li>第一次访问序列时，需要先引用 sequence.NEXTVAL获取初始值。第一次在没有访问NEXTVAL前，是没有CURRVAL的。</li>
+<li>后面每次引用 NEXTVAL，用已定义的 step 添加序列值并返回序列新的添加以后的值。</li>
+<li>一个sql语句中只能生成一次nextval，就算调用多次，获取的也只有一个nextval</li>
+<li>nextval添加完的序列值不能取消，也就是说就算后面回滚当前事务，也不会还原。故：<strong>某些序列数可能被跳过</strong></li>
+<li>假设 sequence.CURRVAL 和 sequence.NEXTVAL 都出如今一个 SQL 语句中，则序列仅仅添加一次。在这样的情况下。每一个 sequence.CURRVAL 和 sequence.NEXTVAL 表达式都返回同样的值，无论在语句中sequence.CURRVAL 和 sequence.NEXTVAL 的顺序。</li>
+</ul>
+<p><strong>注意：要对序列使用 NEXTVAL 或 CURRVAL。必须对序列具有选择特权或对数据库具有 DBA 特权。</strong></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/java958199586/article/details/7360152">https://blog.csdn.net/java958199586/article/details/7360152</a></p>
+<p><a href="https://www.itxm.cn/post/35733.html#/">https://www.itxm.cn/post/35733.html#/</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/sql%E5%87%BD%E6%95%B0%E7%AF%87/">SQL函数篇</a></span>
+  <span class="nav-next"><a href="/p/linux-top%E5%91%BD%E4%BB%A4/">Linux-top命令</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

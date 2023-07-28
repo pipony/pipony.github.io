@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级软件设计师-07 程序设计语言与语言处理程序基础 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级软件设计师-07 程序设计语言与语言处理程序基础 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="
+[&amp;hellip;] 两者区别：
+[&amp;hellip;] 系统为全局变量分配的存储空间在运行中一般是不改变的，为局部变量分配的存储单元是可以动态改变的
+[&amp;hellip;] 词法（识别单词符号） - 语法（是否合法的表达式等，语法错误） - 语义（静态语义错误检查，比如整数取余是否为整数） - 中间代码生成（生成后缀式等）
+[&amp;hellip;] [&amp;hellip;] 例题（常考）：
+答案：C &amp;hellip;">
+      <meta property="og:description" content="
+[&amp;hellip;] 两者区别：
+[&amp;hellip;] 系统为全局变量分配的存储空间在运行中一般是不改变的，为局部变量分配的存储单元是可以动态改变的
+[&amp;hellip;] 词法（识别单词符号） - 语法（是否合法的表达式等，语法错误） - 语义（静态语义错误检查，比如整数取余是否为整数） - 中间代码生成（生成后缀式等）
+[&amp;hellip;] [&amp;hellip;] 例题（常考）：
+答案：C &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220503180303982.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级软件设计师-07 程序设计语言与语言处理程序基础</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="07-程序设计语言与语言处理程序基础">07 程序设计语言与语言处理程序基础</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503180303982.png" alt="image-20220503180303982"></p>
+<h2 id="汇编-解释-编译">汇编、解释、编译</h2>
+<ol>
+<li>汇编：汇编程序翻译成目标程序</li>
+<li>高级语言编写的，需要解释或编译程序进行翻译</li>
+</ol>
+<ul>
+<li>解释：要么直接解释执行，要么翻译为某种中间代码再执行。逐条翻译并立即执行</li>
+<li>编译：分成两阶段，编译阶段（源程序翻译为独立的<strong>目标程序</strong>）和运行阶段（此时编译器不参与）</li>
+</ul>
+<p>两者区别：</p>
+<ul>
+<li>编译效率大于解释</li>
+<li>解释比编译更灵活、可移植性好</li>
+</ul>
+<h2 id="变量和常量">变量和常量</h2>
+<p>系统为全局变量分配的存储空间在运行中一般是不改变的，为局部变量分配的存储单元是可以动态改变的</p>
+<h2 id="编译过程">编译过程</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503180335797.png" alt="image-20220503180335797"></p>
+<p>词法（识别单词符号） - 语法（是否合法的表达式等，语法错误） - 语义（静态语义错误检查，比如整数取余是否为整数） - 中间代码生成（生成后缀式等）</p>
+<h2 id="文法定义">文法定义</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201153738.png" alt="image-20220503201153738"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201219957.png" alt="image-20220503201219957"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201247067.png" alt="image-20220503201247067"></p>
+<h2 id="有限自动机">有限自动机</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201435461.png" alt="image-20220503201435461"></p>
+<p>例题（常考）：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503202104502.png" alt="image-20220503202104502"></p>
+<p>答案：C</p>
+<h3 id="正规式">正规式</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201557877.png" alt="image-20220503201557877"></p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503201951967.png" alt="image-20220503201951967"></p>
+<p>答案：D C</p>
+<h2 id="表达式">表达式</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503202152055.png" alt="image-20220503202152055"></p>
+<p>答案：D</p>
+<h2 id="函数调用-传值和传址">函数调用 - 传值和传址</h2>
+<ul>
+<li>传值：不真正改变实参</li>
+<li>传址：真正改变实参</li>
+</ul>
+<h2 id="各种程序语言特点">各种程序语言特点</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503202649925.png" alt="image-20220503202649925"></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-08-%E6%B3%95%E5%BE%8B%E6%B3%95%E8%A7%84/">软考-中级软件设计师-08 法律法规</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-06 数据结构与算法基础</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>SFTP基础学习 - 2MUCH</title>
+    <meta property="og:title" content="SFTP基础学习 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="FTP(file transfer protocol)：
+[&amp;hellip;] Using the client/server model, FTP supports the direct transfer of files between your chosen FTP client and your web server. by &amp;hellip;">
+      <meta property="og:description" content="FTP(file transfer protocol)：
+[&amp;hellip;] Using the client/server model, FTP supports the direct transfer of files between your chosen FTP client and your web server. by &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>SFTP基础学习</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-28
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="概念知识">概念知识</h1>
+<h2 id="ftp-vs-sftp">FTP vs SFTP</h2>
+<p>FTP(file transfer protocol)：</p>
+<blockquote>
+<p>Using the client/server model, FTP supports the direct transfer of files between your chosen FTP client and your web server.
+by <a href="https://kinsta.com/knowledgebase/ftp-vs-sftp/">https://kinsta.com/knowledgebase/ftp-vs-sftp/</a></p>
+</blockquote>
+<p>SFTP(ssh|secure file transfer protocol，安全文件传输协议): 实现功能和FTP一样，但是通过SSH（a secure channel）提供安全的文件传输。具体来说：the data moves between your FTP client and your web server is <strong>encrpted</strong>.</p>
+<h1 id="sftp常用命令">SFTP常用命令</h1>
+<pre><code class="language-shell"># 登陆（若不指定用户名，则默认用当前的用户名登陆）
+sftp user@ip 
+sftp user@域名
+# 远程操作
+# 本地操作就是在命令前面加l
+ls
+cd
+mkdir
+rmdir
+put
+get
+pwd
+chgrp # change group of path
+chmod # change privileges of path
+chown # change owner of path
+</code></pre>
+<h1 id="如何通过sftp判断远程主机的某文件是否存在">如何通过sftp判断远程主机的某文件是否存在</h1>
+<p>首先，需要明确的是，sftp没有直接的命令来判断文件是否存在。但我们可以通过间接的方式来判断：</p>
+<pre><code class="language-shell">SFTP_COM=&quot;ls ${FILE_PATH} &gt; /dev/null 2&gt;&amp;1&quot;
+sftp .... &lt;&lt; EOF
+	${SFTP_COM}
+EOF
+if [ $? -eq 0]; then
+	echo &quot;file exists&quot;
+else
+	echo &quot;file not exists&quot;
+fi
+</code></pre>
+<p><font color='red'>待验证</font></p>
+<p>如果要实现一次sftp连接，判断多个文件是否存在。可以采用根据文件列表预先进行sftp命令拼接的方法，并在sftp命令中实现若此文件不存在，将文件名写入文件中记录。可参考chatgpt给出的解决方案：</p>
+<pre><code class="language-shell">#!/bin/bash
+
+# SFTP connection details
+SFTP_HOST=&quot;your_sftp_host&quot;
+SFTP_USER=&quot;your_sftp_username&quot;
+SFTP_PASSWORD=&quot;your_sftp_password&quot;
+FILE_LIST=&quot;file_list.txt&quot; # 输入文件列表
+OUTPUT_FILE=&quot;nonexistent_files.txt&quot; # 输出不存在文件列表
+
+# 清空输出文件
+&gt; &quot;$OUTPUT_FILE&quot;
+
+# 构建SFTP批处理命令
+sftp_command=&quot;lcd /tmp&quot; # 设置本地目录（可选）
+sftp_command+=&quot;\ncd /remote/path&quot; # 设置远程目录（可选）
+
+# 逐行读取文件列表并添加SFTP命令
+while IFS= read -r file; do
+  sftp_command+=&quot;\nstat $file &gt;/dev/null 2&gt;&amp;1 || echo \&quot;$file\&quot; &gt;&gt; \&quot;$OUTPUT_FILE\&quot;&quot;
+done &lt; &quot;$FILE_LIST&quot;
+
+# 执行SFTP批处理命令
+sftp -oBatchMode=yes -b &lt;(echo -e &quot;$sftp_command&quot;) &quot;$SFTP_USER@$SFTP_HOST&quot; &lt;&lt; EOF
+$SFTP_PASSWORD
+EOF
+
+# 显示完成消息
+echo &quot;File existence check completed. Nonexistent files saved to $OUTPUT_FILE.&quot;
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/ssh%E5%AD%A6%E4%B9%A0/">SSH学习</a></span>
+  <span class="nav-next"><a href="/p/oracle-%E5%AF%BC%E5%85%A5%E5%AD%A6%E4%B9%A0/">ORACLE-导入学习</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

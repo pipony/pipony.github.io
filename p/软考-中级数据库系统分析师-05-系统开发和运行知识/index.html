@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级数据库系统分析师-05 系统开发和运行知识 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级数据库系统分析师-05 系统开发和运行知识 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="
+[&amp;hellip;] 沟通路径
+[&amp;hellip;] 成功的测试是发现了至今尚未发现的错误的测试。目的是以最少的人力和时间发现潜在的各种错误和缺陷。
+[&amp;hellip;] 评价指标
+[&amp;hellip;] 正确性维护
+[&amp;hellip;] 适应性维护：适应环境变化（技术和需求变化）
+[&amp;hellip;] 完善性维护：扩充功能、改善性能
+[&amp;hellip;] 预防性维护：改进可靠性、 &amp;hellip;">
+      <meta property="og:description" content="
+[&amp;hellip;] 沟通路径
+[&amp;hellip;] 成功的测试是发现了至今尚未发现的错误的测试。目的是以最少的人力和时间发现潜在的各种错误和缺陷。
+[&amp;hellip;] 评价指标
+[&amp;hellip;] 正确性维护
+[&amp;hellip;] 适应性维护：适应环境变化（技术和需求变化）
+[&amp;hellip;] 完善性维护：扩充功能、改善性能
+[&amp;hellip;] 预防性维护：改进可靠性、 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://cdn.huangxindi.com/img/202305141257473.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级数据库系统分析师-05 系统开发和运行知识</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="软件生存周期">软件生存周期</h1>
+<ul>
+<li>可行性分析与项目开发计划</li>
+<li>需求分析</li>
+<li>概要设计（包括设计总体数据结构和数据库结构）</li>
+<li>详细设计</li>
+<li>编码</li>
+<li>单元测试</li>
+<li>综合测试（最基本的测试是集成测试和验收测试）</li>
+<li>维护阶段</li>
+</ul>
+<h1 id="软件生存周期模型">软件生存周期模型</h1>
+<ul>
+<li>瀑布模型：线性顺序，适用于需求明确的项目</li>
+<li>增量模型：融合了瀑布模型+原型实现，将需求分段为一系列增量产品，强调每一个增量均发布一个可操作的产品</li>
+<li>演化模型：事先不能完整定义需求的软件开发，根据反馈进行改进，获得原型的新版本。重复这一过程，最终得到令用户满意的软件产品</li>
+<li>螺旋模型：结合瀑布+演化。加入了两种模型均忽略的<strong>风险分析</strong>。每个螺旋周期大致和瀑布模型相符合。适合庞大、复杂且具有高风险的系统</li>
+<li>喷泉模型：适用于<strong>面对对象</strong>的开发方法。以用户需求为动力，具有迭代性和无间隙性</li>
+</ul>
+<h1 id="典型的软件开发方法">典型的软件开发方法</h1>
+<ul>
+<li>结构化开发：自顶向下、逐层分解、模块化设计，基本原则是功能的分解与抽象。不适合较大规模的项目，适合数据处理领域的问题</li>
+<li>原型化开发：快速建立一个系统模型展示给用户，在此基础上与用户交流，不太适合大型系统</li>
+<li>面向对象开发：按照人类思维方法解决问题，更好的复用性，缩短开发周期</li>
+<li>敏捷方法：灵活性，尽可能早地、持续地交付，可以支持用户后期增加或改变需求</li>
+</ul>
+<h1 id="软件项目管理">软件项目管理</h1>
+<ul>
+<li>成本估算</li>
+<li>风险分析</li>
+<li>进度管理
+<ul>
+<li>Gantt图（甘特图）</li>
+<li>项目计划评审技术图（PERT）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305141257473.png" alt="image.png"></p>
+<p><img src="https://cdn.huangxindi.com/img/202305141259079.png" alt="image.png"></p>
+<h1 id="人员管理">人员管理</h1>
+<ul>
+<li>主程序员组：有主程序员</li>
+<li>无主程序员组：相互平等</li>
+<li>层次式程序员组：层次负责</li>
+</ul>
+<p>沟通路径</p>
+<h1 id="面向对象分析方法">面向对象分析方法</h1>
+<h2 id="基本概念">基本概念</h2>
+<ul>
+<li>对象：基本运行时的实体，包括属性和行为</li>
+<li>消息：对象之间进行通信的一种构造</li>
+<li>类</li>
+<li>继承</li>
+<li>多态：不同的对象收到同一消息可以产生不同的结果</li>
+<li>动态绑定和静态绑定：编译时进行为静态绑定，运行时进行为动态绑定</li>
+</ul>
+<h2 id="uml">UML</h2>
+<ul>
+<li>类图：类、接口、协作、它们之间的关系</li>
+<li>对象图：实例</li>
+<li>用例图：用例</li>
+<li>序列图：以时间顺序组织的</li>
+<li>通信图：强调时序，强调对象之间的组织结构</li>
+<li>状态图：描述一个状态机，关注动态视图</li>
+<li>活动图：一个活动到另一个活动的流程</li>
+<li>构件图：一组构件之间，静态实现视图</li>
+<li>部署图：运行时的处理节点以及其中的构件配置，与构件图相关</li>
+</ul>
+<h1 id="系统设计">系统设计</h1>
+<h2 id="概要设计">概要设计</h2>
+<ul>
+<li>设计总体结构</li>
+<li>数据结构和数据库设计</li>
+<li>编写概要设计文档</li>
+<li>评审</li>
+</ul>
+<h2 id="详细设计">详细设计</h2>
+<ul>
+<li>每个模块的算法设计</li>
+<li>模块内的数据结构设计</li>
+<li>数据库的物理设计，确定物理结构</li>
+<li>其他设计</li>
+<li>编写详细设计说明书</li>
+<li>评审</li>
+</ul>
+<h1 id="系统设计的基本原理">系统设计的基本原理</h1>
+<ul>
+<li>抽象</li>
+<li>模块化</li>
+<li>信息隐蔽</li>
+<li>模块独立</li>
+</ul>
+<h2 id="模块独立">模块独立</h2>
+<ul>
+<li>耦合性：模块之间联系的紧密程度。耦合性越高，模块的独立性越差
+<ul>
+<li>无直接耦合</li>
+<li>数据耦合：之间有调用关系，传递的是简单的数据值</li>
+<li>标记耦合：传递的是数据结构，如记录名、文件名</li>
+<li>控制耦合：传递的是控制变量</li>
+<li>公共耦合：通过一个公共数据环境相互作用</li>
+<li>内容耦合：耦合性最高，直接使用另一个模块的内部数据，或通过非正常入口进入另一个模块内部</li>
+</ul>
+</li>
+<li>内聚性：模块内部各元素之间联系紧密程度。内聚度越低，模块独立性越差
+<ul>
+<li>偶然内聚</li>
+<li>逻辑内聚：执行几个逻辑相似的功能</li>
+<li>时间内聚：同时执行的动作组合在一起</li>
+<li>通信内聚：所有处理元素在同一个数据结构上，或使用相同的输入输出数据</li>
+<li>顺序内聚：相关且必须顺序执行，前一功能元素输出是下一元素的输入</li>
+<li>功能内聚：最强的内聚，所有元素共同完成一个功能，缺一不可</li>
+</ul>
+</li>
+</ul>
+<h1 id="系统测试基础知识">系统测试基础知识</h1>
+<p>成功的测试是发现了至今尚未发现的错误的测试。目的是以最少的人力和时间发现潜在的各种错误和缺陷。</p>
+<ul>
+<li>单元测试：模块测试</li>
+<li>集成测试：检查模块之间，模块和已集成的软件之间</li>
+<li>确认测试：验证是否与用户需求一致</li>
+<li>系统测试：对象是完整的、集成的计算机系统</li>
+<li>回归测试：软件变更后，变更的和原有功能的正确性</li>
+<li>验收测试：客户为主</li>
+</ul>
+<h1 id="软件测试方法">软件测试方法</h1>
+<ul>
+<li>黑盒测试：功能测试，常见方法：等价类划分、边界值分析、错误推测、因果图</li>
+<li>白盒测试：结构测试，主要用于单元测试。常用技术：逻辑覆盖、循环覆盖、基本路径测试</li>
+</ul>
+<h1 id="系统维护">系统维护</h1>
+<ul>
+<li>
+<p>评价指标</p>
+<ul>
+<li>可理解性</li>
+<li>可测试性</li>
+<li>可修改性</li>
+</ul>
+</li>
+<li>
+<p>正确性维护</p>
+</li>
+<li>
+<p>适应性维护：适应环境变化（技术和需求变化）</p>
+</li>
+<li>
+<p>完善性维护：扩充功能、改善性能</p>
+</li>
+<li>
+<p>预防性维护：改进可靠性、可维护性</p>
+</li>
+</ul>
+<h1 id="数据流图-dfd">数据流图（DFD）</h1>
+<p>面向数据流来建模，是对功能建模，而不是对数据建模。包括：</p>
+<ul>
+<li>数据流：表示数据的流向</li>
+<li>加工：描述输入数据流到输出数据流之间的变换</li>
+<li>数据存储：表示存储的数据</li>
+<li>外部实体</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>画数据流，不要画控制流</li>
+<li>每条数据流的输入或输出是加工</li>
+<li>一个加工的输出和输入数据流不能同名，即使组成成分相同</li>
+<li>保持父图与子图的平衡</li>
+<li>每个加工必须既有输入数据流，又有输出数据流</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">软考-中级数据库系统分析师-06 数据库设计</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-04-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93nosql/">软考-中级数据库系统分析师-04 非关系型数据库NoSQL</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Maven之三：坐标、依赖范围、依赖冲突 - 2MUCH</title>
+    <meta property="og:title" content="Maven之三：坐标、依赖范围、依赖冲突 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="学习网站：http://mvnbook.com/index.html
+[&amp;hellip;] 构件：在Maven中，任何项目输出都可成为构件。
+[&amp;hellip;] 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+[&amp;hellip;] 标识和jar包名的对应关系（顺序拼接）：
+&amp;lt;dependency&amp;gt; &amp;hellip;">
+      <meta property="og:description" content="学习网站：http://mvnbook.com/index.html
+[&amp;hellip;] 构件：在Maven中，任何项目输出都可成为构件。
+[&amp;hellip;] 除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。
+坐标组成：
+[&amp;hellip;] 标识和jar包名的对应关系（顺序拼接）：
+&amp;lt;dependency&amp;gt; &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Maven之三：坐标、依赖范围、依赖冲突</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-09-18
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="maven之三-坐标-依赖范围-依赖冲突">Maven之三：坐标、依赖范围、依赖冲突</h1>
+<p>学习网站：http://mvnbook.com/index.html</p>
+<h2 id="maven构件">Maven构件</h2>
+<p>构件：在Maven中，任何项目输出都可成为构件。</p>
+<h3 id="构件标识-唯一标识-也称为唯一坐标">构件标识（唯一标识，也称为唯一坐标）</h3>
+<p>除了各种依赖jar包，我们自己开发的项目，也是要通过坐标进行唯一标识的，这样才能才其它项目中进行依赖引用。</p>
+<p>坐标组成：</p>
+<blockquote>
+<ul>
+<li><strong>groupId</strong>：当前Maven构件隶属的组织名。groupId一般分为多段，通常情况下，第一段为域，第二段为公司名称。域又分为 org、com、cn 等，其中 org 为非营利组织，com 为商业组织，cn 表示中国。以 apache 开源社区的 tomcat 项目为例，这个项目的 groupId 是 org.apache，它的域是org（因为tomcat是非营利项目），公司名称是apache，artifactId是tomcat。如果你的公司是mycom，有一个项目为myapp，那么groupId就应该是com.mycom.myapp。groupId的表示方式与Java包名的表示方式类似。(必须)</li>
+<li><strong>artifactId</strong>：项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。(必须)</li>
+<li><strong>version</strong>：当前版本。(必须)</li>
+<li>packaging：打包方式，比如 jar，war&hellip;，默认是jar (可选)</li>
+<li>classifier：classifier通常用于区分从同一POM构建的具有不同内容的构件。它是可选的，它可以是任意的字符串，附加在版本号之后。classfier是不能直接定义的，需要结合插件使用。</li>
+</ul>
+</blockquote>
+<p>标识和jar包名的对应关系（顺序拼接）：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;   
+	&lt;artifactId&gt;json-lib&lt;/artifactId&gt;   
+	&lt;version&gt;2.2.2&lt;/version&gt;  
+	&lt;classifier&gt;jdk15&lt;/classifier&gt;    
+&lt;/dependency&gt;
+&lt;!-- 对应的jar包名:
+json-lib-2.2.2-jdk15.jar 
+ --&gt;
+</code></pre>
+<h3 id="classifier标识使用场景">classifier标识使用场景</h3>
+<ul>
+<li>区分不同JDK版本所生成的jar包</li>
+</ul>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;   
+	&lt;artifactId&gt;json-lib&lt;/artifactId&gt;   
+	&lt;version&gt;2.2.2&lt;/version&gt;  
+	&lt;classifier&gt;jdk15&lt;/classifier&gt;    
+&lt;/dependency&gt;
+
+&lt;dependency&gt;  
+	&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;   
+	&lt;artifactId&gt;json-lib&lt;/artifactId&gt;   
+	&lt;version&gt;2.2.2&lt;/version&gt;  
+	&lt;classifier&gt;jdk13&lt;/classifier&gt;    
+&lt;/dependency&gt;
+</code></pre>
+<p>以上配置信息实际上对应的 jar 包是 json-lib-2.2.2-jdk15.jar 和 json-lib-2.2.2-jdk13.jar。</p>
+<ul>
+<li>区分项目的不同组成部分，例如，源代码、javadoc、类文件等</li>
+</ul>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;   
+	&lt;artifactId&gt;json-lib&lt;/artifactId&gt;   
+	&lt;version&gt;2.2.2&lt;/version&gt;  
+	&lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt;    
+&lt;/dependency&gt; 
+</code></pre>
+<p>以上配置信息对应的是 json-lib-2.2.2-jdk15-javadoc.jar。</p>
+<p>注意<code>&lt;classifier&gt;</code>的位置：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;   
+	&lt;artifactId&gt;json-lib&lt;/artifactId&gt;   
+	&lt;classifier&gt;jdk15-javadoc&lt;/classifier&gt;  
+	&lt;version&gt;2.2.2&lt;/version&gt;   
+&lt;/dependency&gt; 
+</code></pre>
+<p>对应的是 json-lib-jdk15-<strong>javadoc-2.2.2</strong>.jar，可能会出现找不到jar包的情况。</p>
+<h3 id="构件特性">构件特性</h3>
+<ul>
+<li>
+<p>依赖传递，例如：项目依赖构件A，而构件A又依赖B，Maven会将A和B都视为项目的依赖。</p>
+</li>
+<li>
+<p>&ldquo;短路优先&rdquo; 原则，构件之间存在版本冲突时，Maven会依据 &ldquo;短路优先&rdquo; 原则加载构件。此外，我们也可以在 pom.xml 中，使用<code> &lt;exclusions&gt;&lt;/exclusions&gt;</code>显式排除某个版本的依赖，以确保项目能够运行。</p>
+<ul>
+<li>（a）项目依赖构件A和B，构件A → C → D(version:1.0.0)，构件B → D(version:1.1.0)，此时，Maven会优先解析加载D(version:1.1.0)。</li>
+<li>（b）项目依赖构件A和B，构件A → D(version:1.0.0)， 构件B → D(version:1.1.0)，此时，Maven会优先解析加载D(version:1.0.0)。</li>
+</ul>
+</li>
+<li>
+<p>依赖范围，Maven在项目的构建过程中，会编译三套 ClassPath（<em>ClassPath 是个逻辑概念，指定所依赖 Jar 的可见性</em>），分别对应：编译期，运行期，测试期。而依赖范围就是为构件指定它可以作用于哪套 ClassPath</p>
+</li>
+</ul>
+<h2 id="maven依赖范围">Maven依赖范围</h2>
+<p>为何需要依赖范围：在不同的执行阶段，需要的依赖可能不同。限制依赖的使用范围（包括编译、测试、运行等操作），使其在其他阶段无法使用。</p>
+<ul>
+<li>compile</li>
+</ul>
+<p>编译依赖范围（默认），使用此依赖范围对于<strong>编译、测试、运行</strong>三种都有效，即在编译、测试和运行的时候都要使用该依赖 Jar 包。</p>
+<ul>
+<li>test</li>
+</ul>
+<p>测试依赖范围，从字面意思就可以知道此依赖范围只能用于测试，而在编译和运行项目时无法使用此类依赖，典型的是<strong>JUnit</strong>，它只用于编译测试代码和运行测试代码的时候才需要。</p>
+<ul>
+<li>provided</li>
+</ul>
+<p>此依赖范围，对于编译和测试有效，<strong>而对运行时无效</strong>。比如 servlet-api.jar 在 Tomcat 中已经提供了，我们只需要的是编译期提供而已。</p>
+<ul>
+<li>runtime</li>
+</ul>
+<p>运行时依赖范围，对于测试和运行有效，但是在编译主代码时无效，典型的就是<strong>JDBC驱动</strong>实现。</p>
+<ul>
+<li>system</li>
+</ul>
+<p>系统依赖范围，使用 system 范围的依赖时必须通过 systemPath 元素显示地指定依赖文件的路径，不依赖 Maven 仓库解析，所以可能会造成建构的不可移植。</p>
+<p>如：</p>
+<pre><code class="language-xml">&lt;dependencies&gt;
+	&lt;dependency&gt;  
+		&lt;groupId&gt;javax.sql&lt;/groupId&gt;  
+		&lt;artifactId&gt;jdbc-stdext&lt;/artifactId&gt;  
+		&lt;version&gt;2.0&lt;/version&gt;  
+		&lt;scope&gt;system&lt;/scope&gt;  
+		&lt;systemPath&gt;${java.home}/lib/rt.jar&lt;/systemPath&gt;  
+	&lt;/dependency&gt;  
+&lt;dependencies&gt;
+</code></pre>
+<h2 id="maven依赖冲突">Maven依赖冲突</h2>
+<h3 id="直接依赖冲突">直接依赖冲突</h3>
+<pre><code class="language-xml">&lt;dependencies&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+		&lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+		&lt;version&gt;3.3.0&lt;/version&gt;
+	&lt;/dependency&gt;
+
+	&lt;dependency&gt;
+		&lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+		&lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+		&lt;version&gt;3.5.0&lt;/version&gt;
+	&lt;/dependency&gt;
+
+&lt;/dependencies&gt;
+</code></pre>
+<p>根据上列的依赖顺序，项目将使用<strong>3.5.0</strong>版本的 MyBatis Jar。</p>
+<h3 id="传递依赖冲突">传递依赖冲突</h3>
+<p>例如，项目 A 有这样的依赖关系：X-&gt;Y-&gt;Z（1.0）、X-&gt;G-&gt;Z（2.0），Z 是 X 的传递性依赖，但是两条依赖路径上有两个版本的 Z，那么哪个 Z 会被 Maven 解析使用呢？两个版本都被解析显然是不对的，因为那会造成依赖重复，因此必须选择一个。</p>
+<h3 id="maven-依赖优化">Maven 依赖优化</h3>
+<p>实际上 Maven 是比较智能的，它能够自动解析直接依赖和传递性依赖，根据预定义规则判断依赖范围的合理性，也可以对部分依赖进行适当调整来保证构件版本唯一。</p>
+<p>即使这样，还会有些情况使 Maven 发生误判，因此手工进行依赖优化还是相当有必要的。我们可以使用 maven-dependency-plugin 提供的三个目标来实现依赖分析：</p>
+<pre><code class="language-shell">$ mvn dependency:list
+$ mvn dependency:tree
+$ mvn dependency:analyze
+</code></pre>
+<p>如若需更精细的分析结果，可以在命令后使用诸如以下参数：</p>
+<pre><code class="language-shell">-Dverbose
+
+-Dincludes=&lt;groupId&gt;:&lt;artifactId&gt;
+</code></pre>
+<h3 id="maven依赖冲突调解规则">Maven依赖冲突调解规则</h3>
+<p>四大原则：</p>
+<ul>
+<li><strong>路径近者优先原则</strong></li>
+</ul>
+<pre><code class="language-xml">A --&gt; B --&gt; X(1.1)         // dist(A-&gt;X) = 2
+
+A --&gt; C --&gt; D --&gt; X(1.0)   // dist(A-&gt;X) = 3
+</code></pre>
+<p>Maven可以按照第一原则自动调解依赖，结果是使用X(1.1)作为依赖。</p>
+<ul>
+<li><strong>第一声明者优先原则</strong></li>
+</ul>
+<pre><code class="language-xml">A --&gt; B --&gt; X(1.1)   // dist(A-&gt;X) = 2
+
+A --&gt; C --&gt; X(1.0)   // dist(A-&gt;X) = 2
+
+&lt;!-- A pom.xml --&gt;
+&lt;dependencies&gt;
+    ...
+    dependency B
+    ...
+    dependency C
+&lt;/dependencies&gt;
+</code></pre>
+<p>若冲突依赖的路径长度相同，那么第一原则就无法起作用了。当路径长度相同，则需要根据A直接依赖包在pom.xml文件中的先后顺序来判定使用那条依赖路径，如果次级模块相同则向下级模块推，直至可以判断先后位置为止。假设依赖B位置在依赖C之前，则最终会选择X(1.1)依赖。</p>
+<ul>
+<li>
+<p>排除原则</p>
+</li>
+<li>
+<p>版本锁定原则</p>
+</li>
+<li>
+<p><strong>覆盖原则</strong>：若相同类型但版本不同的依赖存在于同一个 pom 文件，依赖调解两大原则都不起作用，需要采用覆盖策略来调解依赖冲突，最终会引入最后一个声明的依赖。</p>
+</li>
+</ul>
+<h3 id="解决依赖冲突">解决依赖冲突</h3>
+<p>冲突解决方式简单粗暴，直接在 pom.xml 文件中排除冲突依赖即可（使用<code> &lt;exclusions&gt;&lt;/exclusions&gt;</code>显式排除）。</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.glassfish.jersey.containers&lt;/groupId&gt;
+  &lt;artifactId&gt;jersey-container-grizzly2-http&lt;/artifactId&gt;
+  &lt;!-- 剔除依赖 --&gt;
+  &lt;exclusions&gt;
+    &lt;exclusion&gt;
+      &lt;groupId&gt;org.glassfish.hk2.external&lt;/groupId&gt;
+      &lt;artifactId&gt;jakarta.inject&lt;/artifactId&gt;
+    &lt;/exclusion&gt;
+    ...
+  &lt;/exclusions&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AF%87/">小程序之三：官方开发文档学习（指南篇）</a></span>
+  <span class="nav-next"><a href="/p/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/">Linux-防火墙firewall</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

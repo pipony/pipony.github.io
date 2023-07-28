@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>认识Jar包 - 2MUCH</title>
+    <meta property="og:title" content="认识Jar包 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Jar：Java Archive File
+基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是在生成 JAR 文件的时候自动创建的。
+特点：
+[&amp;hellip;] 分类：
+[&amp;hellip;] 这部分后面再说
+[&amp;hellip;] 1、打包单个java文件
+# 编译生成 Hello.class &amp;hellip;">
+      <meta property="og:description" content="Jar：Java Archive File
+基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 META-INF/MANIFEST.MF 文件，这个文件是在生成 JAR 文件的时候自动创建的。
+特点：
+[&amp;hellip;] 分类：
+[&amp;hellip;] 这部分后面再说
+[&amp;hellip;] 1、打包单个java文件
+# 编译生成 Hello.class &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>认识Jar包</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-08-02
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="认识jar包">认识Jar包</h1>
+<h2 id="概念">概念</h2>
+<p>Jar：Java Archive File</p>
+<p>基于zip文件格式将许多文件合成一个压缩文件.jar，区别是比zip多了一个包含了一个 <strong>META-INF/MANIFEST.MF</strong> 文件，这个文件是在生成 JAR 文件的时候自动创建的。</p>
+<p>特点：</p>
+<ul>
+<li>平台无关</li>
+<li>加快下载速度</li>
+<li>安全：可对jar文件数字签名</li>
+</ul>
+<p>分类：</p>
+<ul>
+<li>可执行jar包（MANIFEST.MF文件里有主类入口配置：<code>Main-Class: com.example.MyClass</code>）</li>
+<li>不可执行jar包</li>
+</ul>
+<h2 id="生成jar包">生成Jar包</h2>
+<h3 id="利用ide打包">利用IDE打包</h3>
+<p><font color='red'>这部分后面再说</font></p>
+<h3 id="命令行手动打包">命令行手动打包</h3>
+<p>1、打包单个java文件</p>
+<pre><code class="language-java"># 编译生成 Hello.class 文件
+javac Hello.java
+# 打包
+jar -cvf hello.jar Hello.class
+/* 参数解释：
+	-c 创建一个新的jar包
+	-v 创建的过程中在控制台输出创建过程的一些信息
+	-f 生成的jar包命名
+*/
+  
+/*打包完成的jar包里包含：
+
+
+*/
+</code></pre>
+<p>2、打包目录内的多个java文件</p>
+<pre><code class="language-java">
+</code></pre>
+<p>需要需要注意的是，以上命令行步骤打的jar包还不是可执行jar包。直接<code>java -jar Hello.jar</code>会报错。需要添加Main-Class属性：</p>
+<p><font color='red'>TODO</font></p>
+<h2 id="执行">执行</h2>
+<p>执行目标应是可执行jar包。除了直接双击执行，还可以采用命令行执行：</p>
+<pre><code class="language-java">java -jar xxx.jar
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/shiboyuan0410/article/details/85043741">https://blog.csdn.net/shiboyuan0410/article/details/85043741</a></p>
+<p><a href="https://blog.csdn.net/weixin_33835459/article/details/114070826">https://blog.csdn.net/weixin_33835459/article/details/114070826</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-%E7%AE%A1%E9%81%93%E7%AF%87/">Linux-管道篇</a></span>
+  <span class="nav-next"><a href="/p/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">Oracle-实现事务提交和回滚</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

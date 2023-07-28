@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-文本处理三剑客 - 2MUCH</title>
+    <meta property="og:title" content="Linux-文本处理三剑客 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。
+但是三者有所侧重点：
+[&amp;hellip;] grep命令已经在 linux-管道篇 学习过了，这里就略过。
+[&amp;hellip;] sed是一种流编辑器，它一次处理一行内容。处理时，把当前处理的行存储在临时缓冲区中，称为**“模式空间”，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下一行，执 &amp;hellip;">
+      <meta property="og:description" content="awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。
+但是三者有所侧重点：
+[&amp;hellip;] grep命令已经在 linux-管道篇 学习过了，这里就略过。
+[&amp;hellip;] sed是一种流编辑器，它一次处理一行内容。处理时，把当前处理的行存储在临时缓冲区中，称为**“模式空间”，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下一行，执 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-文本处理三剑客</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-12-07
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="linux-文本处理三剑客">Linux-文本处理三剑客</h1>
+<p><em>awk、grep、sed是linux操作文本的三大利器,合称文本三剑客。</em></p>
+<p>但是三者有所侧重点：</p>
+<ul>
+<li>awk：功能最强，也是最复杂的。更适合格式化文本，对文本作复杂格式处理</li>
+<li>grep：更适合查找、匹配</li>
+<li>sed：更适合编辑匹配到的文本</li>
+</ul>
+<h2 id="grep">grep</h2>
+<p><code>grep</code>命令已经在 <a href="https://pipony.github.io/post/linux/linux-%E7%AE%A1%E9%81%93%E7%AF%87/">linux-管道篇</a> 学习过了，这里就略过。</p>
+<h2 id="sed">sed</h2>
+<blockquote>
+<p>sed是一种流编辑器，它<strong>一次处理一行内容</strong>。处理时，把当前处理的行存储在临时缓冲区中，称为**“模式空间”<strong>，接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。然后读入下一行，执行下一个循环。如果没有使用诸如“D”的特殊命令，那会在两个循环之间清空模式空间，但不会清空</strong>保留空间**。这样不断重复，直到文件末尾。<strong>文件内容并没有改变，除非使用重定向存储输出或-i。</strong></p>
+</blockquote>
+<h3 id="参数说明">参数说明</h3>
+<pre><code class="language-shell">sed --help
+Usage: sed [OPTION]... {script-only-if-no-other-script} [input-file]...
+
+  -n, --quiet, --silent # 只打印匹配的行
+                 suppress automatic printing of pattern space
+  -e script, --expression=script
+                 add the script to the commands to be executed
+  -f script-file, --file=script-file  # 写入文档中，后接文件名
+                 add the contents of script-file to the commands to be executed
+  --follow-symlinks
+                 follow symlinks when processing in place
+  -i[SUFFIX], --in-place[=SUFFIX]  # 直接将处理结果写入文件
+                 edit files in place (makes backup if SUFFIX supplied)
+  -c, --copy
+                 use copy instead of rename when shuffling files in -i mode
+  -b, --binary
+                 does nothing; for compatibility with WIN32/CYGWIN/MSDOS/EMX (
+                 open files in binary mode (CR+LFs are not treated specially))
+  -l N, --line-length=N
+                 specify the desired line-wrap length for the `l' command
+  --posix
+                 disable all GNU extensions.
+  -r, --regexp-extended  # 支持扩展的正则表达式
+                 use extended regular expressions in the script.
+  -s, --separate
+                 consider files as separate rather than as a single continuous
+                 long stream.
+  -u, --unbuffered
+                 load minimal amounts of data from the input files and flush
+                 the output buffers more often
+  -z, --null-data
+                 separate lines by NUL characters
+  --help
+                 display this help and exit
+  --version
+                 output version information and exit
+
+If no -e, --expression, -f, or --file option is given, then the first
+non-option argument is taken as the sed script to interpret.  All
+remaining arguments are names of input files; if no input files are
+specified, then the standard input is read.
+</code></pre>
+<h3 id="sed命令">sed命令</h3>
+<pre><code class="language-shell">a\\ 在当前行下面插入文本。
+i\\ 在当前行上面插入文本。
+c\\ 把选定的行改为新的文本。
+d 删除，删除选择的行。
+D 删除模板块的第一行。
+s 替换指定字符
+h 拷贝模板块的内容到内存中的缓冲区。
+H 追加模板块的内容到内存中的缓冲区。
+g 获得内存缓冲区的内容，并替代当前模板块中的文本。
+G 获得内存缓冲区的内容，并追加到当前模板块文本的后面。
+l 列表不能打印字符的清单。
+n 读取下一个输入行，用下一个命令处理新的行而不是用第一个命令。
+N 追加下一个输入行到模板块后面并在二者间嵌入一个新行，改变当前行号码。
+p 打印模板块的行。
+P(大写) 打印模板块的第一行。
+q 退出Sed。
+b lable 分支到脚本中带有标记的地方，如果分支不存在则分支到脚本的末尾。
+r file 从file中读行。
+t label if分支，从最后一行开始，条件一旦满足或者T，t命令，将导致分支到带有标号的命令处，或者到脚本的末尾。
+T label 错误分支，从最后一行开始，一旦发生错误或者T，t命令，将导致分支到带有标号的命令处，或者到脚本的末尾。
+w file 写并追加模板块到file末尾。 
+W file 写并追加模板块的第一行到file末尾。 
+! 表示后面的命令对所有没有被选定的行发生作用。 
+= 打印当前行号码。 
+# 把注释扩展到下一个换行符以前。 
+</code></pre>
+<h3 id="sed替换标记">sed替换标记</h3>
+<pre><code class="language-shell">sed替换标记
+g 表示行内全面替换。 
+p 表示打印行。 
+w 表示把行写入一个文件。 
+x 表示互换模板块中的文本和缓冲区中的文本。 
+y 表示把一个字符翻译为另外的字符（但是不用于正则表达式）
+\\1 子串匹配标记
+&amp; 已匹配字符串标记
+</code></pre>
+<h3 id="sed元字符集">sed元字符集</h3>
+<pre><code class="language-shell">sed元字符集
+^ 匹配行开始，如：/^sed/匹配所有以sed开头的行。
+$ 匹配行结束，如：/sed$/匹配所有以sed结尾的行。
+. 匹配一个非换行符的任意字符，如：/s.d/匹配s后接一个任意字符，最后是d。
+* 匹配0个或多个字符，如：/*sed/匹配所有模板是一个或多个空格后紧跟sed的行。
+[] 匹配一个指定范围内的字符，如/[sS]ed/匹配sed和Sed。 
+[^] 匹配一个不在指定范围内的字符，如：/[^A-RT-Z]ed/匹配不包含A-R和T-Z的一个字母开头，紧跟ed的行。
+\\(..\\) 匹配子串，保存匹配的字符，如s/\\(love\\)able/\\1rs，loveable被替换成lovers。
+&amp; 保存搜索字符用来替换其他字符，如s/love/**&amp;**/，love这成**love**。
+\\&lt; 匹配单词的开始，如:/\\\\&gt; 匹配单词的结束，如/love\\&gt;/匹配包含以love结尾的单词的行。
+x\\{m\\} 重复字符x，m次，如：/0\\{5\\}/匹配包含5个0的行。
+x\\{m,\\} 重复字符x，至少m次，如：/0\\{5,\\}/匹配至少有5个0的行。
+x\\{m,n\\} 重复字符x，至少m次，不多于n次，如：/0\\{5,10\\}/匹配5~10个0的行。
+</code></pre>
+<h3 id="常见用法">常见用法</h3>
+<h4 id="1-替换-s">1、替换（s）</h4>
+<pre><code class="language-shell"># 1. sed 's/xxx/yyy/' 打印替换后的结果
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+abcdefg
+123456
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed 's/cde/111/' 1.txt # 打印替换后的结果
+ab111fg
+123456
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt  # 不改变原文件
+abcdefg
+123456
+# 2. sed -n 's/xxx/yyy/p' 只打印发生替换的行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n 's/cde/111/p' 1.txt # 只打印发生替换的行
+ab111fg
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+abcdefg
+123456
+# 3. sed -i 's/xxx/yyy/g' 直接在原文件中替换，替换每一个匹配行的所有匹配字段
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+abcdefg
+123456
+abcdefg
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -i 's/cde/111/g' 1.txt # 直接在原文件中替换，替换每一个匹配行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+ab111fg
+123456
+ab111fg
+# 4. sed 's/xxx/yyy/' 没有/g只有替换每一行的第一个匹配
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+abcabc
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -i 's/abc/123/' 2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt # 只替换了第一个匹配
+123abc
+123
+# 5. sed 's/xxx/yyy/g' 有/g会替换每一行的所有匹配
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+abcabc
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed 's/abc/123/g' 2.txt # 和例4形成对比
+123123
+123
+# 6. sed 's/xxx/yyy/Ng' 从第N个xxx开始匹配成yyy
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;123123123&quot; | sed 's/123/456/2g'
+123456456
+</code></pre>
+<h4 id="2-使用规范">2、使用规范</h4>
+<pre><code class="language-shell"># 1、定界符
+# 以上例子是使用/作为定界符，也可以使用其他任意字符作为定界符，如:
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;abab&quot; | sed 's🆎12:g'
+1212
+# 值得注意的是，若定界符出现在语句内部，则需要转移
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;1/2/3/&quot; | sed 's/\/2/\/5/'
+1/5/3/
+# 2、组合使用(以下三种方法等价)
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;abc&quot; | sed 's/a/1/' | sed 's/b/2/'
+12c
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;abc&quot; | sed 's/a/1/; s/b/2/'
+12c
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;abc&quot; | sed -e 's/a/1/' -e 's/1/2/'
+2bc
+# 3、sed中使用引用变量（注意：此时应该用双引号包围）
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.sh
+var=good
+echo &quot;good morning&quot; | sed &quot;s/$var/bad/&quot;
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sh 1.sh
+bad morning
+</code></pre>
+<h4 id="3-删除操作-d">3、删除操作（d）</h4>
+<pre><code class="language-shell"># ^表示开始，$表示最后
+# 1. sed '/^$/d' 删除空白行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 3.txt
+1
+2
+3
+4
+
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/^$/d' 3.txt
+1
+2
+3
+4
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 3.txt # 不改变原文件
+1
+2
+3
+4
+
+5
+# 2. sed '2d' 删除第2行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '2d' 3.txt
+1
+3
+4
+
+5
+# 3. sed '2,$d' 删除第2-末尾行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '2,$d' 3.txt
+1
+# 4. sed '$d' 删除末尾行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '$d' 3.txt
+1
+2
+3
+4
+
+# 5. sed '/^ab/d' 删除以ab开头的行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 4.txt
+ab ccc
+ab ddd
+a eee
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/^ab/d' 4.txt
+a eee
+</code></pre>
+<h4 id="4-匹配标记-n">4、匹配标记（&amp;,\N）</h4>
+<pre><code class="language-shell"># 1. 已匹配字符串标记&amp;
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;abab&quot; | sed 's/ab/[&amp;]/g'
+[ab][ab]
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;this is good&quot; | sed 's/\w\+/*&amp;*/g'
+*this* *is* *good*
+# 2. 子串匹配标记\N
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;aaa bbb&quot; | sed 's/\([a-z]\+\) \([a-z]\+\)/\2 \1/'
+bbb aaa
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ echo &quot;aaa 123 bbb&quot; | sed 's/\([a-z]\+\) \([0-9]\+\) \([a-z]\+\)/\2 \1/'
+123 aaa
+# 上个例子中，\1=aaa,\2=123,\3=bbb
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed 's/\(bad\)/\1?/' 4.txt 
+i am bad?
+i am bad?
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 4.txt
+i am bad
+i am bad
+</code></pre>
+<h4 id="5-选定行范围">5、选定行范围（,）</h4>
+<pre><code class="language-shell"># 1. sed -n '/bad/,/good/p' 打印匹配bad和good之间的行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 4.txt
+i am bad
+i am bad
+i am good
+i am nobody
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n '/bad/,/good/p' 4.txt
+i am bad
+i am bad
+i am good
+# 2. sed -n '2,/good$/p' 打印 第2行-匹配该行最后是good 的行
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ vi 4.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 4.txt
+i am bad
+i am bad
+i am good
+i am nobody
+i am good
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n '2,/good$/p' 4.txt
+i am bad
+i am good
+# 3. sed '/bad/,/nobody/s/$/.../' 在模版bad和good之间的行，在每行的最后添加...
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/bad/,/nobody/s/$/.../' 4.txt
+i am bad...
+i am bad...
+i am good...
+i am nobody...
+i am good
+</code></pre>
+<h4 id="6-读写追加等命令">6、读写追加等命令</h4>
+<pre><code class="language-shell"># 1. 读(r) sed '/good/r 2.txt' 1.txt 打印1.txt匹配的模版good行，在下面打印2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+abcabc
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+i am good
+test1
+test2
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/good/r 2.txt' 1.txt
+i am good
+abcabc
+abc
+test1
+test2
+# 2. 写(w) sed '/good/w 2.txt' 1.txt 将1.txt中匹配模版good的行（真正）写入2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+i am good
+test1
+test2
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+abcabc
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/good/w 2.txt' 1.txt
+i am good
+test1
+test2
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt # 实际被改变了
+i am good
+# 3. 行下追加(a) 
+# sed '/am/a\haha' 2.txt 在匹配am的行下面插入haha
+# sed -i '2a\oh haha' 2.txt 在第2行下面插入oh haha
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+i am good
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/am/a\haha' 2.txt
+i am good
+haha
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+oh no
+i am good
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -i '2a\oh haha' 2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+oh no
+i am good
+oh haha
+# 4. 行上追加(i)  类似行下追加，只是变成了行上
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+i am good
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -i '1i\oh no' 2.txt
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+oh no
+i am good
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/am/i\oh yes' 2.txt
+oh no
+oh yes
+i am good
+</code></pre>
+<pre><code class="language-shell"># 5、下一行处理(n) sed '/test/{ n; s/aa/bb/;}' 在匹配test模式的下一行，进行/aa/bb/替换（然后继续）
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+i am good
+test1
+1aa
+test2
+1aa
+1aa
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/test/{ n; s/aa/bb/;}' 1.txt
+i am good
+test1
+1bb
+test2
+1bb
+1aa # 因为上面不是test模式，所以不会被替换为1bb
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+i am good
+test1aa
+1aa
+test2
+1aa
+1aa
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '/test/{ n; s/aa/bb/;}' 1.txt
+i am good
+test1aa # 本身的test匹配行的aa，不会被替换为bb
+1bb
+test2
+1bb
+1aa
+# 6、变形/按字符替换(y) sed '1,2y/abc/ABC/' 将第1-2行的abc替换为ABC
+# y和s的区别：
+# 1. y一般是行级别的替换，s一般是列级别替换（当然也可以转换成行级）；
+# 2.s替换的是整体，y替换的是每一字母对应的单个字母（见下面的例子）
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 2.txt
+abc
+1abc1
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '1,2y/abc/ABC/' 2.txt
+ABC
+1ABC1
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '1,2s/and/123/' 2.txt
+abc
+1abc1
+abc
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '1,2y/abc/12/' 2.txt # 如果不是逐字母替换的话，y会报错，但是s不会
+sed: -e expression #1, char 12: strings for `y' command are different lengths
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed '1,2s/abc/12/' 2.txt
+12
+1121
+abc
+</code></pre>
+<h4 id="7-打印奇数-偶数行">7、打印奇数/偶数行</h4>
+<pre><code class="language-shell"># 命令见例子
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+1
+2
+3
+4
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n 'p;n' 1.txt
+1
+3
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n 'n;p' 1.txt
+2
+4
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n '1~2p' 1.txt
+1
+3
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n '2~2p' 1.txt
+2
+4
+</code></pre>
+<h4 id="8-打印匹配字符串的下一行">8、打印匹配字符串的下一行</h4>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ sed]$ cat 1.txt
+1
+2
+3
+4
+5
+[cindy@iZbp15qc4wmx335c268l5mZ sed]$ sed -n '/1/{n;p}' 1.txt # 打印匹配模式1的下一行
+2
+</code></pre>
+<h4 id="9-sed高级处理">9、sed高级处理</h4>
+<blockquote>
+<p>sed之所以能以行为单位的编辑或修改文本，其原因在于它使用了两个空间：一个是活动的“模式空间（pattern space）”，另一个是起辅助作用的“保持空间（hold space）这2个空间的使用。</p>
+<p>模式空间：可以想成工程里面的流水线，数据之间在它上面进行处理。
+保持空间：可以想象成仓库，我们在进行数据处理的时候，作为数据的暂存区域。</p>
+<p>sed在正常情况下，将处理的行读入模式空间，脚本中的“sed command（sed命令）”就一条接着一条进行处理，直到脚本执行完毕。<strong>然后该行被输出，模式被清空</strong>；接着，在重复执行刚才的动作，文件中的新的一行被读入，直到文件处理完毕。</p>
+<p><strong>一般情况下，数据的处理只使用模式空间</strong>（pattern space），按照如上的逻辑即可完成主要任务。正常情况下，如果不显示使用某些高级命令，保持空间不会使用到！但是某些时候，通过使用保持空间（hold space），还可以带来意想不到的效果。</p>
+</blockquote>
+<pre><code class="language-shell">+ g：[address[,address]]g 将hold space中的内容拷贝到pattern space中，原来pattern space里的内容清除。
++ G：[address[,address]]G 将hold space中的内容append到pattern space\n后。
++ h：[address[,address]]h 将pattern space中的内容拷贝到hold space中，原来的hold space里的内容被清除。
++ H：[address[,address]]H 将pattern space中的内容append到hold space\n后。
++ d：[address[,address]]d 删除pattern中的所有行，并读入下一新行到pattern中。
++ D：[address[,address]]D 删除multiline pattern中的第一行，不读入下一行。
++ x：交换保持空间和模式空间的内容。
+</code></pre>
+<p><font color='red'>高级用法后续再学习</font></p>
+<h2 id="awk">awk</h2>
+<blockquote>
+<p>wk其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan 姓氏的首个字母。实际上 AWK 的确拥有自己的语言： AWK 程序设计语言 ， 三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<p>awk 是一种很棒的语言，它适合文本处理和报表生成，其语法较为常见，借鉴了某些语言的一些精华，如 C 语言等。在 linux 系统日常处理工作中，发挥很重要的作用，掌握了 awk将会使你的工作变的高大上。 awk 是三剑客的<strong>老大</strong>，利剑出鞘，必会不同凡响。</p>
+<p><a href="https://www.cnblogs.com/ginvip/p/6352157.html">https://www.cnblogs.com/ginvip/p/6352157.html</a></p>
+</blockquote>
+<p><strong>sed偏向于字符串处理，awk可支持更广泛的类型处理，例如可以在awk中执行整数运算等，但是在sed中就不行。在sed中，万物皆字符串。</strong></p>
+<p>awk不是命令，是一门语言。又叫做<code>GNU awk</code>，<code>gawk</code>。</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ awk]$ which awk
+/usr/bin/awk
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ ls -l /usr/bin/awk
+lrwxrwxrwx. 1 root root 4 Sep 14  2020 /usr/bin/awk -&gt; gawk # 一般Linux默认为Gawk，Gawk是 AWK的GNU开源免费版本。
+</code></pre>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ awk -h
+awk: option requires an argument -- h
+Usage: awk [POSIX or GNU style options] -f progfile [--] file ...
+Usage: awk [POSIX or GNU style options] [--] 'program' file ...
+POSIX options:          GNU long options: (standard)
+        -f progfile             --file=progfile
+        -F fs                   --field-separator=fs  # 指定分隔符
+        -v var=val              --assign=var=val  # 指定变量
+Short options:          GNU long options: (extensions)
+        -b                      --characters-as-bytes
+        -c                      --traditional
+        -C                      --copyright
+        -d[file]                --dump-variables[=file]
+        -e 'program-text'       --source='program-text'
+        -E file                 --exec=file
+        -g                      --gen-pot
+        -h                      --help
+        -L [fatal]              --lint[=fatal]
+        -n                      --non-decimal-data
+        -N                      --use-lc-numeric
+        -O                      --optimize
+        -p[file]                --profile[=file]
+        -P                      --posix
+        -r                      --re-interval
+        -S                      --sandbox
+        -t                      --lint-old
+        -V                      --version
+
+To report bugs, see node `Bugs' in `gawk.info', which is
+section `Reporting Problems and Bugs' in the printed version.
+
+gawk is a pattern scanning and processing language.
+By default it reads standard input and writes standard output.
+
+Examples:
+        gawk '{ sum += $1 }; END { print sum }' file
+        gawk -F: '{ print $1 }' /etc/passwd
+</code></pre>
+<p>基本使用方法：</p>
+<pre><code class="language-shell">awk '{pattern + action}' {filenames}
+</code></pre>
+<h3 id="awk内置变量">awk内置变量</h3>
+<pre><code class="language-shell"># NR: number of record 行号
+# RS: record separator 行分隔符（\n）
+# FS: field separator 列分隔符（空格）
+# NF: number of field 每行的列数
+# $0: 当前记录
+# $1~$n: 当前记录的1～n个记录
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat text1
+1 2 3
+4 5 6
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print NR}' text1
+1
+2
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print RS}' text1
+
+
+
+
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print FS}' text1
+ 
+ 
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print NF}' text1
+3
+3
+# 但是通常不是这么直白的用，需要配合一些语句一起使用
+</code></pre>
+<h3 id="awk选项-指定">awk选项（指定）</h3>
+<pre><code class="language-shell"># -F 指定分隔符 
+# -v 指定变量
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat test2
+a:bb:c
+1:2:100
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print $1}' test2 # 默认以空格为分隔符，所以$1就是全部的
+a:bb:c
+1:2:100
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -F&quot;:&quot; '{print $1}' test2 # 以:为分隔符，打印出第一个
+a
+1
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -v var=&quot;hello&quot; -F&quot;:&quot; '{print var, $2}' test2 # 指定变量var的值，然后可以直接在语句中用（不需要加$号）。print的内容用逗号分隔，打印时用空格隔开
+hello bb
+hello 2
+</code></pre>
+<h3 id="awk内置函数">awk内置函数</h3>
+<ul>
+<li>算数函数</li>
+<li>字符串函数</li>
+<li>时间函数：<code>systime</code>和<code>strftime</code></li>
+<li>其他函数</li>
+</ul>
+<p>下面重点看下字符串函数：</p>
+<h4 id="替换函数gsub和sub">替换函数gsub和sub</h4>
+<p>先说下<code>gsub</code>和<code>sub</code>的区别：gsub会替换所在范围内所有满足条件的字符串，<strong>而sub只会替换第一个满足条件的</strong>。</p>
+<pre><code class="language-shell"># gsub(r,s,t) 在每行的t范围中，将r替换为s；sub类似。如没有t参数，则表示查找范围为整行。
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat text3
+hello how are you
+hi i am happy
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{gsub(&quot;h&quot;,&quot;H&quot;)}' text3 # 替换操作不包含打印，所以没法看到结果
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{gsub(&quot;h&quot;,&quot;H&quot;); print $0}' text3 # 替换并打印所有h-&gt;H
+Hello How are you
+Hi i am Happy
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{sub(&quot;h&quot;,&quot;H&quot;); print $0}' text3 # sub只替换第一个匹配的h
+Hello how are you
+Hi i am happy
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{gsub(&quot;h&quot;,&quot;H&quot;,$1); print $0}' text3 # 指定在$1中进行匹配
+HHHHH how are you
+HHHH i am happy
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{sub(&quot;h&quot;,&quot;H&quot;,$1); print $0}' text3
+Hhhhh how are you
+Hhhh i am happy
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat test2
+a:bb:c
+1:2:100
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{gsub(&quot;[0-9]+&quot;,&quot;x&quot;); print $0}' test2 # 使用正则表达式进行匹配，将所有的数字替换为x
+a:bb:c
+x❌x
+</code></pre>
+<h4 id="字符串长度length">字符串长度length</h4>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat test2
+a:bb:c
+1:2:100
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -F&quot;:&quot; '{ for(i=1;i&lt;=NF;i++){print $i, length($i)} }' test2
+a 1
+bb 2
+c 1
+1 1
+2 1
+100 3
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print length()}' test2  # 如果length里面不输入参数，则使用的是默认参数$0
+6
+7
+</code></pre>
+<h4 id="返回字符所在位置index">返回字符所在位置index</h4>
+<pre><code class="language-shell"># index(s,t) 返回s中字符串t所在的位置
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat test2
+apple is good
+i like apple
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{print index($0,&quot;apple&quot;)}' test2
+1
+8
+</code></pre>
+<h4 id="动态创建数组split">动态创建数组split</h4>
+<pre><code class="language-shell"># split(r,s,t) 以t为分隔符，切割r为数组t
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ echo &quot;a:bb:ccc&quot; | awk -F&quot;:&quot; '{split($0,arr,&quot;:&quot;);for(i in arr){print i,arr[i]}}' # 注意看哦，awk的split下标，是从1开始的
+1 a
+2 bb
+3 ccc
+# 也可以切割传进来的变量
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -v var=&quot;h1 h2 h3&quot; 'BEGIN{split(var,arr,&quot; &quot;); for(i in arr){print i,arr[i]}}'  
+1 h1
+2 h2
+3 h3
+# split方法的返回值为数组长度
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -v var=&quot;h1 h2 h3&quot; 'BEGIN{print split(var,arr,&quot; &quot;)}'
+3
+# 需要注意，采用for(i in arr)可能不会按照下标顺序遍历输出，如果需要按顺序的话，需要采用以下方法
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk -v var=&quot;h1 h2 h3&quot; 'BEGIN{ arrlen=split(var,arr,&quot; &quot;); for(i=1;i&lt;=arrlen;i++){print i, arr[i]}}'
+1 h1
+2 h2
+3 h3
+</code></pre>
+<h4 id="匹配函数match">匹配函数match</h4>
+<p><font color='red'>后续再学习</font></p>
+<h4 id="子串函数substr">子串函数substr</h4>
+<p><a href="https://www.cnblogs.com/irockcode/p/6880597.html">https://www.cnblogs.com/irockcode/p/6880597.html</a></p>
+<p><code>substr(对象,index)</code> 从对象的第index字符开始到设定的分隔符结束</p>
+<p><code>substr(对象,index1,length)</code> 从对象的第index1字符截取length个字符</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat test2
+apple is good
+i like apple
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{ print substr($0,1) }' test2  # $0没有分隔符，默认截取到行末
+apple is good
+i like apple
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{ print substr($0,3) }' test2
+ple is good
+like apple
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{ print substr($1,3) }' test2  # 如第2行没法截取指定的长度，则输出空
+ple
+
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk '{ print substr($3,1,2) }' test2
+go
+ap
+</code></pre>
+<h3 id="awk执行流程">awk执行流程</h3>
+<pre><code class="language-shell">awk -参数 'BEGIN{动作} (模式){动作} END{动作} }' 文件名
+</code></pre>
+<ul>
+<li>BEGIN：读取数据之前的动作，只能执行一次</li>
+<li>PATTERN：按行执行的正常动作</li>
+<li>END：和BEGIN相反，是在读取所有数据之后的动作，只能执行一次</li>
+</ul>
+<p>例子：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat text1
+1 2 3
+4 5 6
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ awk 'BEGIN{print &quot;开始awk&quot;} {print $2} END{print &quot;结束awk&quot;}' text1
+开始awk
+2
+5
+结束awk
+</code></pre>
+<h3 id="awk流程控制语句">awk流程控制语句</h3>
+<p><a href="https://blog.51cto.com/linux2023/5016231">https://blog.51cto.com/linux2023/5016231</a></p>
+<p>awk的流程控制语句包括：</p>
+<pre><code>if-else 语句
+for 语句
+while 语句
+do-while 语句
+break 语句
+continue 语句
+next 语句
+nextfile 语句
+exit 语句
+</code></pre>
+<h4 id="if-else">if-else</h4>
+<pre><code class="language-shell">if (条件 1){
+    动作 1
+    }
+else if (条件 2){
+    动作 2
+}
+else{
+    动作 3
+}
+</code></pre>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat text1
+1 2 3
+4 5 6
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ cat 1.sh
+awk '{
+        if ( $2 == 2 ){
+                print &quot;$1 is &quot;,$1;
+        }
+        else {
+                print &quot;$3 is &quot;,$3;
+        }
+}' ./text1
+[cindy@iZbp15qc4wmx335c268l5mZ awk]$ sh 1.sh
+$1 is  1
+$3 is  6
+</code></pre>
+<h4 id="for">for</h4>
+<p>例如：</p>
+<p><code>for (i=0;i&lt;=n;i++) {动作}</code></p>
+<h4 id="其他控制语句略-需要用时再查">其他控制语句略，需要用时再查</h4>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/Torres-tao/p/16055239.html">https://www.cnblogs.com/Torres-tao/p/16055239.html</a></p>
+<p><a href="http://linux.51yip.com/search/sed/">http://linux.51yip.com/search/sed/</a></p>
+<p><a href="https://www.cnblogs.com/zakun/p/linux-cmd-sed.html">https://www.cnblogs.com/zakun/p/linux-cmd-sed.html</a></p>
+<p><a href="https://blog.51cto.com/yolynn/1890548">https://blog.51cto.com/yolynn/1890548</a></p>
+<p><a href="https://blog.51cto.com/u_3078781/3287449">https://blog.51cto.com/u_3078781/3287449</a></p>
+<p><a href="https://www.cnblogs.com/ginvip/p/6352157.html">https://www.cnblogs.com/ginvip/p/6352157.html</a></p>
+<p><a href="https://www.cnblogs.com/wangchengww/p/16540731.html">https://www.cnblogs.com/wangchengww/p/16540731.html</a></p>
+<p><a href="https://www.cnblogs.com/csxy-py/p/16778102.html">https://www.cnblogs.com/csxy-py/p/16778102.html</a></p>
+<p><a href="https://www.cnblogs.com/minseo/p/13690129.html">https://www.cnblogs.com/minseo/p/13690129.html</a></p>
+<p><a href="https://www.cnblogs.com/jmbt/p/16640626.html">https://www.cnblogs.com/jmbt/p/16640626.html</a></p>
+<p><a href="https://www.cnblogs.com/codelogs/p/16060082.html">https://www.cnblogs.com/codelogs/p/16060082.html</a></p>
+<p><a href="http://bbs.chinaunix.net/thread-2312439-1-1.html">http://bbs.chinaunix.net/thread-2312439-1-1.html</a></p>
+<p><a href="https://www.cnblogs.com/joyware/p/16612120.html">https://www.cnblogs.com/joyware/p/16612120.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">Mysql修改root密码</a></span>
+  <span class="nav-next"><a href="/p/%E8%AE%A4%E8%AF%86%E7%BC%96%E7%A0%81/">认识编码</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

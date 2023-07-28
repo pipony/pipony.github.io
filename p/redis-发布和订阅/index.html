@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Redis-发布和订阅 - 2MUCH</title>
+    <meta property="og:title" content="Redis-发布和订阅 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(channel)、订阅者。
+发布方往channel发布消息，若订阅方有订阅这个channel，则可以接收到这个消息。
+一个订阅方可以订阅多个channel。
+[&amp;hellip;] 打开redis客户端，订阅一个channel &amp;hellip;">
+      <meta property="og:description" content="Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(channel)、订阅者。
+发布方往channel发布消息，若订阅方有订阅这个channel，则可以接收到这个消息。
+一个订阅方可以订阅多个channel。
+[&amp;hellip;] 打开redis客户端，订阅一个channel &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Redis-发布和订阅</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-18
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="redis-发布和订阅">Redis-发布和订阅</h1>
+<h2 id="概念">概念</h2>
+<p>Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。共包括三个角色：发送者、频道(channel)、订阅者。</p>
+<p>发布方往channel发布消息，若订阅方有订阅这个channel，则可以接收到这个消息。</p>
+<p>一个订阅方可以订阅多个channel。</p>
+<h2 id="简单实践">简单实践</h2>
+<p>打开redis客户端，订阅一个channel</p>
+<pre><code class="language-shell">127.0.0.1:6379&gt; subscribe channel1
+Reading messages... (press Ctrl-C to quit)
+1) &quot;subscribe&quot;
+2) &quot;channel1&quot;
+3) (integer) 1
+
+</code></pre>
+<p>表示正在订阅状态</p>
+<p>再打开一个redis客户端（在另一个会话中），发布消息：</p>
+<pre><code class="language-shell">127.0.0.1:6379&gt; publish channel1 helloworld
+(integer) 1  # 返回的是当前订阅者的数量
+</code></pre>
+<p>此时就能看到订阅方接收到了这条消息：</p>
+<pre><code class="language-shell">127.0.0.1:6379&gt; subscribe channel1
+Reading messages... (press Ctrl-C to quit)
+1) &quot;subscribe&quot;
+2) &quot;channel1&quot;
+3) (integer) 1
+1) &quot;message&quot;
+2) &quot;channel1&quot;
+3) &quot;helloworld&quot;
+
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/redis-%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis-常用数据类型</a></span>
+  <span class="nav-next"><a href="/p/redis-redis6%E6%96%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Redis-Redis6新数据类型</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

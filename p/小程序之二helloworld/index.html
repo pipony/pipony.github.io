@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>小程序之二：HelloWorld - 2MUCH</title>
+    <meta property="og:title" content="小程序之二：HelloWorld - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
+跟着阮一峰老师的教程写个最简单的hello world：
+1、新建项目目录wechat-miniprogram-demo，进入项目目录
+2、在项目目录中，新建脚本app.js。这个脚本用于对整个小程序进行初始化。 &amp;hellip;">
+      <meta property="og:description" content="学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html
+跟着阮一峰老师的教程写个最简单的hello world：
+1、新建项目目录wechat-miniprogram-demo，进入项目目录
+2、在项目目录中，新建脚本app.js。这个脚本用于对整个小程序进行初始化。 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220918140504739.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>小程序之二：HelloWorld</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-09-18
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="小程序之二-helloworld">小程序之二：HelloWorld</h1>
+<p>学习教程：https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html</p>
+<p>跟着阮一峰老师的教程写个最简单的hello world：</p>
+<p>1、新建项目目录<code>wechat-miniprogram-demo</code>，进入项目目录</p>
+<p>2、在项目目录中，新建脚本<code>app.js</code>。<strong>这个脚本用于对整个小程序进行初始化。</strong></p>
+<pre><code class="language-javascript">App({});
+</code></pre>
+<blockquote>
+<p>上面代码中，<code>App()</code>由小程序原生提供，它是一个函数，表示新建一个小程序实例。它的参数是一个配置对象，用于设置小程序实例的行为属性。这个例子不需要任何配置，所以使用空对象即可。</p>
+</blockquote>
+<p>3、在项目目录中，新建配置文件<code>app.json</code>，记录项目的一些静态配置，采用 JSON 格式。<strong>至少必须有一个<code>pages</code>属性</strong>，指明小程序包含哪些页面。</p>
+<pre><code class="language-json">{
+  &quot;pages&quot;: [
+    &quot;pages/home/home&quot;
+  ]
+}
+</code></pre>
+<p>小程序会加载页面目录<code>pages/home</code>里面的<code>home.js</code>文件，<code>.js</code>后缀名可以省略，所以完整的加载路径为<code>pages/home/home</code>。<code>home.js</code>这个脚本的文件名也可以随便起，但是习惯上跟页面目录同名。</p>
+<p>除了<code>pages</code>属性，还可以加上<code>window</code>属性，定义最上方的导航栏的属性，如：</p>
+<pre><code class="language-json">{
+  &quot;pages&quot;: [
+    &quot;pages/home/home&quot;
+  ],
+  &quot;window&quot;: {
+    &quot;navigationBarBackgroundColor&quot;: &quot;#ff0000&quot;,
+    &quot;navigationBarTextStyle&quot;: &quot;white&quot;,
+    &quot;navigationBarTitleText&quot;: &quot;小程序 Demo&quot;     
+  }
+}
+</code></pre>
+<p>比如还有<code>tabBar</code>属性，定制底部选项卡的属性。</p>
+<p>4、新建脚本<code>pages/home/home.js</code>，内容如下：</p>
+<pre><code class="language-javascript">Page({});
+</code></pre>
+<p>上面代码中，<code>Page()</code>由小程序原生提供，它是一个函数，用于初始化一个页面实例。它的参数是一个配置对象，用于设置当前页面的行为属性。这里是一个空对象，表示不设置任何属性。</p>
+<p>5、新建脚本<code>pages/home/home.wxml</code>，用于描述小程序的页面。</p>
+<pre><code class="language-html">hello world
+</code></pre>
+<p>6、一个最简单的项目就完成啦。现在导入小程序开发工具看看。</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220918140504739.png" alt="image-20220918140504739"></p>
+<p>也可以点击“预览”或“真机调试”，扫描二维码在手机上查看效果</p>
+<h2 id="小程序项目基础结构">小程序项目基础结构</h2>
+<pre><code class="language-javascript">|- app.json
+|- app.js
+|- pages
+   |- home
+      |- home.wxml
+      |- home.js
+</code></pre>
+<p>这个结构分成两层：描述整体程序的顶层 app 脚本，以及描述各个页面的 page 脚本。</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/maven%E4%B9%8B%E4%B8%80%E5%9F%BA%E7%A1%80/">Maven之一：基础</a></span>
+  <span class="nav-next"><a href="/p/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%B8%89%E5%AE%98%E6%96%B9%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AF%87/">小程序之三：官方开发文档学习（指南篇）</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

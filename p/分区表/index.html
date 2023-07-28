@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>分区表 - 2MUCH</title>
+    <meta property="og:title" content="分区表 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="分区、分表、分库、分片
+参考链接：
+https://blog.csdn.net/wqaiwsj/article/details/124684356
+https://www.cnblogs.com/qianmojie/p/16326975.html
+[&amp;hellip;] 分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中减少数据读写的总量以缩减响应时间，提升查询效率。 &amp;hellip;">
+      <meta property="og:description" content="分区、分表、分库、分片
+参考链接：
+https://blog.csdn.net/wqaiwsj/article/details/124684356
+https://www.cnblogs.com/qianmojie/p/16326975.html
+[&amp;hellip;] 分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中减少数据读写的总量以缩减响应时间，提升查询效率。 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/7b961145280b58443aa028e9580c1ee6.jpg">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>分区表</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-11-16
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="分区表">分区表</h1>
+<h2 id="基本概念">基本概念</h2>
+<p>分区、分表、分库、分片</p>
+<p>参考链接：</p>
+<p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
+<p><a href="https://www.cnblogs.com/qianmojie/p/16326975.html">https://www.cnblogs.com/qianmojie/p/16326975.html</a></p>
+<ul>
+<li>
+<p>分区：将数据从物理上分成若干个小表存储，实际上还是一张表。为了在特定的SQL操作中<strong>减少数据读写的总量</strong>以缩减响应时间，提升查询效率。</p>
+</li>
+<li>
+<p>分表：把一张表按一定的规则分解成N个具有独立存储空间的实体表。</p>
+</li>
+<li>
+<p>分库：多表放在不同的服务器中，突破单节点数据库服务器的I/O能力限制。</p>
+</li>
+<li>
+<p>分片：在分布式存储系统中，数据需要分散存储在多台设备上，数据分片（Sharding）就是用来确定数据在多台存储设备上分布的技术</p>
+</li>
+</ul>
+<h2 id="常见分区类型">常见分区类型</h2>
+<p>以mysql为例</p>
+<ul>
+<li>range分区：给定连续区间</li>
+<li>list分区：匹配一个离散值集合</li>
+<li>hash分区：基于用户定义的表达式（MySQL 中有效的、产生非负整数值的任何表达式）的返回值来进行选择的分区</li>
+<li>key分区：根据MySQL数据库提供的哈希函数来进行分区。</li>
+</ul>
+<p>另外，还需要关注<strong>自动分区表</strong>（mysql不能自然支持，其他数据库可能支持，如gaussdb）</p>
+<h2 id="分区表定义">分区表定义</h2>
+<p>参考：https://www.cnblogs.com/dream98/p/10620877.html</p>
+<h3 id="range分区">RANGE分区</h3>
+<pre><code class="language-mysql">CREATE TABLE employees (
+id INT NOT NULL,
+fname VARCHAR(30),
+lname VARCHAR(30),
+hired DATE NOT NULL DEFAULT '1970-01-01',
+separated DATE NOT NULL DEFAULT '9999-12-31',
+job_code INT NOT NULL,
+store_id INT NOT NULL
+)
+
+partition BY RANGE (store_id) (
+partition p0 VALUES LESS THAN (6),
+partition p1 VALUES LESS THAN (11),
+partition p2 VALUES LESS THAN (16),
+partition p3 VALUES LESS THAN (21)
+);
+</code></pre>
+<p>如果增加了一个编号为第21的商店，将会发生什么呢？在这种方案下，由于没有规则把store_id大于20的商店包含在内，服务器将不知道把该行保存在何处，将会导致错误。 要避免这种错误，可以将最后一行规则换成：</p>
+<pre><code class="language-mysql">PARTITION p3 VALUES LESS THAN MAXVALUE
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>
+<p>这些区间要连续且不能相互重叠，使用VALUES LESS THAN操作符来进行定义。</p>
+</li>
+<li>
+<p>每个分区都是按顺序进行定义，从最低到最高。</p>
+</li>
+<li>
+<p><strong>这里最值得注意的限制是MySQL 必须能够计算表达式的返回值作为LESS THAN (&lt;)比较的一部分；因此，表达式的值不能为NULL 。</strong></p>
+</li>
+<li>
+<p>可以在VALUES LESS THAN 子句中使用一个表达式。</p>
+</li>
+<li>
+<p>如果要删除某个分区范围内的值，直接删除分区比删除匹配的行更快。</p>
+</li>
+<li>
+<p>这种分区有利于查询条件是分区条件的列，因为可以直接到匹配分区中查询。</p>
+</li>
+</ul>
+<h3 id="list分区">LIST分区</h3>
+<pre><code class="language-mysql">CREATE TABLE employees (
+id INT NOT NULL,
+fname VARCHAR(30),
+lname VARCHAR(30),
+hired DATE NOT NULL DEFAULT '1970-01-01',
+separated DATE NOT NULL DEFAULT '9999-12-31',
+job_code INT,
+store_id INT
+)
+
+PARTITION BY LIST(store_id)
+PARTITION pNorth VALUES IN (3,5,6,9,17),
+PARTITION pEast VALUES IN (1,2,10,11,19,20),
+PARTITION pWest VALUES IN (4,12,13,14,18),
+PARTITION pCentral VALUES IN (7,8,15,16)
+);
+</code></pre>
+<p>要重点注意的是，LIST分区没有类似如“VALUES LESS THAN MAXVALUE”这样的包含其他值在内的定义。将要匹配的任何值都<strong>必须</strong>在值列表中找到。</p>
+<p><code>VALUES IN (value_list)</code>中的<code>value_list</code>可能只支持整数列表（根据数据库具体特性而定）。</p>
+<h3 id="hash分区">HASH分区</h3>
+<pre><code class="language-mysql">CREATE TABLE employees (
+id INT NOT NULL,
+fname VARCHAR(30),
+lname VARCHAR(30),
+hired DATE NOT NULL DEFAULT '1970-01-01',
+separated DATE NOT NULL DEFAULT '9999-12-31',
+job_code INT,
+store_id INT
+)
+PARTITION BY HASH(store_id)
+PARTITIONS 4;
+</code></pre>
+<p>要在CREATE TABLE 语句上添加一个“PARTITION BY HASH (expr)”子句，其中“expr”是一个返回一个整数的表达式。它可以仅仅是字段类型为MySQL整型的一列的名字。此外，你很可能需要在后面再添加一个“PARTITIONS num”子句，其中num是一个非负的整数，它表示表将要被分割成分区的数量。</p>
+<h2 id="自动分区">自动分区</h2>
+<p>参考： <a href="https://www.lpsrmyy.com/tech/36159.html">https://www.lpsrmyy.com/tech/36159.html</a></p>
+<p>mysql无法支持自动分区（需要通过脚本来实现自动分区）。故本小节以gaussdb的自动分区功能为例。</p>
+<blockquote>
+<p>对于<strong>分区列为时间</strong>的分区表，分区自动管理功能可以自动创建新分区和删除过期分区，降低分区表的维护成本，改善查询性能。</p>
+</blockquote>
+<p>使用<code>period</code>和<code>ttl</code>实现分区自动管理。period既表示新分区的时间范围，也表示自动创建新分区和自动删除过期分区的周期；ttl表示分区过期时间。period和ttl的值均为Interval类型，例如’1 hour’、‘1 day’、‘1 week’、‘1 month’、‘1 year’、 &lsquo;1 month 2 days 3 hours’等。</p>
+<h3 id="实现原理">实现原理</h3>
+<blockquote>
+<p>分区管理的实现依托了pg_task自动调度任务，即设置period/ttl时，向scheduler.pg_task表中插入了自增/自减分区管理任务，其中自增分区任务的任务内容为proc_add_partition(relname, period)函数，自减分区任务为proc_drop_partition(relname, ttl)函数，两种任务的调用周期均为period，第一次执行时间为任务插入时间后30秒。</p>
+</blockquote>
+<h3 id="自动创建分区">自动创建分区</h3>
+<p>每隔<code>period</code>就会创建1或多个时间范围为<code>period的</code>新分区，保证其大于<code>nowTime+30*period</code>。</p>
+<p><img src="http://cdn.huangxindi.com/img/7b961145280b58443aa028e9580c1ee6.jpg" alt="自动创建分区"></p>
+<h3 id="自动删除过期分区">自动删除过期分区</h3>
+<p>每隔<code>period</code>就会遍历检测所有分区，并删除过期分区（边界时间早于<code>nowTime-ttl</code>的分区）。如果所有的分区都是过期分区，则保留一个分区，并truncate该表。</p>
+<h3 id="注意事项">注意事项</h3>
+<pre><code>在使用分区管理功能时，需要满足如下约束：
+1）不支持在小型机、加速集群、单机集群上使用。
+2）不支持在8.1.3版本以下的版本中使用。
+3）仅支持行存范围分区表、列存范围分区表、时序表以及冷热表。
+4）分区键唯一并且类型仅支持timestamp、timestamptz、date类型。
+5）不支持存在maxvalue分区。
+6）(nowTime - boundaryTime) / period需要小于分区个数上限，其中nowTime为当前时间，boundaryTime为现有分区中最早的分区边界时间。
+7）period、ttl取值范围为1 hour ~ 100 years。另外，在兼容Teradata或MySQL的数据库中，分区键类型为date时，period不能小于1 day。
+8）表级参数ttl不支持单独存在，必须要提前或同时设置period，并且要大于或等于period。
+9）集群在线扩容期间，自动增加分区会失败，但是由于每次增分区时，都预留了足够的分区，所以不影响使用。
+</code></pre>
+<h3 id="自动分区管理功能相关操作">自动分区管理功能相关操作</h3>
+<h4 id="开启">开启</h4>
+<blockquote>
+<p>分区管理功能是和表级参数period、ttl绑定的，只要成功设置了表级参数period，即开启了自动创建新分区功能；成功设置了表级参数ttl，即开启了自动删除过期分区功能。两者是可以分开设定的。</p>
+</blockquote>
+<ol>
+<li>建表时指定period、ttl</li>
+</ol>
+<p>关键语句：</p>
+<pre><code class="language-postgresql">with (TTL='7 days',PERIOD='1 day') partition by range(time)
+</code></pre>
+<ol start="2">
+<li>使用alter table set的方式设置period、ttl</li>
+</ol>
+<p>关键语句：</p>
+<pre><code class="language-postgresql">-- 同时开启自动创建和自动删除分区功能 
+ALTER TABLE cpu3 SET (PERIOD='1 day',TTL='7 days'); 
+-- 只开启自动创建分区功能 
+ALTER TABLE cpu3 SET (PERIOD='1 day'); 
+-- 只开启自动删除分区功能，如果没有提前开启自动创建分区功能，则开启失败 
+ALTER TABLE cpu3 SET (TTL='7 days');
+</code></pre>
+<h4 id="修改">修改</h4>
+<pre><code class="language-postgresql">ALTER TABLE cpu4 SET (TTL='10 days',PERIOD='2 days');
+</code></pre>
+<h4 id="关闭">关闭</h4>
+<pre><code class="language-postgresql">-- 同时关闭自动创建和自动删除分区功能 
+ALTER TABLE cpu5 RESET (PERIOD,TTL); 
+-- 只关闭自动删除分区功能 
+ALTER TABLE cpu5 RESET (TTL); 
+-- 只关闭自动创建分区功能,如果该表有ttl参数，则关闭失败 
+ALTER TABLE cpu5 RESET (PERIOD);
+</code></pre>
+<h2 id="分区表基本操作">分区表基本操作</h2>
+<p>以mysql为例</p>
+<p>参考：</p>
+<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
+<p><a href="https://news.sangniao.com/p/14930731">https://news.sangniao.com/p/14930731</a></p>
+<ol>
+<li>
+<p>新增分区</p>
+<p><code>ALTER TABLE t1 ADD PARTITION (PARTITION p3 VALUES LESS THAN (2002));</code></p>
+</li>
+<li>
+<p>删除分区</p>
+<p><code>ALTER TABLE t1 DROP PARTITION p0, p1;</code></p>
+</li>
+<li>
+<p>截取分区（删除分区的数据）</p>
+<p><code>ALTER TABLE t1 TRUNCATE PARTITION p1, p3;</code></p>
+</li>
+<li>
+<p>合并分区</p>
+<pre><code class="language-mysql">-- 合并分区  将s0和s1合并为p0
+ALTER TABLE members REORGANIZE PARTITION s0,s1 INTO (
+    PARTITION p0 VALUES LESS THAN (5)
+)；
+</code></pre>
+</li>
+<li>
+<p>拆分分区</p>
+<pre><code class="language-mysql">-- 分解分区  将p0拆分为s0和s1
+ALTER TABLE members REORGANIZE PARTITION p0 INTO (
+    PARTITION s0 VALUES LESS THAN (3),
+    PARTITION s1 VALUES LESS THAN (5)
+)；
+</code></pre>
+</li>
+<li>
+<p>查看所有分区</p>
+<pre><code class="language-mysql">select partition_name part, partition_expression expr, partition_description descr, table_rows from  INFORMATION_SCHEMA.partitions  where TABLE_SCHEMA=&quot;库名&quot; AND TABLE_NAME=&quot;表名&quot;;
+</code></pre>
+</li>
+</ol>
+<p>其他操作不列举了，参考上面的链接</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://blog.csdn.net/wqaiwsj/article/details/124684356">https://blog.csdn.net/wqaiwsj/article/details/124684356</a></p>
+<p><a href="https://m.wang1314.com/doc/webapp/topic/21352856.html">https://m.wang1314.com/doc/webapp/topic/21352856.html</a></p>
+<p><a href="https://www.cnblogs.com/dream98/p/10620877.html">https://www.cnblogs.com/dream98/p/10620877.html</a></p>
+<p><a href="https://www.cnblogs.com/shoshana-kong/p/14010672.html">https://www.cnblogs.com/shoshana-kong/p/14010672.html</a></p>
+<p><a href="https://news.sangniao.com/p/14930731">https://news.sangniao.com/p/14930731</a></p>
+<p><a href="https://www.lpsrmyy.com/tech/36159.html">https://www.lpsrmyy.com/tech/36159.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/benchmarksql%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">BenchmarkSQL性能测试</a></span>
+  <span class="nav-next"><a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">数据库日志基础</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级数据库系统分析师-09 大题讲解 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级数据库系统分析师-09 大题讲解 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="解题思路：
+[&amp;hellip;] 常考：
+[&amp;hellip;] 补充ER图，思路：
+[&amp;hellip;] 描述完整性约束：就是指出主键、外键
+[&amp;hellip;] 常考：
+[&amp;hellip;] 做题方法：
+[&amp;hellip;] 主要考察建表，select语法等
+[&amp;hellip;] 注意；对同一事务在读写前必须对数据加锁，释放一个锁之后，就不能申请和获取任何锁
+采取什么措施来解决死锁问题： &amp;hellip;">
+      <meta property="og:description" content="解题思路：
+[&amp;hellip;] 常考：
+[&amp;hellip;] 补充ER图，思路：
+[&amp;hellip;] 描述完整性约束：就是指出主键、外键
+[&amp;hellip;] 常考：
+[&amp;hellip;] 做题方法：
+[&amp;hellip;] 主要考察建表，select语法等
+[&amp;hellip;] 注意；对同一事务在读写前必须对数据加锁，释放一个锁之后，就不能申请和获取任何锁
+采取什么措施来解决死锁问题： &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://cdn.huangxindi.com/img/202305172123734.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级数据库系统分析师-09 大题讲解</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-17
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="常考大题点">常考大题点</h1>
+<ul>
+<li>数据库恢复（检查点）</li>
+<li>E-R图</li>
+<li>关系规范化</li>
+<li>SQL</li>
+<li>两段锁协议</li>
+</ul>
+<h1 id="数据库恢复">数据库恢复</h1>
+<p>解题思路：</p>
+<ul>
+<li>找到checkpoint</li>
+<li>观察检查点之前有start标志的事务</li>
+<li>将这些事务分成三类
+<ul>
+<li>在检查点之前提交（commit或rollback）的事务：已经正常结束，并不是活动事务，不用做任何操作</li>
+<li>检查点之后提交的事务：redo</li>
+<li>检查点之前和之后都没有提交的事务：undo</li>
+</ul>
+</li>
+</ul>
+<h1 id="e-r图">E-R图</h1>
+<p>常考：</p>
+<ul>
+<li>两方联系，句式AB，BA</li>
+<li>三方联系，句式AB，BC</li>
+<li>弱实体：一个实体必须以另一个实体为前提</li>
+<li>聚合：将联系作为实体，与其他的实体产生联系。如A和B先产生联系，联系本身再和C产生联系，需要用方框把A，B和联系框起来。（与三方联系有区别，三方联系需要三者同时参与）</li>
+<li>子实体</li>
+</ul>
+<p>补充ER图，思路：</p>
+<ul>
+<li>重点看需求描述</li>
+<li>没描述清楚的，可以参考下面的逻辑结构设计</li>
+</ul>
+<p>描述完整性约束：就是指出主键、外键</p>
+<h1 id="关系规范化">关系规范化</h1>
+<p>常考：</p>
+<ul>
+<li>找候选码：任何真子集不能单独决定全属性</li>
+<li>是否满足某一范式，最高达到第几范式
+<ul>
+<li>非主对码的部分函数依赖</li>
+<li>非主对码的传递函数依赖</li>
+<li>主对码的部分和传递函数依赖</li>
+<li>有多值依赖的，比如X-&gt;-&gt;Y，X和Y必须在一个关系模式中，且只有它俩在。不然不满足。不满足的原因可以这么写：由于存在嵌入式的多值依赖</li>
+</ul>
+</li>
+<li>分解关系模式
+<img src="https://cdn.huangxindi.com/img/202305172123734.png" alt="image.png"></li>
+</ul>
+<p>做题方法：</p>
+<ul>
+<li>找函数依赖集</li>
+<li>找候选码，确定非和主属性</li>
+<li>判断部分和传递依赖</li>
+<li>确定第n范式</li>
+<li>分解关系模式（根据函数依赖集来分解，一个依赖的左右都要放在同一个子关系模式）</li>
+</ul>
+<h1 id="sql">SQL</h1>
+<p>主要考察建表，select语法等</p>
+<h1 id="两段锁协议">两段锁协议</h1>
+<p>注意；对<strong>同一事务</strong>在读写前必须对数据加锁，释放一个锁之后，就不能申请和获取任何锁</p>
+<p><img src="https://cdn.huangxindi.com/img/202305180832354.png" alt="image.png"></p>
+<p>采取什么措施来解决死锁问题：</p>
+<ul>
+<li>死锁预防</li>
+<li>死锁避免</li>
+<li>死锁检测</li>
+<li>死锁解除</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305182207652.png" alt="image.png"></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-04-%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93nosql/">软考-中级数据库系统分析师-04 非关系型数据库NoSQL</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-08-%E4%BA%91%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">软考-中级数据库系统分析师-08 云计算和大数据处理</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

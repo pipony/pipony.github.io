@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Mysql导入导出 - 2MUCH</title>
+    <meta property="og:title" content="Mysql导入导出 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="(1) 导出完整数据：
+mysqldump -u用户名 -p 数据库名 &amp;gt; 数据库名.sql
+例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &amp;gt; abc.sql
+(2) 只导出表结构（使用 -d 选项）：
+mysqldump -u用户名 -p -d 数据库名 &amp;gt; 数据库名.sql
+[&amp;hellip;] &amp;hellip;">
+      <meta property="og:description" content="(1) 导出完整数据：
+mysqldump -u用户名 -p 数据库名 &amp;gt; 数据库名.sql
+例如：# /usr/local/mysql/bin/mysqldump -uroot -p abc &amp;gt; abc.sql
+(2) 只导出表结构（使用 -d 选项）：
+mysqldump -u用户名 -p -d 数据库名 &amp;gt; 数据库名.sql
+[&amp;hellip;] &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Mysql导入导出</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-11-27
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="mysql导入导出">Mysql导入导出</h1>
+<h2 id="导出">导出</h2>
+<ol>
+<li>mysqldump</li>
+</ol>
+<p>(1) 导出完整数据：</p>
+<p><code>mysqldump -u用户名 -p 数据库名 &gt; 数据库名.sql</code></p>
+<p>例如：<code># /usr/local/mysql/bin/mysqldump -uroot -p abc &gt; abc.sql</code></p>
+<p>(2) 只导出表结构（使用<code> -d</code> 选项）：</p>
+<p><code>mysqldump -u用户名 -p -d 数据库名 &gt; 数据库名.sql</code></p>
+<ol start="2">
+<li>INTO OUTFILE</li>
+</ol>
+<p><a href="https://www.modb.pro/db/98539">https://www.modb.pro/db/98539</a></p>
+<pre><code class="language-mysql">SELECT * FROM data_tbl --查找数据源，如果是全表所有字段也可以用 TABLE &lt;talbe&gt;
+INTO OUTFILE &quot;/tmp/data.txt&quot; --数据输出文件
+FIELDS TERMINATED BY ','  --字段分隔符
+OPTIONALLY ENCLOSED BY '&quot;' --字段引用符
+LINES TERMINATED BY '\n' --整条记录分割符
+;
+</code></pre>
+<h2 id="导入">导入</h2>
+<ol>
+<li>&lt;.sql</li>
+</ol>
+<p><code>mysql -u用户名 -p 数据库名 &lt; 数据库名.sql</code></p>
+<p>例如：</p>
+<p><code># mysql -uroot -p123456 &lt; abc.sql</code></p>
+<ol start="2">
+<li>source</li>
+</ol>
+<p>(1) 连接数据库：<code>mysql -u {用户名} -p</code> 回车 再输入<strong>密码</strong> <code>mysql -u root -p</code> 回车</p>
+<p>(2) 指定目标数据库名：<code>use {库名}</code> <code>use eva</code> 回车</p>
+<p>(3) 导入文件 <code>source {路径}</code> <code>source C:\Users\chengh\Desktop\user.sql</code> 需要注意的是 你得<strong>有这个文件</strong>，如果没有则会报<em>异常</em></p>
+<ol start="3">
+<li>load data</li>
+</ol>
+<p>使用场景和语法参见：https://blog.csdn.net/u012815136/article/details/88953289</p>
+<pre><code class="language-mysql">load data local infile 'D:/my_user_info.txt' into table user_info
+CHARACTER SET utf8 -- 可选，指定导入文件的编码，避免中文乱码问题。假如这里文件 my_user_info.txt 的编码为 gbk，那么这里编码就应该设为 gbk 了
+FIELDS TERMINATED BY '||' -- 字段分隔符，每个字段(列)以什么字符分隔，默认是 \t
+	OPTIONALLY ENCLOSED BY '' -- 文本限定符，每个字段被什么字符包围，默认是空字符
+	ESCAPED BY '\\' -- 转义符，默认是 \
+LINES TERMINATED BY '\n' -- 记录分隔符，如字段本身也含\n，那么应先去除，否则load data 会误将其视作另一行记录进行导入
+(id, name, age, address, create_date) -- 每一行文本按顺序对应的表字段，建议不要省略
+</code></pre>
+<p>注意事项：</p>
+<p><code>LOAD DATA INFILE</code>和 <code>SELECT INTO OUTFILE</code>是相互依赖的，即：如果你导出方式使用了 <code>SELECT INTO OUTFILE</code>，那么导入的时候就需要使用 <code>LOAD DATA INFILE</code>进行导入。<strong>需要格外注意，该方式会锁全表</strong>。</p>
+<p><strong>LOAD DATA格式</strong></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<pre><code class="language-sql">LOAD DATA
+    [LOW_PRIORITY | CONCURRENT] [LOCAL]
+    INFILE 'file_name'
+    [REPLACE | IGNORE]
+    INTO TABLE tbl_name
+    [PARTITION (partition_name [, partition_name] ...)]
+    [CHARACTER SET charset_name]
+    [{FIELDS | COLUMNS}
+        [TERMINATED BY 'string']
+        [[OPTIONALLY] ENCLOSED BY 'char']
+        [ESCAPED BY 'char']
+    ]
+    [LINES
+        [STARTING BY 'string']
+        [TERMINATED BY 'string']
+    ]
+    [IGNORE number {LINES | ROWS}]
+    [(col_name_or_user_var
+        [, col_name_or_user_var] ...)]
+    [SET col_name={expr | DEFAULT}
+        [, col_name={expr | DEFAULT}] ...]
+</code></pre>
+<h2 id="shell脚本实现导入导出">shell脚本实现导入导出</h2>
+<ol>
+<li><code>select into outfile</code> &amp; <code>load data infile</code></li>
+</ol>
+<p><a href="https://blog.csdn.net/u013946356/article/details/84960273">https://blog.csdn.net/u013946356/article/details/84960273</a></p>
+<h2 id="如何使用导入定长文件-fixed-width-records">如何使用导入定长文件（fixed-width records ）</h2>
+<p>定长文件：不同于用分隔符（如逗号或空格）来分割每行记录的各字段，定长数据文件是根据约定好的各字段长度来组织数据文件的。如：</p>
+<pre><code class="language-sql"> slideNum, startTime, endTime
+   1     75175.18     95128.46
+   1    790890.89    795829.16
+   1    875975.98    880914.25
+   8   2137704.37   2162195.53
+   8   2167267.27   2375275.28
+  10   2375408.74   2763997.33
+  14   2764264.26   2804437.77
+  15   2804504.50   2881981.98
+  16   2882048.72   2887921.25
+  16   2993093.09   2998031.36
+  19   3004104.10   3008041.37
+</code></pre>
+<p><code>LOAD DATA</code>虽然很好地支持了分隔符格式的数据文件导入，但是这类型的数据文件，需要进行特殊的处理。</p>
+<p>可参考：https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</p>
+<p>针对上面的例子，解决方案可以是（with user variables (<code>@row</code>)）：</p>
+<pre><code class="language-sql">LOAD DATA LOCAL INFILE 
+'/some/Path/segmentation.txt' 
+INTO TABLE clip
+(@row)
+SET slideNum = TRIM(SUBSTR(@row,1,4)),
+    startTime = TRIM(SUBSTR(@row,5,13)),
+    endTime = TRIM(SUBSTR(@row,18,13))
+;
+</code></pre>
+<p>使用<code>LOAD DATA</code>来处理定长文件的注意事项：</p>
+<ul>
+<li>Fixed-size format does not work if you are using a <strong>multibyte character set</strong>.</li>
+<li>With fixed-row format (which is used when FIELDS TERMINATED BY and FIELDS ENCLOSED BY are both empty), NULL is written as an empty string. <strong>This causes both NULL values and empty strings in the table to be indistinguishable</strong> when written to the file because both are written as empty strings. If you need to be able to tell the two apart when reading the file back in, you should not use fixed-row format.</li>
+</ul>
+<p>此类场景的解决方案，参考链接：</p>
+<p><a href="https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql">https://stackoverflow.com/questions/11461790/loading-fixed-width-space-delimited-txt-file-into-mysql</a></p>
+<p><a href="https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html">https://docs.singlestore.com/managed-service/en/reference/sql-reference/data-manipulation-language-dml/load-data.html</a></p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<h3 id="导入实践">导入实践</h3>
+<h4 id="建表">建表</h4>
+<pre><code class="language-sql">create table t1 (
+	id int,
+	name VARCHAR(25)
+)
+</code></pre>
+<h4 id="准备infile文件数据">准备infile文件数据</h4>
+<pre><code class="language-she">[root@iZbp15qc4wmx335c268l5mZ cindy]# cat data.txt
+3 Alice  
+4 bob    
+
+</code></pre>
+<h4 id="尝试导入">尝试导入</h4>
+<p>脚本内容：</p>
+<pre><code class="language-sql">LOAD DATA INFILE  '/home/cindy/data.txt' 
+INTO TABLE t1
+(@row)
+SET id = TRIM(SUBSTR(@row,1,2)),
+name = TRIM(SUBSTR(@row,3,7))
+;
+</code></pre>
+<pre><code class="language-sql">mysql&gt; LOAD DATA INFILE  '/home/cindy/data.txt' 
+    -&gt; INTO TABLE t1
+    -&gt; (@row)
+    -&gt; SET id = TRIM(SUBSTR(@row,1,2)),
+    -&gt;     name = TRIM(SUBSTR(@row,3,7))
+    -&gt; ;
+ERROR 1045 (28000): Access denied for user 'cindy'@'%' (using password: YES)
+</code></pre>
+<h4 id="授予file权限">授予FILE权限</h4>
+<p>搜索了下，使用 load data语句导入数据需要有处理文件的权限。</p>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/qq_37189082/article/details/121249966">https://blog.csdn.net/qq_37189082/article/details/121249966</a></p>
+<p><a href="https://www.cnblogs.com/darange/p/10508714.html">https://www.cnblogs.com/darange/p/10508714.html</a></p>
+<pre><code class="language-sql">mysql&gt; grant file on *.* to 'cindy'@'%';
+ERROR 1045 (28000): Access denied for user 'cindy'@'%' (using password: YES)
+-- 用cindy用户执行报错，原来需要用root用户授权
+mysql&gt; grant file on *.* to 'cindy'@'%';
+Query OK, 0 rows affected (0.01 sec)
+</code></pre>
+<h4 id="再次尝试导入">再次尝试导入</h4>
+<pre><code class="language-sql">mysql&gt; LOAD DATA INFILE  '/home/cindy/data.txt' 
+    -&gt; INTO TABLE t1
+    -&gt; (@row)
+    -&gt; SET id = TRIM(SUBSTR(@row,1,2)),
+    -&gt; name = TRIM(SUBSTR(@row,3,7))
+    -&gt; ;
+ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+</code></pre>
+<h4 id="secure-file-priv参数修改">secure_file_priv参数修改</h4>
+<p>上述报错的解决方案参考：https://blog.csdn.net/lz6363/article/details/115805495</p>
+<pre><code class="language-sql">mysql&gt; show global variables like '%secure_file_priv%';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| secure_file_priv | NULL  |
++------------------+-------+
+1 row in set (0.12 sec)
+-- 查看官方文档，secure_file_priv参数用于限制LOAD DATA, SELECT …OUTFILE, LOAD_FILE()传到哪个指定目录。
+-- secure_file_priv 为 NULL 时，表示限制mysqld不允许导入或导出。
+-- secure_file_priv 为 /tmp 时，表示限制mysqld只能在/tmp目录中执行导入导出，其他目录不能执行。
+-- secure_file_priv 没有值时，表示不限制mysqld在任意目录的导入导出。
+-- 解决方案：1、将允许的文档路径secure-file-priv改为所需的路径；2、干脆设置secure_file_priv=''，表示任意目录。我采取后者.
+</code></pre>
+<pre><code class="language-shell">vim /etc/my.cnf
+# 加上以下这行：
+secure_file_priv='' # 允许导入导出任何路径的文件
+# 重启数据库
+/etc/init.d/mysqld restart
+</code></pre>
+<pre><code class="language-sql">-- 再次查询，修改成功
+mysql&gt; show global variables like '%secure_file_priv%';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| secure_file_priv |       |
++------------------+-------+
+1 row in set (0.00 sec)
+</code></pre>
+<h4 id="再次尝试导入-1">再次尝试导入</h4>
+<pre><code class="language-sql">mysql&gt; LOAD DATA INFILE  '/home/cindy/data.txt' 
+    -&gt; INTO TABLE t1
+    -&gt; (@row)
+    -&gt; SET id = TRIM(SUBSTR(@row,1,2)),
+    -&gt; name = TRIM(SUBSTR(@row,3,7))
+    -&gt; ;
+ERROR 13 (HY000): Can't get stat of '/home/cindy/data.txt' (Errcode: 13 - Permission denied)
+</code></pre>
+<p>解决方法参考： <a href="https://blog.csdn.net/weixin_39722921/article/details/113156666">https://blog.csdn.net/weixin_39722921/article/details/113156666</a></p>
+<blockquote>
+<p>将LOAD DATA INFILE</p>
+<p>换成</p>
+<p>LOAD DATA LOCAL INFILE</p>
+<p>原因分析：</p>
+<p>源自Mysql中文手册：</p>
+<p>出于安全原因，当读取位于服务器中的文本文件时， 文件必须位于数据库目录中，或者是全体可读的。另外，要对服务器文件使用LOAD DATA INFILE，您必须拥有FILE权限。</p>
+<p>如果指定了LOCAL，则文件会被客户主机上的客户端读取，并被发送到服务器。文件会被给予一个完整的路径名称，以指定确切的位置。</p>
+</blockquote>
+<p>因此把脚本内容改为：(即，加上<code>LOCAL</code>)</p>
+<pre><code class="language-sql">LOAD DATA LOCAL INFILE  '/home/cindy/data.txt' 
+INTO TABLE t1
+(@row)
+SET id = TRIM(SUBSTR(@row,1,2)),
+name = TRIM(SUBSTR(@row,3,7))
+;
+</code></pre>
+<h4 id="再次尝试导入-2">再次尝试导入</h4>
+<pre><code class="language-sql">mysql&gt; LOAD DATA LOCAL INFILE  '/home/cindy/data.txt' 
+    -&gt; INTO TABLE t1
+    -&gt; (@row)
+    -&gt; SET id = TRIM(SUBSTR(@row,1,2)),
+    -&gt; name = TRIM(SUBSTR(@row,3,7))
+    -&gt; ;
+Query OK, 3 rows affected, 1 warning (0.02 sec)
+Records: 3  Deleted: 0  Skipped: 0  Warnings: 1
+</code></pre>
+<p>看起来有戏，看看现在的表结果：</p>
+<pre><code class="language-sql">mysql&gt; select * from t1;
++------+-------+
+| id   | name  |
++------+-------+
+|    1 | cindy |
+|    2 | kexin |
+|    3 | Alice |
+|    4 | bob   |
+|    0 |       |
++------+-------+
+5 rows in set (0.00 sec)
+</code></pre>
+<p><strong>成功了！！</strong></p>
+<p>id为3,4,0的记录是刚insert的，其中0的那一条应该是从空白行得来的。。（这样不合适的数据，当然也是有waring的⬇️）</p>
+<pre><code class="language-sql">mysql&gt; show warnings;
++---------+------+------------------------------------------------------+
+| Level   | Code | Message                                              |
++---------+------+------------------------------------------------------+
+| Warning | 1366 | Incorrect integer value: '' for column 'id' at row 3 |
++---------+------+------------------------------------------------------+
+1 row in set (0.07 sec)
+</code></pre>
+<h4 id="将insert脚本作为sql脚本执行">将insert脚本作为sql脚本执行</h4>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ cindy]# cat insert.sql
+use test_db;
+LOAD DATA LOCAL INFILE  '/home/cindy/data.txt' 
+INTO TABLE t1
+(@row)
+SET id = TRIM(SUBSTR(@row,1,2)),
+name = TRIM(SUBSTR(@row,3,7))
+;
+</code></pre>
+<pre><code class="language-sql">mysql&gt; source /home/cindy/insert.sql;
+Database changed
+Query OK, 3 rows affected, 1 warning (0.09 sec)
+Records: 3  Deleted: 0  Skipped: 0  Warnings: 1
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html">https://www.runoob.com/w3cnote/linux-mysql-import-export-data.html</a></p>
+<p><a href="https://juejin.cn/post/6992489420188286983">https://juejin.cn/post/6992489420188286983</a></p>
+<p><a href="https://juejin.cn/post/7039542872051302436">https://juejin.cn/post/7039542872051302436</a></p>
+<p><a href="https://www.modb.pro/db/98539">https://www.modb.pro/db/98539</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">Linux-磁盘管理</a></span>
+  <span class="nav-next"><a href="/p/oracle-mysql%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE%E4%BA%8B%E9%A1%B9/">oracle-&gt;mysql数据迁移数据事项</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

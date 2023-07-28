@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>oracle-&gt;mysql数据迁移数据事项 - 2MUCH</title>
+    <meta property="og:title" content="oracle-&gt;mysql数据迁移数据事项 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
+[&amp;hellip;] 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+[&amp;hellip;] 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+迁移数据时，请遵循以下准则，其中大部分准则同时 &amp;hellip;">
+      <meta property="og:description" content="从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。
+[&amp;hellip;] 图片来源： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+[&amp;hellip;] 参考： https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a
+迁移数据时，请遵循以下准则，其中大部分准则同时 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://static001.geekbang.org/infoq/de/de7533f37e58ae8758f0c7371a2a3c94.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>oracle-&gt;mysql数据迁移数据事项</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-12-04
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="oracle-mysql数据迁移数据事项">oracle-&gt;mysql数据迁移数据事项</h1>
+<h2 id="概述">概述</h2>
+<p>从oracle数据迁移到mysql前，需要特别关注两者的区别，才能做好相应的转换及评估。</p>
+<h2 id="oracle-mysql主要差异">ORACLE&amp;MYSQL主要差异</h2>
+<p>图片来源： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><img src="https://static001.geekbang.org/infoq/de/de7533f37e58ae8758f0c7371a2a3c94.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/31/3182494a12a4ffc10c333d3df882adb3.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/e7/e74b6405244a74d3cad677574dc24376.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/73/7370fba14f9eb3aab0cc0a3a81e2b235.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/b8/b826db1d87750d72b02e1bc26c1c0139.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/fd/fd56cf61c0d95e44110c08c4e4b0820c.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/77/77ba5aab1805f09626e84398f3b95a12.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/cf/cf18e3da28c33054dfc8b2b56b8f6cf8.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/54/54994c5023f3b166416499d01b41b8ca.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/84/84c143bce3271abff28c9c36e4f697ef.png" alt="img"></p>
+<p><img src="https://static001.geekbang.org/infoq/99/99ed2a74b59eb477924fca534cb2c323.png" alt="img"></p>
+<p><img src="https://static001.infoq.cn/resource/image/22/cd/22ca871d8be85482b510a6ed7d62b9cd.jpg" alt="img"></p>
+<h3 id="mysql-不支持的功能项">MySQL 不支持的功能项</h3>
+<ul>
+<li>MySQL 没有并行的概念，不支持并行；</li>
+<li>MySQL 优化器较弱，复杂 SQL 建议拆分简单 SQL；</li>
+<li>MySQL 对于子查询优化不是很好；</li>
+<li>MySQL 不支持物化视图、存储过程改造、同义词改造、dblink 需要改造。</li>
+</ul>
+<h2 id="迁移原则">迁移原则</h2>
+<p>参考： <a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p>迁移数据时，请遵循以下准则，其中大部分准则同时适用于一次性加载方法和实时复制方法：</p>
+<ul>
+<li><strong>字符集</strong>：确保源 Oracle 数据库与目标 MySQL 数据库之间的字符集兼容；</li>
+<li>外键：要提升提取速度，请暂时停用目标 MySQL 数据库上的外键限制条件。加载完成后再启用外键限制条件；</li>
+<li>索引：与外键类似，目标 MySQL 数据库上的索引可能会显著降低初始加载的速度。确保在初始加载完成之前，在目标数据库上未创建索引；</li>
+<li>Oracle 序列：<strong>MySQL 支持 AUTO_INCREMENT 而不是序列。确保在初始加载期间停用 AUTO_INCREMENT 特性，以避免覆盖 Oracle 的序列生成的值</strong>。在初始加载完成后，将 AUTO_INCREMENT 特性添加到主键列；</li>
+<li>网络连接：如果您使用的是 GoldenGate TDM，请确保来源环境和目标环境都可以与 GoldenGate TDM 产品建立网络连接，以允许在 Oracle 端捕获数据并在 MySQL 端加载数据。</li>
+</ul>
+<h2 id="迁移难点">迁移难点</h2>
+<p>参考：</p>
+<p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<h3 id="字符集">字符集</h3>
+<blockquote>
+<p>对于字符集，需要考虑的问题为迁移过程字段长度匹配情况，迁移后数据是否乱码，以及迁移后字符集转换后空间的问题。</p>
+</blockquote>
+<h3 id="字段长度匹配-空间估算">字段长度匹配，空间估算</h3>
+<h3 id="null和空串处理">NULL和空串处理</h3>
+<p><img src="https://static001.infoq.cn/resource/image/77/69/774126387f30b97e45d5fe24cc7ff269.jpg" alt="img"></p>
+<p>使用文件导入到 MySQL 时字段中的空值 null 需要使用\N 表示，如果用空字符串表示，那么根据不同的数据类型，MySQL 处理也各异。</p>
+<ul>
+<li>数据库字段如果是字符串类型，插入空时，load data 默认导入 空字符串</li>
+<li>数据库字段如果是数字类型，插入空时，load data 默认导入 0.00000000</li>
+<li>数据库字段如果是日期和时间类型，插入空时，load data 默认导入 0000-00-00 00:00:00</li>
+</ul>
+<p>Oracle 导出到文本文件，null 会变为空字符串，插入到 MySQL 后会被认为是空字符串插入，破坏了数据一致性，以下提供了三种方式进行规避：</p>
+<p>1、可以在 Oracle 迁移之前将所有业务表的 null 值变更为无意义的值，等到迁移到 MySQL 后统一数据修复调整回来，例如：</p>
+<pre><code class="language-sql">UPDATE SUPPLIERS_TBL SET SUPPLIER_ID=NVL(null,‘N/A’) where SUPPLIER_ID is null;
+</code></pre>
+<p>2、使用 spool 导出的时候对 null 值进行转换，需要针对表和列进行修改</p>
+<pre><code class="language-sql">SelectNVL(TO_CHAR(id),'N/A')||','||NVL(name,'N/A')||','||NVL(SEX,'N/A')||','||NVL(ADDRESS,'N/A')||','||NVL(TO_CHAR(BIRTHDAY),'N/A') from user1;
+</code></pre>
+<h3 id="日期格式处理">日期格式处理</h3>
+<h3 id="lob-字段迁移">LOB 字段迁移</h3>
+<h3 id="大小写敏感差异">大小写敏感差异</h3>
+<h3 id="数据类型转换">数据类型转换</h3>
+<p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a">https://www.infoq.cn/article/rc7urvfsmv94jcaw3z2a</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/94254106">https://zhuanlan.zhihu.com/p/94254106</a></p>
+<p><a href="https://blog.csdn.net/weixin_39713763/article/details/114906285">https://blog.csdn.net/weixin_39713763/article/details/114906285</a></p>
+<p><a href="https://juejin.cn/post/6943857884006449183">https://juejin.cn/post/6943857884006449183</a></p>
+<p><a href="https://developer.aliyun.com/article/184151">https://developer.aliyun.com/article/184151</a></p>
+<p><a href="https://blog.csdn.net/xiazaixm/article/details/78081611">https://blog.csdn.net/xiazaixm/article/details/78081611</a></p>
+<p><a href="https://www.cnblogs.com/priestess-zhao/p/14308959.html">https://www.cnblogs.com/priestess-zhao/p/14308959.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">Mysql导入导出</a></span>
+  <span class="nav-next"><a href="/p/mysql%E4%BF%AE%E6%94%B9root%E5%AF%86%E7%A0%81/">Mysql修改root密码</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

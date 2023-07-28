@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Redis-Redis基础 - 2MUCH</title>
+    <meta property="og:title" content="Redis-Redis基础 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="应用场景：
+[&amp;hellip;] 配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+[&amp;hellip;] 多样的数据结构存储持久化数据
+[&amp;hellip;] 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官 &amp;hellip;">
+      <meta property="og:description" content="应用场景：
+[&amp;hellip;] 配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享
+[&amp;hellip;] 多样的数据结构存储持久化数据
+[&amp;hellip;] 最好在linux环境上用，所以我就直接安装在云服务器上
+前置条件：服务器要带gcc编译器，可输入gcc --version来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略
+下载redis包：官 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220704204659221.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Redis-Redis基础</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-04
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="redis-redis基础">Redis-Redis基础</h1>
+<h2 id="redis概述">Redis概述</h2>
+<ul>
+<li>开源</li>
+<li>key-value</li>
+<li>value支持多种类型</li>
+<li>操作原子性</li>
+<li>支持不同方式的排序</li>
+<li>缓存在内存</li>
+<li>周期性地把更新的数据写入磁盘或者把修改操作写入追加的记录文件</li>
+<li>master-slave(主从)同步</li>
+</ul>
+<p>应用场景：</p>
+<ul>
+<li>
+<p>配合关系型数据库作高速缓存，降低数据库IO；分布式架构，做session共享</p>
+</li>
+<li>
+<p>多样的数据结构存储持久化数据</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220704204659221.png" alt="image-20220704204659221"></p>
+</li>
+</ul>
+<h2 id="redis安装">Redis安装</h2>
+<p>最好在linux环境上用，所以我就直接安装在云服务器上</p>
+<p><strong>前置条件：服务器要带gcc编译器</strong>，可输入<code>gcc --version</code>来查看是否已有；若没有，则安装，因为我的云服务器自带了，所以此步省略</p>
+<p>下载redis包：官网redis.io去下载（因为视频里讲的是Redis6，所以我也安装这个版本，直接用视频给出的安装包）</p>
+<p>步骤：</p>
+<ol>
+<li>
+<p>将redis安装包ftp到服务器的/opt</p>
+</li>
+<li>
+<pre><code class="language-shell">tar -zxvf redis-6.2.1.tar.gz
+cd redis-6.2.1
+make # 编译
+</code></pre>
+<p><img src="http://cdn.huangxindi.com/img/image-20220704213052663.png" alt="image-20220704213052663"></p>
+<p>如图表示编译好了</p>
+</li>
+<li>
+<p>安装 <code>make install</code></p>
+</li>
+</ol>
+<p><img src="http://cdn.huangxindi.com/img/image-20220704213226577.png" alt="image-20220704213226577"></p>
+<ol start="4">
+<li>
+<p>查看安装后的文件</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ bin]# ls -lrt /usr/local/bin
+-rwxr-xr-x 1 root root 9450208 Jul  4 21:31 redis-server
+-rwxr-xr-x 1 root root 4833352 Jul  4 21:31 redis-benchmark
+-rwxr-xr-x 1 root root 5003368 Jul  4 21:31 redis-cli
+lrwxrwxrwx 1 root root      12 Jul  4 21:31 redis-check-rdb -&gt; redis-server
+lrwxrwxrwx 1 root root      12 Jul  4 21:31 redis-check-aof -&gt; redis-server
+lrwxrwxrwx 1 root root      12 Jul  4 21:31 redis-sentinel -&gt; redis-server
+</code></pre>
+<p>redis-benchmark: 性能测试工具，可以在自己本子运行，看看自己本子性能如何</p>
+<p>redis-check-aof：修复有问题的AOF文件，rdb和aof后面讲</p>
+<p>redis-check-dump：修复有问题的dump.rdb文件</p>
+<p>redis-sentinel：Redis集群使用</p>
+<p>redis-server：Redis服务器启动命令</p>
+<p>redis-cli：客户端，操作入口</p>
+</li>
+</ol>
+<h2 id="redis启动">Redis启动</h2>
+<h3 id="前台启动-不推荐">前台启动（不推荐）</h3>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ bin]# redis-server
+18353:C 04 Jul 2022 21:42:49.291 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+18353:C 04 Jul 2022 21:42:49.291 # Redis version=6.2.1, bits=64, commit=00000000, modified=0, pid=18353, just started
+18353:C 04 Jul 2022 21:42:49.291 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+18353:M 04 Jul 2022 21:42:49.292 * monotonic clock: POSIX clock_gettime
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 6.2.1 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 18353
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+18353:M 04 Jul 2022 21:42:49.293 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+18353:M 04 Jul 2022 21:42:49.293 # Server initialized
+18353:M 04 Jul 2022 21:42:49.293 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+18353:M 04 Jul 2022 21:42:49.293 * Ready to accept connections
+</code></pre>
+<p>但是关闭这个窗口后，redis就退出了，无法在后台运行，所以不推荐</p>
+<h3 id="后台启动">后台启动</h3>
+<p>备份redis.conf文件</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ redis-6.2.1]# pwd
+/opt/redis-6.2.1
+[root@iZbp15qc4wmx335c268l5mZ redis-6.2.1]# cp redis.conf /etc/redis.conf
+</code></pre>
+<p>编辑/etc/redis.conf文件，把<code>daemonize no</code>改为<code>daemonize yes</code>，<em>daemonize</em>是用来指定redis是否要用守护线程的方式启动</p>
+<p>启动redis：</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ bin]# redis-server /etc/redis.conf
+[root@iZbp15qc4wmx335c268l5mZ bin]# ps -ef | grep redis
+root     18353     1  0 21:42 ?        00:00:01 redis-server *:6379
+root     18952 18494  0 21:52 pts/2    00:00:00 grep --color=auto redis
+</code></pre>
+<p>用客户端访问：</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ bin]# redis-cli
+127.0.0.1:6379&gt; ping
+PONG
+</code></pre>
+<p>关闭redis：</p>
+<pre><code class="language-shell">127.0.0.1:6379&gt; shutdown
+not connected&gt; 
+quit
+或者
+[root@iZbp15qc4wmx335c268l5mZ bin]# redis-cli shutdown
+[root@iZbp15qc4wmx335c268l5mZ bin]# ps -ef | grep redis
+root     19462 18494  0 21:59 pts/2    00:00:00 grep --color=auto redis
+</code></pre>
+<h2 id="redis基础介绍">Redis基础介绍</h2>
+<h3 id="端口号">端口号</h3>
+<p>端口号 6379</p>
+<p>来自女星Alessia  <strong>Merz</strong> -&gt; 对应手机9宫格的四位数</p>
+<h3 id="对应数据库">对应数据库</h3>
+<p>默认16个数据库（0-15），默认是0号库</p>
+<p>切换数据库：</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ redis-cli
+127.0.0.1:6379&gt; select 8
+OK
+127.0.0.1:6379[8]&gt; select 15
+OK
+127.0.0.1:6379[15]&gt; select 0
+OK
+127.0.0.1:6379&gt; 
+</code></pre>
+<p>统一密码管理，所有库同样密码</p>
+<h3 id="单线程-多路io复用技术">单线程+多路IO复用技术</h3>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a></span>
+  <span class="nav-next"><a href="/p/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">Redis-配置文件</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

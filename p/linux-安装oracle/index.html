@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-安装Oracle - 2MUCH</title>
+    <meta property="og:title" content="Linux-安装Oracle - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
+[&amp;hellip;] 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
+[&amp;hellip;] 正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会 &amp;hellip;">
+      <meta property="og:description" content="安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧
+[&amp;hellip;] 背景：我的阿里云linux服务器（CentOS 7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。
+[&amp;hellip;] 正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-安装Oracle</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-08-02
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="linux-安装oracle数据库">Linux-安装Oracle数据库</h1>
+<p><strong>安装【失败】，可能因为我的服务器空间不足。。。罢了，先放着吧</strong></p>
+<blockquote>
+<p>背景：我的阿里云linux服务器（CentOS  7.8 64位）之前在宝塔已懒人安装了mysql，现需要在服务器上学习Oracle，所以先记录安装过程（静默安装）。</p>
+</blockquote>
+<p>正式安装之前，可以先检测下是否已有安装Oracle程序。若已有安装oracle，应能看到oracle进程，且一般都会有oracle用户。我在本机上验证如下，是没有安装过的，</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ ps -ef | grep oracle
+cindy    26709 26624  0 20:22 pts/0    00:00:00 grep --color=auto oracle
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ id oracle
+id: oracle: no such user
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ rpm -qa | grep oracle # 查看以rpm包安装的软件列表
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ yum list installed | grep oracle  # 查看以yum安装的软件列表
+</code></pre>
+<h2 id="步骤概览">步骤概览</h2>
+<p>参考 <a href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html">http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a></p>
+<ul>
+<li>安装swap分区</li>
+<li>安装oracle依赖包</li>
+<li>建立用户/用户组</li>
+<li>在外面下载oralce包并传到linux</li>
+<li>oracle安装</li>
+</ul>
+<h2 id="安装swap分区">安装swap分区</h2>
+<p>oracle安装需要swap分区，所以先检查下是否已有swap分区。</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# free
+              total        used        free      shared  buff/cache   available
+Mem:         964136      425288      172940         304      365908      366360
+Swap:       1049596      303616      745980
+[root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Mon Sep 14 07:14:22 2020
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 /                       ext4    defaults        1 1
+/www/swap    swap    swap    defaults    0 0
+</code></pre>
+<p>看起来是已有的，如果没有，可参考链接的方式创建。</p>
+<h2 id="安装依赖包">安装依赖包</h2>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# yum -y install  gcc gcc-c++ make binutils compat-libstdc++-33 glibc glibc-devel libaio libaio-devel libgcc libstdc++ libstdc++-devel unixODBC unixODBC-devel sysstat ksh
+... # 安装细节省略
+
+Installed:
+  compat-libstdc++-33.x86_64 0:3.2.3-72.el7          ksh.x86_64 0:20120801-143.el7_9          unixODBC.x86_64 0:2.3.1-14.el7         
+  unixODBC-devel.x86_64 0:2.3.1-14.el7              
+
+Updated:
+  binutils.x86_64 0:2.27-44.base.el7_9.1          glibc.x86_64 0:2.17-326.el7_9          glibc-devel.x86_64 0:2.17-326.el7_9         
+
+Dependency Updated:
+  glibc.i686 0:2.17-326.el7_9 glibc-common.x86_64 0:2.17-326.el7_9 glibc-headers.x86_64 0:2.17-326.el7_9 nscd.x86_64 0:2.17-326.el7_9
+
+Complete!
+</code></pre>
+<p>root用户执行。最后会列出Installed，Updated，Dependency Updated。</p>
+<h2 id="创建用户-组">创建用户/组</h2>
+<p>首先看下已有的用户和组，以免出现重复。没有与要创建的用户/组重名的，so放心安装。</p>
+<pre><code class="language-shell">cat /etc/passwd  # 查看所有用户
+cat /etc/group  # 查看所有组
+</code></pre>
+<p>创建用户组<code>oinstall</code>,<code>dba</code>，创建用户<code>oracle</code></p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# groupadd -g 200 oinstall  # 组id设为200
+[root@iZbp15qc4wmx335c268l5mZ ~]# groupadd -g 201 dba
+[root@iZbp15qc4wmx335c268l5mZ ~]# useradd -u 440 -g oinstall -G dba oracle  # 创建oracle用户，指定uid为400
+[root@iZbp15qc4wmx335c268l5mZ ~]# passwd oracle  # 设置oracle密码
+Changing password for user oracle.
+New password: 
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+[root@iZbp15qc4wmx335c268l5mZ ~]# id oracle
+uid=440(oracle) gid=200(oinstall) groups=200(oinstall),201(dba)
+</code></pre>
+<h2 id="关闭selinux">关闭SELINUX</h2>
+<p>oracle是需要关闭SELINUX的，至于为什么要关闭，或者说能否不要关闭，只需合适的设置即可，这部分后面有空了再说。先查看目前是否是关闭的（以下给了三种方法）：</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected. 
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+
+[root@iZbp15qc4wmx335c268l5mZ ~]# /usr/sbin/sestatus -v
+SELinux status:                 disabled
+[root@iZbp15qc4wmx335c268l5mZ ~]# getenforce
+Disabled
+</code></pre>
+<p>若当前是开启的，则需要关闭</p>
+<pre><code class="language-shell">setenforce 0 
+</code></pre>
+<h2 id="下载oralce包并解压">下载oralce包并解压</h2>
+<p>官网只能看到最新版的下载包，我想安装的11g版本的不好找。。。于是找到网盘资源( <a href="https://blog.csdn.net/m0_53166211/article/details/121524069">https://blog.csdn.net/m0_53166211/article/details/121524069</a> )来下载</p>
+<blockquote>
+<p>安装oracle的目录磁盘空间要充足，否则会安装oracle失败（大于4G）</p>
+</blockquote>
+<p>例如，可以新建目录<code>/app/oracle</code>并把压缩包放入并解压</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ home]# ls -l /app/oracle
+total 2295600
+-rw-r--r-- 1 root root 1239269270 Aug  6 11:34 linux.x64_11gR2_database_1of2.zip
+-rw-r--r-- 1 root root 1111416131 Aug  6 11:36 linux.x64_11gR2_database_2of2.zip
+[root@iZbp15qc4wmx335c268l5mZ home]# cd /app/oracle
+[root@iZbp15qc4wmx335c268l5mZ oracle]# unzip linux.x64_11gR2_database_1of2.zip
+[root@iZbp15qc4wmx335c268l5mZ oracle]# unzip linux.x64_11gR2_database_2of2.zip
+[root@iZbp15qc4wmx335c268l5mZ oracle]# ls -l
+total 2295604
+drwxr-xr-x 8 root root       4096 Aug 21  2009 database  # 解压内容在这
+-rw-r--r-- 1 root root 1239269270 Aug  6 11:34 linux.x64_11gR2_database_1of2.zip
+-rw-r--r-- 1 root root 1111416131 Aug  6 11:36 linux.x64_11gR2_database_2of2.zip
+[root@iZbp15qc4wmx335c268l5mZ oracle]# cd database
+[root@iZbp15qc4wmx335c268l5mZ database]# ls -l
+total 36
+drwxr-xr-x 12 root root 4096 Aug 17  2009 doc
+drwxr-xr-x  4 root root 4096 Aug 15  2009 install
+drwxrwxr-x  2 root root 4096 Aug 15  2009 response
+drwxr-xr-x  2 root root 4096 Aug 15  2009 rpm
+-rwxr-xr-x  1 root root 3226 Aug 15  2009 runInstaller
+drwxrwxr-x  2 root root 4096 Aug 15  2009 sshsetup
+drwxr-xr-x 14 root root 4096 Aug 15  2009 stage
+-rw-r--r--  1 root root 5402 Aug 18  2009 welcome.html
+</code></pre>
+<h2 id="oracle安装">oracle安装</h2>
+<p>在此之前，还需要修改下/app/oracle/database/response/db_install.rsp`文件。修改内容参考 <a href="https://blog.csdn.net/csd_nuser/article/details/110089960">https://blog.csdn.net/csd_nuser/article/details/110089960</a> 和 <a href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html">http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a> 。</p>
+<pre><code class="language-shell">vim db_install.rsp # 以下为可参考的【http://www.javashuo.com/article/p-sbcnrnqx-gr.html】的修改内容，修改内容以具体情况和需求为准
+oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0
+oracle.install.option=INSTALL_DB_SWONLY
+ORACLE_HOSTNAME=能够写本机地址
+UNIX_GROUP_NAME=oinstall
+INVENTORY_LOCATION=/app/oracle/oraInventory
+SELECTED_LANGUAGES=zh_CN,en
+ORACLE_HOME=/app/oracle/product/11.2.0/db_1
+ORACLE_BASE=/app/oracle
+oracle.install.db.InstallEdition=EE
+oracle.install.db.isCustomInstall=false
+oracle.install.db.DBA_GROUP=dba
+oracle.install.db.OPER_GROUP=oinstall
+oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
+oracle.install.db.config.starterdb.globalDBName=orcl
+oracle.install.db.config.starterdb.SID=orcl
+oracle.install.db.config.starterdb.characterSet=AL32UTF8
+oracle.install.db.config.starterdb.memoryOption=true
+oracle.install.db.config.starterdb.memoryLimit=512
+oracle.install.db.config.starterdb.installExampleSchemas=false
+oracle.install.db.config.starterdb.enableSecuritySettings=true
+oracle.install.db.config.starterdb.password.ALL=oracle2018
+oracle.install.db.config.starterdb.control=DB_CONTROL
+oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false
+oracle.install.db.config.starterdb.automatedBackup.enable=false
+DECLINE_SECURITY_UPDATES=true
+</code></pre>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ response]# vim /app/oracle/database/response/db_install.rsp
+# 参考修改参数
+</code></pre>
+<p>登陆<strong>oracle用户</strong>，进行正式安装：</p>
+<pre><code class="language-shell">[oracle@iZbp15qc4wmx335c268l5mZ ~]$ cd /app/oracle/database
+[oracle@iZbp15qc4wmx335c268l5mZ database]$ ./runInstaller -silent -responseFile /app/oracle/database/response/db_install.rsp
+</code></pre>
+<p>安装过程杯具了，记录报错：</p>
+<p>1、Unable to create directory.等报错</p>
+<pre><code class="language-shell">[oracle@iZbp15qc4wmx335c268l5mZ database]$ ./runInstaller -silent -responseFile /app/oracle/database/response/db_install.rsp
+Starting Oracle Universal Installer...
+
+Checking Temp space: must be greater than 120 MB.   Actual 19429 MB    Passed
+Checking swap space: must be greater than 150 MB.   Actual 729 MB    Passed
+Preparing to launch Oracle Universal Installer from /tmp/OraInstall2022-08-06_11-53-42AM. Please wait ...[oracle@iZbp15qc4wmx335c268l5mZ database]$ [FATAL] [INS-32012] Unable to create directory.
+   CAUSE: Either proper permissions were not granted to create the directory or there was no space left in the volume.
+   ACTION: Check your permission on the selected directory or choose another directory.
+[FATAL] [INS-32021] Insufficient disk space on this volume for the selected Oracle home.
+   CAUSE: The selected Oracle home was on a volume without enough disk space.
+   ACTION: Choose a location for Oracle home that has enough space (minimum of 4,397MB) or free up space on the existing volume.
+A log of this session is currently saved as: /tmp/OraInstall2022-08-06_11-53-42AM/installActions2022-08-06_11-53-42AM.log. Oracle recommends that if you want to keep this log, you should move it from the temporary location to a more permanent location.
+
+# 根据提示查看 /tmp/OraInstall2022-08-06_11-53-42AM 下面的日志
+</code></pre>
+<p><font color='red'>可能是空间不足。。。先放着，后面有缘再解决</font></p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="http://www.javashuo.com/article/p-sbcnrnqx-gr.html">http://www.javashuo.com/article/p-sbcnrnqx-gr.html</a></p>
+<p><a href="https://blog.csdn.net/csd_nuser/article/details/110089960">https://blog.csdn.net/csd_nuser/article/details/110089960</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/oracle-%E5%AE%9E%E7%8E%B0%E4%BA%8B%E5%8A%A1%E6%8F%90%E4%BA%A4%E5%92%8C%E5%9B%9E%E6%BB%9A/">Oracle-实现事务提交和回滚</a></span>
+  <span class="nav-next"><a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">数据库测试扫盲篇</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

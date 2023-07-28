@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Redis-常用数据类型 - 2MUCH</title>
+    <meta property="og:title" content="Redis-常用数据类型 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
+[&amp;hellip;] [commands] # 这些命令的含义很容易看出，故直接看例子吧- keys *- set key value- exists key- type key- del key- unlink key- expire key time(second)- &amp;hellip;">
+      <meta property="og:description" content="查看redis常见数据类型操作命令： http://www.redis.cn/commands.html
+[&amp;hellip;] [commands] # 这些命令的含义很容易看出，故直接看例子吧- keys *- set key value- exists key- type key- del key- unlink key- expire key time(second)- &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220716155717747.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Redis-常用数据类型</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-18
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="redis-常用数据类型">Redis-常用数据类型</h1>
+<p>查看redis常见数据类型操作命令： <a href="http://www.redis.cn/commands.html">http://www.redis.cn/commands.html</a></p>
+<h2 id="key类型">key类型</h2>
+<pre><code class="language-shell">[commands] # 这些命令的含义很容易看出，故直接看例子吧
+	- keys *
+	- set key value
+	- exists key
+	- type key
+	- del key
+	- unlink key
+	- expire key time(second)
+	- ttl key
+	- dbsize
+
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ redis-cli
+127.0.0.1:6379&gt; keys *   # 列出当前数据库的所有key
+(empty array)
+127.0.0.1:6379&gt; set k1 cindy   # 设置key为&quot;k1&quot;的值为&quot;cindy&quot;
+OK
+127.0.0.1:6379&gt; set k2 coco
+OK
+127.0.0.1:6379&gt; set k3 alice
+OK
+127.0.0.1:6379&gt; keys *
+1) &quot;k3&quot;
+2) &quot;k1&quot;
+3) &quot;k2&quot;
+127.0.0.1:6379&gt; exists k1   # 是否存在k1，结果用(integer) 1/0表示
+(integer) 1
+127.0.0.1:6379&gt; exists k4
+(integer) 0
+127.0.0.1:6379&gt; type k1   # 查看key的类型
+string
+127.0.0.1:6379&gt; del k1   # 删除key方法一
+(integer) 1
+127.0.0.1:6379&gt; unlink k2   # 删除key方法二（根据value选择非阻塞删除，仅将keys从keyspace元数据中删除，真正的删除会在后续异步操作）
+(integer) 1
+127.0.0.1:6379&gt; keys *
+1) &quot;k3&quot;
+127.0.0.1:6379&gt; expire k4 10   # 设置已有key的过期时间（单位秒）
+(integer) 0   # 由于k4不是已有的key，所以返回是0
+127.0.0.1:6379&gt; expire k3 10
+(integer) 1
+127.0.0.1:6379&gt; ttl k3   # 查看key的过期时间（特殊：-1表示永不过期，-2表示已过期）
+(integer) 7
+127.0.0.1:6379&gt; ttl k3
+(integer) -2
+127.0.0.1:6379&gt; set k5 xxx
+OK
+127.0.0.1:6379&gt; ttl k5
+(integer) -1
+127.0.0.1:6379&gt; dbsize   # 当前数据库的key总数
+(integer) 1
+127.0.0.1:6379&gt; 
+</code></pre>
+<pre><code class="language-shell">flushdb # 清空当前库
+flushall # 通杀全部库
+</code></pre>
+<h2 id="string类型">String类型</h2>
+<ul>
+<li>是Redis中value最基本的类型</li>
+<li>是二进制安全的，意味着Redis的string可以包含任何数据，比如jpg图片或者序列化的对象</li>
+<li>Redis中字符串value最多512M</li>
+<li>String的数据结构为简单动态字符串(Simple Dynamic String,缩写SDS)。内部结构实现上类似于Java的ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配，在需要时扩容。</li>
+</ul>
+<h3 id="基本操作">基本操作</h3>
+<pre><code class="language-shell">[commands] # 这些命令的含义很容易看出，故直接看例子吧
+	- set key value
+	- setnx key value # 设置key-value值（仅当key不存在时才设置成功）
+	- get key
+	- append key value
+	- strlen key	
+
+127.0.0.1:6379&gt; keys *
+(empty array)
+127.0.0.1:6379&gt; set k1 value1   # 设置key-value值
+OK
+127.0.0.1:6379&gt; get k1   # 获取key对应的值
+&quot;value1&quot;
+127.0.0.1:6379&gt; append k1 abd   # 在key值后面追加
+(integer) 9   # 返回追加后的value长度
+127.0.0.1:6379&gt; get k1
+&quot;value1abd&quot;
+127.0.0.1:6379&gt; strlen k1   # key长度
+(integer) 9
+127.0.0.1:6379&gt; setnx k1 abc   # 设置key-value值（仅当key不存在时才设置成功）
+(integer) 0
+127.0.0.1:6379&gt; get k1
+&quot;value1abd&quot;
+127.0.0.1:6379&gt; setnx k2 abc
+(integer) 1
+127.0.0.1:6379&gt; get k2
+&quot;abc&quot;
+127.0.0.1:6379&gt; set k2 def   # 对于已存在的key，set设置直接覆盖
+OK
+127.0.0.1:6379&gt; get k2
+&quot;def&quot;
+</code></pre>
+<h3 id="对值为数字的增减操作">对值为数字的增减操作</h3>
+<pre><code class="language-shell">[commands] # 这些命令的含义很容易看出，故直接看例子吧
+	- incr key
+	- decr key
+	- incrby key len
+	- decrby key len
+
+127.0.0.1:6379&gt; flushdb
+OK
+127.0.0.1:6379&gt; set k1 100   # 需要设置value为数字
+OK
+127.0.0.1:6379&gt; incr k1   # 设置key对应的value自增1
+(integer) 101
+127.0.0.1:6379&gt; decr k1   # 设置key对应的value自减1
+(integer) 100
+127.0.0.1:6379&gt; incrby k1 3   # 指定步长的自增
+(integer) 103
+127.0.0.1:6379&gt; decrby k1 4   # 指定步长的自减
+(integer) 99
+</code></pre>
+<p>值得注意的是，redis的增减操作具有<strong>原子性</strong>。</p>
+<blockquote>
+<p>所谓<strong>原子</strong>操作是指不会被线程调度机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程）。</p>
+<p>（1）在单线程中， 能够在单条指令中完成的操作都可以认为是&quot;原子操作&quot;，因为中断只能发生于指令之间。</p>
+<p>（2）在多线程中，不能被其它进程（线程）打断的操作就叫原子操作。</p>
+<p>Redis单命令的原子性主要得益于Redis的单线程。</p>
+<p>例如java的i++就不是单线程。</p>
+</blockquote>
+<h3 id="批量操作">批量操作</h3>
+<pre><code class="language-shell">[commands] # 这些命令的含义很容易看出，故直接看例子吧
+	- mset key1 value1 key2 value2 ...
+	- msetnx key1 value1 key2 value2 ...
+	- mget key1 key2 ...
+
+127.0.0.1:6379&gt; mset k1 v1 k2 v2   # 批量设置多个key-value
+OK
+127.0.0.1:6379&gt; keys *
+1) &quot;k1&quot;
+2) &quot;k2&quot;
+127.0.0.1:6379&gt; mget k1 k2   # 批量获取多个key的value值
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; msetnx k1 v11 k3 v3   # 批量设置多个key-value（但是判断是否已存在，若其中有一个已存在，则整体设置失败） -&gt; 原子性
+(integer) 0
+127.0.0.1:6379&gt; keys *   # 设置失败，故keys不变
+1) &quot;k1&quot;
+2) &quot;k2&quot;
+127.0.0.1:6379&gt; msetnx k3 v3 k4 v4
+(integer) 1
+127.0.0.1:6379&gt; keys *   # 设置成功
+1) &quot;k4&quot;
+2) &quot;k3&quot;
+3) &quot;k1&quot;
+4) &quot;k2&quot;
+</code></pre>
+<h3 id="范围和过期时间设置">范围和过期时间设置</h3>
+<pre><code class="language-shell">[commands] 
+	- getrange key beginIndex endINdex # 类似substring，取一定区间的子字符串(且begin和end的字符都要)，索引从0开始
+	- setrange key beginIndex value # 从beginIndex开始覆盖
+	- setex key expireTime value # 新建key并设置过期时间（秒）
+	- getset key value # 设置key的新值，并输出其旧值
+	
+127.0.0.1:6379&gt; set key1 cindy
+OK
+127.0.0.1:6379&gt; getrange key1 1 3 # 索引从0开始
+&quot;ind&quot;
+127.0.0.1:6379&gt; setrange key1 1 aa
+(integer) 5 # 输出覆盖完成后的字符串长度
+127.0.0.1:6379&gt; get key1
+&quot;caady&quot;
+127.0.0.1:6379&gt; setex key2 10 value2
+OK
+127.0.0.1:6379&gt; ttl key2
+(integer) 6
+127.0.0.1:6379&gt; ttl key2
+(integer) -2
+127.0.0.1:6379&gt; keys * # key2已过期，不存在了
+1) &quot;key1&quot;
+127.0.0.1:6379&gt; getset key1 panda 
+&quot;caady&quot; # 输出旧值
+127.0.0.1:6379&gt; get key1
+&quot;panda&quot; # 输出新值
+</code></pre>
+<h2 id="list类型">List类型</h2>
+<ul>
+<li>
+<p>单键多值</p>
+</li>
+<li>
+<p>字符串列表，按插入顺序排序，可从队头或尾插入</p>
+</li>
+<li>
+<p>底层是双向链表，故两边操作比中间操作代价小得多</p>
+</li>
+<li>
+<p>数据结构是快速链表quickList，由多个压缩链表ziplist双向链接而成（压缩链表是一块连续的内存存储，它将所有的元素紧挨着一起存储）。这样既满足了快速的插入删除性能，又不会出现太大的空间冗余（不需要很多左右指针）。</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220716155717747.png" alt="image-20220716155717747"></p>
+</li>
+</ul>
+<h3 id="基本操作-1">基本操作</h3>
+<pre><code class="language-shell">[commands] 
+	- lpush/rpush list value1 value2 ...  # 从左/右边插入1或多个value
+	- lpop/rpop list  # 从左/右边弹出1个value
+	- rpoplpush list1 list2  # 从list1列表右边弹出一个值插入到list2的左边
+	- lrange list left right  # 输出index为[left,right]的子列表（index从0开始）
+		lrange list 0 -1  # 特别地，取出所有值
+	- lindex list index  # 取出给定下标的元素（从左边数）
+	- llen list  # 获取列表长度
+	- linsert list before/after value new_value  # 从值为value的节点前面/后面插入new_value
+	- lrem list num value  # 将列表从左开始删除num个值为value的节点
+	- lset list index value  # 将下标index的值设为value
+	
+127.0.0.1:6379&gt; rpush l1 v1 v2 v3
+(integer) 3
+127.0.0.1:6379&gt; lrange l1 0 -1
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+3) &quot;v3&quot;
+127.0.0.1:6379&gt; lpush l2 v11 v22 v33
+(integer) 3
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v33&quot;
+2) &quot;v22&quot;
+3) &quot;v11&quot;
+127.0.0.1:6379&gt; lpop l1
+&quot;v1&quot; # 输出弹出的value
+127.0.0.1:6379&gt; lrange l1 0 -1
+1) &quot;v2&quot;
+2) &quot;v3&quot;
+127.0.0.1:6379&gt; rpop l2
+&quot;v11&quot;
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v33&quot;
+2) &quot;v22&quot;
+127.0.0.1:6379&gt; rpoplpush l1 l2
+&quot;v3&quot;  # l1弹出的值
+127.0.0.1:6379&gt; lrange l1 0 -1
+1) &quot;v2&quot;
+127.0.0.1:6379&gt; lrange l2 0 -1  # v3成功从左边插入到l2
+1) &quot;v3&quot;
+2) &quot;v33&quot;
+3) &quot;v22&quot;
+127.0.0.1:6379&gt; lindex l2 1
+&quot;v33&quot;
+127.0.0.1:6379&gt; llen l2
+(integer) 3
+127.0.0.1:6379&gt; linsert l2 after v3 v3_after
+(integer) 4
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v3&quot;
+2) &quot;v3_after&quot;
+3) &quot;v33&quot;
+4) &quot;v22&quot;
+127.0.0.1:6379&gt; linsert l2 before v3_after v3
+(integer) 5
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v3&quot;
+2) &quot;v3&quot;
+3) &quot;v3_after&quot;
+4) &quot;v33&quot;
+5) &quot;v22&quot;
+127.0.0.1:6379&gt; lrem l2 2 v3 # 从左开始删除2个v3
+(integer) 2
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v3_after&quot;
+2) &quot;v33&quot;
+3) &quot;v22&quot;
+127.0.0.1:6379&gt; lset l2 1 v33_new
+OK
+127.0.0.1:6379&gt; lrange l2 0 -1
+1) &quot;v3_after&quot;
+2) &quot;v33_new&quot;
+3) &quot;v22&quot;
+</code></pre>
+<h2 id="set类型">Set类型</h2>
+<ul>
+<li>无序，不重复</li>
+<li>底层是一个value为null的hash表，所以添加，删除，查找的复杂度都是O(1)</li>
+<li>Set数据结构是dict字典，字典是用哈希表实现的。Java中HashSet的内部实现使用的是HashMap，只不过所有的value都指向同一个对象。Redis的set结构也是一样，它的内部也使用hash结构，所有的value都指向同一个内部值。</li>
+</ul>
+<h3 id="基本操作-2">基本操作</h3>
+<pre><code class="language-shell">[commands] 
+	- sadd set value1 value2 ... # 插入集合值（已存在值会被忽略）
+	- smembers set # 输出集合的所有值
+	- sismember set value # 判断value是否在set中
+	- scard set # 获取set所含元素个数
+	- srem set value1 value2 ... # 删除元素
+	- spop set # 随机弹出set的一个值
+	- srandmember set num # 随机获取num个值，但不会删除
+	- smove set1 set2 value # 将value从set1转移到set2
+	- sinter set1 set2 # 取交集
+	- sunion set1 set2 # 取并集
+	- sdiff set1 set2 # 取差集
+	
+127.0.0.1:6379&gt; sadd s1 v1 v2
+(integer) 2
+127.0.0.1:6379&gt; smembers s1
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; sismember s1 v2
+(integer) 1
+127.0.0.1:6379&gt; sismember s1 v3
+(integer) 0  # 存在-1；不存在-0 
+127.0.0.1:6379&gt; scard s1
+(integer) 2
+127.0.0.1:6379&gt; srem s1 v1
+(integer) 1
+127.0.0.1:6379&gt; smembers s1
+1) &quot;v2&quot;
+127.0.0.1:6379&gt; sadd s2 v1 v2 v3
+(integer) 3
+127.0.0.1:6379&gt; srandmember s2
+&quot;v3&quot;
+127.0.0.1:6379&gt; srandmember s2
+&quot;v1&quot;
+127.0.0.1:6379&gt; smove s2 s1 v3
+(integer) 1
+127.0.0.1:6379&gt; smembers s1
+1) &quot;v2&quot;
+2) &quot;v3&quot;
+127.0.0.1:6379&gt; smembers s2
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; sinter s1 s2
+1) &quot;v2&quot;
+127.0.0.1:6379&gt; sunion s1 s2
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+3) &quot;v3&quot;
+127.0.0.1:6379&gt; sdiff s1 s2
+1) &quot;v3&quot;
+</code></pre>
+<h2 id="hash类型">Hash类型</h2>
+<ul>
+<li>键值对集合，field-value映射</li>
+<li>类似java的Map</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220716162046211.png" alt="image-20220716162046211"></p>
+<ul>
+<li>Hash类型对应的数据结构是两种：ziplist（压缩列表），hashtable（哈希表）。当field-value长度较短且个数较少时，使用ziplist，否则使用hashtable。</li>
+</ul>
+<h3 id="基本操作-3">基本操作</h3>
+<pre><code class="language-shell">[commands] 
+	- hset key field1 value1 field2 value2 # 赋值
+	- hget key field # 取值
+	- hexists key field # 查看field是否存在
+	- hkeys key # 列出key的所有fields
+	- hvals key # 列出key的所有values
+	- hincrby key field increment # 为数值域加上增量
+	- hsetnx key field value # 仅当当前field不存在，才设置值
+	
+127.0.0.1:6379&gt; hset user1 id 001 name cindy age 100
+(integer) 3
+127.0.0.1:6379&gt; hget user1 id
+&quot;001&quot;
+127.0.0.1:6379&gt; hget user1 sex
+(nil) # 无此field
+127.0.0.1:6379&gt; hkeys user1
+1) &quot;id&quot;
+2) &quot;name&quot;
+3) &quot;age&quot;
+127.0.0.1:6379&gt; hvals user1
+1) &quot;001&quot;
+2) &quot;cindy&quot;
+3) &quot;100&quot;
+127.0.0.1:6379&gt; hincrby user1 age 2
+(integer) 102
+127.0.0.1:6379&gt; hvals user1
+1) &quot;001&quot;
+2) &quot;cindy&quot;
+3) &quot;102&quot; # 100+2
+127.0.0.1:6379&gt; hsetnx user1 age 200
+(integer) 0 # 由于已有age键，故设置失败
+127.0.0.1:6379&gt; hvals user1
+1) &quot;001&quot;
+2) &quot;cindy&quot;
+3) &quot;102&quot;
+127.0.0.1:6379&gt; hsetnx user1 sex female
+(integer) 1
+127.0.0.1:6379&gt; hkeys user1
+1) &quot;id&quot;
+2) &quot;name&quot;
+3) &quot;age&quot;
+4) &quot;sex&quot; # 新增成功
+127.0.0.1:6379&gt; hvals user1
+1) &quot;001&quot;
+2) &quot;cindy&quot;
+3) &quot;102&quot;
+4) &quot;female&quot;
+</code></pre>
+<h2 id="zset类型">Zset类型</h2>
+<ul>
+<li>
+<p>是一种有序的set类型，通过每个value的score字段排序（<strong>由低到高排序</strong>）</p>
+</li>
+<li>
+<p>值是唯一的，但score是可重复的</p>
+</li>
+<li>
+<p>方便访问一个score范围内的值，访问中间的元素也快</p>
+</li>
+<li>
+<p>底层数据结构：Hash（关联元素value和权重score，保障元素value的唯一性，可以通过元素value找到相应的score值）+跳跃表（给元素value排序，根据score的范围获取元素列表）</p>
+<p>跳表：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220718210204801.png" alt="image-20220718210204801"></p>
+</li>
+</ul>
+<h3 id="基本操作-4">基本操作</h3>
+<pre><code class="language-shell">[commands] 
+	- zadd key score1 value1 score2 value2 ...  # 赋值(加上socre)
+	- zrange key begin end [withscores] # 返回一定下标范围的值，WITHSCORES加上的话可额外显示score
+	- zrangebyscore key min max [withscores] [limit offset count] # 指定返回的score范围的value，其中offset和count分别可指定偏移量和个数
+	- zrevrangebyscore key max min [withscores] [limit offset count] # 反向排序输出
+	- zincrby key increment value # 为元素的score加上增量
+	- zrem key value # 删除元素
+	- zcount key min max # 统计指定score范围内的元素个数
+	- zrank key value # 返回元素在集合key中的排名（从0开始）
+	
+127.0.0.1:6379&gt; zadd key1 1 v1 2 v2
+(integer) 2
+127.0.0.1:6379&gt; zrange key1 0 1 # 按socre从到大排列显示[0,1]下标内的值
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; zrange key1 0 1 withscores # 相应score显示在下面
+1) &quot;v1&quot;
+2) &quot;1&quot;
+3) &quot;v2&quot;
+4) &quot;2&quot;
+127.0.0.1:6379&gt; zadd key1 3 v3
+(integer) 1
+127.0.0.1:6379&gt; zrangebyscore key1 1 2 # 取socre范围[1,2]的值
+1) &quot;v1&quot;
+2) &quot;v2&quot;
+127.0.0.1:6379&gt; zrangebyscore key1 1 3 limit 1 1 # 结果偏移量为1，且仅选取一个值，即为v2
+1) &quot;v2&quot;
+127.0.0.1:6379&gt; zrevrangebyscore key1 3 2 withscores # 反向顺序
+1) &quot;v3&quot;
+2) &quot;3&quot;
+3) &quot;v2&quot;
+4) &quot;2&quot;
+127.0.0.1:6379&gt; zincrby key1 5 v3
+&quot;8&quot;  # 输出加后的score
+127.0.0.1:6379&gt; zrem key1 v1
+(integer) 1
+127.0.0.1:6379&gt; zrange key1 0 -1 withscores # 取出全部看下
+1) &quot;v2&quot;
+2) &quot;2&quot;
+3) &quot;v3&quot;
+4) &quot;8&quot;
+127.0.0.1:6379&gt; zcount key1 3 8
+(integer) 1
+127.0.0.1:6379&gt; zcount key1 1 9
+(integer) 2
+127.0.0.1:6379&gt; zrank key1 v2  # 排名下标从0开始 
+(integer) 0
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/redis-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">Redis-配置文件</a></span>
+  <span class="nav-next"><a href="/p/redis-%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85/">Redis-发布和订阅</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

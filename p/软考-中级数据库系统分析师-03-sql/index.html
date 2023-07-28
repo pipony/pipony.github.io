@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级数据库系统分析师-03 SQL - 2MUCH</title>
+    <meta property="og:title" content="软考-中级数据库系统分析师-03 SQL - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="SQL的基本组成：
+[&amp;hellip;] 1、实体完整性约束
+[&amp;hellip;] 2、参照完整性约束
+[&amp;hellip;] 3、属性值约束
+[&amp;hellip;] alter table xxx add/drop/modify
+drop table xxx
+[&amp;hellip;] 索引位于内模式（物理层面）。
+create [unique][cluster] index xxx on &amp;hellip;">
+      <meta property="og:description" content="SQL的基本组成：
+[&amp;hellip;] 1、实体完整性约束
+[&amp;hellip;] 2、参照完整性约束
+[&amp;hellip;] 3、属性值约束
+[&amp;hellip;] alter table xxx add/drop/modify
+drop table xxx
+[&amp;hellip;] 索引位于内模式（物理层面）。
+create [unique][cluster] index xxx on &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://cdn.huangxindi.com/img/202305140945514.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级数据库系统分析师-03 SQL</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-13
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="概述">概述</h1>
+<p>SQL的基本组成：</p>
+<ul>
+<li>数据定义语言</li>
+<li>数据操纵语言</li>
+<li>事务控制</li>
+<li>嵌入式和动态sql</li>
+<li>完整性</li>
+<li>权限管理</li>
+</ul>
+<h1 id="表操作">表操作</h1>
+<h2 id="表创建">表创建</h2>
+<p>1、实体完整性约束</p>
+<ul>
+<li>列后面PRIMARY KEY</li>
+<li>最后加PRIMARY KEY(属性名1，属性名2)</li>
+</ul>
+<p>2、参照完整性约束</p>
+<ul>
+<li>列后面加 References 表名（属性名）</li>
+<li>在最后加，有几个外码，就写几行： foreign key(属性名) references 表名（属性名）</li>
+<li>另外，可选参数：<code>[on delete[cascade|set null]]]</code> 。表示删除被参照的元组时，前者会删除参照元组；后者会将对应属性设为空</li>
+</ul>
+<p>3、属性值约束</p>
+<ul>
+<li>null / not null</li>
+<li>unique</li>
+<li>not null unique 与primary key可互换（not null unique 和 primary key指定一个就可以了，<strong>不能同时指定</strong>）</li>
+<li>check 限制列中的取值范围，如check (jyje &gt;=0), check(col1 &gt; col2)</li>
+</ul>
+<h2 id="表修改-删除">表修改/删除</h2>
+<p><code>alter table xxx add/drop/modify</code></p>
+<p><code>drop table xxx</code></p>
+<h2 id="索引">索引</h2>
+<p>索引位于内模式（物理层面）。</p>
+<pre><code class="language-sql">create [unique][cluster] index xxx
+on table(col1[次序(默认asc｜desc)],col2[次序])
+</code></pre>
+<p>cluster：聚簇索引，索引项的顺序与表中记录的物理顺序一致的索引组织</p>
+<h2 id="视图">视图</h2>
+<pre><code class="language-sql">create view 视图名(列表名)
+as select 查询子句
+[with check option]
+</code></pre>
+<p>规则：</p>
+<ul>
+<li>子查询可以是复杂的select语句，但不允许含有order by和distinct</li>
+<li>with check option 增删更新时保证操作行满足视图定义的条件</li>
+</ul>
+<h1 id="数据操作">数据操作</h1>
+<h2 id="select">select</h2>
+<pre><code class="language-sql">select [all|distinct] 目标列表达式
+from 表名或视图名,表名或视图名
+where 条件表达式
+group by col1 [having 条件表达式]
+order by col2 [asc|desc]
+</code></pre>
+<p>注意：as可以给列和表名重命名，as可省略</p>
+<h3 id="子查询-嵌套查询">子查询（嵌套查询）</h3>
+<ul>
+<li>in / not in （前面加属性名）</li>
+<li>exists / not exists （前面不加属性名）(关注的是子查询是否成立，而不是子查询的查询结果)</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-sql">select cno, cname from c
+where not exists (select * from sc where sc.cno = c.cno)
+</code></pre>
+<h3 id="聚集函数">聚集函数</h3>
+<pre><code>count([distinct|all] *)
+min
+max
+avg
+any 任何一个即可
+all
+...
+</code></pre>
+<p><img src="https://cdn.huangxindi.com/img/202305140945514.png" alt="image.png"></p>
+<h3 id="分组查询-group-by">分组查询 group by</h3>
+<p>如查询每个学生的平均成绩：</p>
+<pre><code class="language-sql">select sno, avg(grade)
+from sc
+group by sno;
+</code></pre>
+<p>分组查询的条件：having 子句</p>
+<h3 id="字符串操作">字符串操作</h3>
+<p>like进行匹配，<code>%</code>匹配任意长度字符串，<code>_</code>匹配任意一个字符</p>
+<p>注意：如果模式中包含特殊字符（如<code>%, _, \</code>），使用escape进行转义：
+<code>like 'ab\%cd%' secape'\'</code></p>
+<h3 id="集合操作">集合操作</h3>
+<ul>
+<li>union or union all (不去重复行)</li>
+<li>intersect 交</li>
+<li>except 差</li>
+</ul>
+<h3 id="外连接">外连接</h3>
+<ul>
+<li>left join</li>
+<li>right join</li>
+<li>full join 全外连接（左和右连接做并集）</li>
+</ul>
+<h2 id="insert-into">insert into</h2>
+<pre><code class="language-sql">insert into table values (...)
+insert into table (col1,col2) values (val, val2)
+</code></pre>
+<h2 id="delete">delete</h2>
+<p>delete vs. drop : 前者只删除数据，关系模式仍然存在</p>
+<h2 id="update">update</h2>
+<pre><code class="language-sql">update table set col=new_val where ...
+</code></pre>
+<h1 id="授权与触发器">授权与触发器</h1>
+<h2 id="授权grant">授权grant</h2>
+<pre><code class="language-sql">grant 权限 on table/database/view 表名/数据库名/视图名
+to user1, user2 / public(所有人)
+[with grant option] （表示权限给A后，A可以再把这个权限给其他人）
+</code></pre>
+<p>所有权限：all privileges</p>
+<h2 id="收回权限revoke">收回权限revoke</h2>
+<pre><code class="language-sql">revoke 权限 on ...
+from user1, ... / public
+[restrict | cascade]
+</code></pre>
+<p>restrict: 只收回指定的用户的权限；
+cascade：还收回该用户赋予的其他用户的权限</p>
+<h2 id="触发器">触发器</h2>
+<p>特点：</p>
+<ul>
+<li>当指定的触发条件满足时（比如插入删除更新），则激活触发器。</li>
+<li>触发器可以引用当前数据库以外的对象，但只能在当前数据库中创建触发器</li>
+<li>不能在临时表或系统表上创建触发器，但触发器可以引用临时表</li>
+</ul>
+<p>需要指定：</p>
+<ul>
+<li>触发器名称</li>
+<li>表名</li>
+<li>触发事件（不能是查询 ）</li>
+<li>触发条件</li>
+<li>触发动作</li>
+</ul>
+<p>语句：</p>
+<pre><code class="language-sql">create trigger trigger_name [before|after]
+[delete | insert | update of col_name] -- 触发事件
+on table_name
+[referencing 临时视图名]
+[for each row | for each statement（默认方式）]
+[when &lt;触发条件&gt;]
+begin
+	触发动作
+end [触发器名称]
+</code></pre>
+<p><img src="https://cdn.huangxindi.com/img/202305141013557.png" alt="image.png"></p>
+<p>规则：触发事件发生，触发器被激活。检查触发条件，若满足，则执行触发动作。否则，啥都不做。</p>
+<p><img src="https://cdn.huangxindi.com/img/202305141030060.png" alt="image.png"></p>
+<p><img src="https://cdn.huangxindi.com/img/202305141038545.png" alt="image.png"></p>
+<h1 id="嵌入式sql与存储过程">嵌入式sql与存储过程</h1>
+<h2 id="嵌入式sql">嵌入式sql</h2>
+<p>定义：将sql语句嵌入到某种高级语言中的方式，通常采用预编译的方法
+<code>EXEC SQL &lt;SQL语言&gt;</code></p>
+<p>向主语言传递SQL语句执行状态信息的方式：
+SQLCA，即SQL通信区，系统默认的全局变量</p>
+<p>主变量（共享变量）：主语言通过主变量向sql语句提供参数，用<code>DECLARE</code>说明。在sql中，为了和属性名区分，需要在前面加<code>:</code> (有的可能是<code>@</code>)</p>
+<p><img src="https://cdn.huangxindi.com/img/202305141046125.png" alt="image.png"></p>
+<h2 id="游标">游标</h2>
+<p>定义游标：</p>
+<pre><code class="language-sql">EXEC SQL DECLARE name CURSOR FOR
+&lt;select语句&gt;
+</code></pre>
+<p>这只是说明性语句，此时select并不执行</p>
+<p>打开游标：</p>
+<pre><code class="language-sql">exec sql open name;
+</code></pre>
+<p>游标可以理解为指针</p>
+<p>推进游标：</p>
+<pre><code class="language-sql">exec sql fetch name into value_name;
+</code></pre>
+<p>游标推进一行，将游标指向的行的值取出，送到共享变量中</p>
+<p>关闭游标：</p>
+<pre><code class="language-sql">exec sql close name;
+</code></pre>
+<p><img src="https://cdn.huangxindi.com/img/202305141056712.png" alt="image.png"></p>
+<h2 id="存储过程-procedure">存储过程（procedure）</h2>
+<p>定义：是一组为了完成特定功能的sql语句集合，经编译后存储在数据库中，用户指定存储过程的名称并给出参数来执行。类似函数。可以接受输入和输出参数。执行比单个的sql语句块更快。需要注意：没有共享变量的概念。</p>
+<pre><code class="language-sql">create procedure procedure_name (in|out|in out para1 type1, ...)
+[as]
+begin
+	&lt;SQL语句&gt;
+end
+</code></pre>
+<p>参数类型：</p>
+<ul>
+<li>in 输入型</li>
+<li>out 输出型</li>
+<li>in out 既可作为输入，也可作为输出</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305141104360.png" alt="image.png"></p>
+<h1 id="补充知识">补充知识</h1>
+<ul>
+<li>触发器内部不能以事务程序方式编写，存储过程可以</li>
+<li>针对复杂的约束，应采用触发器来实现</li>
+<li>嵌入式SQL，引入指示变量来解决主语言无空值的问题</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-02-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93/">软考-中级数据库系统分析师-02 关系数据库</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-07-%E4%BA%8B%E5%8A%A1/">软考-中级数据库系统分析师-07 事务</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

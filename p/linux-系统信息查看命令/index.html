@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-系统信息查看命令 - 2MUCH</title>
+    <meta property="og:title" content="Linux-系统信息查看命令 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="整理一些关于linux的系统信息查看命令，无逻辑，纯自用。
+[&amp;hellip;] 1、查看发行版本（适用所有linux系统）
+lsb_release -a
+2、查看Linux内核版本
+uname -a 和 cat /proc/version
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ lsb_release -a LSB Version: &amp;hellip;">
+      <meta property="og:description" content="整理一些关于linux的系统信息查看命令，无逻辑，纯自用。
+[&amp;hellip;] 1、查看发行版本（适用所有linux系统）
+lsb_release -a
+2、查看Linux内核版本
+uname -a 和 cat /proc/version
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ lsb_release -a LSB Version: &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-系统信息查看命令</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-09-18
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="linux-系统信息查看命令">Linux-系统信息查看命令</h1>
+<blockquote>
+<p>整理一些关于linux的系统信息查看命令，无逻辑，纯自用。</p>
+</blockquote>
+<h2 id="查看系统版本">查看系统版本</h2>
+<p>1、查看发行版本（适用所有linux系统）</p>
+<p><code>lsb_release -a</code></p>
+<p>2、查看Linux内核版本</p>
+<p><code>uname -a</code> 和 <code>cat /proc/version</code></p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ lsb_release -a
+LSB Version:    :core-4.1-amd64:core-4.1-noarch
+Distributor ID: CentOS
+Description:    CentOS Linux release 7.8.2003 (Core)
+Release:        7.8.2003
+Codename:       Core
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ uname -a
+Linux iZbp15qc4wmx335c268l5mZ 3.10.0-1127.19.1.el7.x86_64 #1 SMP Tue Aug 25 17:23:54 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ cat /proc/version
+Linux version 3.10.0-1127.19.1.el7.x86_64 (mockbuild@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) ) #1 SMP Tue Aug 25 17:23:54 UTC 2020
+</code></pre>
+<p><em>参考链接</em></p>
+<p><a href="https://segmentfault.com/a/1190000039030863">https://segmentfault.com/a/1190000039030863</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-%E9%98%B2%E7%81%AB%E5%A2%99firewall/">Linux-防火墙firewall</a></span>
+  <span class="nav-next"><a href="/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bcalendar%E6%97%A5%E5%8E%86%E7%B1%BB/">Java基础之Calendar日历类</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

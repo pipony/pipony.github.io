@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>SSH学习 - 2MUCH</title>
+    <meta property="og:title" content="SSH学习 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="参考： https://codecharms.me/posts/security-ssh
+[&amp;hellip;] SSH (Secure Shell)是一种连接加密机制，能够保证我们在传送数据时，会先进行加密，并且只有通过认证的才能解密。使用的是公钥加密技术
+属于client-server模型，要建立一个ssh连接的条件：
+[&amp;hellip;] SSH使用形式：
+[&amp;hellip;] SSH具体使用 &amp;hellip;">
+      <meta property="og:description" content="参考： https://codecharms.me/posts/security-ssh
+[&amp;hellip;] SSH (Secure Shell)是一种连接加密机制，能够保证我们在传送数据时，会先进行加密，并且只有通过认证的才能解密。使用的是公钥加密技术
+属于client-server模型，要建立一个ssh连接的条件：
+[&amp;hellip;] SSH使用形式：
+[&amp;hellip;] SSH具体使用 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>SSH学习</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-28
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="概念知识">概念知识</h1>
+<p>参考： <a href="https://codecharms.me/posts/security-ssh">https://codecharms.me/posts/security-ssh</a></p>
+<h2 id="ssh">SSH</h2>
+<p>SSH (Secure Shell)是一种连接加密机制，能够保证我们在传送数据时，会先进行加密，并且只有通过认证的才能解密。使用的是<strong>公钥加密</strong>技术</p>
+<p>属于client-server模型，要建立一个ssh连接的条件：</p>
+<ol>
+<li>远端服务器要跑一个SSH daemon，默认监听端口22的连接</li>
+<li>本地要用一个SSH client程序，使用SSH protocol来传送数据</li>
+</ol>
+<p>SSH使用形式：</p>
+<ul>
+<li>最基本的ssh连接远端</li>
+<li>tunneling 隧道</li>
+<li>SFTP</li>
+<li>SCP</li>
+</ul>
+<p>SSH具体使用公钥加密的运行机制：</p>
+<p>公钥（用于认证和让别人加密）和私钥（用于电子签名和解密）。举个例子：A要使用SSH传数据给B，此时他们都拥有了对方的公钥。过程包含5个步骤：</p>
+<ol>
+<li>A用自己的私钥给信息签名</li>
+<li>A用B的公钥给信息加密</li>
+<li>信息传送给B</li>
+<li>B用自己的私钥解密</li>
+<li>B用A的公钥来确认签名来自A</li>
+</ol>
+<p>其实SSH登陆有这三种方式：</p>
+<ul>
+<li>密钥</li>
+<li>密码</li>
+<li>证书</li>
+</ul>
+<h2 id="openssh">OpenSSH</h2>
+<blockquote>
+<p><a href="https://www.openssh.com/">OpenSSH</a> 是一個 SSH 協定的開源實作，也可以說是遵守 SSH 的一組工具。<code>sshd</code> 是 OpenSSH 的 server component，當出現一個連線請求，<code>sshd</code> 會根據 client 來建立對應的連線</p>
+</blockquote>
+<p>主要包括几个部分：ssh（客户端）、sshd（主程序）、scp、sftp、ssh-keygen、ssh-agent、ssh-add等</p>
+<h2 id="ssl-tls">SSL/TLS</h2>
+<p>HTTPS的核心技术（SSL/TLS）：握手，以及使用CA进行身份认证。与SSH作用有些相似，都是为了保证安全连接。但前者主要用户资料传输，后者用于执行指令。</p>
+<h2 id="一个实例">一个实例</h2>
+<p>来自 <a href="https://codecharms.me/posts/security-ssh">https://codecharms.me/posts/security-ssh</a> 的关于github的一个ssh例子：</p>
+<p>每當我們要送訊息（指令）給 GitHub (remote server) 時，我們就可以</p>
+<ol>
+<li>用我們的私鑰加密指令。</li>
+<li>用 Github 的公鑰加密指令。</li>
+<li>傳送指令到 GitHub server。</li>
+<li>GitHub server 用它自己的私鑰解密。</li>
+<li>GitHub server 用我們的公鑰來驗證我們的身份。</li>
+</ol>
+<h1 id="ssh常用命令">SSH常用命令</h1>
+<h2 id="登陆">登陆</h2>
+<pre><code class="language-shell"># 没有指定用户名的登陆，默认用当前用户名登陆。第一次连接时，需要确认目标主机的真实性，通常需要输入yes
+ssh 域名/ip
+# 指定用户名登陆
+ssh username@host
+# 指定特定端口登陆（默认22端口）
+ssh xxx -p 1234
+# 用户名和主机名不用写一起
+ssh -l username host
+</code></pre>
+<h2 id="远程执行命令">远程执行命令</h2>
+<pre><code class="language-shell"># 如果只是想执行一条命令，直接在后面跟上命令即可
+ssh xxx ls -l
+</code></pre>
+<h1 id="服务器指纹">服务器指纹</h1>
+<p>当ssh首次连接某个远程服务器时，会有这个确认提示：</p>
+<pre><code class="language-shell">The authenticity of host 'xxx' can't be established.
+ECDSA key fingerprint is SHA256:Vybt22mVXuNuB5unE++yowF7lgA/9/2bLSiO3qmYWBY.
+Are you sure you want to continue connecting (yes/no)?
+
+# 输入yes后
+
+Warning: Permanently added 'foo.com (192.168.121.111)' (RSA) to the list of known hosts
+
+</code></pre>
+<p>这里的sha256就是所谓的服务器指纹，也就是该远程服务器的公钥的哈希值。</p>
+<p>这是因为首次连接时，对于本机来说远程服务器是陌生的，所以需要额外确认下服务器指纹。输入yes，就会将该指纹写入本机的<code>~/.ssh/known_hosts</code>中。每次连接时，服务器会判断欲连接的远程主机是否已在此known_hosts文件中，如果在，就不弹出确认提示。</p>
+<p>此外，查看公钥的指纹命令：</p>
+<pre><code class="language-shell">$ ssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key.pub
+256 da:24:43:0b:2e:c1:3f:a1:84:13:92:01:52:b4:84:ff   (ECDSA)
+</code></pre>
+<p>当远程服务器变更了公钥（比如重装SSH；或是通过虚拟地址可连接主备机中的主机，当主备切换时，连接实际主机的公钥信息也不同），此时需要会有这样的警告：</p>
+<pre><code class="language-shell">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that the RSA host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+77:a5:69:81:9b:eb:40:76:7b:13:04:a9:6c:f4:9c:5d.
+Please contact your system administrator.
+Add correct host key in /home/me/.ssh/known_hosts to get rid of this message.
+Offending key in /home/me/.ssh/known_hosts:36
+</code></pre>
+<p>在确认新的公钥可信任的情况下，可将原先的公钥指纹从<code>~/.ssh/known_hosts</code>中删掉，或直接vi进入文件删除对应行：
+<code>ssh-keygen -R hostname</code></p>
+<p>此后，再次尝试连接，并将新的公钥指纹添加进来即可。</p>
+<p>参考：https://ronpad.com/docs/ssh/client-3.html</p>
+<h1 id="配置文件">配置文件</h1>
+<h2 id="sshd配置文件-服务端配置文件">sshd配置文件（服务端配置文件）</h2>
+<p>路径：/etc/ssh/sshd_config</p>
+<p>格式：</p>
+<ul>
+<li>每个命令占据一行，大小写不敏感</li>
+<li>中间用空格或等号连接，如<code>port 2034</code>或<code>port = 2034</code></li>
+<li><code>#</code>开头的行表示注释，但是<code>#</code>只能放在开头</li>
+</ul>
+<p>修改完配置文件后：</p>
+<pre><code class="language-shell"># 可以用此命令检查语法错误(-t:test)
+sshd -t
+# 需要重启sshd才能生效
+sudo systemctl restart sshd.service 
+</code></pre>
+<h3 id="配置项">配置项</h3>
+<p>sshd配置文件中支持很多配置项，这里就先了解一些我认为常用的吧！</p>
+<ol>
+<li>AllowGroups 允许登陆的用户组</li>
+<li>AllowUsers 允许登陆的用户（也可用user@address的形式），用空格或多行指定（如果不指定，默认所有用户可登陆）</li>
+<li>AllowTCPForwarding 是否允许端口转发，默认yes。local表示只允许本地转发，remote表示只允许远程端口转发</li>
+<li>ClientAliveInterval 允许客户不输入的间隔时间，超过这段时间，用户没发任何信号的话会自动关闭SSH连接</li>
+<li>DenyGroups 指定不允许登陆的用户组</li>
+<li>DenyUsers 指定不允许登陆的用户</li>
+<li>PermitRootLogin 是否允许root用户登陆，默认yes，建议改为no</li>
+<li>Port 指定sshd监听的端口（默认22），可以通过配置多行来同时监听多个端口</li>
+<li>PubKeyAuthentication 是否允许公钥登陆，默认yes</li>
+<li>X11Forwarding 指定是否打开X window的转发，默认no</li>
+</ol>
+<p>参考：https://ronpad.com/docs/ssh/server-2.html</p>
+<h2 id="ssh配置文件-客户端配置文件">ssh配置文件（客户端配置文件）</h2>
+<p>路径：/etc/ssh/ssh_config，用户个人的配置文件在~/.ssh/config，优先级高于全局的</p>
+<h3 id="个人连接配置文件设置">个人连接配置文件设置</h3>
+<p>可以在<code>~/.ssh/config</code>中设置连接各个远程主机的默认连接参数，例如：</p>
+<pre><code class="language-shell">Host *
+     Port 2222
+
+Host remoteserver
+     HostName remote.example.com
+     User neo
+     Port 2112
+</code></pre>
+<blockquote>
+<p>上面代码中，<code>Host *</code>表示对所有主机生效，后面的<code>Port 2222</code>表示所有主机的默认连接端口都是2222，这样就不用在登录时特别指定端口了。这里的缩进并不是必需的，只是为了视觉上，易于识别针对不同主机的设置。</p>
+</blockquote>
+<h3 id="配置项-1">配置项</h3>
+<p>同理，就先列举出一些我认为常用的吧！</p>
+<ul>
+<li>checkHostIP 检查SSH服务器的IP地址是否和公钥数据库吻合</li>
+<li>Port 指定客户端连接的SSH服务器端口</li>
+<li>PubKeyAuthentication 是否支持密钥登陆，还需要在服务端配置</li>
+<li>StrictHostKeyChecking <code>yes</code>表示严格检查，服务器公钥为未知或发生变化，则拒绝连接。<code>no</code>表示如果服务器公钥未知，则加入客户端公钥数据库，如果公钥发生变化，不改变客户端公钥数据库，输出一条警告，依然允许连接继续进行。<code>ask</code>（默认值）表示询问用户是否继续进行。（详细分析见下面会单独给出）</li>
+</ul>
+<h1 id="端口转发">端口转发</h1>
+<p>SSH除了作为登陆远程服务器的作用，还可以作为加密通信的中介。比如在两台无加密的服务器之间的充当加密通信的跳板。这个功能称为端口转发(port forwarding)，也称为SSH 隧道(tunnel)。</p>
+<ul>
+<li>动态转发</li>
+<li>本地转发</li>
+<li>远程转发</li>
+</ul>
+<h1 id="stricthostkeychecking">StrictHostKeyChecking</h1>
+<p>用于ssh连接时指定是否要进行远程主机的公钥确认，可以有这三种取值：</p>
+<ul>
+<li>no：如果key在本地不存在，则直接添加到known_hosts中，只给出警告，并不会停下来</li>
+<li>ask：默认的级别，如果连接时判断到远程key不匹配，则给出交互式提示，不会直接登陆</li>
+<li>yes：如果不匹配，拒绝连接，不会提示详细信息</li>
+</ul>
+<p>该参数的配置在：</p>
+<ul>
+<li>ssh客户端配置文件 /etc/ssh/ssh_config</li>
+<li>当前用户的ssh配置文件 ~/.ssh/config</li>
+<li>直接在ssh命令中指定：<code>ssh -o StrictHostKeyChecking=no ....</code></li>
+</ul>
+<p>参考：https://www.cnblogs.com/aspirant/p/10654041.html</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-08-%E4%BA%91%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">软考-中级数据库系统分析师-08 云计算和大数据处理</a></span>
+  <span class="nav-next"><a href="/p/sftp%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">SFTP基础学习</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

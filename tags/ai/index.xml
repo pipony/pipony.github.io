@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on 2MUCH</title>
+    <link>https://huangxindi.com/tags/ai/</link>
+    <description>Recent content in AI on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Tue, 18 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ChatGPT</title>
+      <link>https://huangxindi.com/p/chatgpt/</link>
+      <pubDate>Tue, 18 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/chatgpt/</guid>
+      <description>自己使用或学习chatGPT或prompt的笔记心得。 主要参考来源： 《生产力超频：成为 ChatGPT 全域调教高手》 概念 GPT分解： G generative 生成式 P pre-trained 预训练 T</description>
+    </item>
+    
+    <item>
+      <title>AI资源</title>
+      <link>https://huangxindi.com/p/ai%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/ai%E8%B5%84%E6%BA%90/</guid>
+      <description>AI资源汇总网站 FUTUREPEDIA https://www.futurepedia.io/ FutureTools https://www.futuretools.io/ 17yongai（资源汇总、咨询、使用教程） https://17yongai.com/ Saas AI Tools https://saasaitools.com/ AI工具汇总 https://www.aiyjs.com/ 文本生成或简化 总结提炼（输入文章、pdf、视频等</description>
+    </item>
+    
+  </channel>
+</rss>

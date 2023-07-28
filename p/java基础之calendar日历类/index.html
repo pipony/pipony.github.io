@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Java基础之Calendar日历类 - 2MUCH</title>
+    <meta property="og:title" content="Java基础之Calendar日历类 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
+[&amp;hellip;] Calendar类是一个抽象类，不可以被实例化。
+因此，需要使用静态方法getInstance()来得到一个Calendar对象
+Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方 &amp;hellip;">
+      <meta property="og:description" content="Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法设置和读取日期的特定部分，比如年、月、日、时、分和秒等。
+[&amp;hellip;] Calendar类是一个抽象类，不可以被实例化。
+因此，需要使用静态方法getInstance()来得到一个Calendar对象
+Calendar calendar = Calendar.getInstance(); // 获取当前日期 获取方法 方 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Java基础之Calendar日历类</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-10-25
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="java基础之calendar日历类">Java基础之Calendar日历类</h1>
+<blockquote>
+<p>Calendar类用于完成日期和时间字段的操作，它可以通过特定的方法<strong>设置</strong>和<strong>读取</strong>日期的特定部分，比如年、月、日、时、分和秒等。</p>
+</blockquote>
+<h2 id="定义方法">定义方法</h2>
+<p><strong>Calendar类是一个抽象类，不可以被实例化。</strong></p>
+<p>因此，需要使用静态方法<code>getInstance()</code>来得到一个Calendar对象</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance(); // 获取当前日期
+</code></pre>
+<h2 id="获取方法">获取方法</h2>
+<h3 id="方法1">方法1</h3>
+<p>可获取字段包括：年、月、日、时、分、秒，需要使用Calendar类中定义的常量值来表示，如<code>Calendar.YEAR</code>用于表示年份。</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+int year = calendar.get(Calendar.YEAR);
+int month = calendar.get(Calendar.MONTH);
+int day = calendar.get(Calendar.DATE); // DATE表示日
+int hour = calendar.get(Calendar.HOUR);
+int minute = calendar.get(Calendar.MINUTE);
+int second = calendar.get(Calendar.SECOND);
+System.out.println(year+&quot;年&quot;+(month+1)+&quot;月&quot;+day+&quot;日&quot;+hour+&quot;时&quot;+minute+&quot;分&quot;+second+&quot;秒&quot;);
+/****执行结果******/
+2022年10月25日7时4分37秒
+</code></pre>
+<p><font color='red'>需要特别注意：</font></p>
+<blockquote>
+<p>在使用Calendar.MONTH字段时，月份的起始值是从0开始的，而不是从1开始，因此要获取当前的月份需要在Calendar.MONTH的基础上加1。</p>
+</blockquote>
+<h3 id="方法2">方法2</h3>
+<p>使用Calendar的<code>getTime()</code>方法，getTime()方法会返回一个表示Calendar时间值的Date对象</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+System.out.println(calendar.getTime());
+/******执行结果*******/
+Tue Oct 25 07:10:22 CST 2022
+</code></pre>
+<h2 id="设置方法">设置方法</h2>
+<p>使用<code>set</code>字段进行设置，有以下三种格式：</p>
+<table>
+<thead>
+<tr>
+<th><strong>方法声明</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void set(int field,int value)</td>
+<td>为指定日历字段设置指定值</td>
+</tr>
+<tr>
+<td>void set(int year,int month,int date)</td>
+<td>设置Calendar对象的年、月、日三个字段的值</td>
+</tr>
+<tr>
+<td>void set(int year.int month,int date,int hourOfDay,int minute,int second)</td>
+<td>设置Calendar对象的年、月、日、时、分、秒六个字段的值</td>
+</tr>
+</tbody>
+</table>
+<p>格式1:</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+System.out.println(&quot;当前日期：&quot;);
+System.out.println(calendar.getTime());
+// 指定日历字段进行设置
+calendar.set(Calendar.MONTH, 10); // 注意：实际上设置为10+1=11月
+calendar.set(Calendar.DATE, 10);
+System.out.println(&quot;设置方式1：&quot;);
+System.out.println(calendar.getTime());
+/******执行结果*******/
+当前日期：
+Tue Oct 25 07:19:46 CST 2022
+设置方式1：
+Thu Nov 10 07:19:46 CST 2022
+</code></pre>
+<p>格式2：</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+System.out.println(&quot;当前日期：&quot;);
+System.out.println(calendar.getTime());
+// 指定日历字段进行设置
+calendar.set(2020,8,19); // 设置为2020年9月19日
+System.out.println(&quot;设置方式2：&quot;);
+System.out.println(calendar.getTime());
+/******执行结果*******/
+当前日期：
+Tue Oct 25 07:28:16 CST 2022
+设置方式2：
+Sat Sep 19 07:28:16 CST 2020
+</code></pre>
+<p>格式3:</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+System.out.println(&quot;当前日期：&quot;);
+System.out.println(calendar.getTime());
+// 指定日历字段进行设置
+calendar.set(2020,8,19,20,19,18); // 设置年、月、日、时、分、秒
+System.out.println(&quot;设置方式3：&quot;);
+System.out.println(calendar.getTime());
+/******执行结果*******/
+当前日期：
+Tue Oct 25 07:29:58 CST 2022
+设置方式3：
+Sat Sep 19 20:19:18 CST 2020
+</code></pre>
+<h2 id="增减日期方法">增减日期方法</h2>
+<p>使用方法<code>void add(int field,int amount)</code>，amount为正数表示增加，为负数表示减少。</p>
+<pre><code class="language-java">Calendar calendar = Calendar.getInstance();
+System.out.println(&quot;当前日期：&quot;);
+System.out.println(calendar.getTime());
+calendar.add(Calendar.DATE,1); // 日+1
+calendar.add(Calendar.YEAR,-2); // 年-2
+System.out.println(&quot;日期增减后：&quot;);
+System.out.println(calendar.getTime());
+/******执行结果*******/
+当前日期：
+Tue Oct 25 07:33:35 CST 2022
+日期增减后：
+Mon Oct 26 07:33:35 CST 2020
+</code></pre>
+<h2 id="格式化输出日期方法">格式化输出日期方法</h2>
+<p>采用<code>SimpleDateFormat</code>类：</p>
+<pre><code class="language-java">SimpleDateFormat myFmt=new SimpleDateFormat(&quot;yyyy年MM月dd日 HH时mm分ss秒&quot;);
+SimpleDateFormat myFmt1=new SimpleDateFormat(&quot;yy/MM/dd HH:mm&quot;);
+SimpleDateFormat myFmt2=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);//等价于now.toLocaleString()
+SimpleDateFormat myFmt3=new SimpleDateFormat(&quot;yyyy年MM月dd日 HH时mm分ss秒 E &quot;);
+SimpleDateFormat myFmt4=new SimpleDateFormat(
+  &quot;一年中的第 D 天 一年中第w个星期 一月中第W个星期 在一天中k时 z时区&quot;);
+Calendar calendar = Calendar.getInstance();
+System.out.println(myFmt.format(calendar.getTime()));
+System.out.println(myFmt1.format(calendar.getTime()));
+System.out.println(myFmt2.format(calendar.getTime()));
+System.out.println(myFmt3.format(calendar.getTime()));
+System.out.println(myFmt4.format(calendar.getTime()));
+/******执行结果*******/
+2022年10月25日 07时42分34秒
+22/10/25 07:42
+2022-10-25 07:42:34
+2022年10月25日 07时42分34秒 周二 
+一年中的第 298 天 一年中第44个星期 一月中第5个星期 在一天中7时 CST时区
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025">https://book.itheima.net/course/1265899443273850881/1265900797362954241/1265906995478913025</a></p>
+<p><a href="https://blog.csdn.net/weixin_45732073/article/details/111501550">https://blog.csdn.net/weixin_45732073/article/details/111501550</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4/">Linux-系统信息查看命令</a></span>
+  <span class="nav-next"><a href="/p/linux-%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/">Linux-磁盘扩容</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

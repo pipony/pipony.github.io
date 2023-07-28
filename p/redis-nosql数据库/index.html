@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Redis-NoSQL数据库 - 2MUCH</title>
+    <meta property="og:title" content="Redis-NoSQL数据库 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
+特性：
+[&amp;hellip;] 适用场景：读写高并发、海量数据、高可扩展性
+不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
+注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
+">
+      <meta property="og:description" content="NoSQL(No only SQL)，泛指非关系型数据库，数据与业务逻辑无关，以key-value形式存储。因此可以大大增加数据库的扩展能力。
+特性：
+[&amp;hellip;] 适用场景：读写高并发、海量数据、高可扩展性
+不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系
+注意：用不着sql的和用了sql也不行的情况，请考虑用NoSql
+">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Redis-NoSQL数据库</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-07-03
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="redis-nosql数据库">Redis-NoSQL数据库</h1>
+<h2 id="nosql数据库概述">NoSQL数据库概述</h2>
+<p>NoSQL(No only SQL)，泛指<strong>非关系型数据库</strong>，数据与业务逻辑无关，以<code>key-value</code>形式存储。因此可以大大增加数据库的扩展能力。</p>
+<p>特性：</p>
+<ul>
+<li>不遵循SQL标准</li>
+<li>不支持ACID（SQL四特性）</li>
+<li>远超SQL性能</li>
+</ul>
+<p>适用场景：读写高并发、海量数据、高可扩展性</p>
+<p>不适用场景：需要事务、用到基于sql 的结构化查询存储，处理复杂的关系</p>
+<p>注意：<strong>用不着sql的和用了sql也不行的情况，请考虑用NoSql</strong></p>
+<h2 id="常见nosql数据库">常见NoSQL数据库</h2>
+<ul>
+<li>Memcache
+<ul>
+<li>不持久化（断电即数据消失）</li>
+<li>存储只支持字符串类型</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+</li>
+<li>Redis
+<ul>
+<li>持久化，主要用作备份恢复</li>
+<li>支持多种数据结构（如 list、set、hash、zset）</li>
+<li>一般是作为缓存数据库辅助持久化的数据库</li>
+</ul>
+</li>
+<li>MongoDB
+<ul>
+<li>文档型数据库（json）</li>
+<li>支持二进制数据及大型对象</li>
+<li>独立的数据库，或者配合RDBMS</li>
+</ul>
+</li>
+<li>Hbase（Hadoop项目中的数据库。它用于需要对<strong>大量</strong>的数据进行随机、实时的读写操作的场景中）</li>
+<li>Apache Cassandra（其设计目的在于管理由大量商用服务器构建起来的庞大集群上的<strong>海量数据集</strong>(数据量通常达到PB级别)）</li>
+<li>图关系型数据库</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/redis%E5%BC%80%E5%A7%8B/">Redis开始</a></span>
+  <span class="nav-next"><a href="/p/oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">ORACLE-存储过程</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

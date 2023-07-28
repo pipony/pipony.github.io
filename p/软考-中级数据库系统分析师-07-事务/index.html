@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级数据库系统分析师-07 事务 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级数据库系统分析师-07 事务 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。
+语句：
+begin transaction end transaction commit / commit work rollback / rollback work 事务特性 原子性 一致性 隔离性：两个事务对同一个数据进行操作，不会相互干扰 持久性：存在磁盘上，不是存在内存中 事务的状态 活动状态 部分提交 提 &amp;hellip;">
+      <meta property="og:description" content="定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。
+语句：
+begin transaction end transaction commit / commit work rollback / rollback work 事务特性 原子性 一致性 隔离性：两个事务对同一个数据进行操作，不会相互干扰 持久性：存在磁盘上，不是存在内存中 事务的状态 活动状态 部分提交 提 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://cdn.huangxindi.com/img/202305141727230.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级数据库系统分析师-07 事务</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="事务概念">事务概念</h1>
+<p>定义：事务是一系列的数据库操作，是数据库应用程序的逻辑单位。要么都做，要么都不做。</p>
+<p>语句：</p>
+<pre><code class="language-sql">begin transaction
+end transaction
+
+commit / commit work
+rollback / rollback work
+</code></pre>
+<h1 id="事务特性">事务特性</h1>
+<ul>
+<li>原子性</li>
+<li>一致性</li>
+<li>隔离性：两个事务对同一个数据进行操作，不会相互干扰</li>
+<li>持久性：存在磁盘上，不是存在内存中</li>
+</ul>
+<h1 id="事务的状态">事务的状态</h1>
+<ul>
+<li>活动状态</li>
+<li>部分提交</li>
+<li>提交状态</li>
+<li>失败状态</li>
+<li>中止状态</li>
+</ul>
+<p><img src="https://cdn.huangxindi.com/img/202305141727230.png" alt="image.png"></p>
+<h1 id="并发控制-重要">并发控制（重要）</h1>
+<h2 id="事务调度">事务调度</h2>
+<ul>
+<li>串行调度</li>
+<li>并发调度：利用分时的方法同时处理多个事务</li>
+<li>可恢复调度：当事务A要读事务B写的数据时，B事务必须要先于事务A提交</li>
+</ul>
+<p>并发调度是否正确：结果和任意一次串性执行结果一致即可，则可以认为是可串行化的调度。可串行性是并发事务正确性的准则。</p>
+<p>并发操作的不一致性：</p>
+<ul>
+<li>丢失修改</li>
+<li>不可重复读</li>
+<li>读脏数据：读取的是其他事务修改后的值，但是该修改后来又被撤销了</li>
+</ul>
+<h2 id="并发控制技术">并发控制技术</h2>
+<ol>
+<li>排它锁（X锁）：其他事务无法进行读或写</li>
+<li>共享锁（S锁，读锁）：其他事务可以读，不能写</li>
+</ol>
+<h2 id="封锁协议">封锁协议</h2>
+<ul>
+<li>一级封锁协议：修改前加X锁，解决丢失修改问题</li>
+<li>二级封锁协议：一级协议基础上加上读之前加S锁，读完释放S锁。解决读脏数据的问题</li>
+<li>三级封锁协议：一级协议基础上加上读之前加S锁，事务结束才释放S锁。解决不可重复读的问题</li>
+</ul>
+<h2 id="两段锁协议-2pl">两段锁协议（2PL）</h2>
+<p>定义：同<strong>一事务</strong>对任何数据进行读写之前必须对该数据加锁，<strong>在释放一个封锁之后</strong>，该事务不再申请和获得任何其他封锁。第一阶段获得封锁，即扩展阶段；第二阶段是释放封锁，即收缩阶段。<strong>（含义要背下来！）</strong></p>
+<p>特点：</p>
+<ul>
+<li>遵循两段锁，一定是可串行化的；不遵循两段锁，可能是可串行化，可能不是</li>
+<li>采用两段锁协议可能产生死锁</li>
+</ul>
+<h1 id="事务的隔离级别">事务的隔离级别</h1>
+<ul>
+<li>READ UNCOMMITED 读未提交 避免丢失修改</li>
+<li>READ COMMITED 读已提交 避免丢失修改、读脏数据</li>
+<li>REPETABLE READ 可重复读 避免丢失修改、读脏数据、不可重复读</li>
+<li>SERIALIZABLE 串行化 最高级别，避免丢失修改、读脏数据、不可重复读、幻读</li>
+</ul>
+<p>幻读：事务A查询到N条数据，然后事务B又插入M条数据，导致事务A再次搜索发现有N+M条数据，产生幻读（与不可重复读区别，幻读是第二次读取到更多条数据，脏数据是同一个数据值变了）</p>
+<p><img src="https://cdn.huangxindi.com/img/202305150738741.png" alt="image.png"></p>
+<h1 id="数据库备份与恢复">数据库备份与恢复</h1>
+<h2 id="故障种类">故障种类</h2>
+<ul>
+<li>事务故障：由于程序执行错误引起事务异常终止
+<ul>
+<li>逻辑错误</li>
+<li>系统错误：如死锁</li>
+</ul>
+</li>
+<li>系统故障：硬件故障，未破坏存储在外存上的信息</li>
+<li>介质故障：存储介质发生故障，如磁盘损坏，会直接破坏数据库</li>
+</ul>
+<h2 id="数据库备份">数据库备份</h2>
+<ul>
+<li>静态转储、动态转储：静态在转储期间不能进行任何存取、修改操作</li>
+<li>海量转储、增量转储</li>
+<li>日志文件</li>
+<li>数据库镜像</li>
+</ul>
+<h2 id="数据库恢复">数据库恢复</h2>
+<p>要能够恢复，必须建立冗余数据。</p>
+<p>恢复操作：</p>
+<ul>
+<li>撤销undo：将未完成的事务撤销，使数据库恢复到事务执行前的正确状态。通过反向扫描日志文件，进行逆操作，直至事务开始标志</li>
+<li>重做数据redo：正向扫描日志文件，重新执行，直至事务结束标志</li>
+</ul>
+<p>恢复策略：</p>
+<ul>
+<li>事务故障的恢复（在运行到正常终止点commit或rollback前终止）：undo。是由系统自动完成，对用户透明</li>
+<li>系统故障的恢复，包括未完成事务已经写入数据库（undo），或者已提交的事务还没写入数据库（redo）</li>
+<li>介质故障：重装数据库，装载最近一次的备份和日志文件副本，再undoundo+redo</li>
+</ul>
+<h2 id="检查点机制-checkpoint">检查点机制 checkpoint</h2>
+<p>反向扫描日志文件，找到检查点。对于检查点后提交的事务，执行redo；对于检查点后未提交的事务，执行undo</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-03-sql/">软考-中级数据库系统分析师-03 SQL</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">软考-中级数据库系统分析师-06 数据库设计</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on 2MUCH</title>
+    <link>https://huangxindi.com/tags/windows/</link>
+    <description>Recent content in Windows on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows命令行手册</title>
+      <link>https://huangxindi.com/p/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/windows%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%89%8B%E5%86%8C/</guid>
+      <description>此笔记为《少数派-生产力超频：Windows 命令行实用手册》l栏目的个人学习笔记，供个人回溯 一些概念 Command Line Interface (CLI) 命令行界面 Console App &amp;amp; Terminal App 控制台应用：</description>
+    </item>
+    
+    <item>
+      <title>win10常用快捷键</title>
+      <link>https://huangxindi.com/p/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <pubDate>Sun, 14 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/win10%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      <description>win10常用快捷键 【个人向】由于工作机是win10，故整理一些个人比较常用快捷键。还有很多好用的快捷键等待学习～～ Win+* Win+L 快速锁屏 Win+D 显示桌面 Win+I</description>
+    </item>
+    
+  </channel>
+</rss>

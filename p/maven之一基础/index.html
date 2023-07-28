@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Maven之一：基础 - 2MUCH</title>
+    <meta property="og:title" content="Maven之一：基础 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="学习网站：http://mvnbook.com/index.html
+[&amp;hellip;] Maven英文：专家、内行
+Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
+[&amp;hellip;] 组成：
+[&amp;hellip;] 官网地址是：https://maven.apache.org/index.html
+[&amp;hellip;] 官网下载地址 &amp;hellip;">
+      <meta property="og:description" content="学习网站：http://mvnbook.com/index.html
+[&amp;hellip;] Maven英文：专家、内行
+Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的构建和依赖管理。
+[&amp;hellip;] 组成：
+[&amp;hellip;] 官网地址是：https://maven.apache.org/index.html
+[&amp;hellip;] 官网下载地址 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/maven-core.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Maven之一：基础</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-09-17
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="maven之一-基础">Maven之一：基础</h1>
+<p>学习网站：http://mvnbook.com/index.html</p>
+<h2 id="简介">简介</h2>
+<p>Maven英文：专家、内行</p>
+<p>Maven：项目管理工具。可以对 Java 项目（后也可被应用于其他语言的管理）进行自动化的<strong>构建</strong>和<strong>依赖管理</strong>。</p>
+<ul>
+<li>项目构建：即软件项目生产的整个过程
+<ul>
+<li>文档和代码的生成</li>
+<li>代码编译、测试、打包</li>
+<li>打包好的代码进行分发和部署</li>
+</ul>
+</li>
+<li>依赖管理
+<ul>
+<li>我们需要做的就是在 POM 文件里指定依赖 Jar 包的名称、版本号，Maven 会自动下载，并递归地去下载依赖的进一步依赖</li>
+<li>快照依赖：使用快照依赖可以确保本地仓库中的每一个 Build 版本都是最新的</li>
+</ul>
+</li>
+</ul>
+<p>组成：</p>
+<ul>
+<li>项目对象模型 POM(project object model)</li>
+<li>项目生命周期 project lifecycle</li>
+<li>依赖管理系统 dependency management system</li>
+<li>各种插件</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/maven-core.png" alt=""></p>
+<p><strong>官网地址是：https://maven.apache.org/index.html</strong></p>
+<h2 id="下载和安装">下载和安装</h2>
+<p>官网下载地址是：https://maven.apache.org/download.cgi</p>
+<p><strong>Mac安装maven步骤：</strong></p>
+<p>参考链接：https://blog.csdn.net/m0_67400973/article/details/123656632</p>
+<p>1、下载Binary zip archive（如目前的最新版 apache-maven-3.8.6-bin.zip），解压并重命名文件夹为maven（或者外面再套一层maven文件夹，不需要修改原有的文件夹名称）</p>
+<p>2、配置环境变量</p>
+<p>编辑文件 .bash_profile：</p>
+<pre><code class="language-shell">vim ~/.bash_profile
+# 添加以下内容
+export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径
+export PATH=$PATH:$M2_HOME/bin
+</code></pre>
+<p>编辑文件 .zshrc</p>
+<pre><code class="language-shell">vim ~/.zshrc
+# 添加以下内容
+export M2_HOME=/Users/huangxindi/study/maven #这里是你maven目录的路径
+export PATH=$PATH:$M2_HOME/bin
+</code></pre>
+<p>3、使修改立即生效</p>
+<pre><code class="language-shell">source ~/.bash_profile
+source ~/.zshrc
+</code></pre>
+<p>4、验证maven是否安装成功</p>
+<pre><code class="language-shell">mvn -v
+# 输出类似以下结果，证明安装成功
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /Users/huangxindi/study/maven
+Java version: 17.0.4, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk-17.0.4.jdk/Contents/Home
+Default locale: zh_CN_#Hans, platform encoding: UTF-8
+OS name: &quot;mac os x&quot;, version: &quot;12.5.1&quot;, arch: &quot;aarch64&quot;, family: &quot;mac&quot;
+</code></pre>
+<h2 id="maven仓库">Maven仓库</h2>
+<h3 id="仓库类型">仓库类型</h3>
+<ul>
+<li>本地(local)仓库：Maven 从远程仓库下载下来的构件都存放在本地仓库中，项目可以从本地 Maven 仓库中获取自己所依赖的文件。</li>
+<li>中央(central)仓库：Maven 中央仓库是由 Maven 社区提供的仓库，其中包含了大量常用的库。中央仓库是 Maven 官方提供的，可通过 <a href="http://search.maven.org/">http://search.maven.org/</a> 来访问。</li>
+<li>远程(remote)私服：私服一般是指公司内部使用的仓库。运行 Maven 时，Maven 所需要的任何构件都是从本地仓库获取的，但是如果本地仓库没有，它就会尝试从远程仓库中下载构件到本地仓库。如果 Maven 无法连接到远程仓库，将无法正常构建项目。</li>
+</ul>
+<h3 id="本地仓库">本地仓库</h3>
+<p>本地仓库只有在第一次执行maven命令时才会被创建。运行 Maven 的时候，Maven 所需要的任何构件都是直接从本地仓库获取的。如果本地仓库没有，它会首先尝试从远程仓库下载构件至本地仓库，然后再使用本地仓库的构件。</p>
+<blockquote>
+<p>我们可以将本地仓库理解为 &ldquo;缓存&rdquo;，目的是存放 Jar 包。开发项目时首先会从本地仓库中获取 Jar 包，当无法获取指定 Jar 包的时候，本地仓库会从远程仓库（或中央仓库）中下载 Jar 包，并 &ldquo;缓存&rdquo; 到本地仓库中以备将来使用。这样一来，本地仓库会随着项目的积累越变越大。</p>
+</blockquote>
+<p><strong>修改本地仓库路径（注意，前方犯蠢现场）</strong></p>
+<p>可以通过修改 <code>%M2_HOME%\conf</code> 目录中的 Maven 的 <code>settings.xml </code>文件，将本地仓库定义成其他路径：</p>
+<pre><code class="language-shell">&lt;!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;
+  --&gt;
+# &lt;localRepository&gt; 参数值改为其他路径
+&lt;!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  &lt;localRepository&gt;/Users/huangxindi/study/localRepository&lt;/localRepository&gt;
+  --&gt;
+</code></pre>
+<p>验证本地仓库的下载内容结果 <code>mvn help:system</code>：</p>
+<pre><code class="language-shell"># 从中心仓库下载到本地仓库的文件
+mvn help:system 
+# 但是执行刚开始提示download都正常，最后有如下报错
+...
+Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/maven-metadata.xml (21 kB at 11 kB/s)
+[WARNING] Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to central (https://repo.maven.apache.org/maven2): transfer failed for https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+[WARNING] org.apache.maven.plugins/maven-metadata.xmlfailed to transfer from https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution will not be reattempted until the update interval of central has elapsed or updates are forced. Original error: Could not transfer metadata org.apache.maven.plugins/maven-metadata.xml from/to central (https://repo.maven.apache.org/maven2): transfer failed for https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-metadata.xml
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:27 min
+[INFO] Finished at: 2022-09-17T20:55:04+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix 'help' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/huangxindi/.m2/repository), central (https://repo.maven.apache.org/maven2)] -&gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
+</code></pre>
+<p>看了这篇博客（https://blog.csdn.net/weixin_44077693/article/details/125026771），也是相同的设置和问题，了解到<code>settings.xml</code> 文件的<code>localRepository</code>的设置不能和maven文件夹同级，改为设在maven文件夹里面就可以了。于是修改<code>localRepository</code>参数，并新建相关目录，然后重新执行下载。</p>
+<pre><code class="language-shell">&lt;!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  &lt;localRepository&gt;/Users/huangxindi/study/maven/localRepository&lt;/localRepository&gt;
+  --&gt;
+# 重新执行插件下载
+mvn help:system
+# 执行结果成功
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  07:49 min
+[INFO] Finished at: 2022-09-17T21:17:17+08:00
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+<p><strong>可是</strong>，不知道为啥，我打开<code>localRepository</code>参数所在的目录，是空的。。。</p>
+<p>到默认目录去看，原来还是下载到了默认目录中，这。。。</p>
+<pre><code class="language-linux">huangxindi@huangxindideiMac repository % pwd
+/Users/huangxindi/.m2/repository
+huangxindi@huangxindideiMac repository % ls -l
+total 0
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 aopalliance
+drwxr-xr-x  4 huangxindi  staff  128  9 17 21:13 com
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 commons-collections
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:12 commons-io
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:11 commons-lang
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:13 io
+drwxr-xr-x  5 huangxindi  staff  160  9 17 21:10 javax
+drwxr-xr-x  4 huangxindi  staff  128  9 17 21:11 net
+drwxr-xr-x  9 huangxindi  staff  288  9 17 21:13 org
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:13 xmlpull
+</code></pre>
+<p>我是有看到以下这种说法，但是本地仓库的文件夹我明明有手动创建啊，为啥还是跑到默认路径去了。。</p>
+<blockquote>
+<p>本地仓库的文件目录，<strong>一定要自己手动创建</strong>，否则即使修改了settings.xml文件也会将下载的东西放到.m2目录下</p>
+</blockquote>
+<p>然后，我悲催地发现，原来我之前在<code>settings.xml</code> 文件的<code>localRepository</code>的设置语句，还处在<strong>注释状态</strong>（被包在<code>&lt;!--  --&gt;</code>中间），所以一直没生效修改。。。于是删除默认的本地仓库插件，重新修改路径，重新下载。。。</p>
+<pre><code class="language-shell">&lt;!-- localRepository
+| The path to the local repository maven will use to store artifacts.
+|
+| Default: ${user.home}/.m2/repository
+--&gt;
+&lt;localRepository&gt;/Users/huangxindi/study/maven/localRepository&lt;/localRepository&gt;
+# 重新执行插件下载
+mvn help:system
+# 执行结果成功
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11:13 min
+[INFO] Finished at: 2022-09-17T22:01:37+08:00
+[INFO] ------------------------------------------------------------------------
+# 终于在自定义的本地仓库文件夹中看到了下载的插件
+huangxindi@huangxindideiMac localRepository % pwd
+/Users/huangxindi/study/maven/localRepository
+huangxindi@huangxindideiMac localRepository % ls -l
+total 0
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:55 aopalliance
+drwxr-xr-x  4 huangxindi  staff  128  9 17 21:56 com
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:55 commons-collections
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:56 commons-io
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:56 commons-lang
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:56 io
+drwxr-xr-x  5 huangxindi  staff  160  9 17 21:55 javax
+drwxr-xr-x  4 huangxindi  staff  128  9 17 21:56 net
+drwxr-xr-x  9 huangxindi  staff  288  9 17 21:56 org
+drwxr-xr-x  3 huangxindi  staff   96  9 17 21:56 xmlpull
+</code></pre>
+<h3 id="中央仓库">中央仓库</h3>
+<p>中央仓库由 Maven 社区管理，不需要配置，但需要通过<strong>网络</strong>才能访问。</p>
+<p>在maven的安装目录下，有此插件<code>/lib/maven-model-builder-${version}.jar</code>，打开可以找到超级POM（<code>\org\apache\maven\model\pom-4.0.0.xml</code>）。它是所有Maven POM的父POM，所有Maven项目继承该配置。</p>
+<pre><code class="language-xml">&lt;repositories&gt;
+&lt;repository&gt;
+  &lt;id&gt;central&lt;/id&gt;
+  &lt;name&gt;Central Repository&lt;/name&gt;
+  &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt; # 此处配置中央库地址
+  &lt;layout&gt;default&lt;/layout&gt;
+  &lt;snapshots&gt;
+	&lt;enabled&gt;false&lt;/enabled&gt;
+  &lt;/snapshots&gt;
+&lt;/repository&gt;
+&lt;/repositories&gt;
+</code></pre>
+<p><strong>主要中央仓库地址</strong>：</p>
+<p>1、阿里中央仓库</p>
+<pre><code class="language-xml">&lt;repository&gt;
+    &lt;id&gt;alimaven&lt;/id&gt;
+    &lt;name&gt;aliyun maven&lt;/name&gt;
+    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+&lt;/repository&gt;
+</code></pre>
+<p>2、maven.apache.org 中央仓库</p>
+<pre><code class="language-xml">&lt;repository&gt;
+    &lt;id&gt;central-repos&lt;/id&gt;
+    &lt;name&gt;Central Repository&lt;/name&gt;
+    &lt;url&gt;https://repo.maven.apache.org/maven2&lt;/url&gt;
+&lt;/repository&gt;
+</code></pre>
+<p>3、spring.io 中央仓库</p>
+<pre><code class="language-xml">&lt;repository&gt;
+    &lt;id&gt;springsource-repos&lt;/id&gt;
+    &lt;name&gt;SpringSource Repository&lt;/name&gt;
+    &lt;url&gt;http://repo.spring.io/release/&lt;/url&gt;
+&lt;/repository&gt;
+</code></pre>
+<h3 id="远程私服仓库">远程私服仓库</h3>
+<p>如果 Maven 在中央仓库中也找不到依赖的文件，它会停止构建过程并输出错误信息到控制台。为避免这种情况，Maven 提供了远程仓库的概念，它是开发人员自己定制仓库，包含了所需要的代码库或者其他工程中用到的 Jar 文件。</p>
+<blockquote>
+<p>Maven远程库也是位于网络上的存储库。例如一个公司可能有很多共享的jar包文件，就可以搭建一个公司内部的远程库，供众多开发人员使用。中央库可以认为是一个特殊的远程库。</p>
+</blockquote>
+<h3 id="依赖搜索顺序">依赖搜索顺序</h3>
+<p><strong>本地</strong> -&gt; 找不到的话，找<strong>中央</strong>仓库 -&gt; 中央仓库找不到，是否配置<strong>远程</strong>仓库 -&gt; 无配置远程，则抛错（无法找到依赖的文件） -&gt; 有配置远程，则找远程仓库 -&gt; 若找不到，也抛错（无法找到依赖的文件）</p>
+<p>若中途从中央或远程仓库找到依赖包，则下载到本地仓库供后续使用</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="http://mvnbook.com/index.html">http://mvnbook.com/index.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/">Maven之二：创建Maven项目</a></span>
+  <span class="nav-next"><a href="/p/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B9%8B%E4%BA%8Chelloworld/">小程序之二：HelloWorld</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

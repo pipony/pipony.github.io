@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>数据库分页查询 - 2MUCH</title>
+    <meta property="og:title" content="数据库分页查询 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
+[&amp;hellip;] SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
+参数1表示偏移量，参数2表示返回记录行的最大数目。
+需要注意：初始偏移量是0而不是1。
+举例：
+SELECT * FROM table LIMIT 5,10; # 检 &amp;hellip;">
+      <meta property="og:description" content="数据库分页语句使用limit语法来实现。除了基础的limit用法，还有一些优化的方法。
+[&amp;hellip;] SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset
+参数1表示偏移量，参数2表示返回记录行的最大数目。
+需要注意：初始偏移量是0而不是1。
+举例：
+SELECT * FROM table LIMIT 5,10; # 检 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>数据库分页查询</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-11-21
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="数据库分页查询">数据库分页查询</h1>
+<p>数据库分页语句使用<code>limit</code>语法来实现。除了基础的limit用法，还有一些优化的方法。</p>
+<h2 id="limit基础用法">LIMIT基础用法</h2>
+<p><code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</code></p>
+<p>参数1表示偏移量，参数2表示返回记录行的最大数目。</p>
+<p>需要注意：<strong>初始偏移量是0而不是1。</strong></p>
+<p>举例：</p>
+<pre><code class="language-mysql">SELECT * FROM table LIMIT 5,10; # 检索记录行 6-15
+SELECT * FROM table LIMIT 95,-1; # 检索记录行 96-last
+SELECT * FROM table LIMIT 5; # 检索前 5 个记录行 （LIMIT n 等价于 LIMIT 0,n）
+select * from table LIMIT 4 offset 9; # 返回从第9行开始的4条记录 （此时第1个参数表示最多返回几行记录，offset后面的第2个参数表示从第4行开始）
+
+# 返回第pageNum页,每页条数为numPerPage 条数据的sql语句写法为
+select * from table limit (pageNum-1)*numPerPage ,numPerPage  # 方法1
+select * from table limit numPerPage offset (pageNum-1)*numPerPage  # 方法2
+</code></pre>
+<h2 id="优化分页查询方法">优化分页查询方法</h2>
+<p>由于基础的分页查询方式会从数据库第一条记录开始扫描，所以当LIMIT的<code>offset</code>较大时，查询速度会越来越慢。下面列举一些优化的分页查询方法。</p>
+<p>参考：</p>
+<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000008859706">https://segmentfault.com/a/1190000008859706</a></p>
+<h3 id="使用子查询优化">使用子查询优化</h3>
+<pre><code class="language-mysql">SELECT * FROM articles WHERE  id &gt;=  
+(SELECT id FROM articles  WHERE category_id = 123 ORDER BY id LIMIT 10000, 1) LIMIT 10;
+SELECT * FROM news WHERE id IN (SELECT id FROM news ORDER BY id limit (page * (per_page - 1)), per_page);
+</code></pre>
+<p>即，使用<code>id</code>来直接定位。但不知道具体id是多少，所以需要用子查询来先获取。</p>
+<h3 id="使用-id-限定优化">使用 id 限定优化</h3>
+<pre><code class="language-mysql">select * from orders_history where type=2 and id between 1000000 and 1000100 limit 100;
+select * from orders_history where id &gt;= 1000001 limit 100;
+</code></pre>
+<p>前提是知道具体id是多少：这种方式假设数据表的id是连续递增的，则我们<strong>根据查询的页数和查询的记录数可以算出查询的id的范围。</strong></p>
+<h3 id="优化总结">优化总结</h3>
+<p>为了保证index索引列连续，可以为每个表加一个自增字段（作为<code>id</code>），并且加上索引。</p>
+<p>需要提醒的是，所有的分页查询条件都必须建立索引，并且不能有 <code>TEXT</code> 字段。MySQL 的索引字段中，<code>VARCHAR(32)</code> 我都觉得很大了， <code>TEXT</code> 字段简直是不能容忍的，不怕死的可以自己试试。 （https://www.mywaiting.com/weblogs/pagination-with-mysql/）</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/duhuo/p/4245209.html">https://www.cnblogs.com/duhuo/p/4245209.html</a></p>
+<p><a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html">https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html</a></p>
+<p><a href="https://segmentfault.com/a/1190000008859706">https://segmentfault.com/a/1190000008859706</a></p>
+<p><a href="https://www.mywaiting.com/weblogs/pagination-with-mysql/">https://www.mywaiting.com/weblogs/pagination-with-mysql/</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97%E5%9F%BA%E7%A1%80/">数据库日志基础</a></span>
+  <span class="nav-next"><a href="/p/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/">编译期常量</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

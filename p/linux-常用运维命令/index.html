@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-常用运维命令 - 2MUCH</title>
+    <meta property="og:title" content="Linux-常用运维命令 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="ip ad [show] [具体要查看的，etho] # 如果有虚拟ip（vip）绑定，则也可以通过此命令查看到 ipconfig 查看服务状态 systemctl status 服务名 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status mysqld ● mysqld.service - LSB: start and stop MySQL &amp;hellip;">
+      <meta property="og:description" content="ip ad [show] [具体要查看的，etho] # 如果有虚拟ip（vip）绑定，则也可以通过此命令查看到 ipconfig 查看服务状态 systemctl status 服务名 [cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status mysqld ● mysqld.service - LSB: start and stop MySQL &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-常用运维命令</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-07-03
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="查看服务器当前状态">查看服务器当前状态</h1>
+<h2 id="查看ip">查看ip</h2>
+<pre><code class="language-shell">ip ad [show] [具体要查看的，etho] 
+# 如果有虚拟ip（vip）绑定，则也可以通过此命令查看到
+
+ipconfig
+</code></pre>
+<h2 id="查看服务状态">查看服务状态</h2>
+<pre><code class="language-shell">systemctl status 服务名
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ systemctl status mysqld           
+● mysqld.service - LSB: start and stop MySQL                         
+   Loaded: loaded (/etc/rc.d/init.d/mysqld; bad; vendor preset: disabled)                      
+   Active: active (exited) since Mon 2022-11-07 20:24:30 CST; 7 months 24 days ago             
+
+     Docs: man:systemd-sysv-generator(8)                                                  
+
+Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailab
+le.
+
+# 除了查看，还可以用systemctl来修改服务状态
+systemctl start service_name
+systemctl stop service_name
+systemctl restart service_name
+systemctl disable service_name # 取消开机自启动
+</code></pre>
+<p>服务状态包括：</p>
+<ul>
+<li>loaded             ##系统服务已经初始化完成，加载过配置</li>
+<li>active（running）       ##正有一个或多个程序正在系统中执行， vsftpd就是这种模式</li>
+<li>atcive（exited）        ##僅執行一次就正常結束的服務， 目前並沒有任何程序在系統中執行</li>
+<li>atcive（waiting）       ##正在執行當中，不過還再等待其他的事件才能继续处理</li>
+<li>inactive            ##服务关闭</li>
+<li>enbaled           ##服务开机启动</li>
+<li>disabled          ##服务开机不自启</li>
+<li>static                ##服务开机启动项不可被管理</li>
+<li>failed                ##系统配置错误</li>
+</ul>
+<p><a href="https://blog.csdn.net/sky__man/article/details/78178821">https://blog.csdn.net/sky__man/article/details/78178821</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E5%B8%B8%E7%94%A8shell%E8%AF%AD%E5%8F%A5/">常用Shell语句</a></span>
+  <span class="nav-next"><a href="/p/base64%E7%BC%96%E7%A0%81%E8%A7%A3%E7%A0%81/">Base64编码解码</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>认识编码 - 2MUCH</title>
+    <meta property="og:title" content="认识编码 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+[&amp;hellip;] 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据 &amp;hellip;">
+      <meta property="og:description" content="字符集 vs. 编码方式：编码方式就是将字符集里的字符映射成可以被计算机识别的若干位二进制来表示。
+[&amp;hellip;] 对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。 其中：字库表是一个相当于所有可读或者可显示字符的数据 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20221220090626617.png">
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>认识编码</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-12-19
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="概念">概念</h1>
+<p>字符集 vs. 编码方式：编码方式就是将字符集里的字符<strong>映射</strong>成可以被计算机识别的若干位二进制来表示。</p>
+<blockquote>
+<p>对于一个字符集来说要正确编码转码一个字符需要三个关键元素：字库表（character repertoire）、编码字符集（coded character set）、字符编码（character encoding form）。
+其中：字库表是一个相当于所有可读或者可显示字符的数据库，字库表决定了整个字符集能够展现表示的所有字符的范围。编码字符集，即用一个编码值code point来表示一个字符在字库中的位置。字符编码，将编码字符集和实际存储数值之间的转换关系。一般来说都会直接将code point的值作为编码后的值直接存储。例如在ASCII中A在表中排第65位，而编码后A的数值是0100 0001也即十进制的65的二进制转换结果。</p>
+<p><a href="https://www.cnblogs.com/faetbwac/p/16355273.html">https://www.cnblogs.com/faetbwac/p/16355273.html</a></p>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>字符(Character)</strong> 是各种文字和符号的总称，包括各国家文字、标点符号、图形符号、数字等。</li>
+<li><strong>字符集(Character set)</strong> 是一个系统支持的所有抽象字符的集合。通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定。如ASCII,GBxxx,Unicode等。</li>
+<li><strong>字符编码(Character encoding)</strong> 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。每个字符集中的字符都对应一个唯一的二进制编码。</li>
+</ul>
+<p>字符集和字符编码一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码。Unicode比较特殊，有多种字符编码（UTF-8,UTF-16等）</p>
+<p><a href="https://www.cnblogs.com/chiguozi/p/5860364.html">https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
+</blockquote>
+<h1 id="字符集对比">字符集对比</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字符集名称</th>
+<th style="text-align:left">字符集范围</th>
+<th style="text-align:left">编码格式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ASCII</td>
+<td style="text-align:left">英文或其他西欧语言</td>
+<td style="text-align:left">单字节</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">GB2312</td>
+<td style="text-align:left">汉字</td>
+<td style="text-align:left">双字节</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">GBK</td>
+<td style="text-align:left">更多汉字（21886个汉字和图形符号）</td>
+<td style="text-align:left">双字节</td>
+<td>完全向下兼容GB2312</td>
+</tr>
+<tr>
+<td style="text-align:left">GB18030</td>
+<td style="text-align:left">支持简体中文、繁体中文 藏文、蒙文、维吾尔文等主要的少数民族文字</td>
+<td style="text-align:left">可变多字节（1、2、4字节）</td>
+<td>完全兼容GB2312，基本兼容GBK</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="常见的支持中文的字符集的对比">常见的支持中文的字符集的对比</h1>
+<p>常用的支持中文的字符集有：</p>
+<ol>
+<li>GB2312</li>
+<li>GBK</li>
+<li>GB18030</li>
+<li>BIG5</li>
+<li>HZ</li>
+<li>Unicode</li>
+</ol>
+<p>其中，<strong>GB2312、GBK、GB18030</strong>是中国国家标准，主要用于简体中文的编码，其中GB2312最早发布于1981年，GBK在GB2312的基础上扩展了更多的中文字符，GB18030则是GB2312和GBK的超集，包含更多的汉字和非汉字字符。可以理解为：<code>GB18030&gt; GBK&gt; GB2312</code>。</p>
+<p>BIG5是中国台湾的中文字符集，主要用于<strong>繁体</strong>中文的编码。</p>
+<p>HZ是中华人民共和国邮电部于1995年发布的一种编码规范，主要用于在<strong>邮件</strong>中传输中文字符。</p>
+<p>Unicode是一种国际化字符集，支持世界上几乎所有的字符，其中包括中文字符。在Unicode中，中文字符主要有两种编码方式，分别是<strong>UTF-8和UTF-16</strong>。其中，UTF-8是一种可变长度的编码方式，可以根据字符的不同选择1到4个字节编码，是现在互联网应用中最常用的字符集之一。</p>
+<h1 id="ascii">ASCII</h1>
+<p>American Standard Code for Information Interchange，美国标准信息交换代码</p>
+<p>主要用来表示英文或其他西欧语言（在扩展版中）</p>
+<h3 id="编码格式">编码格式</h3>
+<ul>
+<li>使用<strong>7位</strong>（1字节，高位是0）表示128种字符：标准（基础）ASCII 码</li>
+<li>使用8位表示256种字符：<strong>扩展</strong>ASCII 码（EASCII），多的一位表示附加的128 个特殊符号字符、外来语字母和图形符号</li>
+</ul>
+<h1 id="gb2312">GB2312</h1>
+<p>GB2312（或称GB2312-80，80表示1980年发布）为了支持中文的表示，国人发明的。它是中华人民共和国国家标准简体中文字符集。基本满足汉字的使用，但是<strong>对于人名、古汉语等方面出现的罕用字和繁体字，GB 2312不能处理，因此后来GBK及GB 18030汉字字符集相继出现以解决这些问题。</strong></p>
+<p><strong>分区表示</strong>：GB 2312中对所收汉字进行了“分区”处理，每区含有94个汉字／符号。这种表示方式也称为区位码。</p>
+<ul>
+<li>01–09区为特殊符号。</li>
+<li>16–55区为一级汉字，按拼音排序。</li>
+<li>56–87区为二级汉字，按部首／笔画排序。</li>
+</ul>
+<p>举例来说，“啊”字是GB 2312之中的第一个汉字，它的区位码就是1601。
+10–15区及88–94区则未有编码。</p>
+<p><a href="https://www.cnblogs.com/chiguozi/p/5860364.html">https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
+<h3 id="编码格式-1">编码格式</h3>
+<p>每个汉字及符号以<strong>两个字节</strong>来表示。第一个字节称为“<strong>高位字节</strong>”，第二个字节称为“<strong>低位字节</strong>”。
+“高位字节”使用了<code>0xA1–0xF7</code>（把01–87区的区号加上0xA0），“低位字节”使用了<code>0xA1–0xFE</code>（把01–94加上0xA0）。 由于一级汉字从16区起始，汉字区的“高位字节”的范围是0xB0–0xF7，“低位字节”的范围是0xA1–0xFE。</p>
+<h1 id="gbk">GBK</h1>
+<p>GBK（Chinese Internal Code Extension Specification），<strong>汉字内码扩展规范</strong></p>
+<p>K：Kuo Zhan（扩展）的K</p>
+<p><strong>GB 2312-80只收录6763个汉字</strong>，有不少汉字，如部分在GB 2312-80推出以后才简化的汉字（如“啰”），部分人名用字（如中国前总理朱镕的“镕”字），台湾及香港使用的繁体字，日语及朝鲜语汉字等，并未有收录在内。GBK对GB 2312-80进行扩展, 总计拥有 23940 个码位，<strong>共收录21886个汉字和图形符号</strong>，其中汉字（包括部首和构件）21003 个，图形符号883 个。</p>
+<h3 id="编码格式-2">编码格式</h3>
+<p>GBK 亦采用<strong>双字节</strong>表示，总体编码范围为8140-FEFE，首字节在81-FE 之间，尾字节在40-FE 之间。<strong>GBK向下完全兼容GB2312-80编码</strong>。支持GB2312-80编码不支持的部分中文姓，中文繁体，日文假名，还包括希腊字母以及俄语字母等字母。不过这种编码<strong>支持韩国字</strong>，也是其在实际使用中与unicode编码相比欠缺的部分。</p>
+<h1 id="gb18030">GB18030</h1>
+<p>全称《信息技术 中文编码字符集》，是<a href="https://baike.baidu.com/item/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD?fromModule=lemma_inlink">中华人民共和国</a><a href="https://baike.baidu.com/item/%E5%9B%BD%E5%AE%B6%E6%A0%87%E5%87%86?fromModule=lemma_inlink">国家标准</a>所规定的<strong>变长多字节</strong>字符集。<strong>其对GB 2312-1980完全<a href="https://baike.baidu.com/item/%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9?fromModule=lemma_inlink">向后兼容</a>，与<a href="https://baike.baidu.com/item/GBK?fromModule=lemma_inlink">GBK</a>基本<a href="https://baike.baidu.com/item/%E5%90%91%E5%90%8E%E5%85%BC%E5%AE%B9?fromModule=lemma_inlink">向后兼容</a>，并支持<a href="https://baike.baidu.com/item/Unicode?fromModule=lemma_inlink">Unicode</a>（GB 13000）的所有码位</strong>。GB 18030-2005共收录汉字70,244个。</p>
+<p>特点：</p>
+<p><a href="https://www.cnblogs.com/chiguozi/p/5860364.html">https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
+<p>GB 18030主要有以下特点：</p>
+<ul>
+<li>和UTF-8一样都采用多字节编码，<strong>每个字可以由1个、2个或4个字节组成</strong>。</li>
+<li><strong>编码空间庞大</strong>，最多可定义161万个字元。</li>
+<li>支持中国国内少数民族的文字，不需要动用造字区。</li>
+<li>汉字收录范围包含繁体汉字以及日韩汉字。</li>
+</ul>
+<h3 id="编码格式-3">编码格式</h3>
+<ul>
+<li>单字节，其值从0x00到0x7F。</li>
+<li>双字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x40到0xFE（不包括0x7F）。</li>
+<li>四字节，第一个字节的值从0x81到0xFE，第二个字节的值从0x30到0x39，第三个字节从0x81到0xFE，第四个字节从0x30到0x39。</li>
+</ul>
+<h1 id="unicode">Unicode</h1>
+<p>称为<strong>万国码</strong>、<strong>国际码</strong>、<strong>统一码</strong>、<strong>单一码</strong>。为了解决使用不同国家的编码格式所造成的乱码问题，国际编码格式Unicode应运而生。</p>
+<h3 id="编码格式-4">编码格式</h3>
+<p><a href="https://zh.wikipedia.org/wiki/UCS-2">UCS-2</a>版本：<strong>双字节编码</strong>；UCS-4版本：4字节编码</p>
+<p>但是，有个问题：如果都是按照统一长度的编码，那么英文本身只需用1字节表示，却要统一用2/4字节表示，很浪费传输和存储空间。于是，一些<strong>基于Unicode</strong>的编码方式就应运而生。<code>Unicode</code>是一个字符集，给所有的字符分配一个码值。这里面只是分配码值，而不是最后的编码实现，编码的实现有很多不同的方式如<code>utf-8</code>、<code>utf-16</code>、<code>utf-32</code>。简单来说，<code>Unicode</code>只是业界标准，但是具体一个字符占多少字节，要取决于如UTF-8等的编码方式。</p>
+<p>关于<code>utf-8</code>、<code>utf-16</code>、<code>utf-32</code>三者的优劣势，也参考文章：</p>
+<p><a href="https://www.cnblogs.com/wpcockroach/p/3907324.html">https://www.cnblogs.com/wpcockroach/p/3907324.html</a></p>
+<blockquote>
+<p>UTF-8最适合用来作为字符串网络传输的编码格式。UTF-16最适合当作本地字符串编码格式。如果定义好了网络传输协议，那么UTF-16也非常合适当作网络字符串传输的编码格式，特别是中文等远东地区字符集。比起UTF-8来说，节省一点点流量。UTF-32没什么特殊癖好或者需求的话，暂时还用不上。</p>
+</blockquote>
+<h2 id="utf-8">UTF-8</h2>
+<p>UTF，<strong>U</strong>nicode <strong>T</strong>ransformation <strong>F</strong>ormat。在表示纯英文时，Unicode比ASCII码多了一倍，很不划算。于是有了变长表示的UTF-8。背景介绍可参考： <a href="http://utf8everywhere.org/zh-cn#">http://utf8everywhere.org/zh-cn#</a>。</p>
+<blockquote>
+<p>UTF-8编码将Unicode字符按数字大小编码为1-6个字节，英文字母被编码成一个字节，常用汉字被编码成三个字节，如果你编译的文本是纯英文的，那么用UTF-8就会非常节省空间。</p>
+</blockquote>
+<p><img src="http://cdn.huangxindi.com/img/image-20221220090626617.png" alt="image-20221220090626617"></p>
+<p><img src="http://cdn.huangxindi.com/img/1204286-20191129154342354-1216550362.png" alt="img"></p>
+<h2 id="utf-16">UTF-16</h2>
+<p>也是变长编码，每个字符编码为2或4字节。</p>
+<h2 id="utf-32">UTF-32</h2>
+<p>固定长度的编码，始终占用 4 个字节。</p>
+<p>因此，<strong>只有 UTF-8 兼容 ASCII，UTF-32 和 UTF-16 都不兼容 ASCII，因为它们没有单字节编码。</strong></p>
+<h2 id="关于unicode文件的bom">关于Unicode文件的BOM</h2>
+<p><a href="https://www.cnblogs.com/flyingeagle/articles/9825302.html">https://www.cnblogs.com/flyingeagle/articles/9825302.html</a></p>
+<blockquote>
+<p>BOM （byte-order mark），即字节顺序标记，它是插入到以UTF-8、UTF16或UTF-32编码Unicode文件开头的特殊标记，用来识别Unicode文件的编码类型。对于UTF-8来说，BOM并不是必须的，因为BOM用来标记多字节编码文件的编码类型和字节顺序（big-endian或little-endian）。</p>
+</blockquote>
+<p>该选择带BOM还是不带BOM的UTF8编码呢？首先需要认识到的是，带BOM是微软这边的做法。所以如果是要在其他平台上使用的话，就得用不带BOM的！<strong>不带BOM才是标准的UTF8，UTF8也不需要BOM。</strong></p>
+<h1 id="宽字符和窄字符-多字节字符">宽字符和窄字符（多字节字符）</h1>
+<blockquote>
+<p>有的编码方式采用 1~n 个字节存储，是变长的，例如 UTF-8、GB2312、GBK 等；如果一个字符使用了这种编码方式，我们就将它称为多字节字符，或者窄字符。</p>
+<p>有的编码方式是固定长度的，不管字符编号大小，始终采用 n 个字节存储，例如 UTF-32、UTF-16 等；如果一个字符使用了这种编码方式，我们就将它称为宽字符。</p>
+<p>Unicode 字符集可以使用窄字符的方式存储，也可以使用宽字符的方式存储；GB2312、GBK、Shift-JIS 等国家编码一般都使用窄字符的方式存储；ASCII 只有一个字节，无所谓窄字符和宽字符。</p>
+<p>原文链接：https://blog.csdn.net/guxiaonuan/article/details/78678043</p>
+</blockquote>
+<h1 id="mime类型">MIME类型</h1>
+<blockquote>
+<p>MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的标准，用来表示文档、文件或字节流的性质和格式。</p>
+<p>浏览器通常使用 MIME 类型（而不是文件扩展名）来确定如何处理URL，因此 We b服务器在响应头中添加正确的 MIME 类型非常重要。如果配置不正确，浏览器可能会无法解析文件内容，网站将无法正常工作，并且下载的文件也会被错误处理。</p>
+</blockquote>
+<p><a href="https://www.runoob.com/http/mime-types.html">https://www.runoob.com/http/mime-types.html</a></p>
+<p>MIME 类型通用结构：
+<code>type/subtype</code></p>
+<p>第二个参数是细分后的类型。常见的文本类型：<code>text/plain</code> 表示文本文件的默认值。</p>
+<h1 id="数据库中的编码知识">数据库中的编码知识</h1>
+<p>以ORACLE和MYSQL为例</p>
+<h2 id="查看数据库设置的字符集">查看数据库设置的字符集</h2>
+<p>oralce：</p>
+<pre><code class="language-sql">SELECT * FROM nls_database_parameters WHERE parameter LIKE '%CHARACTERSET';
+-- 查看字符长度
+SELECT LENGTH('字符串') FROM dual;
+-- 查看字节长度
+SELECT LENGTHB('字符串') FROM dual;
+</code></pre>
+<p>mysql:</p>
+<pre><code class="language-sql">SHOW VARIABLES LIKE '%character%';
+-- 查看字符长度
+SELECT CHAR_LENGTH('字符串'); -- 返回2
+-- 查看字节长度
+SELECT LENGTH('字符串'); -- 返回6
+</code></pre>
+<h1 id="编码的应用">编码的应用</h1>
+<h2 id="getbytes方法对比">getBytes方法对比</h2>
+<p><code>String.getBytes(&quot;xxx&quot;)</code>方法是将字符串编码为字节数组，根据编码方式的不同，生成的字节数组也是不同的。以下对比GBK和UTF-8的编码：</p>
+<pre><code class="language-java">public static void main(String[] args) throws UnsupportedEncodingException {  
+    String str1 = &quot;测试&quot;;  
+    String str2 = &quot;abc&quot;;  
+    byte[] str1gbk = str1.getBytes(&quot;GBK&quot;);  
+    byte[] str1uft8 = str1.getBytes(&quot;UTF-8&quot;);  
+    byte[] str2gbk = str2.getBytes(&quot;GBK&quot;);  
+    byte[] str2uft8 = str2.getBytes(&quot;UTF-8&quot;);  
+    // print  
+    System.out.println(&quot;str1gbk=&quot;+ Arrays.toString(str1gbk));  
+    System.out.println(&quot;str1uft8=&quot;+ Arrays.toString(str1uft8));  
+    System.out.println(&quot;str2gbk=&quot;+ Arrays.toString(str2gbk));  
+    System.out.println(&quot;str2uft8=&quot;+ Arrays.toString(str2uft8));  
+}
+</code></pre>
+<p>输出结果：</p>
+<pre><code>str1gbk=[-78, -30, -54, -44]
+str1uft8=[-26, -75, -117, -24, -81, -107]
+str2gbk=[97, 98, 99]
+str2uft8=[97, 98, 99]
+</code></pre>
+<p>实例2:</p>
+<pre><code class="language-java">ublic static void test2() throws UnsupportedEncodingException {  
+    String str = &quot;测试&quot;;  
+    // string -&gt; byte[] GBK encoding  
+    byte[] gbkBytes = str.getBytes(&quot;GBK&quot;);  
+    // byte[] -&gt; string -&gt; byte[] -&gt; string  
+    // 由于最外层的new String没有指定编码方式，故使用的是默认的编码方式。但是此编码方式非GBK，所以结果是乱码  
+    String strgbk = new String(new String(gbkBytes, &quot;GBK&quot;).getBytes(&quot;GBK&quot;));  
+    System.out.println(strgbk);  
+    // byte[] -&gt; string -&gt; byte[] -&gt; string  
+    // 当最后的getBytes()和最外层的new String都没有指定编码方式，即都是使用默认的编码方式。故抵消后获取的字符串是正常的  
+    String strgbk1 = new String(new String(gbkBytes, &quot;GBK&quot;).getBytes());  
+    System.out.println(strgbk1);  
+}
+</code></pre>
+<p>输出结果：</p>
+<pre><code>����
+测试
+</code></pre>
+<h1 id="linux中判断文件编码">Linux中判断文件编码</h1>
+<p>可以使用linux的<code>file</code>命令来获取文件类型，如：</p>
+<pre><code class="language-shell">file -bi file
+# -b : 不展示文件名; -i : 展示MIME类别
+
+# 列出目录下所有文件的类型
+&gt; file *                                                      
+1111:         directory                   
+1.txt:        empty                                                 
+2.txt:        ASCII text                                             
+testCut.txt:  UTF-8 Unicode text                                     
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/klb561/p/12064095.html#/">https://www.cnblogs.com/klb561/p/12064095.html#/</a></p>
+<p><a href="https://www.cnblogs.com/klb561/p/12064095.html#/">https://www.cnblogs.com/klb561/p/12064095.html#/</a></p>
+<p><a href="https://www.cnblogs.com/chiguozi/p/5860364.html">https://www.cnblogs.com/chiguozi/p/5860364.html</a></p>
+<p><a href="https://baike.baidu.com/item/gb18030/3204518?fr=aladdin">https://baike.baidu.com/item/gb18030/3204518?fr=aladdin</a></p>
+<p><a href="https://www.cnblogs.com/strive-sun/p/15211950.html">https://www.cnblogs.com/strive-sun/p/15211950.html</a></p>
+<p><a href="https://www.cnblogs.com/yougoo/p/11958649.html">https://www.cnblogs.com/yougoo/p/11958649.html</a></p>
+<p><a href="https://blog.csdn.net/guxiaonuan/article/details/78678043">https://blog.csdn.net/guxiaonuan/article/details/78678043</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E4%B8%89%E5%89%91%E5%AE%A2/">Linux-文本处理三剑客</a></span>
+  <span class="nav-next"><a href="/p/mybatis%E5%85%A5%E9%97%A8/">Mybatis入门</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

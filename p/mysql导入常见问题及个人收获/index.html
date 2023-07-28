@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Mysql导入常见问题及个人收获 - 2MUCH</title>
+    <meta property="og:title" content="Mysql导入常见问题及个人收获 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="列表：
+[&amp;hellip;] 如果导入时没有指定空时的默认值时，会导入&#39;0000-00-00 00:00:00&#39;，并不会报错
+[&amp;hellip;] 会报错。主要是因为MYSQL的严格模式，在此模式下，&#39;0000-00-00 00:00:00&#39;被设为无效的日期值，不能被插入到datetime字段中，会报错：
+Error Code: 1292. Incorrect datetime value: &amp;hellip;">
+      <meta property="og:description" content="列表：
+[&amp;hellip;] 如果导入时没有指定空时的默认值时，会导入&#39;0000-00-00 00:00:00&#39;，并不会报错
+[&amp;hellip;] 会报错。主要是因为MYSQL的严格模式，在此模式下，&#39;0000-00-00 00:00:00&#39;被设为无效的日期值，不能被插入到datetime字段中，会报错：
+Error Code: 1292. Incorrect datetime value: &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Mysql导入常见问题及个人收获</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-04-22
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="遇到的问题及收获">遇到的问题及收获</h1>
+<p>列表：</p>
+<ul>
+<li>时间类型datetime字段的值，当导入值为空时，默认值是什么，会报错吗</li>
+<li>如果上述导入不会报错，那么再将此数据insert到相同表结构时，会报错吗</li>
+<li>导入时，如果其中一行导入失败，会影响其他行的导入吗</li>
+<li>批量insert时，如果其中一行insert失败，会影响其他行的导入吗</li>
+<li>local_infile参数的用法</li>
+<li>local_infile参数设置为ON后，为啥会出现自己自动变回OFF的情况</li>
+<li>数值类型（比如decimal或integer），当导入值为空字符串时，值会转化为0。如何在导入后维持原值（null）</li>
+<li>load data replace into和load data ignore into 有什么区别吗</li>
+<li>load data语句如何实现先清空表再导入</li>
+<li>load data什么场景下会发生死锁</li>
+<li>导入有哪些常见的坑，常见的导入失败场景有哪些</li>
+<li>load data会识别哪些转义字符</li>
+<li>my.cnf权限问题：如何设置可以使得只有管理员用户可以查看密码</li>
+<li>load data 若不指定编码集的情况下，默认使用什么编码进行导入？在导入时编码格式需要指定成什么是由表的编码而定还是以导入文件的编码而定？</li>
+</ul>
+<h2 id="时间类型datetime字段的值-当导入值为null时-默认值是什么-会报错吗">时间类型datetime字段的值，当导入值为NULL时，默认值是什么，会报错吗</h2>
+<p>如果导入时没有指定空时的默认值时，会导入<code>'0000-00-00 00:00:00'</code>，并不会报错</p>
+<h2 id="如果上述导入不会报错-那么再将此数据insert到相同表结构时-会报错吗">如果上述导入不会报错，那么再将此数据insert到相同表结构时，会报错吗</h2>
+<p>会报错。主要是因为MYSQL的严格模式，在此模式下，<code>'0000-00-00 00:00:00'</code>被设为无效的日期值，不能被插入到datetime字段中，会报错：</p>
+<pre><code class="language-sql">Error Code: 1292. Incorrect datetime value: '0000-00-00 00:00:00' for column 'datetime_column' at row 1
+</code></pre>
+<p>如果要支持此类插入，需要禁用严格模式。</p>
+<p>其实，在严格模式下的datetime字段，只有在导入或插入<code>NULL</code>时不会报错，空字符串和<code>'0000-00-00 00:00:00'</code>在导入和插入场景都会报错！只不过，导入NULL时会自动变成<code>'0000-00-00 00:00:00'</code>，插入<code>NULL</code>值还是维持<code>NULL</code>。</p>
+<p>因此，如果我们的场景是需要先导入到临时表，再插入到正式表。使用Mysql的默认方式时，NULL会先转换为<code>'0000-00-00 00:00:00'</code>导入到临时表，当从临时表insert到正式表时，就会失败。一个解决方案是，在LOAD DATA语句中额外指定：当导入到datetime格式的值为NULL，则直接导入为NULL：</p>
+<pre><code class="language-sql">LOAD DATA INFILE 'filename'
+INTO TABLE 'tablename'
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE n LINES
+(field1, @var1, field2, @var2, ...)
+SET
+field1 = COALESCE(NULLIF(@var1, ''), NULL),
+field2 = COALESCE(NULLIF(@var2, ''), NULL),
+...;
+</code></pre>
+<p>在上面的例子中，我们使用<code>COALESCE</code>函数对<code>NULL</code>值进行处理，将<code>@var1</code>的值与<code>''</code>进行比较，如果相等，则返回<code>NULL</code>，否则返回<code>@var1</code>的值。如果<code>@var1</code>为<code>NULL</code>，则<code>NULLIF(@var1, '')</code>返回<code>NULL</code>，而<code>COALESCE(NULL, NULL)</code>也会返回<code>NULL</code>。因此，最终将会将该字段设置为实际的<code>NULL</code>值。</p>
+<h2 id="导入时-如果其中一行导入失败-会影响其他行的导入吗">导入时，如果其中一行导入失败，会影响其他行的导入吗</h2>
+<p>使用load data进行导入时，默认是以事务的方式运行的。即，其中一行导入失败的话，将中止导入过程，并回滚所有行。<strong>（这点存疑，需要验证）</strong>
+如何使得某行导入遇到错误时忽略该行，继续导入其他行：</p>
+<pre><code class="language-sql">LOAD DATA ...
+IGNORE INTO TABLE 'tablename'
+...
+</code></pre>
+<p><code>IGNORE INTO TABLE</code>表示导入时忽略重复键或数据类型错误错误（导入错误情况会记录在日志中，需要关注查看）<strong>（这点存疑，需要验证）</strong></p>
+<p>需要<strong>注意</strong>的是：如果数据类型不匹配，<code>IGNORE INTO TABLE</code>会使得忽略这类行的导入，而不会对数据进行类型转换后再导入该行。比如本来导入<code>decimal</code>字段时，值为空会被自动转换为0后导入，但是配置了这个IGNORE以后，就会直接不进行导入该行了。<strong>（这点存疑，需要验证）</strong></p>
+<h2 id="批量insert时-如果其中一行insert失败-会影响其他行的导入吗">批量insert时，如果其中一行insert失败，会影响其他行的导入吗</h2>
+<p>会被影响。如果使用的是普通的<code>INSERT INTO</code>语句，而非<code>INSERT IGNORE INTO</code>，那么比如第3行数据插入失败后，会导致之后的行（包括第4行和第5行等）都无法插入到表中，整个插入语句都会被中止。<strong>（这点存疑，需要验证）</strong></p>
+<p>可以使用<code>INSERT IGNORE INTO</code>在一定程度上防止影响其他行的插入，此时MySQL 会忽略一些错误，包括：</p>
+<ol>
+<li>主键重复：如果插入的行的主键值已经存在于表中，MySQL 会忽略这个插入请求而不会报错。</li>
+<li>唯一索引重复：如果插入的行的唯一索引值已经存在于表中，MySQL 会忽略这个插入请求而不会报错。</li>
+<li>非空字段为空：如果插入的行中某些非空字段为空，MySQL 会将这些字段设置为默认值并插入一条记录，而不会报错。</li>
+</ol>
+<p>注意：此时若遇到这类错误，可能就只是忽略导入该行，不会返回任何错误或警告信息（这是个坑）<strong>（这点存疑，需要验证）</strong></p>
+<p>需要注意的是，<code>INSERT IGNORE INTO</code> 仅会忽略部分错误，如语法错误、字段不存在等错误还是会导致插入失败。</p>
+<h2 id="local-infile参数的用法">local_infile参数的用法</h2>
+<p><code>local_infile</code>是MySQL的一个系统变量，用于控制是否允许客户端通过<code>LOAD DATA LOCAL INFILE</code>语句从本地文件系统导入数据到MySQL服务器中。开启或关闭方法：</p>
+<pre><code class="language-sql">SET GLOBAL local_infile=1; -- 开启
+SET GLOBAL local_infile=0; -- 关闭
+</code></pre>
+<h2 id="local-infile参数设置为on后-为啥会出现自己自动变回off的情况">local_infile参数设置为ON后，为啥会出现自己自动变回OFF的情况</h2>
+<p>有可能是因为该参数被设置为MySQL的默认值（比如重启后），或者是被其他配置文件覆盖了。Mysql重启后，会重置该参数为默认值。为了保持设置，可以在配置文件中进行设置，如在<code>my.cnf</code>中设置：</p>
+<pre><code class="language-shell">[mysql]
+local-infile=1
+</code></pre>
+<p>注意：MYSQL重启后是否会重置这个参数！<strong>（这点存疑，需要验证）</strong></p>
+<h2 id="数值类型-比如decimal或integer-当导入值为空字符串时-值会转化为0-如何在导入后维持原值-null">数值类型（比如decimal或integer），当导入值为空字符串时，值会转化为0。如何在导入后维持原值（null）</h2>
+<p>和之前将的<code>datetime</code>格式导入空会自动转换为<code>'0000-00-00 00:00:00'</code>类似，使用LOAD DATA导入空时，Mysql会自动转换为该字段的默认值。对于数值类型，默认值就是0。如果不想要这种效果的话，可以使用<code>set</code>来特殊处理。例如：</p>
+<pre><code class="language-sql">LOAD DATA INFILE 'data.txt'
+INTO TABLE mytable
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(@var1)
+SET mycol = NULLIF(@var1, '');
+</code></pre>
+<p>即，若var1为空字符串时，则转换为NULL导入。</p>
+<h2 id="load-data-replace-into和load-data-ignore-into-有什么区别吗">load data replace into和load data ignore into 有什么区别吗</h2>
+<p>两者都和“导入时存在相同主键的记录”处理相关。前者会替换掉原来的记录，后者会直接忽略。</p>
+<p>但是，使用 <code>REPLACE</code> 或 <code>IGNORE</code> 可以在一定程度上忽略一些数据导入时的错误。<strong>（这点存疑，需要验证）</strong></p>
+<h2 id="load-data语句如何实现先清空表再导入">load data语句如何实现先清空表再导入</h2>
+<p><code>load data</code>本身没有提供此类参数可以指定先清空再导入。只能在导入前先执行一次清空sql，如<code>truncate table xxx</code></p>
+<h2 id="load-data什么场景下会发生死锁">load data什么场景下会发生死锁</h2>
+<p>以下是charGPT的回答：
+在MySQL中，LOAD DATA语句会获取一个表级锁，如果同时有其他用户对该表进行写操作，则可能发生死锁。</p>
+<p>以下是几种可能发生死锁的场景：</p>
+<ol>
+<li>
+<p>并发导入：当多个用户<strong>同时使用LOAD DATA</strong>语句导入数据到同一个表中时，由于LOAD DATA会获取表级锁，可能会导致死锁。例如，用户A和用户B同时导入数据到表T中。</p>
+</li>
+<li>
+<p>并发插入：当多个用户同时使用<strong>INSERT INTO</strong>语句插入数据到同一个表中时，可能会与LOAD DATA语句产生竞争，导致死锁。例如，用户A使用LOAD DATA导入数据到表T中，同时用户B使用INSERT INTO语句向表T中插入数据。</p>
+</li>
+<li>
+<p>导入大量数据：当导入的数据量很大时，LOAD DATA语句可能需要较长的时间来完成，而在此期间，其他用户可能会试图对该表进行写操作，从而导致死锁。</p>
+</li>
+</ol>
+<p>对于以上情况，可以通过以下几种方式来避免死锁：</p>
+<ol>
+<li>
+<p>使用LOAD DATA LOCAL语句：<strong>LOAD DATA LOCAL语句不会获取表级锁</strong>，而是在客户端上读取文件并将数据发送到服务器，因此可以避免死锁。</p>
+</li>
+<li>
+<p>使用LOCK TABLES语句：在使用LOAD DATA语句之前，可以使用<strong>LOCK TABLES语句显式地锁定要导入数据的表</strong>，这样可以确保在LOAD DATA语句执行期间没有其他用户对表进行写操作。</p>
+</li>
+<li>
+<p>尽量避免并发操作：<strong>可以通过限制并发操作的数量</strong>，或者将导入操作与其他写操作分开，来降低死锁的风险。</p>
+</li>
+</ol>
+<h2 id="导入有哪些常见的坑-常见的导入失败场景有哪些">导入有哪些常见的坑，常见的导入失败场景有哪些</h2>
+<ul>
+<li>数据类型不匹配</li>
+<li>字符编码</li>
+<li>行终止符不一致</li>
+<li>空值问题</li>
+<li>文件权限问题（导入的数据文件需要有读取权限）</li>
+<li>数据完整性（如有外键约束时）
+等等</li>
+</ul>
+<h2 id="load-data会识别哪些转义字符">load data会识别哪些转义字符</h2>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/string-literals.html">https://dev.mysql.com/doc/refman/8.0/en/string-literals.html</a></p>
+<p><strong>以下这些后面再整理</strong></p>
+<h2 id="转义符">转义符</h2>
+<p><code>escaprd by ''</code></p>
+<h2 id="datetime导入时为空">datetime导入时为空</h2>
+<p><a href="https://www.cnblogs.com/nayek/p/12915570.html">https://www.cnblogs.com/nayek/p/12915570.html</a></p>
+<p><code>NO_ZERO_IN_DATE</code> 和 <code>NO_ZERO_DATE</code> 都是 MySQL 的 SQL 模式，它们的作用是限制插入的日期或时间值的格式。</p>
+<p><code>NO_ZERO_IN_DATE</code> 的作用是禁止插入日期格式中出现 <code>00</code>，例如：<code>'2023-00-20'</code>，此时 MySQL 会抛出 <code>ERROR 1292 (22007): Incorrect date value: '2023-00-20' for column 'my_date' at row 1</code> 错误。这个模式不会影响时间格式的值。</p>
+<p><code>NO_ZERO_DATE</code> 的作用是禁止插入时间格式中出现全为 <code>0</code> 的日期，例如：<code>'0000-00-00 00:00:00'</code>，此时 MySQL 会抛出 <code>ERROR 1292 (22007): Incorrect datetime value: '0000-00-00 00:00:00' for column 'my_datetime' at row 1</code> 错误。</p>
+<p>区别在于 <code>NO_ZERO_IN_DATE</code> 只限制日期格式，<code>NO_ZERO_DATE</code> 则限制时间格式，包括日期和时间。如果这两个模式都开启了，则插入的日期或时间值必须是合法的，不能包含 <code>00</code> 或全为 <code>0</code> 的日期。这些限制可以帮助保证数据库中的数据的准确性和一致性。</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a>
+<a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html" title="13.2.9 LOAD DATA Statement"><code>LOAD DATA</code></a> interprets an empty field value differently from a missing field:</p>
+<ul>
+<li>For string types, the column is set to the empty string.</li>
+<li>For numeric types, the column is set to <code>0</code>.</li>
+<li>For date and time types, the column is set to the appropriate “zero” value for the type. See <a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html" title="11.2 Date and Time Data Types">Section 11.2, “Date and Time Data Types”</a>.
+These are the same values that result if you assign an empty string explicitly to a string, numeric, or date or time type explicitly in an <a href="https://dev.mysql.com/doc/refman/8.0/en/insert.html" title="13.2.7 INSERT Statement"><code>INSERT</code></a> or <a href="https://dev.mysql.com/doc/refman/8.0/en/update.html" title="13.2.17 UPDATE Statement"><code>UPDATE</code></a> statement.</li>
+</ul>
+<p>Server SQL Modes
+<a href="https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html">https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/junit/">JUnit</a></span>
+  <span class="nav-next"><a href="/p/mysql%E4%B9%8Bload-data%E5%AD%A6%E4%B9%A0/">Mysql之“load data”学习</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

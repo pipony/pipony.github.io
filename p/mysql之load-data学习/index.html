@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Mysql之“load data”学习 - 2MUCH</title>
+    <meta property="og:title" content="Mysql之“load data”学习 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获
+[&amp;hellip;] 可参考： https://dev.mysql.com/doc/refman/8.0/en/load-data.html
+LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE &#39;_file_name_&#39; [REPLACE | &amp;hellip;">
+      <meta property="og:description" content="Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获
+[&amp;hellip;] 可参考： https://dev.mysql.com/doc/refman/8.0/en/load-data.html
+LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFILE &#39;_file_name_&#39; [REPLACE | &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Mysql之“load data”学习</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2023-04-22
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<blockquote>
+<p>Mysql使用load data 来进行数据导入，本文给出我在测试Mysql导入时的一些收获</p>
+</blockquote>
+<h1 id="load-data-官网用法">load data 官网用法</h1>
+<p>可参考： <a href="https://dev.mysql.com/doc/refman/8.0/en/load-data.html">https://dev.mysql.com/doc/refman/8.0/en/load-data.html</a></p>
+<pre><code class="language-mysql">LOAD DATA 
+[LOW_PRIORITY | CONCURRENT] [LOCAL] 
+INFILE '_file_name_' 
+[REPLACE | IGNORE] 
+INTO TABLE _tbl_name_ 
+[PARTITION (_partition_name_ [, _partition_name_] ...)] 
+[CHARACTER SET _charset_name_] 
+[{FIELDS | COLUMNS} 
+	 [TERMINATED BY '_string_'] 
+	 [[OPTIONALLY] ENCLOSED BY '_char_'] 
+	 [ESCAPED BY '_char_'] 
+] 
+[LINES 
+	 [STARTING BY '_string_'] 
+	 [TERMINATED BY '_string_'] 
+] 
+[IGNORE _number_ {LINES | ROWS}] 
+[(_col_name_or_user_var_ [, _col_name_or_user_var_] ...)] 
+[SET _col_name_={_expr_ | DEFAULT} [, _col_name_={_expr_ | DEFAULT}] ...]
+</code></pre>
+<h2 id="介绍">介绍</h2>
+<p><code>LOAD DATA</code>语法用于读取文件的行到表中，速度很快。它相当于是<code>SELECT ... INTO OUTFILE</code>
+的反向过程。<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlimport.html" title="4.5.5 mysqlimport — A Data Import Program"><strong>mysqlimport</strong></a> 也可以作为导入的方法，它的原理是将<code>LOAD DATA</code>语句发到服务端。</p>
+<h2 id="本地vs非本地操作-non-local-versus-local-operation">本地vs非本地操作(Non-LOCAL Versus LOCAL Operation)</h2>
+<p>使用了<code>LOCAL</code>修饰符，会有以下影响：</p>
+<ul>
+<li>输入文件的预期位置会变成客户端（而不是服务端的文件系统路径）</li>
+<li>更高的安全要求：因为可以直接读取客户端的文件，所以需要用户具有<code>SUPER</code>或<code>FILE</code>权限</li>
+<li>与<code>IGNORE</code>修饰符有同样的错误处理效果，即遇到重复键问题，不会报错只会记录警告信息
+需要注意的是，<code>LOCAL</code>参数必须在客户端和服务端都配置了才能生效。例如，可以在<code>etc/mysql/my.cnf</code>中添加：</li>
+</ul>
+<pre><code class="language-shell">[mysql]
+local-infile=1
+
+[mysqld]
+local-infile=1
+</code></pre>
+<p><code>[mysql] and [mysqld]</code>分别是客户端和服务端配置，区别主要如下：</p>
+<ul>
+<li><code>[mysql]</code>部分用于配置MySQL客户端工具（例如mysql命令行客户端）的默认选项，如默认主机、端口号、用户、密码、使用的默认字符集等。</li>
+<li><code>[mysqld]</code>部分用于配置MySQL服务器的运行时选项，如监听的IP地址和端口号、数据目录位置、日志文件设置、缓存大小设置、连接数限制等。</li>
+</ul>
+<p>上述方法是设置默认的<code>local-infile=1</code>。一般<strong>是重启mysql生效</strong>。但需要注意的是，这里的“重启生效”仅针对<strong>服务端</strong>的设置（即<code>[mysqld]</code>的设置）。对于客户端(<code>[mysql]</code>)的设置，无需重启，只需重新打开客户端连接到mysql服务，即可生效。</p>
+<p>还有以下方法可以分别进行客户端和服务端的设置，如：
+1、当前客户端会话开启：</p>
+<pre><code class="language-shell">mysql --local-infile=1 -u username -p
+</code></pre>
+<p>2、设置全局变量local_infile（服务端）</p>
+<pre><code class="language-sql">SHOW GLOBAL VARIABLES LIKE 'local_infile';
+SET GLOBAL local_infile = 'ON';
+SHOW GLOBAL VARIABLES LIKE 'local_infile';
+</code></pre>
+<p>需要注意的是，这种服务端设置会立刻生效，无需像在my.cnf中配置需要重启生效。但是这种方法只会对当前运行的 MySQL 实例生效，并且在 MySQL 实例重启后会丢失。</p>
+<p>因此，如果想要长久的客户端和服务端<code>local_infile</code>参数的设置，需要在配置文件<code>my.cnf</code>中设置。如果仅需要当前客户端会话或当前服务实例生效，可采取下面的设置方法。</p>
+<h2 id="输入文件字符集-input-file-character-set">输入文件字符集(Input File Character Set)</h2>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E4%B8%AA%E4%BA%BA%E6%94%B6%E8%8E%B7/">Mysql导入常见问题及个人收获</a></span>
+  <span class="nav-next"><a href="/p/java%E5%9F%BA%E7%A1%80%E4%B9%8Bio%E6%B5%81/">Java基础之IO流</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

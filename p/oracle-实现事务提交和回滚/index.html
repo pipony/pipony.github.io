@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Oracle-实现事务提交和回滚 - 2MUCH</title>
+    <meta property="og:title" content="Oracle-实现事务提交和回滚 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和 &amp;hellip;">
+      <meta property="og:description" content="背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Oracle-实现事务提交和回滚</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-08-02
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="oracle-实现事务提交和回滚">Oracle-实现事务提交和回滚</h1>
+<blockquote>
+<p>背景：一直以来用sqlplus /执行多条sql时，某条sql失败后无法回滚前面的sql，并会继续执行下面的sql。即，如果 sqlplus 中遇到了一个 sql 或者 pl/ssql 错误, 一般会报告这个错误然后继续处理。在交互模式下, 这种处理是很理想的, 但是如果运行的是一个脚本,我们一般不希望失败了还继续执行 。这可太不科学了！经过高人指点，可以用一条命令来实现失败回滚功能。故在此学习和记录下。</p>
+</blockquote>
+<h2 id="失败回滚命令">失败回滚命令</h2>
+<p><code>WHENEVER SQLERROR</code>官网介绍： <a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+<h3 id="常见用法">常见用法</h3>
+<pre><code class="language-sql">WHENEVER SQLERROR {EXIT [SUCCESS | FAILURE | WARNING | n | variable  | :BindVariable] [COMMIT | ROLLBACK] | CONTINUE [COMMIT | ROLLBACK | NONE]}
+</code></pre>
+<h4 id="出现错误后退出sql执行">出现错误后退出sql执行</h4>
+<pre><code class="language-sql">SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE
+</code></pre>
+<h4 id="出现错误后先回滚-还没提交的变化-再退出sql执行">出现错误后先回滚【还没提交的变化】再退出sql执行</h4>
+<pre><code class="language-sql">SQL&gt; WHENEVER SQLERROR EXIT SQL.SQLCODE ROLLBACK ---回滚退出，并返回错误码SQL.SQLCODE
+or
+SQL&gt; WHENEVER SQLERROR SQL.SQLCODE EXIT ROLLBACK
+</code></pre>
+<h2 id="失败不回滚命令">失败不回滚命令</h2>
+<p>如果要实现失败不回滚（当发生错误时，对之前执行的语句进行提交，并保留SQL*Plus）：</p>
+<p>参考 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<pre><code class="language-sql">whenever sqlerror continue commit
+</code></pre>
+<h2 id="spool命令">spool命令</h2>
+<p>此外，可以先认识下<code>spool</code>命令。</p>
+<p>常用语法可参考：</p>
+<p><a href="https://blog.csdn.net/lixiaomei0623/article/details/121274473">https://blog.csdn.net/lixiaomei0623/article/details/121274473</a></p>
+<blockquote>
+<p>spool的作用可以用一句话来描述：在sqlplus中用来保存或打印查询结果。</p>
+<p>通过spool 命令，可以将select 数据库的内容写到文件中，通过在sqlplus设置一些参数，使得按指定方式写到文件中。</p>
+</blockquote>
+<p>sql执行内容导出到某文件例子：</p>
+<pre><code class="language-mysql">sqlplus oracle/pwd@192.168.10.16:1521/orl @/tmp/lxm/export.sql -- 执行语句
+
+--- 以下为export.sql内容
+set trimspool on
+set linesize 20000
+set pagesize 0
+set echo off
+set feedback off
+set newpage 1
+set heading off
+set wrap off SQLBLANKLINES ON  ---去掉空行
+set term off
+---以上为输出格式设置
+spool /home/oracle/aaa.csv  ---保存查询结果集的的路径和文件名
+select python_student.name||','||python_student.age
+from python_student;
+spool off  ---完成spool
+</code></pre>
+<h2 id="举例">举例</h2>
+<h3 id="使用命令行">使用命令行</h3>
+<p>来自 <a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a> 的例子：</p>
+<pre><code class="language-sql">SQL&gt;spool e:\test.txt
+SQL&gt;whenever sqlerror exit rollback
+SQL&gt;select * from test1233;
+SQL&gt;select * from dual;
+SQL&gt;spool off
+</code></pre>
+<h3 id="使用sqlplus">使用sqlplus</h3>
+<p>来自 <a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a> 的例子：</p>
+<pre><code class="language-shell">#!/bin/sh
+
+echo &quot;SQL*Plus-语句执行异常则退出&quot;
+
+sqlplus user/password@x.x.x.x:x/orcl &lt;&lt;EOF
+whenever sqlerror exit failure rollback
+${1}
+EOF
+
+return $?
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="http://blog.itpub.net/28916011/viewspace-2774514/">http://blog.itpub.net/28916011/viewspace-2774514/</a></p>
+<p><a href="https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html">https://www.cnblogs.com/moveofgod/archive/2013/11/18/3428933.html</a></p>
+<p><a href="https://juejin.cn/post/7075307770173456392">https://juejin.cn/post/7075307770173456392</a></p>
+<p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C">https://docs.oracle.com/en/database/oracle/oracle-database/19/sqpug/WHENEVER-SQLERROR.html#GUID-66C1C12C-5E95-4440-A37B-7CCE7E33491C</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%AE%A4%E8%AF%86jar%E5%8C%85/">认识Jar包</a></span>
+  <span class="nav-next"><a href="/p/linux-%E5%AE%89%E8%A3%85oracle/">Linux-安装Oracle</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

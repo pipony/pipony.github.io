@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级软件设计师-04 计算机网络 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级软件设计师-04 计算机网络 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="拓扑结构：
+[&amp;hellip;] 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+[&amp;hellip;] TCP/IP 包含五个特性：
+[&amp;hellip;] TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查 &amp;hellip;">
+      <meta property="og:description" content="拓扑结构：
+[&amp;hellip;] 中继器/集线器：延长传输距离（类似烽火台）
+例题：
+分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。
+[&amp;hellip;] TCP/IP 包含五个特性：
+[&amp;hellip;] TCP：三次握手，可靠传输
+UDP：没有反馈过程
+DHCP：IP地址动态分配
+DNS：域名映射到IP地址
+递归查 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="https://cdn.huangxindi.com/img/202305242318894.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级软件设计师-04 计算机网络</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="04-计算机网络">04 计算机网络</h1>
+<h2 id="网络的分类">网络的分类</h2>
+<ul>
+<li>局域网 LAN</li>
+<li>城域网 MAN</li>
+<li>广域网 WAN</li>
+</ul>
+<p>拓扑结构：</p>
+<ul>
+<li>总线型</li>
+<li>星型</li>
+<li>环型</li>
+<li>树型</li>
+<li>分布式</li>
+</ul>
+<h2 id="网络设备">网络设备</h2>
+<ul>
+<li>物理层：中继器（局域网网段互联），集线器（可看成是特殊的多路中继器）</li>
+<li>链路层：网桥（连接两个局域网网段，过滤帧【检查源和目的地址，转发不在同网段的帧】），交换机（按mac地址，即物理地址进行数据转发）</li>
+<li>网络层：路由器（连接多个逻辑上分开的网络，如不通的子网。主要功能是选择转发的路径），三层交换机（包含交换机和网络层的部分功能。一次路由，多次交换）</li>
+<li>应用层：网关（协议转换）
+<img src="https://cdn.huangxindi.com/img/202305242318894.png" alt="image.png"></li>
+</ul>
+<h2 id="osi-rm七层模型">OSI/RM七层模型</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220502151216512.png" alt="image-20220502151216512"></p>
+<p><img src="https://cdn.huangxindi.com/img/202305242322108.png" alt="image.png"></p>
+<p>中继器/集线器：延长传输距离（类似烽火台）</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220502151847082.png" alt="image-20220502151847082"></p>
+<p>分析：考察局域网的通信范围，局域网是下面两层（物理层和数据链路层连接的），所以P和S之间经过路由器（网络层）的话，就不能通信。</p>
+<h2 id="网络技术标准和协议">网络技术标准和协议</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503104429021.png" alt="image-20220503104429021"></p>
+<p>TCP/IP 包含五个特性：</p>
+<ul>
+<li>逻辑编址：每一台互联网设备都要分配IP地址</li>
+<li>路由选择：定义路由器选择路径的协议</li>
+<li>域名解析</li>
+<li>错误检测与流量控制</li>
+</ul>
+<p>TCP：三次握手，可靠传输</p>
+<p>UDP：没有反馈过程</p>
+<p>DHCP：IP地址动态分配</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503105858912.png" alt="image-20220503105858912"></p>
+<p>DNS：域名映射到IP地址</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110135330.png" alt="image-20220503110135330"></p>
+<p>递归查询：亲自深挖，不断根据线索问其他服务器，最终把正确的IP反馈给客户（如本地域名服务器，因为其压力不大）</p>
+<p>迭代查询：只提供线索，没有刨根究底（如根域名服务器）</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110604170.png" alt="image-20220503110604170"></p>
+<h2 id="域名">域名</h2>
+<p><img src="https://cdn.huangxindi.com/img/202305242326651.png" alt="image.png"></p>
+<h2 id="计算机网络分类">计算机网络分类</h2>
+<h3 id="拓扑结构">拓扑结构</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110656745.png" alt="image-20220503110656745"></p>
+<p>单点故障：环形比星型稳定，因为一个点故障可以从另一头走</p>
+<h2 id="网络规划与设计">网络规划与设计</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503110900576.png" alt="image-20220503110900576"></p>
+<h3 id="逻辑网格设计">逻辑网格设计</h3>
+<h3 id="物理网络设计">物理网络设计</h3>
+<h3 id="分层设计-考比较多">分层设计（考比较多）</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503111306846.png" alt="image-20220503111306846"></p>
+<h2 id="ip地址与子网划分">IP地址与子网划分</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503111335295.png" alt="image-20220503111335295"></p>
+<p>全0：网络地址；全1：广播地址 （所有求网络个数和主机地址时，都要-2）</p>
+<p>A类：前8位网络号，后24位为主机号，可包含2^24-2主机</p>
+<p>B类：前16位网络号，后16位为主机号，可包含2^16-2主机</p>
+<p>C类：前24位网络号，后8位为主机号，可包含2^8-2主机</p>
+<p><img src="https://cdn.huangxindi.com/img/202305242326251.png" alt="image.png"></p>
+<p>子网掩码：区分网络号和主机号
+<img src="https://cdn.huangxindi.com/img/202305242332966.png" alt="image.png"></p>
+<p>子网划分</p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503113529296.png" alt="image-20220503113529296"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503113725934.png" alt="image-20220503113725934"></p>
+<p>或者问是否在同一个子网内，怎么看：把ip化为2进制，根据网络号有多少位，看最终的网络号是否相同</p>
+<h3 id="无分类编制">无分类编制</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114055203.png" alt="image-20220503114055203"></p>
+<p>例题：</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114148133.png" alt="image-20220503114148133"></p>
+<p>分析：已知C类子网有24位的网络号，现在是20位，也就是还有4位可以拿来作子网号，2^4=16</p>
+<h3 id="特殊含义的ip地址">特殊含义的IP地址</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114703870.png" alt="image-20220503114703870"></p>
+<h2 id="html-考的少">HTML（考的少）</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114830036.png" alt="image-20220503114830036"></p>
+<h2 id="无线网">无线网</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503114923231.png" alt="image-20220503114923231"></p>
+<h2 id="网络接入技术">网络接入技术</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503115047445.png" alt="image-20220503115047445"></p>
+<h2 id="ipv6">IPv6</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503115542508.png" alt="image-20220503115542508"></p>
+<p>IPv4：32位地址，地址不够用</p>
+<p>IPv4：128位地址</p>
+<h2 id="补充知识">补充知识</h2>
+<ul>
+<li>FTP端口：控制21 上传20</li>
+<li>telnet：23端口</li>
+</ul>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8/">软考-中级软件设计师-05 计算机安全</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-03-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/">软考-中级软件设计师-03 数据库系统</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>编译期常量 - 2MUCH</title>
+    <meta property="og:title" content="编译期常量 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="先说结论，编译期常量=final&#43;常量
+[&amp;hellip;] 参考：https://www.modb.pro/db/211851
+除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加 &amp;hellip;">
+      <meta property="og:description" content="先说结论，编译期常量=final&#43;常量
+[&amp;hellip;] 参考：https://www.modb.pro/db/211851
+除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」。那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加 &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>编译期常量</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-11-22
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="编译期常量">编译期常量</h1>
+<p>先说结论，<strong>编译期常量=final+常量</strong></p>
+<h2 id="java四个阶段">java四个阶段</h2>
+<ul>
+<li>编辑期</li>
+<li>编译期：将.java文件编译为.class文件</li>
+<li>加载期：将.class文件加载到内存 并 生成.class类</li>
+<li>运行期：通过.class类去创建对象、执行代码</li>
+</ul>
+<p>参考：https://www.modb.pro/db/211851</p>
+<p>除了第一个阶段我们能直接干预，剩余三个阶段，都是jvm自己执行的。第二阶段是 非人工干预的 第一阶段。在这个阶段就能确定的值，我们就称为**「编译期常量」。<strong>那么即使后面第三阶段和第四阶段不走，对它也没有影响，而类加载就发生在第三阶段，所以: 「编译期常量不会触发类加载」。</strong></p>
+<h2 id="编译期常量定义方式">编译期常量定义方式</h2>
+<pre><code class="language-java">// final定义，且是常量，即为编译期常量。而且，编译期常量不存在赋值语句，只存在初始化语句。
+public final int a = 10000;
+public static final int b  = 10000;
+</code></pre>
+<p>反例：</p>
+<pre><code class="language-java">public int a = 10; // 没用final修饰，不是编译期常量
+public final int b = System.currentTimeMillis(); // 值不是常量，所以不是编译期常量
+</code></pre>
+<h2 id="编译期常量的表现">编译期常量的表现</h2>
+<p>编译后的.class文件中，编译期变量被**「ConstantValue」**修饰。</p>
+<pre><code class="language-java">public class Class {
+	public final int a = 10000;
+	public static final int b  = 10000;
+}
+// 查看编译后...
+public final int a;
+    descriptor: I
+    flags: (0x0011) ACC_PUBLIC, ACC_FINAL
+    ConstantValue: int 10000  // 有ConstantValue，说明是编译期常量
+public static final int b;
+    descriptor: I
+    flags: (0x0019) ACC_PUBLIC, ACC_STATIC, ACC_FINAL
+    ConstantValue: int 10000 // 有ConstantValue，说明是编译期常量
+</code></pre>
+<h2 id="此外">此外</h2>
+<p>被static修饰的是类一级的，非static修饰的是对象一级的。对象一级的要先创建对象才能使用，所以肯定会触发类加载(不管是不是编译期常量)。</p>
+<p>在实际开发中，如果A类之前调用到了B类的编译期常量，当修改B的编译期常量值后，还需要再次编译A类，否则A类对于该值的调用还是修改之前的值（因为已经固定在class文件里了）。</p>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.modb.pro/db/211851">https://www.modb.pro/db/211851</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2/">数据库分页查询</a></span>
+  <span class="nav-next"><a href="/p/linux-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">Linux-磁盘管理</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

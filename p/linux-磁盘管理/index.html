@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Linux-磁盘管理 - 2MUCH</title>
+    <meta property="og:title" content="Linux-磁盘管理 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+[&amp;hellip;] df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+[root@iZbp15qc4wmx335c268l5mZ &amp;hellip;">
+      <meta property="og:description" content="参考 https://blog.csdn.net/weixin_52122271/article/details/126242445 的分类法：
+磁盘管理命令：
+[&amp;hellip;] df(disk free)：查询文件系统的磁盘占用情况。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。
+[root@iZbp15qc4wmx335c268l5mZ &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Linux-磁盘管理</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-11-22
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="linux-磁盘管理">Linux-磁盘管理</h1>
+<p>参考 <a href="https://blog.csdn.net/weixin_52122271/article/details/126242445">https://blog.csdn.net/weixin_52122271/article/details/126242445</a> 的分类法：</p>
+<p>磁盘管理命令：</p>
+<ul>
+<li>查看使用量：df, du</li>
+<li>查看磁盘分区：fdisk, lsblk</li>
+<li>磁盘格式化，挂载/卸载</li>
+</ul>
+<h2 id="df">df</h2>
+<p>df(disk free)：查询文件系统的<strong>磁盘占用情况</strong>。可显示Linux文件系统上的设备名称、总块数、总磁盘空间、已用磁盘空间、可用磁盘空间和挂载点信息。</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ home]# df
+Filesystem     1K-blocks     Used Available Use% Mounted on
+devtmpfs          471568        0    471568   0% /dev
+tmpfs             482068        8    482060   1% /dev/shm
+tmpfs             482068      516    481552   1% /run
+tmpfs             482068        0    482068   0% /sys/fs/cgroup
+/dev/vda1       41152812 21695184  17553920  56% /
+# 默认情况下，磁盘空间将以1KB为单位进行显示
+</code></pre>
+<p>后接支持的参数，可通过<code>df --help</code>获取</p>
+<h3 id="常见用法">常见用法：</h3>
+<pre><code class="language-shell"># 与df相比，还显示虚拟文件系统的信息以及所有文件系统磁盘使用情况及其内存使用情况。
+[root@iZbp15qc4wmx335c268l5mZ home]# df -a 
+Filesystem     1K-blocks     Used Available Use% Mounted on
+sysfs                  0        0         0    - /sys
+proc                   0        0         0    - /proc
+devtmpfs          471568        0    471568   0% /dev
+securityfs             0        0         0    - /sys/kernel/security
+tmpfs             482068        8    482060   1% /dev/shm
+devpts                 0        0         0    - /dev/pts
+tmpfs             482068      516    481552   1% /run
+tmpfs             482068        0    482068   0% /sys/fs/cgroup
+cgroup                 0        0         0    - /sys/fs/cgroup/systemd
+pstore                 0        0         0    - /sys/fs/pstore
+cgroup                 0        0         0    - /sys/fs/cgroup/devices
+cgroup                 0        0         0    - /sys/fs/cgroup/cpu,cpuacct
+cgroup                 0        0         0    - /sys/fs/cgroup/net_cls,net_prio
+cgroup                 0        0         0    - /sys/fs/cgroup/memory
+cgroup                 0        0         0    - /sys/fs/cgroup/cpuset
+cgroup                 0        0         0    - /sys/fs/cgroup/blkio
+cgroup                 0        0         0    - /sys/fs/cgroup/pids
+cgroup                 0        0         0    - /sys/fs/cgroup/perf_event
+cgroup                 0        0         0    - /sys/fs/cgroup/freezer
+cgroup                 0        0         0    - /sys/fs/cgroup/hugetlb
+configfs               0        0         0    - /sys/kernel/config
+/dev/vda1       41152812 21695332  17553772  56% /
+systemd-1              -        -         -    - /proc/sys/fs/binfmt_misc
+mqueue                 0        0         0    - /dev/mqueue
+hugetlbfs              0        0         0    - /dev/hugepages
+debugfs                0        0         0    - /sys/kernel/debug
+binfmt_misc            0        0         0    - /proc/sys/fs/binfmt_misc
+tmpfs              96416        0     96416   0% /run/user/0
+</code></pre>
+<pre><code class="language-shell"># 可读形式展现
+[root@iZbp15qc4wmx335c268l5mZ home]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        461M     0  461M   0% /dev
+tmpfs           471M  8.0K  471M   1% /dev/shm
+tmpfs           471M  516K  471M   1% /run
+tmpfs           471M     0  471M   0% /sys/fs/cgroup
+/dev/vda1        40G   21G   17G  56% /
+tmpfs            95M     0   95M   0% /run/user/0
+</code></pre>
+<pre><code class="language-shell"># 查看具体某文件夹上的文件系统信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# df -h /home
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G   21G   17G  56% /
+# 查看具体磁盘空间的信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# df -h /dev/vda1
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        40G   21G   17G  56% /
+</code></pre>
+<pre><code class="language-shell"># 指定单位的查询，如-k(=1024byte), -m(MB), -BG(GB)
+[root@iZbp15qc4wmx335c268l5mZ ~]# df -BG
+Filesystem     1G-blocks  Used Available Use% Mounted on
+devtmpfs              1G    0G        1G   0% /dev
+tmpfs                 1G    1G        1G   1% /dev/shm
+tmpfs                 1G    1G        1G   1% /run
+tmpfs                 1G    0G        1G   0% /sys/fs/cgroup
+/dev/vda1            40G   21G       17G  56% /
+tmpfs                 1G    0G        1G   0% /run/user/0
+# 值得注意的是：您可以使用-B或–block size=size选项来提供大小的自定义格式。大小可以是KB（1000）或K（1024）中的一个（或者可以是一个整数，可选后跟）。
+# 1. 以K（即1024）为单位显示磁盘空间使用情况：
+# df -k 或 df -BK
+# 2. 以KB（即1000）为单位显示磁盘空间使用情况:
+# df -BKB
+# 其他单位类似
+</code></pre>
+<pre><code class="language-shell"># 显示inode信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# df -i
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+devtmpfs        117892    329  117563    1% /dev
+tmpfs           120517      4  120513    1% /dev/shm
+tmpfs           120517    439  120078    1% /run
+tmpfs           120517     16  120501    1% /sys/fs/cgroup
+/dev/vda1      2621440 153635 2467805    6% /
+tmpfs           120517      1  120516    1% /run/user/0
+</code></pre>
+<pre><code class="language-shell"># 显示文件系统类型
+[root@iZbp15qc4wmx335c268l5mZ ~]# df -T
+Filesystem     Type     1K-blocks     Used Available Use% Mounted on
+devtmpfs       devtmpfs    471568        0    471568   0% /dev
+tmpfs          tmpfs       482068        8    482060   1% /dev/shm
+tmpfs          tmpfs       482068      516    481552   1% /run
+tmpfs          tmpfs       482068        0    482068   0% /sys/fs/cgroup
+/dev/vda1      ext4      41152812 21920632  17328472  56% /
+tmpfs          tmpfs        96416        0     96416   0% /run/user/0
+</code></pre>
+<pre><code class="language-shell"># 最后一行显示总的size大小
+[root@iZbp15qc4wmx335c268l5mZ ~]# df --total -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        461M     0  461M   0% /dev
+tmpfs           471M  8.0K  471M   1% /dev/shm
+tmpfs           471M  516K  471M   1% /run
+tmpfs           471M     0  471M   0% /sys/fs/cgroup
+/dev/vda1        40G   21G   17G  56% /
+tmpfs            95M     0   95M   0% /run/user/0
+total            42G   21G   19G  54% -
+</code></pre>
+<h2 id="du">du</h2>
+<p>同样是查看磁盘使用量，与<code>df</code>相比，<code>du</code>主要用于对<strong>文件和目录</strong>磁盘使用的空间的查看。同样可以使用<code>du --help</code>查看基本用法。</p>
+<h3 id="常见用法-1">常见用法</h3>
+<pre><code class="language-shell"># 查看本目录下所有的目录大小（包含子、子子目录等）
+[root@iZbp15qc4wmx335c268l5mZ cindy]# du
+16      ./.ssh
+4       ./1111
+104     .
+[root@iZbp15qc4wmx335c268l5mZ cindy]# ls -l
+total 56
+drwxr-xr-x 2 root  root  4096 Nov 29 08:11 1111
+-rw-r--r-- 1 root  root     0 Apr  5  2022 1.txt
+-rw-r--r-- 1 root  root   529 Apr  5  2022 2.txt
+-rw-rw-r-- 1 cindy cindy  127 Jul 18 20:55 dump.rdb
+-rw-rw-r-- 1 cindy cindy    5 Aug 22 20:31 good.txt
+-rw-r--r-- 1 root  root     7 Apr 17  2022 new1.xlsx
+-rw-r--r-- 1 root  root     8 Apr 17  2022 new.word
+-rw-rw-r-- 1 cindy cindy   49 Aug 22 20:32 out
+-rw-rw-r-- 1 cindy cindy    3 Aug 22 19:01 tee1.txt
+-rw-rw-r-- 1 cindy cindy    3 Aug 22 19:01 tee2.txt
+-rw-rw-r-- 1 cindy cindy   12 Aug 22 19:00 tee.txt
+-rw-rw-r-- 1 cindy cindy   49 Jul 16 12:07 testCut.txt
+-rw-rw-r-- 1 cindy cindy   21 Aug  2 18:47 testSort.txt
+-rw-rw-r-- 1 cindy cindy   16 Aug  6 10:07 testUniq.txt
+-rw-rw-r-- 1 cindy cindy   10 Jul 31 18:47 testWc.txt
+</code></pre>
+<pre><code class="language-shell"># 显示某文件所占磁盘空间
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du data.txt
+4       data.txt
+
+# 显示某文件所占磁盘空间
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du dir
+4       dir
+</code></pre>
+<pre><code class="language-shell"># -h增加可读性
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -h dir
+4.0K    dir/dir1
+4.0K    dir/dir2
+12K     dir
+
+# -a统计该目录下的所有目录+文件（最后一行是总的目录大小）
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -ah dir
+4.0K    dir/dir1
+4.0K    dir/dir2
+0       dir/123
+12K     dir
+</code></pre>
+<pre><code class="language-shell"># -s仅统计此目录的大小
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -s dir
+12      dir
+
+# -c统计多文件/目录的各自大小和总大小
+[cindy@iZbp15qc4wmx335c268l5mZ dir]$ du -c 123 234
+4       123
+4       234
+8       total
+[cindy@iZbp15qc4wmx335c268l5mZ dir]$ ls -l
+total 16
+-rw-rw-r-- 1 cindy cindy    6 Dec  5 07:49 123
+-rw-rw-r-- 1 cindy cindy    6 Dec  5 07:49 234
+drwxrwxr-x 2 cindy cindy 4096 Dec  5 07:44 dir1
+drwxrwxr-x 2 cindy cindy 4096 Dec  5 07:44 dir2
+</code></pre>
+<pre><code class="language-shell"># 获取目录下所有的目录/文件，并按空间大小排序展示
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -ah | sort -nr
+132K    .
+20K     ./dir
+16K     ./.ssh
+8.0K    ./.bash_history
+4.0K    ./.viminfo
+4.0K    ./testWc.txt
+4.0K    ./testUniq.txt
+4.0K    ./testSort.txt
+4.0K    ./testCut.txt
+4.0K    ./tee.txt
+4.0K    ./tee2.txt
+4.0K    ./tee1.txt
+4.0K    ./.ssh/id_rsa.pub
+4.0K    ./.ssh/id_rsa_cindy
+4.0K    ./.ssh/authorized_keys
+4.0K    ./.rediscli_history
+4.0K    ./out
+4.0K    ./new.word
+4.0K    ./new1.xlsx
+4.0K    ./insert.sql
+4.0K    ./good.txt
+4.0K    ./dump.rdb
+4.0K    ./dir/dir2
+4.0K    ./dir/dir1
+4.0K    ./dir/234
+4.0K    ./dir/123
+4.0K    ./data.txt
+4.0K    ./.bashrc
+4.0K    ./.bash_profile
+4.0K    ./.bash_logout
+4.0K    ./2.txt
+4.0K    ./1111
+0       ./1.txt
+</code></pre>
+<pre><code class="language-shell"># 只显示该目录下的直接子目录（不展示子子...目录）
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -h --max-depth=1
+16K     ./.ssh
+20K     ./dir
+4.0K    ./1111
+132K    .
+# 对比没加--max-depth=1的
+[cindy@iZbp15qc4wmx335c268l5mZ ~]$ du -h
+16K     ./.ssh
+4.0K    ./dir/dir1
+4.0K    ./dir/dir2
+20K     ./dir
+4.0K    ./1111
+132K    .
+</code></pre>
+<h2 id="fdisk">fdisk</h2>
+<p><code>fdisk</code>是创建和维护磁盘分区表的命令。执行用户需要<code>root</code>。</p>
+<pre><code class="language-shell">[cindy@iZbp15qc4wmx335c268l5mZ ~]$ fdisk --help
+fdisk: invalid option -- '-'
+Usage:
+ fdisk [options] &lt;disk&gt;    change partition table
+ fdisk [options] -l &lt;disk&gt; list partition table(s)
+ fdisk -s &lt;partition&gt;      give partition size(s) in blocks
+
+Options:
+ -b &lt;size&gt;             sector size (512, 1024, 2048 or 4096)
+ -c[=&lt;mode&gt;]           compatible mode: 'dos' or 'nondos' (default)
+ -h                    print this help text
+ -u[=&lt;unit&gt;]           display units: 'cylinders' or 'sectors' (default) # 搭配”-l”参数列表，会用分区数目取代柱面数目，来表示每个分区的起始地址
+ -v                    print program version
+ -C &lt;number&gt;           specify the number of cylinders # 柱面数
+ -H &lt;number&gt;           specify the number of heads # 磁头数
+ -S &lt;number&gt;           specify the number of sectors per track # 每个磁道的扇区数
+</code></pre>
+<p>理论基础：</p>
+<blockquote>
+<p>块（block）与扇区（sector）的区别。 扇区是对硬盘而言，扇区是硬盘的最小存储单位，块是对文件系统而言，块是文件系统最小存取单位。一般而言，一个扇区大小为512B，一个块大小为4KB，一个block是由连续的8个sector组成。</p>
+<p><a href="https://www.cnblogs.com/joshua317/p/15407969.html">https://www.cnblogs.com/joshua317/p/15407969.html</a></p>
+</blockquote>
+<h3 id="常见用法-2">常见用法</h3>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# fdisk -l
+
+Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000bb9c1
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048    83886046    41941999+  83  Linux
+
+[root@iZbp15qc4wmx335c268l5mZ ~]# fdisk -lu
+
+Disk /dev/vda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x000bb9c1
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/vda1   *        2048    83886046    41941999+  83  Linux
+</code></pre>
+<pre><code>#参数说明
+Device：分区名称；
+Boot：是否是活动分区。活动分区只能是主分区，一个硬盘只能有一个活动的主分区；一个硬盘的主分区与扩展分区总和不能超过4个。硬盘分区遵循着“主分区→扩展分区→逻辑分区”的次序原则，而删除分区则与之相反。
+ 主分区：一个硬盘可以划分多个主分区，但没必要划分那么多，一个足矣。
+ 扩展分区：主分区之外的硬盘空间就是扩展分区，
+ 逻辑分区：是对扩展分区再行划分得到的。
+Start：分区柱面的开始下标；
+End：分区柱面的结束下标；
+Blocks：该分区的块数量。
+Id：各种分区的文件系统不同，如有ntfs分区，fat32分区，ext3分区，swap分区等。每一种文件系统都有一个代号，对应这里的Id。常见的文件系统ID有：
+ f：FAT32 Extend,只限于扩展分区。
+ 86：NTFS。
+ 7：HPFS/NTFS
+ b：FAT32。
+ 83：Linux Ext2。
+ 82：Linux 交换区。
+System：文件系统名称。
+</code></pre>
+<pre><code class="language-shell"># 显示指定device的分区信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# fdisk -l /dev/vda1
+
+Disk /dev/vda1: 42.9 GB, 42948607488 bytes, 83883999 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+</code></pre>
+<pre><code class="language-shell"># fdisk进入交互模式，进行相关操作
+[root@iZbp15qc4wmx335c268l5mZ ~]# fdisk /dev/vda1
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x4b929c62.
+
+Command (m for help): m 
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+</code></pre>
+<h2 id="lsblk">lsblk</h2>
+<p>lsblk命令可以显示很多跟磁盘相关分区、所属关系以及lvm的重要信息。用于列出所有可用块设备的信息，而且还能显示他们之间的依赖关系，但是它不会列出RAM盘的信息。块设备有硬盘，闪存盘，cd-ROM等等。</p>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk --help
+
+Usage:
+ lsblk [options] [&lt;device&gt; ...]
+
+Options:
+ -a, --all            print all devices
+ -b, --bytes          print SIZE in bytes rather than in human readable format
+ -d, --nodeps         don't print slaves or holders
+ -D, --discard        print discard capabilities
+ -e, --exclude &lt;list&gt; exclude devices by major number (default: RAM disks)
+ -I, --include &lt;list&gt; show only devices with specified major numbers
+ -f, --fs             output info about filesystems
+ -h, --help           usage information (this)
+ -i, --ascii          use ascii characters only
+ -m, --perms          output info about permissions
+ -l, --list           use list format output
+ -n, --noheadings     don't print headings
+ -o, --output &lt;list&gt;  output columns
+ -p, --paths          print complate device path
+ -P, --pairs          use key=&quot;value&quot; output format
+ -r, --raw            use raw output format
+ -s, --inverse        inverse dependencies
+ -t, --topology       output info about topology
+ -S, --scsi           output info about SCSI devices
+
+ -h, --help     display this help and exit
+ -V, --version  output version information and exit
+
+Available columns (for --output):
+        NAME  device name
+       KNAME  internal kernel device name
+     MAJ:MIN  major:minor device number
+      FSTYPE  filesystem type
+  MOUNTPOINT  where the device is mounted
+       LABEL  filesystem LABEL
+        UUID  filesystem UUID
+   PARTLABEL  partition LABEL
+    PARTUUID  partition UUID
+          RA  read-ahead of the device
+          RO  read-only device
+          RM  removable device
+       MODEL  device identifier
+      SERIAL  disk serial number
+        SIZE  size of the device
+       STATE  state of the device
+       OWNER  user name
+       GROUP  group name
+        MODE  device node permissions
+   ALIGNMENT  alignment offset
+      MIN-IO  minimum I/O size
+      OPT-IO  optimal I/O size
+     PHY-SEC  physical sector size
+     LOG-SEC  logical sector size
+        ROTA  rotational device
+       SCHED  I/O scheduler name
+     RQ-SIZE  request queue size
+        TYPE  device type
+    DISC-ALN  discard alignment offset
+   DISC-GRAN  discard granularity
+    DISC-MAX  discard max bytes
+   DISC-ZERO  discard zeroes data
+       WSAME  write same max bytes
+         WWN  unique storage identifier
+        RAND  adds randomness
+      PKNAME  internal parent kernel device name
+        HCTL  Host:Channel:Target:Lun for SCSI
+        TRAN  device transport type
+         REV  device revision
+      VENDOR  device vendor
+
+For more details see lsblk(8).
+</code></pre>
+<h3 id="常见用法-3">常见用法</h3>
+<pre><code class="language-shell"># 打印所有设备（树状形式）
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -a
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda    253:0    0  40G  0 disk 
+└─vda1 253:1    0  40G  0 part /
+
+# NAME : 这是块设备名。
+# MAJ:MIN : 本栏显示主要和次要设备号。
+# RM : 本栏显示设备是否可移动设备。1说明是可移动设备。
+# SIZE : 本栏列出设备的容量大小信息。例如40G表明该设备大小为40GB。
+# RO : 该项表明设备是否为只读。0表明不是只读的。
+# TYPE :本栏显示块设备是否是磁盘或磁盘上的一个分区。
+# MOUNTPOINT : 本栏指出设备挂载的挂载点。
+
+# 以列表形式打印
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -l
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda  253:0    0  40G  0 disk 
+vda1 253:1    0  40G  0 part /
+# 不打印从属设备
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -d
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda  253:0    0  40G  0 disk
+# 打印文件系统和UUID
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -f
+NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+vda                                                      
+└─vda1 ext4         9f2d3e15-a78a-4f3d-8385-0165b4b67864 /
+# 打印关于每个设备的丢弃能力(TRIM, UNMAP)的信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -D
+NAME   DISC-ALN DISC-GRAN DISC-MAX DISC-ZERO
+vda           0        0B       0B         0
+└─vda1        0        0B       0B         0
+# 打印设别全路径
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -p
+NAME        MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+/dev/vda    253:0    0  40G  0 disk 
+└─/dev/vda1 253:1    0  40G  0 part /
+# 打印反向依赖关系
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -s
+NAME  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda1  253:1    0  40G  0 part /
+└─vda 253:0    0  40G  0 disk 
+# 输出块设备拓扑信息
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -t
+NAME   ALIGNMENT MIN-IO OPT-IO PHY-SEC LOG-SEC ROTA SCHED       RQ-SIZE   RA WSAME
+vda            0    512      0     512     512    1 mq-deadline     256 4096    0B
+└─vda1         0    512      0     512     512    1 mq-deadline     256 4096    0B
+# 列出一个特定设备的拥有关系，同时也可以列出组和模式
+[root@iZbp15qc4wmx335c268l5mZ ~]# lsblk -m
+NAME   SIZE OWNER GROUP MODE
+vda     40G root  disk  brw-rw----
+└─vda1  40G root  disk  brw-rw----
+</code></pre>
+<h2 id="磁盘格式化-挂载-卸载">磁盘格式化，挂载/卸载</h2>
+<blockquote>
+<p>磁盘新分好区了，使用lsblk -f查看时唯一的区别是：旧的硬盘分区都有一个UUID和挂载目录MOUNTPOINT，而新建的硬盘分区是没有的。就需要完成硬盘分区的格式化与目录挂载。所谓格式化，其实就是安装文件系统。</p>
+</blockquote>
+<h3 id="格式化">格式化</h3>
+<pre><code class="language-shell">[root@iZbp15qc4wmx335c268l5mZ ~]# mkfs --help
+Usage:
+ mkfs [options] [-t &lt;type&gt;] [fs-options] &lt;device&gt; [&lt;size&gt;]
+
+Options:
+ -t, --type=&lt;type&gt;  filesystem type; when unspecified, ext2 is used
+     fs-options     parameters for the real filesystem builder
+     &lt;device&gt;       path to the device to be used
+     &lt;size&gt;         number of blocks to be used on the device
+ -V, --verbose      explain what is being done;
+                      specifying -V more than once will cause a dry-run
+ -V, --version      display version information and exit;
+                      -V as --version must be the only option
+ -h, --help         display this help text and exit
+
+For more information see mkfs(8).
+</code></pre>
+<pre><code class="language-shell"># 如把分区sdb1格式化为ext4文件系统
+mkfs -t ext4 /dev/sdb1
+# 或者是
+mkfs.ext4 /dev/sdb1
+mkfs.xfs /dev/vdb # 格式化为xfs文件系统
+</code></pre>
+<pre><code class="language-shell"># 查看支持的文件系统
+[root@iZbp15qc4wmx335c268l5mZ ~]# mkfs (输入mkfs按两下tab键)
+mkfs         mkfs.btrfs   mkfs.cramfs  mkfs.ext2    mkfs.ext3    mkfs.ext4    mkfs.minix   mkfs.xfs 
+</code></pre>
+<h3 id="目录挂载">目录挂载</h3>
+<pre><code class="language-shell">mkdir -p /data;        #新建一个目录用于挂载新硬盘
+mount /dev/sdb1 /data;   #挂载新硬盘到目录
+</code></pre>
+<p>完成格式化和挂载后，此时再使用<code>lsblk -f</code>查看分区，可以看到该分区的<code>UUID</code>和<code>MOUNTPOINT</code>都有值了。使用<code>df -h</code>也可以查看挂载结果。</p>
+<h3 id="自动挂载">自动挂载</h3>
+<p>上面完成的挂载关系，在操作系统<strong>重启之后就失效</strong>了。如果希望下次操作系统重启的时候自动挂载，需要在<code>/etc/fstab</code>文件中添加下面的一行记录实现自动挂载。</p>
+<p>参数说明可参考： <a href="https://help.aliyun.com/document_detail/194379.htm?spm=a2c4g.11186623.0.0.15757d02qNoM4R#task-2000719">https://help.aliyun.com/document_detail/194379.htm?spm=a2c4g.11186623.0.0.15757d02qNoM4R#task-2000719</a></p>
+<pre><code class="language-shell">/dev/sdb1  /data  ext4 defaults 0 0
+</code></pre>
+<p>如果是root用户，也可使用以下命令修改<code>/etc/fstab</code>：</p>
+<p>参考 <a href="https://help.aliyun.com/document_detail/131111.html">https://help.aliyun.com/document_detail/131111.html</a></p>
+<pre><code class="language-shell">echo `blkid /dev/sdb1 | awk '{print $2}' | sed 's/\&quot;//g'` /data ext4 defaults 0 0 &gt;&gt; /etc/fstab
+# 在本机上试试看echo的内容
+[root@iZbp15qc4wmx335c268l5mZ ~]# echo `blkid /dev/vda1 | awk '{print $2}' | sed 's/\&quot;//g'` /data ext4 defaults 0 0
+UUID=9f2d3e15-a78a-4f3d-8385-0165b4b67864 /data ext4 defaults 0 0
+# 其中blkid命令是查看分区的uuid
+</code></pre>
+<p>执行如下命令会重新加载配置文件，并使其生效：</p>
+<pre><code class="language-shell">mount -a
+</code></pre>
+<h3 id="目录卸载">目录卸载</h3>
+<pre><code class="language-shell">umount /media/test  # 将挂载在/media/test 目录下的文件系统卸载
+umount -f  /media/test # 强制卸载
+</code></pre>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.runoob.com/linux/linux-filesystem.html">https://www.runoob.com/linux/linux-filesystem.html</a></p>
+<p><a href="https://www.cnblogs.com/hls-code/p/16333387.html">https://www.cnblogs.com/hls-code/p/16333387.html</a></p>
+<p><a href="https://www.11meigui.com/2021/df-command-in-linux.html">https://www.11meigui.com/2021/df-command-in-linux.html</a></p>
+<p><a href="https://blog.csdn.net/weixin_52122271/article/details/126242445">https://blog.csdn.net/weixin_52122271/article/details/126242445</a></p>
+<p><a href="https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html">https://www.cnblogs.com/my-first-blog-lgz/p/16115867.html</a></p>
+<p><a href="https://www.cnblogs.com/machangwei-8/p/10353683.html">https://www.cnblogs.com/machangwei-8/p/10353683.html</a></p>
+<p><a href="https://www.cnblogs.com/zouhong/p/16109600.html">https://www.cnblogs.com/zouhong/p/16109600.html</a></p>
+<p><a href="https://www.cnblogs.com/joshua317/p/15407969.html">https://www.cnblogs.com/joshua317/p/15407969.html</a></p>
+<p><a href="https://www.cnblogs.com/aozhejin/p/15845945.html">https://www.cnblogs.com/aozhejin/p/15845945.html</a></p>
+<p><a href="https://www.cnblogs.com/machangwei-8/p/10403533.html">https://www.cnblogs.com/machangwei-8/p/10403533.html</a></p>
+<p><a href="https://www.cnblogs.com/my-show-time/p/16858420.html">https://www.cnblogs.com/my-show-time/p/16858420.html</a></p>
+<p><a href="https://www.yingsoo.com/news/servers/67277.html">https://www.yingsoo.com/news/servers/67277.html</a></p>
+<p><a href="https://www.cnblogs.com/zimug/p/16316110.html">https://www.cnblogs.com/zimug/p/16316110.html</a></p>
+<p><a href="https://blog.csdn.net/K_520_W/article/details/124132566">https://blog.csdn.net/K_520_W/article/details/124132566</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F/">编译期常量</a></span>
+  <span class="nav-next"><a href="/p/mysql%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA/">Mysql导入导出</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

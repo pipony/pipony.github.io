@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级软件设计师-05 计算机安全 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级软件设计师-05 计算机安全 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="
+完整性：保证A到B的消息没被篡改
+[&amp;hellip;] [&amp;hellip;] 可分为：
+[&amp;hellip;] 特性：单向，产生128位的信息摘要
+用于验证数据完整性
+[&amp;hellip;] 特性：防抵赖
+加密（即数字签名）：私钥；解密（即数字签名的验证过程）：公钥；不是真正的加密和解密
+与信息摘要技术结合：对信息摘要进行数字签名（而不是对原消息进行数字签名）
+[&amp;hellip;] &amp;hellip;">
+      <meta property="og:description" content="
+完整性：保证A到B的消息没被篡改
+[&amp;hellip;] [&amp;hellip;] 可分为：
+[&amp;hellip;] 特性：单向，产生128位的信息摘要
+用于验证数据完整性
+[&amp;hellip;] 特性：防抵赖
+加密（即数字签名）：私钥；解密（即数字签名的验证过程）：公钥；不是真正的加密和解密
+与信息摘要技术结合：对信息摘要进行数字签名（而不是对原消息进行数字签名）
+[&amp;hellip;] &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220503120047748.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级软件设计师-05 计算机安全</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="05-计算机安全">05 计算机安全</h1>
+<h2 id="安全分类">安全分类</h2>
+<ul>
+<li>物理安全</li>
+<li>网络安全</li>
+<li>系统安全：操作系统的安全</li>
+<li>应用安全</li>
+</ul>
+<h2 id="信息系统安全属性">信息系统安全属性</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503120047748.png" alt="image-20220503120047748"></p>
+<p>完整性：保证A到B的消息没被篡改</p>
+<h2 id="加密技术">加密技术</h2>
+<ul>
+<li>对称加密</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503124027570.png" alt="image-20220503124027570"></p>
+<ul>
+<li>非对称加密</li>
+</ul>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503124330225.png" alt="image-20220503124330225"></p>
+<p>可分为：</p>
+<ul>
+<li>加密模型：用B的公钥加密</li>
+<li>认证模型：用A的私钥加密</li>
+</ul>
+<h2 id="信息摘要">信息摘要</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503124546319.png" alt="image-20220503124546319"></p>
+<p>特性：单向，产生128位的信息摘要</p>
+<p>用于验证数据完整性</p>
+<h2 id="数字签名">数字签名</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503124914320.png" alt="image-20220503124914320"></p>
+<p>特性：防抵赖</p>
+<p><strong>加密（即数字签名）：私钥；解密（即数字签名的验证过程）：公钥</strong>；不是真正的加密和解密</p>
+<p>与信息摘要技术结合：对信息摘要进行数字签名（而不是对原消息进行数字签名）</p>
+<h2 id="数字信封与pgp">数字信封与PGP</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503125305943.png" alt="image-20220503125305943"></p>
+<h2 id="综合例题">综合例题</h2>
+<p>例题：设计邮件加密系统</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503151526772.png" alt="image-20220503151526772"></p>
+<h2 id="网络安全">网络安全</h2>
+<h3 id="网络层级的安全保障">网络层级的安全保障</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503151604882.png" alt="image-20220503151604882"></p>
+<h3 id="网络威胁与攻击">网络威胁与攻击</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503152122970.png" alt="image-20220503152122970"></p>
+<p>要会区分窃听和业务流分析</p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503152332798.png" alt="image-20220503152332798"></p>
+<h3 id="防火墙技术">防火墙技术</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220503152428061.png" alt="image-20220503152428061"></p>
+<p>应用级：把内容拆出来分析看有无问题</p>
+<p>网络级：比如看源和目的ip</p>
+<p>屏蔽子网：内部网和外部网之间额外的一个防护</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-06-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">软考-中级软件设计师-06 数据结构与算法基础</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">软考-中级软件设计师-04 计算机网络</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

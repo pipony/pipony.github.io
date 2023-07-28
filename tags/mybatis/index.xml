@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mybatis on 2MUCH</title>
+    <link>https://huangxindi.com/tags/mybatis/</link>
+    <description>Recent content in Mybatis on 2MUCH</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Thu, 09 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://huangxindi.com/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis入门</title>
+      <link>https://huangxindi.com/p/mybatis%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Thu, 09 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://huangxindi.com/p/mybatis%E5%85%A5%E9%97%A8/</guid>
+      <description>官网： mybatis： https://mybatis.org/mybatis-3/zh/index.html mybatis-spring：http://mybatis.org/spring/zh/ 由于Mybatis的很多操作</description>
+    </item>
+    
+  </channel>
+</rss>

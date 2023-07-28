@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>开始Hugo&#43;Github Pages - 2MUCH</title>
+    <meta property="og:title" content="开始Hugo&#43;Github Pages - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="参考：https://www.gohugo.org/#/
+[&amp;hellip;] 安装Hugo，git过程略
+[&amp;hellip;] 过程略
+[&amp;hellip;] hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
+可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
+▸ archetypes/ ▸ &amp;hellip;">
+      <meta property="og:description" content="参考：https://www.gohugo.org/#/
+[&amp;hellip;] 安装Hugo，git过程略
+[&amp;hellip;] 过程略
+[&amp;hellip;] hugo new site /D:/hugo/huangxdBlog 生成站点到本地路径：/D:/hugo/huangxdBlog
+可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：
+▸ archetypes/ ▸ &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>开始Hugo&#43;Github Pages</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-15
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="开始hugo-github-pages">开始Hugo+Github Pages</h1>
+<p>参考：https://www.gohugo.org/#/</p>
+<h2 id="准备工作准备">准备工作准备</h2>
+<p>安装Hugo，git过程略</p>
+<h2 id="配置hugo路径到环境变量path">配置Hugo路径到环境变量Path</h2>
+<p>过程略</p>
+<h2 id="生成站点">生成站点</h2>
+<pre><code>hugo new site /D:/hugo/huangxdBlog
+</code></pre>
+<p>生成站点到本地路径：/D:/hugo/huangxdBlog</p>
+<p>可以看到/D:/hugo/huangxdBlog下已生成初始站点结构：</p>
+<pre><code>  ▸ archetypes/
+  ▸ content/
+  ▸ layouts/
+  ▸ static/
+    config.toml
+</code></pre>
+<h2 id="创建文章">创建文章</h2>
+<pre><code>hugo new about.md
+</code></pre>
+<p>生成路径自动为：/content/about.md</p>
+<pre><code>hugo new post/first.md
+</code></pre>
+<p>生成路径自动为：/content/post/about.md</p>
+<h2 id="安装皮肤模板">安装皮肤模板</h2>
+<p>从 <a href="https://www.gohugo.org/theme/#/">https://www.gohugo.org/theme/#/</a> 或者 <a href="https://themes.gohugo.io/#/">https://themes.gohugo.io/#/</a>挑选合适的模板，下载</p>
+<pre><code>$ cd themes
+$ git clone https://github.com/spf13/hyde.git
+</code></pre>
+<h2 id="本地调试">本地调试</h2>
+<p>在本地运行并预览网站效果</p>
+<pre><code>hugo server --theme=angels-ladder --buildDrafts
+</code></pre>
+<p>注意：将hyde换成自己的主题名</p>
+<p>如果已经在config.toml中配置了theme，则运行语句可以缩减为：</p>
+<pre><code>hugo server --buildDrafts
+</code></pre>
+<p>浏览器里打开链接，可浏览本地效果:</p>
+<pre><code> http://localhost:1313
+</code></pre>
+<h2 id="部署">部署</h2>
+<h3 id="github上先新建一个仓库-命名-pipony-换成自己的github用户名-github-io">GitHub上先新建一个仓库（命名：#pipony#(换成自己的github用户名).github.io）</h3>
+<h3 id="生成最终页面">生成最终页面</h3>
+<p>在根目录执行：</p>
+<pre><code>hugo --theme=hyde --baseUrl=&quot;http://pipony.github.io/&quot;
+</code></pre>
+<p>同理：在配置文件中若已经指定了主题，则可以忽略<code>--theme</code>参数：</p>
+<pre><code>hugo --baseUrl=&quot;http://pipony.github.io/&quot;
+</code></pre>
+<p>此时会在/public目录下生成所有静态页面，再将/public/*上传到github的<strong>main</strong>分支即可（注意：不要变成master分支了）</p>
+<p><strong>（注意，以上命令并不会生成草稿页面，如果未生成任何文章，请去掉文章头部的 <code>draft=true</code> 再重新生成。）</strong></p>
+<h3 id="配置">配置</h3>
+<p>根目录config.toml中，修改baseURL = &lsquo;<a href="https://pipony.github.io/'">https://pipony.github.io/'</a> （自己的github地址）</p>
+<h2 id="查看效果">查看效果</h2>
+<pre><code>http://pipony.github.io/
+</code></pre>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A0%E6%95%88%E5%AF%B9%E8%B1%A1/">数据库无效对象</a></span>
+  <span class="nav-next"><a href="/p/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%A4%84%E7%90%86/">异常的处理</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/combine/npm/katex/dist/katex.min.js,npm/katex/dist/contrib/auto-render.min.js,npm/@xiee/utils/js/render-katex.js" defer></script>
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

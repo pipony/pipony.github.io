@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>文档注释 - 2MUCH</title>
+    <meta property="og:title" content="文档注释 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
+[&amp;hellip;] Java普通注释格式
+// 或 /* */ Java文档注释格式
+/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
+[&amp;hellip;] &amp;hellip;">
+      <meta property="og:description" content="本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。
+[&amp;hellip;] Java普通注释格式
+// 或 /* */ Java文档注释格式
+/** @xxx */ 文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。
+[&amp;hellip;] &amp;hellip;">
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>文档注释</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-06-30
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="文档注释">文档注释</h1>
+<blockquote>
+<p>本来以为单行和多行注释没啥好学的，本文只想了解下【文档注释】。写到最后发现，如何优雅的注释本身，也是门大学问。</p>
+</blockquote>
+<h2 id="定义">定义</h2>
+<p>Java普通注释格式</p>
+<pre><code class="language-java">//
+或
+/*
+*/
+</code></pre>
+<p>Java文档注释格式</p>
+<pre><code class="language-java">/**
+@xxx
+*/
+</code></pre>
+<p>文档注释主要用于生成javadoc文件的，便于我们对所写的类、方法等进行解释。支持HTML格式。</p>
+<h2 id="文档注释目标">文档注释目标</h2>
+<p><a href="https://blog.csdn.net/weixin_39190897/article/details/81880411#/">https://blog.csdn.net/weixin_39190897/article/details/81880411#/</a></p>
+<pre><code class="language-java">（1）类注释。类注释用于说明整个类的功能、特性等，它应该放在所有的“import”语句之后，在class定义之前。这个规则也适用于接口（interface）注释。
+
+（2）方法注释。方法注释用来说明方法的定义，比如，方法的参数、返回值及说明方法的作用等。方法注释应该放在它所描述的方法定义前面。
+
+（3）属性注释。默认情况下，javadoc只对公有（public）属性和受保护属性（protected）产生文档——通常是静态常量。
+
+（4）包注释。类、方法、属性的注释都直接放到Java的源文件中，而对于包的注释，无法放到Java文件中去，只能通过在包对应的目录中添加一个package.html的文件来达到这个目的。当生成HTML文件时，package.html文件的和部分的内容将会被提取出来当做包的说明。关于包注释，后面还会有更进一步的解释。
+
+（5）概要注释。除了包注释外，还有一种类型的文档无法从Java源文件中提取，就是对所有类文件提供概要说明的文件。同样的，也可以为这类注释单独新建一个HTML文件，这个文件的名字为“overview.html”，它的和标记之间的内容都会被提取。
+</code></pre>
+<h2 id="文档注释格式">文档注释格式</h2>
+<ul>
+<li>概要描述：一段话简要描述基本内容</li>
+<li>详细描述：几大段描述 功能 和 相关情况</li>
+<li>文档标注：参数、作者、返回值等</li>
+</ul>
+<h2 id="注释标签释义">注释标签释义</h2>
+<p>可参考 <a href="https://www.runoob.com/java/java-documentation.html#/">https://www.runoob.com/java/java-documentation.html#/</a> 等</p>
+<p>常见的例如：</p>
+<pre><code class="language-java">@author 作者
+@param 输入参数
+@return 返回参数
+@exception 异常
+@throws 同exception
+@deprecated 指明一个过期的类或成员（不推荐使用的方法）
+@version 版本
+</code></pre>
+<h2 id="javadoc-工具">javadoc 工具</h2>
+<p>参考 <a href="https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/">https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/</a></p>
+<ul>
+<li>
+<p>命令行</p>
+<p>在要生成javadoc的.java的文件夹中，cmd输入命令<code>javadoc -encoding UTF-8 -charset UTF-8 *.java</code></p>
+<p>其中<code>-encoding</code>和<code>-charset</code>分别是编码格式和字符集格式。<code>javadoc</code>命令参数解释，可参考见 <a href="https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/">https://www.csdn.net/tags/MtjaMgwsMTU4MzAtYmxvZwO0O0OO0O0O.html#/</a></p>
+</li>
+<li>
+<p>IDE中生成</p>
+</li>
+</ul>
+<p>生成的 index.html 文件，就是我们想要的</p>
+<h2 id="多说两句">多说两句</h2>
+<p>一般IDE都有提供可以自定义文档注释模板的地方，可以定义适合自己的格式，一劳永逸</p>
+<p>有需要的话，可以自己定义文档注释标签</p>
+<p>注释侧重WHY，而不是HOW</p>
+<p>注释要优雅 <a href="https://zhuanlan.zhihu.com/p/41127713#/">https://zhuanlan.zhihu.com/p/41127713#/</a> ，例如下面的文档注释：</p>
+<pre><code class="language-java">    /**
+     * &lt;p&gt;Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.&lt;/p&gt;
+     *
+     * &lt;p&gt;A {@code null} or empty (&quot;&quot;) CharSequence will return {@code false}.&lt;/p&gt;
+     *
+     * &lt;pre&gt;
+     * StringUtils.contains(null, *)    = false
+     * StringUtils.contains(&quot;&quot;, *)      = false
+     * StringUtils.contains(&quot;abc&quot;, 'a') = true
+     * StringUtils.contains(&quot;abc&quot;, 'z') = false
+     * &lt;/pre&gt;
+     *
+     * @param seq  the CharSequence to check, may be null
+     * @param searchChar  the character to find
+     * @return true if the CharSequence contains the search character,
+     *  false if not or {@code null} string input
+     * @since 2.0
+     * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
+     */    
+     public static boolean contains(final CharSequence seq, final int searchChar) {
+        if (isEmpty(seq)) {
+            return false;
+        }
+        return CharSequenceUtils.indexOf(seq, searchChar, 0) &gt;= 0;
+    }
+</code></pre>
+<h2 id="关于注释的其他">关于注释的其他</h2>
+<p>1 巧用标记</p>
+<ul>
+<li>TODO 有未完成的事项</li>
+<li>FIXME 代码有已知问题待修复</li>
+<li>HACK 表示代码有hack逻辑</li>
+</ul>
+<h2 id="参考链接">参考链接</h2>
+<p><a href="https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/">https://www.cnblogs.com/codepeace/archive/2021/04/30/14722083.html#/</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/41127713#/">https://zhuanlan.zhihu.com/p/41127713#/</a></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/linux-top%E5%91%BD%E4%BB%A4/">Linux-top命令</a></span>
+  <span class="nav-next"><a href="/p/redis%E5%BC%80%E5%A7%8B/">Redis开始</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rstudio/markdown/inst/resources/prism-xcode.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-core.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/plugins/autoloader/prism-autoloader.min.js" defer></script>
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

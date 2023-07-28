@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>小程序之一：开始 - 2MUCH</title>
+    <meta property="og:title" content="小程序之一：开始 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！
+[&amp;hellip;] 推荐新手先阅读阮一峰老师的微信小程序入门教程：
+https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html &amp;hellip;">
+      <meta property="og:description" content="开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！
+[&amp;hellip;] 推荐新手先阅读阮一峰老师的微信小程序入门教程：
+https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220904140251262.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>小程序之一：开始</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-09-04
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="小程序之一-开始">小程序之一：开始</h1>
+<blockquote>
+<p>开发个小程序玩玩。。虽然没想好用来做啥，但是就想拥有一个自己的小程序，搭起来再说吧！</p>
+</blockquote>
+<p>推荐新手先阅读阮一峰老师的微信小程序入门教程：</p>
+<p><a href="https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html">https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html</a></p>
+<p><a href="https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-two.html">https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-two.html</a></p>
+<p><a href="https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-three.html">https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-three.html</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2020/11/wechat-miniprogram-tutorial-part-four.html">http://www.ruanyifeng.com/blog/2020/11/wechat-miniprogram-tutorial-part-four.html</a></p>
+<h2 id="申请">申请</h2>
+<p><a href="https://developers.weixin.qq.com/community/business/doc/000200772f81508894e94ec965180d">https://developers.weixin.qq.com/community/business/doc/000200772f81508894e94ec965180d</a></p>
+<p>申请了个人主体的认证（个人会有些限制，比如无法使用某些接口），将自己设为管理员，填写小程序名字和头像，设置域名，获取开发者ID和密钥（后面会用到）&hellip;</p>
+<h2 id="下载开发工具">下载开发工具</h2>
+<p>下载官方提供的小程序开发工具（https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html）。</p>
+<blockquote>
+<p>这个工具是必需的，因为只有它才能运行和调试小程序源码。</p>
+</blockquote>
+<p><img src="http://cdn.huangxindi.com/img/image-20220904140251262.png" alt="image-20220904140251262"></p>
+<p>很可爱的图标👆</p>
+<p>软件有两种开发模式：</p>
+<ul>
+<li>云开发：会提供完整的项目脚手架</li>
+<li>导入项目：从零开始导入自己写的项目（推荐这个）</li>
+</ul>
+<h2 id="知识储备">知识储备</h2>
+<p>首先，WHAT IS 小程序？</p>
+<blockquote>
+<p><strong>小程序可以视为只能用微信打开和浏览的网站。</strong> 小程序和网页的技术模型是一样的，用到的 JavaScript 语言和 CSS 样式也是一样的，只是网页的 HTML 标签被稍微修改成了 WXML 标签。所以，小程序页面本质上就是网页。</p>
+<p>小程序的特殊之处在于，虽然是网页，但是它不支持浏览器，所有浏览器的 API 都不能使用，只能用微信提供的 API。这也是为什么小程序只能用微信打开的原因，因为底层全变了。</p>
+<p>—— <a href="https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html">https://www.ruanyifeng.com/blog/2020/10/wechat-miniprogram-tutorial-part-one.html</a></p>
+</blockquote>
+<p>所以，目前看来，基础的知识储备就是JS和CSS，再加上微信提供的语法规则，就可以开发一个简易版的小程序了。</p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B5%8B%E8%AF%95%E6%89%AB%E7%9B%B2%E7%AF%87/">数据库测试扫盲篇</a></span>
+  <span class="nav-next"><a href="/p/maven%E4%B9%8B%E4%BA%8C%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE/">Maven之二：创建Maven项目</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

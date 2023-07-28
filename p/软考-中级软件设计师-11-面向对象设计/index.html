@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>软考-中级软件设计师-11 面向对象设计 - 2MUCH</title>
+    <meta property="og:title" content="软考-中级软件设计师-11 面向对象设计 - 2MUCH">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+    
+      
+    
+
+    
+      
+      <meta property="description" content="
+边界类：与外界系统交互
+控制类：类之间的衔接类
+封装：提供给外部接口，外界用接口调用
+[&amp;hellip;] [&amp;hellip;] [&amp;hellip;] 架构和设计模式区别：全局or局部
+设计和惯用法区别：是否与实现语言相关
+[&amp;hellip;] [&amp;hellip;] 抽象工厂：只需指定生产的系列名，而不是类
+构建器：部件构建组合
+原型（克隆原型）：拷贝现有对象来生成新的对象
+单例：保证一个类只有 &amp;hellip;">
+      <meta property="og:description" content="
+边界类：与外界系统交互
+控制类：类之间的衔接类
+封装：提供给外部接口，外界用接口调用
+[&amp;hellip;] [&amp;hellip;] [&amp;hellip;] 架构和设计模式区别：全局or局部
+设计和惯用法区别：是否与实现语言相关
+[&amp;hellip;] [&amp;hellip;] 抽象工厂：只需指定生产的系列名，而不是类
+构建器：部件构建组合
+原型（克隆原型）：拷贝现有对象来生成新的对象
+单例：保证一个类只有 &amp;hellip;">
+      
+    
+
+    
+    
+    
+    <meta name="twitter:image" content="http://cdn.huangxindi.com/img/image-20220504112137840.png">
+    
+    
+
+    
+
+    
+    
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/css/key-buttons.min.css">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+  <body class="p">
+    <header class="masthead">
+      
+
+<h1><a href="/"><img src="/images/logo1.png" alt="2MUCH" /></a></h1>
+
+
+
+      <nav class="menu">
+  <ul>
+  
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/">post</a></li>
+  
+  <li><a href="/post/workspace/02-life/02a-weekly-letter">weekly-letter</a></li>
+  
+  <li><a href="/post/workspace/04-tool/04c-macosios/ios">ios</a></li>
+  
+  <li><a href="/categories">categories</a></li>
+  
+  <li><a href="/tags">tags</a></li>
+  
+  <li><a href="https://huangxindi.com./p/%E9%98%85%E8%AF%BB%E6%B8%85%E5%8D%95/">reading list</a></li>
+  
+  
+
+<li class="menu-extra"></li>
+
+
+<li><a href="/post/index.xml" type="application/rss+xml" title="RSS feed">Subscribe</a></li>
+
+<li><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="Attribution-NonCommercial-ShareAlike 4.0 International">License</a></li>
+
+
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>软考-中级软件设计师-11 面向对象设计</h1>
+
+
+
+<h3>
+
+
+
+
+
+
+2022-05-14
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="11-面向对象设计">11 面向对象设计</h1>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504112137840.png" alt="image-20220504112137840"></p>
+<p>边界类：与外界系统交互</p>
+<p>控制类：类之间的衔接类</p>
+<p>封装：提供给外部接口，外界用接口调用</p>
+<h2 id="设计原则">设计原则</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504112445376.png" alt="image-20220504112445376"></p>
+<h2 id="uml">UML</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504113359116.png" alt="image-20220504113359116"></p>
+<h2 id="设计模式">设计模式</h2>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504113427404.png" alt="image-20220504113427404"></p>
+<p>架构和设计模式区别：全局or局部</p>
+<p>设计和惯用法区别：是否与实现语言相关</p>
+<h3 id="设计模式的分类">设计模式的分类</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504113956365.png" alt="image-20220504113956365"></p>
+<h3 id="创建型模式">创建型模式</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504114025730.png" alt="image-20220504114025730"></p>
+<p>抽象工厂：只需指定生产的系列名，而不是类</p>
+<p>构建器：部件构建组合</p>
+<p>原型（克隆原型）：拷贝现有对象来生成新的对象</p>
+<p>单例：保证一个类只有一个实例</p>
+<h3 id="结构型模式">结构型模式</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504114358224.png" alt="image-20220504114358224"></p>
+<h3 id="行为型模式">行为型模式</h3>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504123004032.png" alt="image-20220504123004032"></p>
+<p><img src="http://cdn.huangxindi.com/img/image-20220504123330910.png" alt="image-20220504123330910"></p>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-12-%E6%95%B0%E6%8D%AE%E6%B5%81%E5%9B%BEdfd/">软考-中级软件设计师-12 数据流图（DFD）</a></span>
+  <span class="nav-next"><a href="/p/%E8%BD%AF%E8%80%83-%E4%B8%AD%E7%BA%A7%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88-10-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软考-中级软件设计师-10 软件工程</a> &rarr;</span>
+</nav>
+
+
+
+<section class="comments">
+<script src="https://giscus.app/client.js"
+  data-repo="yihui/yihui.org"
+  data-repo-id="MDEwOlJlcG9zaXRvcnk4MDc3NDg0NA=="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBNCGvM4COkjD"
+  data-mapping="pathname"
+  
+  data-strict="1"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  defer>
+</script>
+</section>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/combine/npm/@xiee/utils/js/fix-toc.min.js,npm/@xiee/utils/js/center-img.min.js,npm/@xiee/utils/js/right-quote.min.js,npm/@xiee/utils/js/fix-footnote.min.js,npm/@xiee/utils/js/math-code.min.js,npm/@xiee/utils/js/hash-notes.min.js,npm/@xiee/utils/js/toggle-notes.min.js,npm/@xiee/utils/js/post-nav.min.js,npm/@xiee/utils/js/external-link.min.js,npm/@xiee/utils/js/alt-title.min.js,npm/@xiee/utils/js/heading-anchor.min.js,npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+  <hr>
+  <div class="copyright">© <a href="/">Cindy H</a> 2022 - 2023</div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
